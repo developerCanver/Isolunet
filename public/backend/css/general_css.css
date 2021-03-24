@@ -1,0 +1,185 @@
+
+ .tabs_param{
+	/*background:  #68C625 !important;*/
+ }
+
+.tabs-left>li>a, .bar_tabs>li>a, .tabs-right>li>a {
+    background: #044A7B !important;
+    color:#FFFFFF !important;
+}
+
+.tabs-left>li>a:hover, .bar_tabs>li>a:hover, .tabs-right>li>a:hover {
+    background: #8bc53e !important;
+    color:#FFFFFF !important;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #FFFFFF !important;
+    cursor: default;
+    background-color: #8bc53e !important;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
+/*Formulario de busqueda de area en parametrización*/
+#busca_area {
+	margin-top: 5.4px;
+    margin-bottom: -20px;
+}
+
+#busca_cargo {
+	margin-top: 5.4px;
+    margin-bottom: -20px;
+}
+
+.nav li.current-page {
+    background: #8bc53e;
+}
+
+.nav li.current-page>a {
+    color: #ffffff;
+}
+
+.tile-stats .count, .tile-stats h3, .tile-stats p {
+    position: relative;
+    margin: 0 0 0 10px;
+    z-index: 5;
+    padding: 0;
+    color: #044a7b;
+}
+
+.tile-stats:hover {
+    background: #8bc53e;
+}
+
+.tile-stats:hover>div+i+.fa{
+    color: #fff;
+}
+.tile-stats:hover>div{
+    color: #fff;
+}
+.tile-stats:hover>h3{
+    color: #fff;
+}
+.tile-stats:hover>p{
+    color: #fff;
+}
+
+
+/*Paginado de la tabla de usuarios*/
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 0;
+}
+
+
+#panelProcesos {
+    margin-top: 20px;
+}
+
+/*Titulos del colapsable de los procesos*/
+#accordion a {
+    color: #044A7B;
+}
+
+#accordion .card-header {
+    text-align: center;
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border: 1px solid #d3e0e9;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+}
+
+#accordion .card-header:hover {
+    background: #8bc53e;
+}
+
+#accordion .card-header:hover a {
+    color: #fff;
+}
+
+#accordion .card-body {
+    border: 1px solid #d3e0e9;
+}
+
+#accordion ul {
+    list-style: none;
+}
+
+#accordion ul .add_N {
+    width: 25%;
+    background: #fff;
+    text-align: center;
+    padding: 3px;
+    height: 90px;
+    border-radius: 8px;
+    background-image: url("..//images/plus.png");
+    background-position: center;
+    background-size: 30%;
+    background-repeat: no-repeat;
+}
+
+#accordion .panel_procesos {
+    min-height: 160px;
+    max-height: 160px;
+    text-align: center;
+}
+
+/*#accordion .panel_procesos h2 {
+    float: none;
+}*/
+
+#accordion .panel_procesos .bProc{
+    margin-top: 5%;
+}
+
+/*#accordion .panel_procesos .btn-info {
+    margin-top: 10%;
+}
+
+#accordion .panel_procesos .btn-danger {
+    margin-top: 10%;
+}
+*/
+#accordion .panel_procesos .foot {
+    margin-top: 22%;
+}
+
+/*Parametros - SGC*/
+#n_sistema {
+    margin-bottom: 20px;
+    float: right;
+}
+
+#panelSgc td {
+    vertical-align: middle;
+}
+
+
+/*Parametros - Varios Contexto Organizacional co*/
+.container .items {
+    text-align: center;
+    border: 1px solid #d3e0e9;
+    padding: 40px;
+}
+
+.container .items button {
+    margin: auto;
+}
+
+.container .modalContainer{
+    text-align: center;
+}
+
+.container .modalContainer .row{
+    border: 1px solid #d3e0e9;
+    min-height: 60px;
+    vertical-align: middle;
+}
+
+.container .modalContainer .row textarea{
+    width: 100%;
+    resize: none;
+    scroll-behavior: auto;
+}

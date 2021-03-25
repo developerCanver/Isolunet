@@ -14,6 +14,9 @@ use App\Http\Controllers\Liderazgo\EgresoController as Egreso;
 use App\Http\Controllers\Liderazgo\MatrizRolesController as MatrizRoles;
 use App\Http\Controllers\Liderazgo\ResponsabilidadesController as Responsabilidades;
 use App\Http\Controllers\Planificacion\RiesgosController as Riesgos;
+use App\Http\Controllers\Planificacion\RiesgosOportunoController as RiesgosOportuno;
+use App\Http\Controllers\Planificacion\RiesgosOportunoReeController as RiesgosOportunoRee;
+use App\Http\Controllers\Planificacion\CambioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +27,14 @@ use App\Http\Controllers\Planificacion\RiesgosController as Riesgos;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// ************* planificardor_cambio *******
+Route::get('/planificardor_cambio/{id}',         [CambioController::class, 'index']);
+Route::get('/planificardor_cambio_procesos',     [CambioController::class, 'index_procesos']);
+Route::post('/planificardor_cambio/create',     [CambioController::class, 'store']);
+Route::get('planificardor_cambio/edit/{id}',    [CambioController::class, 'edit']);
+Route::post('planificardor_cambio/{id}', 	   [CambioController::class, 'update']);
+Route::get('planificardor_cambio/delete/{id}',   [CambioController::class, 'destroy']);
 
 // *************Menu liderazgo *******
 
@@ -41,9 +52,9 @@ Route::post('empresa',         [IngresoEgreso::class, 'getEmpresa']);
 
 // ingreso
 Route::get('/ingreso/{id}',            [IngresoController::class, 'index']);
-Route::post('/ingresos/create',     [IngresoController::class, 'store']);
-Route::get('ingresos/edit/{id}',    [IngresoController::class, 'edit']);
-Route::post('ingresos/{id}', 		[IngresoController::class, 'update']);
+Route::post('/ingresos/create',    		 [IngresoController::class, 'store']);
+Route::get('ingresos/edit/{id}',    	[IngresoController::class, 'edit']);
+Route::post('ingresos/{id}', 			[IngresoController::class, 'update']);
 Route::get('ingreso/delete/{id}',         [IngresoController::class, 'destroy']);
 
 // egreso
@@ -78,11 +89,25 @@ Route::get('responsabilidades_matriz/delete/{id}',  [Responsabilidades::class, '
 
 
 //*************** matriz_riesgos ******************** */
-Route::get('/matriz_riesgos',          [Riesgos::class, 'index']);
+Route::get('/matriz_riesgos',               [Riesgos::class, 'index']);
+Route::get('/matriz_riesgos/procesos/{id}', [Riesgos::class, 'index_procesos']);
 Route::post('/matriz_riesgos/create',       [Riesgos::class, 'store']);
 Route::get('matriz_riesgos/edit/{id}',      [Riesgos::class, 'edit']);
 Route::post('matriz_riesgos/{id}', 	   		[Riesgos::class, 'update']);
 Route::get('matriz_riesgos/delete/{id}',    [Riesgos::class, 'destroy']);
+
+//  Route::put('/riesgo_oportuno/{id}', 	 			[RiesgosOportuno::class, 'index']);
+Route::get('/riesgo_oportuno/{id}', [RiesgosOportuno::class, 'index_oportuno']);
+Route::post('/riesgo_oportuno/create',       [RiesgosOportuno::class, 'store']);
+Route::get('riesgo_oportuno/edit/{id}',      [RiesgosOportuno::class, 'editar']);
+Route::post('riesgo_oportuno_edit/', 	   	 [RiesgosOportuno::class, 'actualizar']);
+Route::get('riesgo_oportuno/delete/{id}',    [RiesgosOportuno::class, 'destroy']);
+
+Route::get('/reevaluacion_riesgo/{id}', 		 [RiesgosOportunoRee::class, 'reeeriesgo']);
+Route::post('/reevaluacion_riesgo/create',       [RiesgosOportunoRee::class, 'store']);
+Route::get('reevaluacion_riesgo/edit/{id}',      [RiesgosOportunoRee::class, 'editar']);
+Route::get('reevaluacion_riesgact/{id}', 	   	 [RiesgosOportunoRee::class, 'actu']);
+Route::get('reevaluacion_riesgo/delete/{id}',    [RiesgosOportunoRee::class, 'destroy']);
 
 //
 Auth::routes();

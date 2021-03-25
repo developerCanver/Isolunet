@@ -8,27 +8,39 @@ use Illuminate\Database\Eloquent\Model;
 class RiesgosOportuno extends Model
 {
     use HasFactory;
+	protected $table 		= 'tbl_pla_riesgo_oportuno';
+    protected $primaryKey   = 'id_riesgo_opurtuno';
+    public $timestamps 		= false;
+
     protected 	$fillable = [
-		'nom_probabilidad',
+		'nom_posivito',
 		'nom_riesgo',
 		'nom_negativo',        
 		'control',        
 		'probabilidad',        
-		'impacto',        
-		'cada_cuanto',        
+		'impacto',   
 		'bool_estado',        
 		'fk_riesgo',        
+		'ree_probabilidad',        
+		'ree_impacto',        
+		'nom_accion',        
+		'nom_responsable',        
+		'nom_indicador',        
     ];
 }
 /*
-id_riesgo_opurtuno	
-nom_probabilidad	
-nom_riesgo	
-nom_negativo	
-control	
-probabilidad	
-impacto	
-cada_cuanto	
-bool_estado	
-fk_riesgo
+	id_riesgo_opurtuno	
+	nom_posivito
+	nom_riesgo	
+	nom_negativo	
+	control	
+	probabilidad	
+	impacto	
+	bool_estado	
+	ree_probabilidad	
+	ree_impacto	
+	nom_accion	
+	nom_responsable	
+	nom_indicador	
+	
 */

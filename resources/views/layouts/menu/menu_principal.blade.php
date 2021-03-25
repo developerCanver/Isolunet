@@ -71,7 +71,7 @@
           <ul class="br-menu-sub">
             <li class="sub-item"><a href="{{ URL::to('matriz_riesgos') }}" class="sub-link">Matriz de Riesgos</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Objetivo e Indicadores</a></li>
-            <li class="sub-item"><a href="navigation.html" class="sub-link">Planificacion de Cambios</a></li>
+            <li class="sub-item"><a href="{{ URL::to('planificardor_cambio_procesos') }}" class="sub-link">Planificacion de Cambios</a></li>
           </ul>
         </li><!-- br-menu-item -->
          <li class="br-menu-item">

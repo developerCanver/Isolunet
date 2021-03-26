@@ -80,7 +80,7 @@
             <span class="menu-item-label">Apoyo</span>
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
-            <li class="sub-item"><a href="navigation.html" class="sub-link">Recursos</a></li>
+            <li class="sub-item"><a href="{{ URL::to('recursos') }}" class="sub-link">Recursos</a></li>
             <li class="sub-item"><a href="{{ URL::to('competencia') }}" class="sub-link">Competencias</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Toma de Conciencia</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Comunicacion</a></li>

@@ -27,12 +27,12 @@
     <div class="br-section-wrapper">
    
 
-        {{  Form::open(['action' => ['Liderazgo\ResponsabilidadesController@update',$responsabilidad->id_responsabilidades ],'autocomplete'=>'off', 'method' => 'POST', 'files' => true]) }}
-{!! Form::token() !!}
+        {{  Form::open(['action' => ['Liderazgo\ResponsabilidadesController@update',$responsabilidad->id_responsabilidades],'autocomplete'=>'off', 'method' => 'POST', 'files' => true]) }}
+        {!! Form::token() !!}
 
         
         
-        <input type="hidden" class="form-control" name="id_cargo" value="{{$id_cargo}}">
+        <input type="hidden" class="form-control" name="id_responsabilidad" value="{{$id_responsabilidad}}">
 
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">

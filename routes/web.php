@@ -19,6 +19,7 @@ use App\Http\Controllers\Planificacion\RiesgosOportunoReeController as RiesgosOp
 use App\Http\Controllers\Planificacion\CambioController;
 use App\Http\Controllers\Planificacion\PoliticaVSObjetivosController as PoliticaVSObjetivos;
 use App\Http\Controllers\Apoyo\CompetenciaController as Competencia;
+use App\Http\Controllers\Apoyo\RecursosController as Recursos;
 
 
 
@@ -31,6 +32,11 @@ use App\Http\Controllers\Apoyo\CompetenciaController as Competencia;
 Route::get('/', function () {
     return view('welcome');
 });
+//***********************competencia*************************** */
+
+Route::get('/recursos',    			 [Recursos::class, 'index']);
+
+
 //***********************competencia*************************** */
 
 Route::get('/competencia',     [Competencia::class, 'index']);
@@ -98,12 +104,12 @@ Route::get('roles_responsabilidades/delete/{id}',  [MatrizRoles::class, 'destroy
 Route::get('/responsabilidades/cargo_rol/{id}',        [MatrizRoles::class, 'index_cargo_rol']);
 Route::post('/roles_responsabilidades/cargo_rol/create',     [MatrizRoles::class, 'store_cargo']);
 Route::get('roles_responsabilidades/cargo_rol/delete/{id}',  [MatrizRoles::class, 'destroy_cargo_rol']);
-Route::get('cargo/edit/{id}',   								 [MatrizRoles::class, 'edit_cargo_rol']);
+Route::get('cargo_edit/{id}',   								 [MatrizRoles::class, 'edit_cargo_rol']);
 
-Route::get('/responsabilidades_matriz/{id}',        [Responsabilidades::class, 'index']);
+Route::get('responsabilidades_matriz/{id}',        [Responsabilidades::class, 'index']);
 Route::post('/responsabilidades_matriz/create',     [Responsabilidades::class, 'store']);
 Route::get('responsabilidades_matriz/edit/{id}',    [Responsabilidades::class, 'edit']);
-Route::post('responsabilidades_matriz/{id}', 	   [Responsabilidades::class, 'update']);
+Route::post('update_responsabilidad/{id}', 	   [Responsabilidades::class, 'update']);
 Route::get('responsabilidades_matriz/delete/{id}',  [Responsabilidades::class, 'destroy']);
 // ********* FIN ****Menu liderazgo *******
 

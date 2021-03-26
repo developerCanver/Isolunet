@@ -25,14 +25,16 @@ class ResponsabilidadesController extends Controller
         $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
         ->where('bool_estado','=','1')->first();
 
-        $rolescargo = RolesCargos::findOrfail($id_responsabilidad);
-        $rolesresponsabilidad = RolesResponsabilidad::findOrfail($rolescargo->fk_roles_res);
-        $id_cargo=$rolescargo->id_roles_cargo;
-            
+   
+        $responsabilidad =  DB::table('tbl_lid_roles_responsabilidades as rr')
+                                ->where('id_rol_res','=',''.$id_responsabilidad.'')->first();
+     
+
             $responsabilidades = DB::table('tbl_lid_roles_responsabilidades as rr')
                                     ->join('tbl_lid_responsabilidades as res','res.fk_roles_res','=','rr.id_rol_res')
-                                    ->join('tbl_lid_roles_cargos as rc','rc.fk_roles_res','=','rr.id_rol_res')
-                                    ->where('id_roles_cargo','=',''.$id_responsabilidad.'')
+                                    ->join('tbl_empresa as e','e.id_empresa','=','rr.fk_empresa')
+                                    ->where('id_rol_res','=',''.$id_responsabilidad.'')
+                                    ->where('fk_usuario',  '=',''.Auth::User()->id.'')
                                     ->where('rr.bool_estado','=','1')
                                     ->where('res.bool_estado','=','1')
                                     ->get();
@@ -40,13 +42,13 @@ class ResponsabilidadesController extends Controller
                                   
 
          return view('pages.liderazgo.matriz-roles.responsabilidad.index',[
-                                         'rolescargo' => $rolescargo,
-                                         'rolesresponsabilidad' => $rolesresponsabilidad,
+                                         'responsabilidad' => $responsabilidad,
                                         'empresas' => $empresas,
                                         'responsabilidades' => $responsabilidades,
-                                        'id_cargo' => $id_cargo,
+                                        'id_responsabilidad' => $id_responsabilidad,
                                     ]);
     }
+    
 
 
 
@@ -55,7 +57,7 @@ class ResponsabilidadesController extends Controller
         try {
             DB::beginTransaction();
 
-           // dd($request);
+           //dd($request);
 
 
             $nom_res = $request->get('nom_responsabilidades');
@@ -65,41 +67,39 @@ class ResponsabilidadesController extends Controller
             $cada_cuanto = $request->get('cada_cuanto');
             
 
-            $fk_roles_res =$request->get('fk_roles_res');
-            $id_cargo =$request->get('id_cargo');
-            //dd($nom_res);
-            
-            
-            for ($i=0; $i <  count($nom_res) ; $i++) {
+            $fk_roles_res =$request->get('id_responsabilidad');
+            $id_responsabilidad =$request->get('id_responsabilidad');
+        
 
                $responsabilidad = new TBLResponsabilidad();
                $responsabilidad->fk_roles_res = $fk_roles_res;
-               if ($cuentas_rinde[$i] == '') {                 
+
+               if ($cuentas_rinde==''){             
                 $responsabilidad->cuentas_rinde =  '';
                }else{
-                $responsabilidad->cuentas_rinde =  $cuentas_rinde[$i];
+                $responsabilidad->cuentas_rinde =  $cuentas_rinde;
                }
 
-               if ($autoridad[$i] == '') {                 
+               if ($autoridad==''){             
                 $responsabilidad->autoridad =  '';
                }else{
-                $responsabilidad->autoridad =  $autoridad[$i];
+                $responsabilidad->autoridad =  $autoridad;
                }
-               if ($a_quien[$i] == '') {                 
+               if ($a_quien==''){             
                 $responsabilidad->a_quien =  '';
                }else{
-                $responsabilidad->a_quien =  $a_quien[$i];
+                $responsabilidad->a_quien =  $a_quien;
                }
-               if ($cada_cuanto[$i] == '') {                 
+               if ($cada_cuanto==''){             
                 $responsabilidad->cada_cuanto =  '';
                }else{
-                $responsabilidad->cada_cuanto =  $cada_cuanto[$i];
+                $responsabilidad->cada_cuanto =  $cada_cuanto;
                }
-            
                
-               $responsabilidad->nom_responsabilidades = $nom_res[$i];
+               $responsabilidad->nom_responsabilidades = $nom_res;
+               $responsabilidad->bool_estado = '1';
                $responsabilidad->save();
-            }
+            
 
 
             DB::commit();
@@ -111,7 +111,7 @@ class ResponsabilidadesController extends Controller
             
         }
 
-        return Redirect::to('responsabilidades_matriz/'.$id_cargo)->with('status','Se guardó correctamente');
+        return Redirect::to('responsabilidades_matriz/'.$id_responsabilidad)->with('status','Se guardó correctamente');
     }
 
 
@@ -119,11 +119,22 @@ class ResponsabilidadesController extends Controller
     {   
         
         $responsabilidad = TBLResponsabilidad::findOrfail($id);
-        $id_cargo=$responsabilidad->id_responsabilidades;
+        $id_responsabilidad=$responsabilidad->fk_roles_res;
         
         return view('pages.liderazgo.matriz-roles.responsabilidad.edit',[
                             'responsabilidad'=>$responsabilidad,
-                            'id_cargo'=>$id_cargo,
+                            'id_responsabilidad'=>$id_responsabilidad,
+                            ]);
+    }
+    public function edit_cargo_rol ($id)
+    {   
+        
+        $responsabilidad = TBLResponsabilidad::findOrfail($id);
+        $id_responsabilidad=$responsabilidad->fk_roles_res;
+        
+        return view('pages.liderazgo.matriz-roles.responsabilidad.edit',[
+                            'responsabilidad'=>$responsabilidad,
+                            'id_responsabilidad'=>$id_responsabilidad,
                             ]);
     }
 
@@ -131,41 +142,45 @@ class ResponsabilidadesController extends Controller
     {
         try {
             DB::beginTransaction();
-            $id_cargo =$request->get('id_cargo');
-            $nom_responsabilidades = $request->get('nom_responsabilidades');
-                $cuentas_rinde= $request->get('cuentas_rinde');
-                $autoridad= $request->get('autoridad');
-                $a_quien= $request->get('a_quien');
-                $cada_cuanto= $request->get('cada_cuanto');
+            $nom_res = $request->get('nom_responsabilidades');
+            $cuentas_rinde = $request->get('cuentas_rinde');
+            $autoridad = $request->get('autoridad');
+            $a_quien = $request->get('a_quien');
+            $cada_cuanto = $request->get('cada_cuanto');
+            
+            $id_responsabilidad =$request->get('id_responsabilidad');
+        
 
-                $variable                               = TBLResponsabilidad::findOrfail($id);
-                if ($nom_responsabilidades != '') {                 
-                $variable->nom_responsabilidades        = $request->get('nom_responsabilidades');
-               }else {
-                $variable->nom_responsabilidades        ='';
+
+                $responsabilidad     = TBLResponsabilidad::findOrfail($id);
+     
+
+               if ($cuentas_rinde==''){             
+                $responsabilidad->cuentas_rinde =  '';
+               }else{
+                $responsabilidad->cuentas_rinde =  $cuentas_rinde;
                }
-               if ($cuentas_rinde != '') {                 
-                $variable->cuentas_rinde         = $request->get('cuentas_rinde');
-               }else {
-                $variable->cuentas_rinde        ='';
+
+               if ($autoridad==''){             
+                $responsabilidad->autoridad =  '';
+               }else{
+                $responsabilidad->autoridad =  $autoridad;
                }
-               if ($autoridad != '') {                 
-                $variable->autoridad             = $request->get('autoridad');
-               }else {
-                $variable->autoridad        ='';
+               if ($a_quien==''){             
+                $responsabilidad->a_quien =  '';
+               }else{
+                $responsabilidad->a_quien =  $a_quien;
                }
-               if ($a_quien != '') {                 
-                $variable->a_quien               = $request->get('a_quien');
-               }else {
-                $variable->a_quien        ='';
+               if ($cada_cuanto==''){             
+                $responsabilidad->cada_cuanto =  '';
+               }else{
+                $responsabilidad->cada_cuanto =  $cada_cuanto;
                }
-               if ($cada_cuanto != '') {                 
-                $variable->cada_cuanto            = $request->get('cada_cuanto');
-               }else {
-                $variable->cada_cuanto        ='';
-               }
+               
+               $responsabilidad->nom_responsabilidades = $nom_res;
+              
          
-            $variable->update();
+            $responsabilidad->update();
 
 
             DB::commit();
@@ -176,7 +191,7 @@ class ResponsabilidadesController extends Controller
             alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
             
         }
-        return Redirect::to('responsabilidades_matriz/'.$id_cargo)->with('status','Se guardó correctamente');
+        return Redirect::to('responsabilidades_matriz/'.$id_responsabilidad)->with('status','Se guardó correctamente');
     }
 
   
@@ -185,13 +200,12 @@ class ResponsabilidadesController extends Controller
         try {
             DB::beginTransaction();
 
-            $responsabilidad = TBLResponsabilidad::findOrfail($id);
-        $id_cargo=$responsabilidad->id_responsabilidades;
 
             $variable                   = TBLResponsabilidad::findOrfail($id);
             $variable->bool_estado      = '0';
             $variable->update();
-
+            $id_cargo=$variable->fk_roles_res;
+           
 
             DB::commit();
             alert()->success('Se ha eliminado correctamente.', 'Eliminado!')->persistent('Cerrar');
@@ -204,4 +218,31 @@ class ResponsabilidadesController extends Controller
 
         return Redirect::to('responsabilidades_matriz/'.$id_cargo)->with('status','Se guardó correctamente');
     }
+    public function destroy_cargo_rol($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $variable                    = RolesCargos::findOrfail($id);
+            $variable->bool_estado      = '0';
+            $variable->update();
+
+            $fk_roles_res  =$variable->fk_roles_res ;
+           
+
+            $id_roles_res                   = RolesResponsabilidad::findOrfail($fk_roles_res);
+            $id_roles_res=$id_roles_res->id_rol_res;
+          
+            DB::commit();
+            alert()->success('Se ha eliminado correctamente.', 'Eliminado!')->persistent('Cerrar');
+        
+        } catch (Exception $e) {
+            DB::rollback();
+            alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
+            
+        }
+
+        return Redirect::to('responsabilidades/cargo_rol/'.$id_roles_res)->with('status','Se guardó correctamente');
+    }
+
 }

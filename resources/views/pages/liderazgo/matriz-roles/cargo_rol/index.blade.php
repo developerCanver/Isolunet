@@ -23,7 +23,7 @@
 
 
 <div class="br-pagebody">
-
+    @include('partials.message_flash')
     <div class="br-section-wrapper">
         {{  Form::open(['action' => 'Liderazgo\MatrizRolesController@store_cargo','autocomplete'=>'off', 'metdod' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}
@@ -66,21 +66,37 @@
         </div>
    
    
+   
         <button type="submit" class="btn btn-primary">Guardar</button>
         {!!Form::close()!!}
-
+        <br>
+        <br>
 
         <div class="row">
             <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
                 <div class="table-responsive">
                     @if ($RolesCargos->isNotEmpty())
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-2">
+                                <div class="card">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        Listas
+                                        <a class="btn btn-info btn" href="{{ URL::action('Liderazgo\ResponsabilidadesController@index',$rol_res->id_rol_res ) }}">Crear Responsabilidades</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="table">
                         <thead>
                             <tr>
                              
                                 <th>Cargo que asume el rol</th>
                                 <th>
-                                    Opciones
+                                    Eliminar Cargo
                                 </th>
                             </tr>
                         </thead>
@@ -93,12 +109,10 @@
                                 <td>{{$RolesCargo->nom_cargo}}</td>
 
                             <td>
-                                <a href="{{ URL::action('Liderazgo\MatrizRolesController@edit_cargo_rol',$RolesCargo->id_roles_cargo ) }}"><i
-                                        class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
+                               
                                 <a href="{{ URL::action('Liderazgo\MatrizRolesController@destroy_cargo_rol',$RolesCargo->id_roles_cargo ) }}"><i
                                         class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
-                                <a href="{{ URL::action('Liderazgo\ResponsabilidadesController@index',$RolesCargo->id_roles_cargo ) }}"><i
-                                            title="Cargo que asume el Rol" class="fas fa-arrow-circle-right  fa-2x" style="color:#4000c1;"></i></a>
+                               
                             </td>
                             </tr>
                             @endforeach 

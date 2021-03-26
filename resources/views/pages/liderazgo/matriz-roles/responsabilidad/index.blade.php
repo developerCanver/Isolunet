@@ -1,43 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<script type="text/javascript">
-    var i = 1;
 
-    function nuevos() {
-
-        i++;
-        $('#dynamic_field').append('<tr id="row' + i +
-            '">'+
-            '<td><label><strong>Responsabilidad: ' + i +
-            '</strong></label><textarea name="nom_responsabilidades[]" rows="2" cols="50" required> </textarea></td>'+
-            '<td><label><strong>¿Qué Cuentas Rinde?: ' + i +
-            '</strong></label><textarea name="cuentas_rinde[]" rows="2" cols="50" ></textarea></td>'+
-            '<td><input type="button" name="remove" id="' +
-            i + '" class="btn btn-danger btn_remove" value="Eliminar" onclick="eliminar(this.id);"></td></tr>');
-    };
-    function nuevosDos() {
-
-        i++;
-        $('#dynamic_field2').append('<tr id="row' + i +
-            '">'+
-            '<td><label><strong>Autoridad: ' + i +
-            '</strong></label><textarea name="Autoridad[]" rows="2" cols="30" > </textarea></td>'+
-            '<td><label><strong>¿A Quién? ' + i +
-            '</strong></label><textarea name="a_quien[]" rows="2" cols="30" ></textarea></td>'+
-            '<td><label><strong>¿Cada Cuánto? ' + i +
-            '</strong></label><textarea name="cada_cuanto[]" rows="2" cols="30" ></textarea></td>'+
-            '<td><input type="button" name="remove" id="' +
-            i + '" class="btn btn-danger btn_remove" value="Eliminar" onclick="eliminar(this.id);"></td></tr>');
-        };
-
-    function eliminar(clicked_id) {
-        var button_id = clicked_id;
-        $("#row" + button_id + "").remove();
-    };
-
-</script>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
@@ -60,22 +24,19 @@
 
 
 <div class="br-pagebody">
-
+    @include('partials.message_flash')
     <div class="br-section-wrapper">
         {{  Form::open(['action' => 'Liderazgo\ResponsabilidadesController@store','autocomplete'=>'off', 'metdod' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}
 
-        <h6>Responsabilidades - {{$rolesresponsabilidad->nom_rol_res}}</h6>
+        <h6>Responsabilidades - {{$responsabilidad->nom_rol_res}}</h6>
         <div class="row">
             <input type="hidden" class="form-control" name="empresa" value="{{$empresas->id_empresa}}">
-            <input type="hidden" class="form-control" name="fk_roles_res" value="{{$rolesresponsabilidad->id_rol_res }}">
-            <input type="hidden" class="form-control" name="id_cargo" value="{{$id_cargo}}">
+            <input type="hidden" class="form-control" name="id_responsabilidad" value="{{$id_responsabilidad }}">
 
         </div><br>
 
         <div class="row">
-
-
         </div>
         <div class="row">
             <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
@@ -84,16 +45,12 @@
                         <tr>
                             <td>
                                 <label><strong>Responsabilidad:</strong></label>
-                                <textarea name="nom_responsabilidades[]" rows="2" cols="50" required="true" ></textarea>
+                                <textarea name="nom_responsabilidades" rows="2" cols="50" required="true" ></textarea>
                              </td>
                              <td>
                                 <label><strong>¿Qué Cuentas Rinde?:</strong></label>
-                                <textarea name="cuentas_rinde[]" rows="2" cols="50"  ></textarea>
+                                <textarea name="cuentas_rinde" rows="2" cols="50"  ></textarea>
                              </td>
-
-
-                            <td><input type="button" name="nuevo" id="nuevo" class="btn btn-success"
-                                    value="+" onclick="nuevos();"></td>
                         </tr>
                     </table>
                 </div>
@@ -108,20 +65,17 @@
                         <tr>
                             <td>
                                 <label><strong>Autoridad:</strong></label>
-                                <textarea name="autoridad[]" rows="2" cols="30"  ></textarea>
+                                <textarea name="autoridad" rows="2" cols="30"  ></textarea>
                              </td>
                              <td>
                                 <label><strong>¿A Quién?:</strong></label>
-                                <textarea name="a_quien[]" rows="2" cols="30"  ></textarea>
+                                <textarea name="a_quien" rows="2" cols="30"  ></textarea>
                              </td>
                              <td>
                                 <label><strong>¿Cada Cuánto?:</strong></label>
-                                <textarea name="cada_cuanto[]" rows="2" cols="30"  ></textarea>
+                                <textarea name="cada_cuanto" rows="2" cols="30"  ></textarea>
                              </td>
 
-
-                            <td><input type="button" name="nuevo" id="nuevo" class="btn btn-success"
-                                    value="+" onclick="nuevosDos();"></td>
                         </tr>
                     </table>
                 </div>
@@ -130,7 +84,10 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
         {!!Form::close()!!}
+        <br>
+        <br>
 
 
         <div class="row">

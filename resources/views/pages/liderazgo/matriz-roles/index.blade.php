@@ -22,7 +22,7 @@
 
 
 <div class="br-pagebody">
-
+    @include('partials.message_flash')
     <div class="br-section-wrapper">
         {{  Form::open(['action' => 'Liderazgo\MatrizRolesController@store','autocomplete'=>'off', 'metdod' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}

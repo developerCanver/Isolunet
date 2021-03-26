@@ -70,6 +70,8 @@
                 <div style="height: 150px;"></div>
                 <h3>Entrada</h3>
                 <img src="{{ asset('img/procesos.png') }}" alt="" width="100" height="100">
+                <h6>clientes y partes interesadas</h6>
+                <h5>(Requisitos)</h5>
             </div>
 
             <div class="col-sm-8 col-md-8 col-lg-8 col-xs-12" align="center">
@@ -119,6 +121,8 @@
                 <div style="height: 150px;"></div>
                 <h3>Salida</h3>
                 <img src="{{ asset('img/procesos.png') }}" alt="" width="100" height="100">
+                <h6>clientes y partes interesadas</h6>
+                <h5>(Satisfacción)</h5>
             </div>
         </div>
 

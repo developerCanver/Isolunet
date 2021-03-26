@@ -186,21 +186,12 @@ class MatrizRolesController extends Controller
 
     public function edit($id)
     {
+       
         $rol = RolesResponsabilidad::findOrfail($id);
 
        
                     
         return view('pages.liderazgo.matriz-roles.edit',[
-                        'rol'=>$rol
-                        ]);
-    }
-
-    public function edit_cargo_rol($id)
-    {
-
-        $rol = RolesCargos::findOrfail($id);
-
-        return view('pages.liderazgo.matriz-roles.cargo_rol.edit',[
                         'rol'=>$rol
                         ]);
     }

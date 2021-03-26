@@ -36,11 +36,6 @@
         <div class="form-group">
             <table class="table table-bordered" id="dynamic_field">
                 <tr>
-                    <tr>
-                        <td colspan="4"></td>
-                            <td><input type="button" name="nuevo" id="nuevo" class="btn btn-success"
-                        value="+" onclick="nuevos();"></td></tr>
-
                     <td> 
                         <label><strong>Efectos negativos:</strong></label>
                         <input type="text" class="form-control"  name="nom_negativo" >                       
@@ -53,7 +48,6 @@
                         <label><strong>Riesgo negativo:</strong></label>
                         <input type="text" class="form-control"  name="nom_riesgo" required>                       
                      </td>
-                    
 
                      </tr>
                      <tr>
@@ -121,18 +115,11 @@
                             <label for="datos">Indicador</label>
                             <input type="text" name="nom_indicador" class="form-control" >                    
                          </td>
-                        
-
                     </tr>
-                     
-                   
                 </tr>
             </table>
         </div>
-    </div>
-
-
-       
+    </div>       
         <button type="submit" class="btn btn-primary">Guardar</button>
         {!!Form::close()!!}
 

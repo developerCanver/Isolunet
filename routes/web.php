@@ -17,6 +17,8 @@ use App\Http\Controllers\Planificacion\RiesgosController as Riesgos;
 use App\Http\Controllers\Planificacion\RiesgosOportunoController as RiesgosOportuno;
 use App\Http\Controllers\Planificacion\RiesgosOportunoReeController as RiesgosOportunoRee;
 use App\Http\Controllers\Planificacion\CambioController;
+use App\Http\Controllers\Planificacion\PoliticaVSObjetivosController as PoliticaVSObjetivos;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,15 +29,23 @@ use App\Http\Controllers\Planificacion\CambioController;
 Route::get('/', function () {
     return view('welcome');
 });
+//***********************politica_vs_objetivos*************************** */
+Route::get('/politica_vs_objetivo/{id}',         [PoliticaVSObjetivos::class, 'index']);
+Route::get('/politicas_vs_objetivos',     [PoliticaVSObjetivos::class, 'index_politicas']);
+Route::post('/politica_vs_objetivo/create',     [PoliticaVSObjetivos::class, 'store']);
+Route::get('politica_vs_objetivo/edit/{id}',    [PoliticaVSObjetivos::class, 'edit']);
+Route::get('politica_vs_objetivo/delete/{id}',   [PoliticaVSObjetivos::class, 'destroy']);
+Route::post('update_politica',  [PoliticaVSObjetivos::class, 'update_politica']);
 
 // ************* planificardor_cambio *******
 Route::get('/planificardor_cambio/{id}',         [CambioController::class, 'index']);
 Route::get('/planificardor_cambio_procesos',     [CambioController::class, 'index_procesos']);
 Route::post('/planificardor_cambio/create',     [CambioController::class, 'store']);
 Route::get('planificardor_cambio/edit/{id}',    [CambioController::class, 'edit']);
-Route::post('planificardor_cambio/{id}', 	   [CambioController::class, 'update']);
+Route::post('pla_edit_cambio/{id}', 	   [CambioController::class, 'update']);
 Route::get('planificardor_cambio/delete/{id}',   [CambioController::class, 'destroy']);
 
+// Route::post('update_cambio/{id}', 	   [CambioController::class, 'update_cambio']);
 // *************Menu liderazgo *******
 
 // politica

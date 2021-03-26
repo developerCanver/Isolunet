@@ -22,29 +22,30 @@ class RiesgosOportunoController extends Controller
     {
         
         $riesgos      = DB::table('tbl_procesos as p')
-                        ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                        ->join('tbl_pla_matriz_riesgo as m','m.fk_proceso','=','p.id_proceso')
-                        ->join('tbl_pla_riesgo_oportuno as rp','rp.fk_riesgo','=','m.id_riesgo')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                        ->where('m.id_riesgo',     '=',''.$fk_riesgo.'')
-                        ->where('p.bool_estado',  '=','1')
-                        ->where('rp.bool_estado',  '=','1')
-                        ->where('e.bool_estado',  '=','1')
-                        ->where('m.bool_estado',  '=','1')
-                        ->orderby('id_proceso', 'DESC')->get();
+                            ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
+                            ->join('tbl_pla_matriz_riesgo as m','m.fk_proceso','=','p.id_proceso')
+                            ->join('tbl_pla_riesgo_oportuno as rp','rp.fk_riesgo','=','m.id_riesgo')
+                            ->join('users as u','u.id','=','e.fk_usuario')
+                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->where('m.id_riesgo',     '=',''.$fk_riesgo.'')
+                            ->where('p.bool_estado',  '=','1')
+                            ->where('rp.bool_estado',  '=','1')
+                            ->where('e.bool_estado',  '=','1')
+                            ->where('m.bool_estado',  '=','1')
+                            ->orderby('id_proceso', 'DESC')->get();
                         //dd($riesgos);
 
-        return view('pages.planificacion.riesgo-oportuno.index',[
-        'riesgos'  => $riesgos,
-        'fk_riesgo'  => $fk_riesgo,
-        ]);
+                return view('pages.planificacion.riesgo-oportuno.index',[
+                            'riesgos'  => $riesgos,
+                            'fk_riesgo'  => $fk_riesgo,
+                            ]);
     }
    
     public function store(Request $request)
     {
         try {
             DB::beginTransaction();
+            
            $id_proceso = $request->get('fk_riesgo');
 
             $variable                    = new RiesgosOportuno();
@@ -55,8 +56,6 @@ class RiesgosOportunoController extends Controller
             $variable->probabilidad      = $request->get('probabilidad');
             $variable->impacto            = $request->get('impacto');
            
-
-         
             $variable->ree_probabilidad      = $request->get('ree_probabilidad');
             $variable->ree_impacto           = $request->get('ree_impacto');
             $variable->nom_accion            = $request->get('nom_accion');

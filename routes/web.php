@@ -18,6 +18,8 @@ use App\Http\Controllers\Planificacion\RiesgosOportunoController as RiesgosOport
 use App\Http\Controllers\Planificacion\RiesgosOportunoReeController as RiesgosOportunoRee;
 use App\Http\Controllers\Planificacion\CambioController;
 use App\Http\Controllers\Planificacion\PoliticaVSObjetivosController as PoliticaVSObjetivos;
+use App\Http\Controllers\Apoyo\CompetenciaController as Competencia;
+
 
 
 /*
@@ -29,6 +31,14 @@ use App\Http\Controllers\Planificacion\PoliticaVSObjetivosController as Politica
 Route::get('/', function () {
     return view('welcome');
 });
+//***********************competencia*************************** */
+
+Route::get('/competencia',     [Competencia::class, 'index']);
+Route::post('/competencia/create',     [Competencia::class, 'store']);
+Route::get('competencia/edit/{id}',    [Competencia::class, 'edit']);
+Route::post('update_competencia/{id}', 	   [Competencia::class, 'update']);
+Route::get('competencia/delete/{id}',   [Competencia::class, 'destroy']);
+
 //***********************politica_vs_objetivos*************************** */
 Route::get('/politica_vs_objetivo/{id}',         [PoliticaVSObjetivos::class, 'index']);
 Route::get('/politicas_vs_objetivos',     [PoliticaVSObjetivos::class, 'index_politicas']);

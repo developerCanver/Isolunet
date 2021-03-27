@@ -10,6 +10,8 @@
     @stack('css')
     
     @livewireStyles
+    @yield('css')
+
   </head>
 
 <body class="{{ !empty($body_class) ? $body_class : '' }}">
@@ -74,5 +76,6 @@
     });
   </script>
 @livewireScripts
+@yield('js')
   </body>
 </html>

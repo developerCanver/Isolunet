@@ -32,11 +32,11 @@ use App\Http\Controllers\Apoyo\RecursosController as Recursos;
 Route::get('/', function () {
     return view('welcome');
 });
-//***********************competencia*************************** */
+//***********************recursos*************************** */
 
-Route::get('/recursos',    			 [Recursos::class, 'index']);
-
-
+//Route::resource('recursos', 'Apoyo\RecursosController');
+Route::resource('/recursosApp',     'Apoyo\RecursosController');
+Route::get('/recursosverimg',     [Recursos::class, 'ver_img']);
 //***********************competencia*************************** */
 
 Route::get('/competencia',     [Competencia::class, 'index']);
@@ -154,7 +154,7 @@ Route::get('/delete_usuarios/{id}', 'Usuarios\UsuariosController@destroy')->name
 
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('verified');
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+//Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 // Parametrizacion empresa
 Route::get('parm_empresa', ['uses'=>'Parametrizacion\EmpresaController@index', 'as' => 'Mod_Parametrizacion::parm_empresa']);

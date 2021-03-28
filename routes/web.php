@@ -32,6 +32,12 @@ use App\Http\Controllers\Apoyo\RecursosController as Recursos;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//***********************comunicaciones*************************** */
+Route::resource('/comunicaciones',     'Apoyo\ComunicacionesController');
+
+
+
 //***********************recursos*************************** */
 
 //Route::resource('recursos', 'Apoyo\RecursosController');

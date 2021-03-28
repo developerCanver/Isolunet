@@ -13,12 +13,13 @@ class Comunicaciones extends Model
     public $timestamps 		= false;
 
     protected 	$fillable = [
+        'parte',	
         'sgc',	
         'sga',	
         'sgscs',	
         'sgsst',	
         'asunto',	
-        'mecanimo',	
+        'mecanismo',	
         'detalle',	
         'frecuencia',	
         'interesada',	
@@ -33,7 +34,7 @@ class Comunicaciones extends Model
 'sgscs',	
 'sgsst',	
 'asunto',	
-'mecanimo',	
+'mecanismo',	
 'detalle',	
 'frecuencia',	
 'interesada',	

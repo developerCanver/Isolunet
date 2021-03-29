@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apoyo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apoyo\Comunicaciones;
+use App\Models\Apoyo\ComunicacionesRendiciones;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -41,44 +42,37 @@ public function index()
                     ]);
     }
 
-    public function index_rendiciones()
+    public function index_rendicion()
 {
     $empresa      = DB::table('tbl_empresa as e')
                     ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
                     ->where('e.bool_estado',  '=','1')
                     ->first();
 
-     $comunicaciones    = DB::table('tbl_empresa as e')
+     $rendiciones    = DB::table('tbl_empresa as e')
                         ->join('tbl_apo_com_rendiciones as c','c.fk_empresa','=','e.id_empresa')
                         ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
                         ->where('c.bool_estado',  '=','1')
                         ->where('e.bool_estado',  '=','1')
                         ->paginate(20);
-                        dd($comunicaciones);
+                        //dd($comunicaciones);
+    $cargos      = DB::table('tbl_empresa as e')
+                        ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                        ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+                        ->join('users as u','u.id','=','e.fk_usuario')
+                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->where('a.bool_estado',  '=','1')
+                        ->where('c.bool_estado',  '=','1')->get();
 
    
-    return view('pages.apoyo.comunicaciones.index',[
+    return view('pages.apoyo.comunicaciones.rendiciones.index',[
                     'empresa'  => $empresa,
-                    'comunicaciones'  => $comunicaciones,
+                    'rendiciones'  => $rendiciones,
+                    'cargos'  => $cargos,
                     ]);
     }
 
 
-public function index_procesos()
-{
-    $procesos      = DB::table('tbl_procesos as p')
-                    ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                    ->join('users as u','u.id','=','e.fk_usuario')
-                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                    ->where('p.bool_estado',  '=','1')
-                    ->where('e.bool_estado',  '=','1')
-                    ->orderby('id_proceso', 'DESC')->get();
-                    //dd($procesos);
-
-    return view('pages.planificacion.cambio.procesos.index',[
-    'procesos'  => $procesos,
-    ]);
-}
 
 
 public function store(Request $request)
@@ -140,7 +134,37 @@ public function store(Request $request)
     return Redirect::to('comunicaciones/')->with('status','Se guardó correctamente');
 }
 
+public function store_rendicion(Request $request)
+{
+    try {
+        DB::beginTransaction();
+        $variable                    = new ComunicacionesRendiciones();
+       
+        $variable->Quien          = $request->get('Quien');
+        $variable->mecanismo       = $request->get('mecanismo');
+        $variable->frecuencia         = $request->get('frecuencia');
+        $variable->a_quien      = $request->get('a_quien');
+        $variable->registro     = $request->get('registro');
+        $variable->sistema          = $request->get('sistema');
+        $variable->fk_empresa     = $request->get('fk_empresa');
+        $variable->bool_estado           = '1';
+  
+        $variable->save();
+     
 
+        DB::commit();
+        alert()->success('Se ha creado correctamente.', 'Creado!')->persistent('Cerrar');
+    
+    } catch (Exception $e) {
+        DB::rollback();
+        alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
+        
+    }
+
+    return Redirect::to('competencia_rendicion/')->with('status','Se guardó correctamente');
+}
+
+// Quien	mecanismo	frecuencia	a_quien	registro	sistema	bool_estado	fk_empresa	
 
 public function edit($id)
 {
@@ -151,6 +175,26 @@ public function edit($id)
      
         ]);
 }
+public function edit_rendicion($id)
+{
+        $cargos      = DB::table('tbl_empresa as e')
+                    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                    ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+                    ->join('users as u','u.id','=','e.fk_usuario')
+                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                    ->where('a.bool_estado',  '=','1')
+                    ->where('c.bool_estado',  '=','1')->get();
+
+    $comunicacion = ComunicacionesRendiciones::findOrfail($id);
+
+    return view('pages.apoyo.comunicaciones.rendiciones.edit',[
+        'comunicacion'=>$comunicacion,
+        'cargos'=>$cargos,
+     
+        ]);
+}
+
+
 
 
 public function update(Request $request, $id)
@@ -207,6 +251,35 @@ public function update(Request $request, $id)
 
     return Redirect::to('comunicaciones/')->with('status','Se actualizó correctamente');
 }
+// Quien	mecanismo	frecuencia	a_quien	registro	sistema	bool_estado	fk_empresa
+public function update_rendicion(Request $request, $id)
+{
+    try {
+        DB::beginTransaction();
+      
+        $variable                   = ComunicacionesRendiciones::findOrfail($id);
+     
+        $variable->Quien          = $request->get('Quien');
+        $variable->mecanismo       = $request->get('mecanismo');
+        $variable->frecuencia         = $request->get('frecuencia');
+        $variable->a_quien      = $request->get('a_quien');
+        $variable->registro     = $request->get('registro');
+        $variable->sistema          = $request->get('sistema');
+        $variable->update();
+
+
+     
+        DB::commit();
+        alert()->success('Se ha Editado correctamente.', 'Editado!')->persistent('Cerrar');
+    
+    } catch (Exception $e) {
+        DB::rollback();
+        alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
+        
+    }
+
+    return Redirect::to('competencia_rendicion/')->with('status','Se actualizó correctamente');
+}
 
 
 public function destroy($id)
@@ -227,6 +300,28 @@ public function destroy($id)
         
     }
     return Redirect::to('comunicaciones/')->with('status','Se elimiinó correctamente');
+ 
+
+}
+
+public function destroy_rendicion($id)
+{
+    try {
+        DB::beginTransaction();
+
+        $variable                   = ComunicacionesRendiciones::findOrfail($id);
+        $variable->bool_estado      = '0';
+        $variable->update();
+      
+        DB::commit();
+        alert()->success('Se ha eliminado correctamente.', 'Eliminado!')->persistent('Cerrar');
+    
+    } catch (Exception $e) {
+        DB::rollback();
+        alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
+        
+    }
+    return Redirect::to('competencia_rendicion/')->with('status','Se elimiinó correctamente');
  
 
 }

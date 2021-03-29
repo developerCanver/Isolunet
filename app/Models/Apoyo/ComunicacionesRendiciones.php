@@ -13,6 +13,7 @@ class ComunicacionesRendiciones extends Model
     public $timestamps 		= false;
 
     protected 	$fillable = [
+            'Quien',	
             'mecanismo',	
             'frecuencia',	
             'a_quien',	

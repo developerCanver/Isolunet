@@ -15,7 +15,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Comunicaciones - <a class="breadcrumb-item" href="{{ URL::to('/') }}">Rendición de Cuentas</a> </h4>
+        <h4>Comunicaciones - <a class="breadcrumb-item" href="{{ URL::to('/competencia_rendicion') }}">Rendición de Cuentas</a> </h4>
     </div>
 </div><!-- d-flex -->
 

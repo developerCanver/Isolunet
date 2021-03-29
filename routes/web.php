@@ -20,6 +20,7 @@ use App\Http\Controllers\Planificacion\CambioController;
 use App\Http\Controllers\Planificacion\PoliticaVSObjetivosController as PoliticaVSObjetivos;
 use App\Http\Controllers\Apoyo\CompetenciaController as Competencia;
 use App\Http\Controllers\Apoyo\RecursosController as Recursos;
+use App\Http\Controllers\Apoyo\ComunicacionesController as Comunicaciones;
 
 
 
@@ -36,6 +37,11 @@ Route::get('/', function () {
 //***********************comunicaciones*************************** */
 Route::resource('/comunicaciones',     'Apoyo\ComunicacionesController');
 
+Route::get('/competencia_rendicion',             [Comunicaciones::class, 'index_rendicion']);
+Route::post('/competencia_rendicion/create',     [Comunicaciones::class, 'store_rendicion']);
+Route::get('competencia_rendicion/{id}',         [Comunicaciones::class, 'edit_rendicion']);
+Route::post('competencia_rendicion_update/{id}', [Comunicaciones::class, 'update_rendicion']);
+Route::get('competencia_rendicion/delete/{id}',  [Comunicaciones::class, 'destroy_rendicion']);
 
 
 //***********************recursos*************************** */

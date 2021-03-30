@@ -13,7 +13,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Apoyo</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Recursos</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Toma de Consecuencia</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -21,7 +21,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Recursos</h4>
+        <h4>Toma de Consecuencia</h4>
         <p class="mg-b-0">Editar archivos</p>
     </div>
 </div><!-- d-flex -->
@@ -35,6 +35,7 @@
     img {
         max-height: 160px;
     }
+
     .card {
         box-shadow: 0px 2px 16px 0px #9f9d9d;
         -moz-box-shadow: 0px 2px 16px 0px #9f9d9d;
@@ -51,8 +52,8 @@
         <div class="row">
             <div class="col">
                 <div class="trans">
-                    <a href="{{ URL::to('recursosApp') }}" class="btn btn-info">Agregar</a>
-                    <a href="{{ URL::to('recursosverimg') }}" class="btn btn-primary">Ver</a>
+                    <a href="{{ URL::to('tomaconsecuencia') }}" class="btn btn-info">Agregar</a>
+                    <a href="{{ URL::to('tomaconsecuenciaimg') }}" class="btn btn-primary">Ver</a>
                 </div>
             </div>
 
@@ -76,7 +77,7 @@
                     @elseif($ext =='pdf')
                     <img src="/img/pdf.png" alt="">
                     @else
-                    <img src="/archivos/recursos/{{$imagen->url}}" alt="">
+                    <img src="/archivos/consecuencia/{{$imagen->url}}" alt="">
                     @endif
 
                     <div class="card-footer">
@@ -93,21 +94,26 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="trans">
-                                    <form class="form-inline" action="{{route('recursosApp.destroy',$imagen->id_recurso)}}" method="POST">
+                                    <form class="form-inline"
+                                        action="{{route('tomaconsecuencia.destroy',$imagen->id_recurso)}}"
+                                        method="POST">
                                         @method('DELETE')
                                         @csrf
-                                        <button style="font-size:18px; font-size: 25px;"" type="submit" class="btn btn-light"><i class="fas fa-trash-alt "
+                                        <button style="font-size:18px; font-size: 25px;"" type=" submit"
+                                            class="btn btn-light"><i class="fas fa-trash-alt "
                                                 style="color:#C10000;"></i></button>
                                     </form>
 
 
-                                    <a title="Descargar Archivo" href="/archivos/recursos/{{$imagen->url}}" class="btn btn-light"
-                                        download="{{$imagen->url}}" style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
-                                            class="fas fa-file-download "></i></a>
+                                    <a title="Descargar Archivo" href="/archivos/consecuencia/{{$imagen->url}}"
+                                        class="btn btn-light" download="{{$imagen->url}}"
+                                        style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                            class=" fas fa-file-download "></i></a>
 
-                                            <a title="Ver " href="/archivos/recursos/{{$imagen->url}}" target="_black" class="btn btn-light"
-                                                style="color: rgb(143, 93, 148); font-size:18px; font-size: 25px;" ><i
-                                                class="fas fa-eye "></i></a>
+                                            <a title=" Ver " href="/archivos/consecuencia/{{$imagen->url}}"
+                                        target="_black" class="btn btn-light"
+                                        style="color: rgb(143, 93, 148); font-size:18px; font-size: 25px;"><i
+                                            class="fas fa-eye "></i></a>
                                 </div>
                             </div>
                         </div>
@@ -115,12 +121,12 @@
                 </div>
             </div>
 
-                @endforeach
+            @endforeach
 
-            </div>
-            {{$imagenes->links()}}
         </div>
+        {{$imagenes->links()}}
     </div>
+</div>
 </div>
 
 

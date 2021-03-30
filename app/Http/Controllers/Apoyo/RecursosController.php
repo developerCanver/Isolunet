@@ -34,12 +34,13 @@ class RecursosController extends Controller
     }
     public function ver_img()
     {
-    
+        $class='RecursosController';
     		$imagenes = DB::table('tbl_empresa as e')
                         ->join('users as u','e.fk_usuario','=','u.id')
                         ->join('tbl_apo_recursos as r','r.fk_empresa','=','e.id_empresa')
                         ->where('u.id','=',''.Auth::User()->id.'')
                         ->where('e.bool_estado','=','1')
+                        ->where('class',$class)
                         ->paginate(20);
                         
       
@@ -57,6 +58,8 @@ class RecursosController extends Controller
         'file' => 'required|max:2024',
        ]);
 
+       $class='RecursosController';
+
        $empresa = DB::table('tbl_empresa as e')
                         ->join('users as u','e.fk_usuario','=','u.id')
                         ->where('u.id','=',''.Auth::User()->id.'')
@@ -65,11 +68,12 @@ class RecursosController extends Controller
 
             $file =$request->file('file');
             $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/recursos/', $name);
+            $file->move(public_path().'/archivos/recursos/', $name);
 
        Recursos::create([
            'url' => $name,
-           'fk_empresa' => $empresa->id_empresa
+           'fk_empresa' => $empresa->id_empresa,
+           'class' => $class,
        ]);
 
     }
@@ -80,14 +84,16 @@ class RecursosController extends Controller
     public function destroy($id)
     {
         $variable                   = Recursos::findOrfail($id);
-        unlink(public_path().'/recursos/'.$variable -> url);
+        $mi_imagen = public_path().'/archivos/recursos/'.$variable -> url;
+           
+        if (file_exists($mi_imagen)) {
+            unlink(public_path().'/archivos/recursos/'.$variable -> url);
+        
+        }
         $variable -> delete();
 
         return Redirect::to('recursosverimg')->with('status','Se elimiinó correctamente');
 
-            // $vehiculo = Vehiculos::find($id);
-            // unlink(storage_path('app/media/imagenes/'.$vehiculo -> img_p_circulacion));
-            // $vehiculo -> delete();
-            // return redirect() -> route('vehiculos.index');
+    
     }
 }

@@ -11,7 +11,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Apoyo</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Recursos</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Toma de Consecuencia</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -19,7 +19,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Recursos</h4>
+        <h4>Toma de Consecuencia</h4>
         <p class="mg-b-0">Subir archivos</p>
     </div>
 </div><!-- d-flex -->
@@ -39,26 +39,12 @@
             <div class="col">
                
                 <div class="trans"> 
-                    <a href="{{ URL::to('recursosApp') }}" class="btn btn-info">Agregar</a>
-                        <a href="{{ URL::to('recursosverimg') }}" class="btn btn-primary">Ver</a>
+                    <a href="{{ URL::to('tomaconsecuencia') }}" class="btn btn-info">Agregar</a>
+                        <a href="{{ URL::to('tomaconsecuenciaimg') }}" class="btn btn-primary">Ver</a>
                   </div> 
                   <br>
-                  
-                {{-- <form action="{{route('recursosApp.store')}}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="text" name="fk_empresa" value="{{$empresa->id_empresa}}">
-                    <div class="form-group">
-                        <label for="">Imagen</label>
-                        <input type="file" name="file" id="">
-                        @error('file')
-                            <small class="text-danger">{{$message}}</small>
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary">subir imagen</button>
-                    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-                </form> --}}
 
-                <form action="{{route('recursosApp.store')}}"
+                <form action="{{route('tomaconsecuencia.store')}}"
                     method="POST"
                     class="dropzone"
                     id="my-awesome-dropzone">

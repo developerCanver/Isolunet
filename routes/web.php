@@ -22,6 +22,7 @@ use App\Http\Controllers\Apoyo\CompetenciaController as Competencia;
 use App\Http\Controllers\Apoyo\RecursosController as Recursos;
 use App\Http\Controllers\Apoyo\ComunicacionesController as Comunicaciones;
 use App\Http\Controllers\Apoyo\InformacionController as Informacion;
+use App\Http\Controllers\Apoyo\TomaConsecuenciaController as TomaConsecuencia;
 
 
 
@@ -67,6 +68,12 @@ Route::get('competencia_rendicion/delete/{id}',  [Comunicaciones::class, 'destro
 Route::resource('/recursosApp',     'Apoyo\RecursosController');
 Route::get('/recursosverimg',     [Recursos::class, 'ver_img']);
 //***********************competencia*************************** */
+
+
+//***********************tomaconsecuencia*************************** */
+Route::resource('/tomaconsecuencia',     'Apoyo\TomaConsecuenciaController');
+Route::get('/tomaconsecuenciaimg',     [TomaConsecuencia::class, 'ver_img']);
+
 
 Route::get('/competencia',     [Competencia::class, 'index']);
 Route::post('/competencia/create',     [Competencia::class, 'store']);

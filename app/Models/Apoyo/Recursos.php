@@ -14,6 +14,7 @@ class Recursos extends Model
 
     protected 	$fillable = [
 		'url',
+		'class',
 		'fk_empresa',
 		     
     ];

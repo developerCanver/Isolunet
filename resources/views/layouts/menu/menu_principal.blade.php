@@ -82,7 +82,7 @@
           <ul class="br-menu-sub">
             <li class="sub-item"><a href="{{ URL::to('recursosApp') }}" class="sub-link">Recursos</a></li>
             <li class="sub-item"><a href="{{ URL::to('competencia') }}" class="sub-link">Competencias</a></li>
-            <li class="sub-item"><a href="navigation.html" class="sub-link">Toma de Conciencia</a></li>
+            <li class="sub-item"><a href="{{ URL::to('tomaconsecuencia') }}" class="sub-link">Toma de Conciencia</a></li>
             <li class="sub-item"><a href="{{ URL::to('comunicaciones') }}" class="sub-link">Comunicacion</a></li>
             <li class="sub-item"><a href="{{ URL::to('informacion') }}" class="sub-link">Informacion Documentada</a></li>
           </ul>

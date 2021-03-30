@@ -248,7 +248,6 @@
                             <th colspan="2">Opciones</th>
                         </tr>
                     </thead>
-
                     <tbody>
 
 

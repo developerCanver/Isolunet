@@ -37,6 +37,7 @@ class CambioController extends Controller
                         ->join('tbl_sistemas_gestion as sg','sg.fk_empresa','=','e.id_empresa')
                         ->join('users as u','u.id','=','e.fk_usuario')
                         ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->where('e.bool_estado',  '=','1')
                         ->where('sg.bool_estado',  '=','1')->get();
 
       

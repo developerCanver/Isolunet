@@ -21,6 +21,7 @@ use App\Http\Controllers\Planificacion\PoliticaVSObjetivosController as Politica
 use App\Http\Controllers\Apoyo\CompetenciaController as Competencia;
 use App\Http\Controllers\Apoyo\RecursosController as Recursos;
 use App\Http\Controllers\Apoyo\ComunicacionesController as Comunicaciones;
+use App\Http\Controllers\Apoyo\InformacionController as Informacion;
 
 
 
@@ -33,6 +34,22 @@ use App\Http\Controllers\Apoyo\ComunicacionesController as Comunicaciones;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//***********************informacion*************************** */
+Route::resource('/informacion',     'Apoyo\InformacionController');
+
+//***enavando dos variables para eñiminar y cargar tipo de informacion */
+Route::get('informacion_delete/{id}/{tipo}/', [
+    'as' => 'informacion_delete',
+    'uses' => 'Apoyo\InformacionController@destroy_info',
+]);
+Route::get('info_editar/{id}/{tipo}/', [
+    'as' => 'info_editar',
+    'uses' => 'Apoyo\InformacionController@info_editar',
+]);
+Route::post('actualizar_info/{id}', 	   [Informacion::class, 'actualizar_info']);
+
+
 
 //***********************comunicaciones*************************** */
 Route::resource('/comunicaciones',     'Apoyo\ComunicacionesController');

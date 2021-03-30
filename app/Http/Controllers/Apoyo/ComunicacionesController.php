@@ -34,6 +34,7 @@ public function index()
                         ->where('e.bool_estado',  '=','1')
                         ->paginate(20);
                         //dd($comunicaciones);
+                        
 
    
     return view('pages.apoyo.comunicaciones.index',[

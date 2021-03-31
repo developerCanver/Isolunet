@@ -54,8 +54,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Material:</strong></label>
-                        <input type="text" name="material" class="form-control" value="Material">
-
+                        <input type="text" name="material" class="form-control">
 
                     </div>
                 </div>
@@ -65,7 +64,7 @@
                     <div class="form-group">
 
                         <label><strong>Variable:</strong></label>
-                        <input type="text" name="variable" class="form-control" required value="Variable">
+                        <input type="text" name="variable" class="form-control" required >
 
 
                     </div>
@@ -73,7 +72,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Unidad:</strong></label>
-                        <input type="text" name="unidad" class="form-control" required value="Unidad">
+                        <input type="text" name="unidad" class="form-control" required>
 
 
                     </div>
@@ -81,7 +80,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>LI:</strong></label>
-                        <input type="number" name="li" class="form-control" value="85" step="any">
+                        <input type="number" name="li" class="form-control"  step="any">
 
                     </div>
                 </div>
@@ -92,7 +91,7 @@
                     <div class="form-group">
 
                         <label><strong>LC:</strong></label>
-                        <input type="number" name="lc" class="form-control" value="1.1" step="any">
+                        <input type="number" name="lc" class="form-control"  step="any">
 
 
                     </div>
@@ -117,20 +116,19 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Responsable de Operación:</strong></label>
-                        <input type="text" name="operacion" class="form-control" required value="Responsable">
+                        <input type="text" name="operacion" class="form-control" required >
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Frecuencia de Medición:</strong></label>
-                        <input type="text" name="frecuencia" class="form-control" required
-                            value="Frecuencia de Medición">
+                        <input type="text" name="frecuencia" class="form-control" required >
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Metodo:</strong></label>
-                        <input type="text" name="metodo" class="form-control" value="Control">
+                        <input type="text" name="metodo" class="form-control">
                     </div>
                 </div>
             </div>
@@ -139,20 +137,19 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Responsable de Registro:</strong></label>
-                        <input type="text" name="registro" class="form-control" value="Registro">
+                        <input type="text" name="registro" class="form-control" >
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Instrumento de Medición:</strong></label>
-                        <input type="text" name="instrumento" class="form-control" value="Instrumento de Medición">
+                        <input type="text" name="instrumento" class="form-control" >
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Registro de Seguimiento:</strong></label>
-                        <input type="text" name="seguimiento" class="form-control" required
-                            value="Registro de Seguimiento">
+                        <input type="text" name="seguimiento" class="form-control" required>
                     </div>
                 </div>
             </div>
@@ -212,12 +209,25 @@
                             <td>{{$planeacion->instrumento}}</td>
                             <td>{{$planeacion->seguimiento}}</td>
                             <td>
-                                <a
-                                    href="{{ URL::action('Planeacion\PlaneacioControlController@edit',$planeacion->id_planeacion) }}"><i
-                                        class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
-                                <a
-                                    href="{{ URL::action('Planeacion\PlaneacioControlController@destroy',$planeacion->id_planeacion) }}"><i
-                                        class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
+                                <div class="form-row align-items-center">
+
+                             
+                                <a href="{{ URL::action('Planeacion\PlaneacioControlController@edit',$planeacion->id_planeacion) }}"><i
+                                        class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
+
+                                        <form action="{{route('planeacio_control.destroy', $planeacion->id_planeacion)}}"
+                                            class="form-inline formulario-eliminar" method="POST">
+    
+                                            @csrf
+                                            @method('DELETE')
+    
+                                            <button class=" btn btn-light btn-sm">
+                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                            </button>
+                                        </form>
+                                           </div>
+                                {{-- <a href="{{ URL::action('Planeacion\PlaneacioControlController@destroy',$planeacion->id_planeacion) }}"><i
+                                        class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a> --}}
 
                             </td>
                         </tr>

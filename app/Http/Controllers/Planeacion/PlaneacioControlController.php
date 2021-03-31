@@ -173,10 +173,10 @@ class PlaneacioControlController extends Controller
         try {
             DB::beginTransaction();
 
-            $variable                   = Cambio::findOrfail($id);
+            $variable                   = PlaneacionControl::findOrfail($id);
             $variable->bool_estado      = '0';
             $variable->update();
-            $fk_proceso=$variable->fk_proceso;
+          
 
 
             DB::commit();
@@ -187,7 +187,7 @@ class PlaneacioControlController extends Controller
             alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
             
         }
-        return Redirect::to('planificardor_cambio/'.$fk_proceso)->with('status','Se elimiinó correctamente');
+        return Redirect::to('planeacio_control/')->with('status','Se elimiinó correctamente');
      
     
     }

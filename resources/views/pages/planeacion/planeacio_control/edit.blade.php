@@ -23,9 +23,10 @@
 
 <div class="br-pagebody">
     <div class="br-section-wrapper">
-        {{  Form::open(['action' => ['Planeacion\PlaneacioControlController@update',$planeacion->id_planeacion],'autocomplete'=>'off', 'method' => 'POST', 'files' => true]) }}
-        {!! Form::token() !!}
 
+        <form action="{{ route('planeacio_control.update', $planeacion->id_planeacion)}}" method="POST">
+            @csrf
+            @method('PUT')
         
         <h4>{{$empresa->razon_social}} </h4>
 

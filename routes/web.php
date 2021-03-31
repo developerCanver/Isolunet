@@ -26,15 +26,24 @@ use App\Http\Controllers\Apoyo\TomaConsecuenciaController as TomaConsecuencia;
 
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+|--------------------------------------------------------------------------
+| PLANEACION
+|--------------------------------------------------------------------------
+*/
+//**********************planeacio_control******************** */
+Route::resource('/planeacio_control',     'Planeacion\PlaneacioControlController');
+
+
+/* --------------------------------------------------------------------------
+| APOYO
+|--------------------------------------------------------------------------*/
 
 //***********************informacion*************************** */
 Route::resource('/informacion',     'Apoyo\InformacionController');
@@ -50,8 +59,6 @@ Route::get('info_editar/{id}/{tipo}/', [
 ]);
 Route::post('actualizar_info/{id}', 	   [Informacion::class, 'actualizar_info']);
 
-
-
 //***********************comunicaciones*************************** */
 Route::resource('/comunicaciones',     'Apoyo\ComunicacionesController');
 
@@ -63,7 +70,6 @@ Route::get('competencia_rendicion/delete/{id}',  [Comunicaciones::class, 'destro
 
 
 //***********************recursos*************************** */
-
 //Route::resource('recursos', 'Apoyo\RecursosController');
 Route::resource('/recursosApp',     'Apoyo\RecursosController');
 Route::get('/recursosverimg',     [Recursos::class, 'ver_img']);

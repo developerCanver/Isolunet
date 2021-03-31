@@ -93,7 +93,7 @@
             <span class="menu-item-label">Planeacion</span>
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
-            <li class="sub-item"><a href="navigation.html" class="sub-link">Planeacion y control</a></li>
+            <li class="sub-item"><a href="{{ URL::to('planeacio_control') }}" class="sub-link">Planeacion y control</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Productos y Servicios</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Diseño y Desarrollo</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Producto y Servicios</a></li>

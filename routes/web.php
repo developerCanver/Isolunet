@@ -37,7 +37,9 @@ Route::get('/', function () {
 | PLANEACION
 |--------------------------------------------------------------------------
 */
-//**********************planeacio_control******************** */
+
+Route::resource('/productos_servicios',     'Planeacion\RequisitosController');
+
 Route::resource('/planeacio_control',     'Planeacion\PlaneacioControlController');
 
 

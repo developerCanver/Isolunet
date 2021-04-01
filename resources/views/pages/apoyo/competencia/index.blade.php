@@ -6,8 +6,8 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planificación</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">planificación de cambio</span></a>
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Apoyo</a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Competencia</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -15,7 +15,8 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Planificación de Cambio</h4>
+        <h4>Competencia</h4>
+        <p class="mg-b-0">Competencia</p>
     </div>
 </div><!-- d-flex -->
 
@@ -28,10 +29,7 @@
         {{  Form::open(['action' => 'Apoyo\CompetenciaController@store','autocomplete'=>'off', 'metdod' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}
 
-        <h4> </h4>
-        <label><strong>Identificación y análisis del cambio </strong></label>
-        <div class="row">
-        </div><br><br>
+        <br><br>
 
         <input type="hidden" name="fk_empresa" class="form-control" required value="{{$empresa->id_empresa}}">
         <div class="row">

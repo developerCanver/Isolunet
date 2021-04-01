@@ -13,7 +13,8 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Presupuesto</h4>
+        <h4>Información Documentada</h4>
+        <p class="mg-b-0">Información</p>
     </div>
 </div><!-- d-flex -->
 <div class="container-fluid h-100">

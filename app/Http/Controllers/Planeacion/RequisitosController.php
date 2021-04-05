@@ -84,7 +84,7 @@ class RequisitosController extends Controller
                 $variable->bool_estado           = '1';
                 $variable->save();
 
-
+                //agregr array quimica
                 $nombre_qui = $request->get('nombre_qui');
                 $unidad_qui = $request->get('unidad_qui');
                 $minimo_qui = $request->get('minimo_qui');
@@ -105,7 +105,67 @@ class RequisitosController extends Controller
 
                    $tiporequisito->save();
                 }
+                //agregr array fisica
+                $nombre_fis = $request->get('nombre_fis');
+                $unidad_fis = $request->get('unidad_fis');
+                $minimo_fis = $request->get('minimo_fis');
+                $maximo_fis = $request->get('maximo_fis');
+                $metodo_fis = $request->get('metodo_fis');
+
+                for ($i=0; $i <  count($nombre_fis) ; $i++) {
      
+                    $tiporequisito = new TipoRequisitos();
+                    $tiporequisito->nombre = $nombre_fis[$i];
+                    $tiporequisito->unidad      = ($unidad_fis[$i]) ?  $unidad_fis[$i] : '';
+                    $tiporequisito->minimo      = ($minimo_fis[$i]) ?  $minimo_fis[$i] : '';
+                    $tiporequisito->maximo      = ($maximo_fis[$i]) ?  $maximo_fis[$i] : '';
+                    $tiporequisito->metodo      = ($metodo_fis[$i]) ?  $metodo_fis[$i] : '';
+                    $tiporequisito->tipo_cataa      = "fisica";
+                    $tiporequisito->fk_pla_control      = $variable->id_pla_control;
+ 
+                    $tiporequisito->save();
+                 }
+                //agregr array biologica
+                $nombre_bio = $request->get('nombre_bio');
+                $unidad_bio = $request->get('unidad_bio');
+                $minimo_bio = $request->get('minimo_bio');
+                $maximo_bio = $request->get('maximo_bio');
+                $metodo_bio = $request->get('metodo_bio');
+
+                for ($i=0; $i <  count($nombre_bio) ; $i++) {
+
+                    $tiporequisito = new TipoRequisitos();
+                    $tiporequisito->nombre = $nombre_bio[$i];
+                    $tiporequisito->unidad      = ($unidad_bio[$i]) ?  $unidad_bio[$i] : '';
+                    $tiporequisito->minimo      = ($minimo_bio[$i]) ?  $minimo_bio[$i] : '';
+                    $tiporequisito->maximo      = ($maximo_bio[$i]) ?  $maximo_bio[$i] : '';
+                    $tiporequisito->metodo      = ($metodo_bio[$i]) ?  $metodo_bio[$i] : '';
+                    $tiporequisito->tipo_cataa      = "biologia";
+                    $tiporequisito->fk_pla_control      = $variable->id_pla_control;
+
+                    $tiporequisito->save();
+                }
+
+
+                //agregr array sensorial
+                $nombre_sen = $request->get('nombre_sen');
+                $unidad_sen = $request->get('unidad_sen');
+                $metodo_sen = $request->get('metodo_sen');
+
+                for ($i=0; $i <  count($nombre_sen) ; $i++) {
+
+                    $tiporequisito = new TipoRequisitos();
+                    $tiporequisito->nombre = $nombre_sen[$i];
+                    $tiporequisito->unidad      = ($unidad_sen[$i]) ?  $unidad_sen[$i] : '';
+                    $tiporequisito->minimo      = '';
+                    $tiporequisito->maximo      = '';
+                    $tiporequisito->metodo      = ($metodo_sen[$i]) ?  $metodo_sen[$i] : '';
+                    $tiporequisito->tipo_cataa      = "sensorial";
+                    $tiporequisito->fk_pla_control      = $variable->id_pla_control;
+
+                    $tiporequisito->save();
+                }
+
                
               
     

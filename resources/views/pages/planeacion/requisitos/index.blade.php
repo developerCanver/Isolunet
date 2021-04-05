@@ -27,6 +27,9 @@
         @include('partials.message_flash')
         <script type="text/javascript">
             var i = 1;
+            var e = 1;
+            var b = 1;
+            var s = 1;
 
             function nuevos() {
 
@@ -75,6 +78,133 @@
                     '</div>');
             };
 
+            function nuevofisica() {
+
+                e++;
+                $('#fisica').append(
+                    '<div class="card" style="padding: 10px 10px;"  id="row' + e + '"><h5>Física ' +
+                    e + '</h5><div class="row">' +
+                    '<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Física:</strong></label>' +
+                    '<input type="text" name="nombre_fis[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Unidad:</strong></label>' +
+                    '<input type="text" name="unidad_fis[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<input type="button" name="remove" id="' +
+                    e +
+                    '" class="btn btn-danger btn_remove btn-sm" value="Eliminar" onclick="eliminar(this.id);"> ' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Mínimo:</strong></label>' +
+                    '<input type="text" name="minimo_fis[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Máximo:</strong></label>' +
+                    '<input type="text" name="maximo_fis[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Método de Ensayo:</strong></label>' +
+                    '<input type="text" name="metodo_fis[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+            };
+
+            function nuevobiologia() {
+
+                b++;
+                $('#biologia').append(
+                    '<div class="card" style="padding: 10px 10px;"  id="row' + b + '"><h5>Biológia ' +
+                    b + '</h5><div class="row">' +
+                    '<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Biológia:</strong></label>' +
+                    '<input type="text" name="nombre_bio[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Unidad:</strong></label>' +
+                    '<input type="text" name="unidad_bio[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<input type="button" name="remove" id="' +
+                    b +
+                    '" class="btn btn-danger btn_remove btn-sm" value="Eliminar" onclick="eliminar(this.id);"> ' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Mínimo:</strong></label>' +
+                    '<input type="text" name="minimo_bio[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Máximo:</strong></label>' +
+                    '<input type="text" name="maximo_bio[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Método de Ensayo:</strong></label>' +
+                    '<input type="text" name="metodo_bio[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+            };
+
+            function nuevosensorial() {
+
+                s++;
+                $('#sensorial').append(
+                    '<div class="card" style="padding: 10px 10px;"  id="row' + s + '"><h5>Sensorial ' +
+                    s + '</h5><div class="row">' +
+                    '<div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Sensorial:</strong></label>' +
+                    '<input type="text" name="nombre_sen[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Especificaciones Y/O Tolerancias:</strong></label>' +
+                    '<input type="text" name="unidad_sen[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">' +
+                    '<div class="form-group">' +
+                    '<label><strong>Unidad:</strong></label>' +
+                    '<input type="text" name="metodo_sen[]" class="form-control">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<input type="button" name="remove" id="' +
+                    s +
+                    '" class="btn btn-danger btn_remove btn-sm" value="Eliminar" onclick="eliminar(this.id);"> ' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+            };
+
             function eliminar(clicked_id) {
                 var button_id = clicked_id;
                 $("#row" + button_id + "").remove();
@@ -112,7 +242,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Norma Técniva Colombiana:</strong></label>
-                        <input type="text" name="tecnica" class="form-control" value="tecnica" required>
+                        <input type="text" name="tecnica" class="form-control" required>
                     </div>
                 </div>
             </div>
@@ -135,12 +265,12 @@
             </div>
             <br>
             {{-- ------------------3 CARACTERISTICAS QWUIMICAS--------------------- --}}
-
+            <h5 style="color: rgb(82, 82, 82)">3. Caracteristicas</h5>
             <div class="row">
                 <div class="col-md-12 col-md-offset-2">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5 style="color: rgb(82, 82, 82)">3. Caracteristicas</h5>
+                            <h5 style="color: rgb(82, 82, 82)">3.1 Químicas</h5>
                             <input type="button" name="nuevo" id="nuevo" class="btn btn-info btn-sm"
                                 value="Añadir Nueva Química" onclick="nuevos();">
                         </div>
@@ -154,13 +284,13 @@
                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
                             <label><strong>Química:</strong></label>
-                            <input type="text" name="nombre_qui[]" class="form-control" required value="quimica">
+                            <input type="text" name="nombre_qui[]" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                         <div class="form-group">
                             <label><strong>Unidad:</strong></label>
-                            <input type="text" name="unidad_qui[]" class="form-control" value="Unidad">
+                            <input type="text" name="unidad_qui[]" class="form-control">
                         </div>
                     </div>
 
@@ -187,21 +317,33 @@
                 </div>
             </div>
             <br>
+            <div class="row">
+                <div class="col-md-12 col-md-offset-2">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5 style="color: rgb(82, 82, 82)">3.2 Físicas</h5>
+                            <input type="button" name="nuevo" id="nuevo" class="btn btn-info btn-sm"
+                                value="Añadir Nueva Física" onclick="nuevofisica();">
+                        </div>
+                    </div>
+                </div>
+            </div> <br> <br>
 
-            {{-- ------------------Fin QUIMICAS--------------------- --}}
+            {{-- ------------------FISICAS--------------------- --}}
             <div class="card" style="padding: 10px 10px;" id="fisica">
-                <h5>Fisica 1</h5>
+                <h5>Física 1</h5>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
-                            <label><strong>Fisica:</strong></label>
-                            <input type="text" name="nivel1" class="form-control" required required value="fisica">
+                            <label><strong>Física:</strong></label>
+                            <input type="text" name="nombre_fis[]" class="form-control" required 
+                                >
                         </div>
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                         <div class="form-group">
                             <label><strong>Unidad:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="unidad_fis[]" class="form-control">
                         </div>
                     </div>
 
@@ -210,38 +352,51 @@
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Mínimo:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="minimo_fis[]" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Máximo:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="maximo_fis[]" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Método de Ensayo:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="metodo_fis[]" class="form-control">
                         </div>
                     </div>
                 </div>
             </div>
+
+            <br>
             <br>
             {{-- ------------------Biologicas--------------------- --}}
-            <div class="card" style="padding: 10px 10px;" id="fisica">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-2">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5 style="color: rgb(82, 82, 82)">3.3 Biológia </h5>
+                            <input type="button" name="nuevo" id="nuevo" class="btn btn-info btn-sm"
+                                value="Añadir Nueva Biológia" onclick="nuevobiologia();">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="padding: 10px 10px;" id="biologia">
                 <h5>Biológia 1</h5>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
                             <label><strong>Biológia :</strong></label>
-                            <input type="text" name="nivel1" class="form-control" required required value="Biológia">
+                            <input type="text" name="nombre_bio[]" class="form-control" required >
                         </div>
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                         <div class="form-group">
                             <label><strong>Unidad:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="unidad_bio[]" class="form-control">
                         </div>
                     </div>
 
@@ -250,45 +405,58 @@
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Mínimo:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="minimo_bio[]" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Máximo:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="maximo_bio[]" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Método de Ensayo:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="metodo_bio[]" class="form-control">
                         </div>
                     </div>
                 </div>
             </div>
+
             <br>
-            {{-- ------------------Biologicas--------------------- --}}
-            <div class="card" style="padding: 10px 10px;" id="fisica">
+            <br>
+            <div class="row">
+                <div class="col-md-12 col-md-offset-2">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5 style="color: rgb(82, 82, 82)">3.4 Sensorial </h5>
+                            <input type="button" name="nuevo" id="nuevo" class="btn btn-info btn-sm"
+                                value="Añadir Nueva Biológia" onclick="nuevosensorial();">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- ------------------Sensoriales --------------------- --}}
+            <div class="card" style="padding: 10px 10px;" id="sensorial">
                 <h5>Sensoriales 1</h5>
 
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Sensoriales:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="nombre_sen[]" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Especificaciones Y/O Tolerancias:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="unidad_sen[]" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Método de Ensayo:</strong></label>
-                            <input type="text" name="especialidad1" class="form-control">
+                            <input type="text" name="metodo_sen[]" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -329,7 +497,8 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
-                        <label><strong>Etiquetado e instrucciones para manipulación preparación y uso:</strong></label>
+                        <label><strong>Etiquetado e instrucciones para manipulación preparación y
+                                uso:</strong></label>
                         <textarea name="etiquetado" rows="3" cols="65"></textarea>
                     </div>
                 </div>
@@ -436,7 +605,8 @@
                             <td>{{$requisito->etiquetado}}</td>
                             <td>
                                 <div class="form-row align-items-center">
-                                    <a href="{{ URL::action('Planeacion\RequisitosController@edit',$requisito->id_pla_control) }}"><i
+                                    <a
+                                        href="{{ URL::action('Planeacion\RequisitosController@edit',$requisito->id_pla_control) }}"><i
                                             class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
 
                                     <form action="{{route('productos_servicios.destroy', $requisito->id_pla_control)}}"

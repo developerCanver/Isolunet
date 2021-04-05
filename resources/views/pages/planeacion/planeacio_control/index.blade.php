@@ -6,7 +6,7 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planificación</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planeación</a>
         <a class="breadcrumb-item" href=""><span class="badge badge-dark">Planificación y control</span></a>
 
     </nav>
@@ -16,7 +16,7 @@
     <i class="icon icon ion-aperture"></i>
     <div>
         <h4>Planificación y control</h4>
-        <p class="mg-b-0">Planificación</p>
+        <p class="mg-b-0">Planeación</p>
     </div>
 </div><!-- d-flex -->
 
@@ -64,7 +64,7 @@
                     <div class="form-group">
 
                         <label><strong>Variable:</strong></label>
-                        <input type="text" name="variable" class="form-control" required >
+                        <input type="text" name="variable" class="form-control" required>
 
 
                     </div>
@@ -80,7 +80,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>LI:</strong></label>
-                        <input type="number" name="li" class="form-control"  step="any">
+                        <input type="number" name="li" class="form-control" step="any">
 
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                     <div class="form-group">
 
                         <label><strong>LC:</strong></label>
-                        <input type="number" name="lc" class="form-control"  step="any">
+                        <input type="number" name="lc" class="form-control" step="any">
 
 
                     </div>
@@ -99,7 +99,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>LS:</strong></label>
-                        <input type="number" name="ls" class="form-control"  step="any">
+                        <input type="number" name="ls" class="form-control" step="any">
 
 
                     </div>
@@ -116,13 +116,13 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Responsable de Operación:</strong></label>
-                        <input type="text" name="operacion" class="form-control" required >
+                        <input type="text" name="operacion" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Frecuencia de Medición:</strong></label>
-                        <input type="text" name="frecuencia" class="form-control" required >
+                        <input type="text" name="frecuencia" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -137,13 +137,13 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Responsable de Registro:</strong></label>
-                        <input type="text" name="registro" class="form-control" >
+                        <input type="text" name="registro" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Instrumento de Medición:</strong></label>
-                        <input type="text" name="instrumento" class="form-control" >
+                        <input type="text" name="instrumento" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -210,24 +210,21 @@
                             <td>{{$planeacion->seguimiento}}</td>
                             <td>
                                 <div class="form-row align-items-center">
+                                    <a
+                                        href="{{ URL::action('Planeacion\PlaneacioControlController@edit',$planeacion->id_planeacion) }}"><i
+                                            class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
 
-                             
-                                <a href="{{ URL::action('Planeacion\PlaneacioControlController@edit',$planeacion->id_planeacion) }}"><i
-                                        class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
+                                    <form action="{{route('planeacio_control.destroy', $planeacion->id_planeacion)}}"
+                                        class="form-inline formulario-eliminar" method="POST">
 
-                                        <form action="{{route('planeacio_control.destroy', $planeacion->id_planeacion)}}"
-                                            class="form-inline formulario-eliminar" method="POST">
-    
-                                            @csrf
-                                            @method('DELETE')
-    
-                                            <button class=" btn btn-light btn-sm">
-                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
-                                            </button>
-                                        </form>
-                                           </div>
-                                {{-- <a href="{{ URL::action('Planeacion\PlaneacioControlController@destroy',$planeacion->id_planeacion) }}"><i
-                                        class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a> --}}
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button class=" btn btn-light btn-sm">
+                                            <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                        </button>
+                                    </form>
+                                </div>
 
                             </td>
                         </tr>

@@ -72,7 +72,7 @@ Route::get('competencia_rendicion/delete/{id}',  [Comunicaciones::class, 'destro
 
 
 //***********************recursos*************************** */
-//Route::resource('recursos', 'Apoyo\RecursosController');
+
 Route::resource('/recursosApp',     'Apoyo\RecursosController');
 Route::get('/recursosverimg',     [Recursos::class, 'ver_img']);
 //***********************competencia*************************** */

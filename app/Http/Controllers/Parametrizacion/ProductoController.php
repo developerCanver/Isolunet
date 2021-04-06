@@ -42,6 +42,7 @@ class ProductoController extends Controller
 
             $producto = DB::table('tbl_producto as p')
                         ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
+                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
                         ->where('p.bool_estado','=','1')
                         ->where('e.bool_estado','=','1')
                         ->paginate(15);

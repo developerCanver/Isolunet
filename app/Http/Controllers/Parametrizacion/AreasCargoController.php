@@ -147,6 +147,7 @@ class AreasCargoController extends Controller
             $tabla_cargos = DB::table('tbl_areas as a')
                         ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
                         ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
+                        ->where('em.fk_usuario','=',''.Auth::User()->id.'')
                         ->where('e.bool_estado','=','1')
                         ->where('em.bool_estado','=','1')
                         ->where('a.bool_estado','=','1')

@@ -96,7 +96,7 @@
             <li class="sub-item"><a href="{{ URL::to('planeacio_control') }}" class="sub-link">Planeacion y control</a></li>
             <li class="sub-item"><a href="{{ URL::to('productos_servicios') }}" class="sub-link">Productos y Servicios</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Diseño y Desarrollo</a></li>
-            <li class="sub-item"><a href="navigation.html" class="sub-link">Producto y Servicios</a></li>
+            <li class="sub-item"><a href="{{ URL::to('producto_servicio') }}" class="sub-link">Producto y Servicios</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Produccion y Prevision</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Liberacion de los productos</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Salidas no Conformes</a></li>

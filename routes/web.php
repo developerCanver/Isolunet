@@ -23,6 +23,7 @@ use App\Http\Controllers\Apoyo\RecursosController as Recursos;
 use App\Http\Controllers\Apoyo\ComunicacionesController as Comunicaciones;
 use App\Http\Controllers\Apoyo\InformacionController as Informacion;
 use App\Http\Controllers\Apoyo\TomaConsecuenciaController as TomaConsecuencia;
+use App\Http\Controllers\Planeacion\ProductoServicioController as ProductoServicio;
 
 
 
@@ -42,6 +43,8 @@ Route::resource('/productos_servicios',     'Planeacion\RequisitosController');
 
 Route::resource('/planeacio_control',     'Planeacion\PlaneacioControlController');
 
+Route::resource('/producto_servicio',     'Planeacion\ProductoServicioController');
+Route::get('insumos',                    [ProductoServicio::class, 'getInsumos']);
 
 /* --------------------------------------------------------------------------
 | APOYO

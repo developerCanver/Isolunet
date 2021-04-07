@@ -109,7 +109,7 @@
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
             <li class="sub-item"><a href="navigation.html" class="sub-link">Seguimiento Medicion</a></li>
-            <li class="sub-item"><a href="navigation.html" class="sub-link">Auditoria Interna</a></li>
+            <li class="sub-item"><a href="{{ URL::to('auditoria') }}" class="sub-link">Auditoria Interna</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Revision por la Direccion</a></li>
           </ul>
         </li><!-- br-menu-item -->

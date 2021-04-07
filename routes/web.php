@@ -49,6 +49,8 @@ Route::get('insumos',                    [ProductoServicio::class, 'getInsumos']
 //auditoria
 Route::resource('/auditoria',     'Evaluacion\AuditoriaController');
 Route::resource('/chequeo_auditoria',     'Evaluacion\ChequeoController');
+Route::resource('/fortalezas_opurtunidades',     'Evaluacion\FortalesasOportunidadesController');
+Route::resource('/hallasgos',     'Evaluacion\ChequeoController');
 
 
 //APOYO

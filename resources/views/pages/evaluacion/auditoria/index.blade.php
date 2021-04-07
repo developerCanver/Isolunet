@@ -7,8 +7,8 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="{{ URL::to('/auditoria') }}"><h5><span class="badge badge-info">Auditorían Interna</span></h5></a>
         <a class="nav-item nav-link" href="{{ URL::to('/chequeo_auditoria') }}">Chequeo</a>
-        <a class="nav-item nav-link" href="#">Fortalezas y Oportunidades</a>
-        <a class="nav-item nav-link" href="#">Hallazgos</a>
+        <a class="nav-item nav-link" href="{{ URL::to('/fortalezas_opurtunidades') }}">Fortalezas y Oportunidades</a>
+        <a class="nav-item nav-link" href="{{ URL::to('/hallasgos') }}">Hallazgos</a>
       </div>
     </div>
   </nav>

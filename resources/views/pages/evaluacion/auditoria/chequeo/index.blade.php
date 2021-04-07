@@ -7,8 +7,8 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="{{ URL::to('/auditoria') }}">Auditorían Interna</a>
         <a class="nav-item nav-link" href="{{ URL::to('/chequeo_auditoria') }}"><h5><span class="badge badge-info">Chequeo</span></h5></a>
-        <a class="nav-item nav-link" href="#">Fortalezas y Oportunidades</a>
-        <a class="nav-item nav-link" href="#">Hallazgos</a>
+        <a class="nav-item nav-link" href="{{ URL::to('/fortalezas_opurtunidades') }}">Fortalezas y Oportunidades</a>
+        <a class="nav-item nav-link" href="{{ URL::to('/hallasgos') }}">Hallazgos</a>
       </div>
     </div>
   </nav>
@@ -17,7 +17,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Evaluación de desempeño</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Auditorían </span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Auditoría </span></a>
 
     </nav>
 </div><!-- br-pageheader -->

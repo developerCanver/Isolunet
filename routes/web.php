@@ -48,9 +48,10 @@ Route::get('insumos',                    [ProductoServicio::class, 'getInsumos']
 
 //auditoria
 Route::resource('/auditoria',     'Evaluacion\AuditoriaController');
-/* --------------------------------------------------------------------------
-| APOYO
-|--------------------------------------------------------------------------*/
+Route::resource('/chequeo_auditoria',     'Evaluacion\ChequeoController');
+
+
+//APOYO
 
 //***********************informacion*************************** */
 Route::resource('/informacion',     'Apoyo\InformacionController');

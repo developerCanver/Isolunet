@@ -1,7 +1,17 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{{ URL::to('/auditoria') }}"><h5><span class="badge badge-info">Auditorían Interna</span></h5></a>
+        <a class="nav-item nav-link" href="{{ URL::to('/chequeo_auditoria') }}">Chequeo</a>
+        <a class="nav-item nav-link" href="#">Fortalezas y Oportunidades</a>
+        <a class="nav-item nav-link" href="#">Hallazgos</a>
+      </div>
+    </div>
+  </nav>
 
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
@@ -84,7 +94,7 @@
     };
 
 </script>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
 
 <div class="br-pagebody">
     <div class="br-section-wrapper">

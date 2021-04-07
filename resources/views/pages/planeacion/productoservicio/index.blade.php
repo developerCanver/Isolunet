@@ -4,16 +4,16 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="#">Parametrizacion</a>
-        <span class="breadcrumb-item active">Calificar Proveedores</span>
+        <a class="breadcrumb-item" href="#">Planeación</a>
+        <span class="breadcrumb-item active">Producto y Servicios</span>
     </nav>
 </div><!-- br-pageheader -->
 
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Calificacion de Proveedores</h4>
-        <p class="mg-b-0">Proveedores</p>
+        <h4>Planeación Producto y Servicios</h4>
+        <p class="mg-b-0">Control de procesos producto y servicios suministrados externamente</p>
     </div>
 </div><!-- d-flex -->
 

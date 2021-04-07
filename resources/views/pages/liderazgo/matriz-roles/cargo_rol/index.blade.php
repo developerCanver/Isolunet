@@ -39,13 +39,10 @@
 
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
-                    <div class="form-group">
-                        <div class="form-group">
+                
                             <label><strong>Rol:</strong></label>
                             <textarea name="nom_rol_res" rows="2" cols="100" disabled >{{$rol_res->nom_rol_res}}</textarea>
-                        </div>
-                    </div>
-
+                 
                 </div>
             </div>
 

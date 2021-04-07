@@ -6,8 +6,8 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planificación</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">planificación de cambio</span></a>
+        <a class="breadcrumb-item" href="#">Planeación</a>
+        <span class="breadcrumb-item active">Producto y Servicios</span>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -15,7 +15,8 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Planificación de Cambio</h4>
+        <h4>Planeación Producto y Servicios</h4>
+        <p class="mg-b-0"> Editar Control de procesos producto y servicios suministrados externamente</p>
     </div>
 </div><!-- d-flex -->
 

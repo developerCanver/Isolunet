@@ -46,6 +46,8 @@ Route::resource('/planeacio_control',     'Planeacion\PlaneacioControlController
 Route::resource('/producto_servicio',     'Planeacion\ProductoServicioController');
 Route::get('insumos',                    [ProductoServicio::class, 'getInsumos']);
 
+//auditoria
+Route::resource('/auditoria',     'Evaluacion\AuditoriaController');
 /* --------------------------------------------------------------------------
 | APOYO
 |--------------------------------------------------------------------------*/

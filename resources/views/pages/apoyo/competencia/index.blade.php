@@ -774,72 +774,73 @@
         </div>
 
 
-    </div>
-
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-    {!!Form::close()!!}
-    <br>
-    <div class="row">
-        <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
-            <div class="table-responsive">
-                @if ($competencias->isNotEmpty())
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Fecha:</th>
-                            <th>Cargo:</th>
-                            <th>Área</th>
-                            <th>Género</th>
-                            <th>Reporte A</th>
-                            <th>Misión del Cargo</th>
-
-                            <th colspan="2">Opciones</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
 
 
-                        @foreach ($competencias as $competencia)
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
+        {!!Form::close()!!}
+        <br>
+        <div class="row">
+            <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
+                <div class="table-responsive">
+                    @if ($competencias->isNotEmpty())
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha:</th>
+                                <th>Cargo:</th>
+                                <th>Área</th>
+                                <th>Género</th>
+                                <th>Reporte A</th>
+                                <th>Misión del Cargo</th>
 
-                        <tr>
-                            <td>{{$competencia->fecha_competencia}}</td>
-                            <td>{{$competencia->cargo_com}}</td>
-                            <td>{{$competencia->area_com}}</td>
-                            <td>{{$competencia->genero}}</td>
-                            <td>{{$competencia->reporta_a}}</td>
-                            <td>{{$competencia->mision_cargo}}</td>
+                                <th colspan="2">Opciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+
+                            @foreach ($competencias as $competencia)
+
+                            <tr>
+                                <td>{{$competencia->fecha_competencia}}</td>
+                                <td>{{$competencia->cargo_com}}</td>
+                                <td>{{$competencia->area_com}}</td>
+                                <td>{{$competencia->genero}}</td>
+                                <td>{{$competencia->reporta_a}}</td>
+                                <td>{{$competencia->mision_cargo}}</td>
 
 
 
 
-                            <td>
-                                <a
-                                    href="{{ URL::action('Apoyo\CompetenciaController@edit',$competencia->id_competencia) }}"><i
-                                        class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
-                                <a
-                                    href="{{ URL::action('Apoyo\CompetenciaController@destroy',$competencia->id_competencia) }}"><i
-                                        class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
-                                        
-                            </td>
-                        </tr>
-                        @endforeach
+                                <td>
+                                    <a
+                                        href="{{ URL::action('Apoyo\CompetenciaController@edit',$competencia->id_competencia) }}"><i
+                                            class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
+                                    <a
+                                        href="{{ URL::action('Apoyo\CompetenciaController@destroy',$competencia->id_competencia) }}"><i
+                                            class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
 
-                    </tbody>
-                </table>
-                {{ $competencias->links() }}
-                @else
+                                </td>
+                            </tr>
+                            @endforeach
 
-                <br><br>
-                <div class="container m-5">
-                    <div class="alert alert-primary" role="alert">
-                        <p class="text-center m-3"> Ups! no hay registros 😥
-                        </p>
+                        </tbody>
+                    </table>
+                    {{ $competencias->links() }}
+                    @else
+
+                    <br><br>
+                    <div class="container m-5">
+                        <div class="alert alert-primary" role="alert">
+                            <p class="text-center m-3"> Ups! no hay registros 😥
+                            </p>
+                        </div>
                     </div>
+                    <br><br>
+                    @endif
                 </div>
-                <br><br>
-                @endif
             </div>
         </div>
     </div>

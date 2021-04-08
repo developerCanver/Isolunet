@@ -192,10 +192,6 @@
                 </div>
             </div>
 
-            
-           
-
-
             <button type="submit" class="btn btn-primary">Guardar</button>
 
             <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
@@ -241,13 +237,6 @@
                                         <th>N.º2</th>
                                         <th>N.º1</th>
                                         <th>N.º2</th>
-                                     
-                                        {{-- <th>Compra</th>
-                                        <th>Transporte</th>
-                                        <th>Recibo</th>
-                                        <th>Almacenamiento</th>
-                                        <th>Uso</th>
-                                        <th>Disposición Final</th> --}}
                                      
 
                                         <th colspan="2">Opciones</th>

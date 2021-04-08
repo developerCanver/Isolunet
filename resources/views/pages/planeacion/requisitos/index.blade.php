@@ -336,8 +336,7 @@
                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
                             <label><strong>Física:</strong></label>
-                            <input type="text" name="nombre_fis[]" class="form-control" required 
-                                >
+                            <input type="text" name="nombre_fis[]" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
@@ -390,7 +389,7 @@
                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
                             <label><strong>Biológia :</strong></label>
-                            <input type="text" name="nombre_bio[]" class="form-control" required >
+                            <input type="text" name="nombre_bio[]" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
@@ -543,15 +542,15 @@
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <label><strong>Riesgo Físico:</strong></label>
-                    <textarea name="fisico" rows="3" cols="45"></textarea>
+                    <textarea name="fisico" rows="3" cols="43"></textarea>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <label><strong>Riesgo Biológico:</strong></label>
-                    <textarea name="biologico" rows="3" cols="45"></textarea>
+                    <textarea name="biologico" rows="3" cols="43"></textarea>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <label><strong>Riesgo Químico:</strong></label>
-                    <textarea name="quimico" rows="3" cols="45"></textarea>
+                    <textarea name="quimico" rows="3" cols="43"></textarea>
                 </div>
             </div>
             <h5 style="color: rgb(82, 82, 82)">11. Presentaciones disponibles</h5>
@@ -562,86 +561,88 @@
                     </div>
                 </div>
             </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-    </form>
-    <br>
-    <div class="row">
-        <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
-            <div class="table-responsive">
-                @if ($requisitos->isNotEmpty())
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Norma Técniva Colombiana</th>
-                            <th>Descripción del producto</th>
-                            <th>Composición</th>
-                            <th>Vida útil estimada</th>
-                            <th>Condiciones de manejo</th>
-                            <th>Envase y embalaje</th>
-                            <th>Preparación y uso</th>
-                            <th>Método(s)</th>
 
-                            <th colspan="2">Opciones</th>
-                        </tr>
-                    </thead>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
+        </form>
+        <br>
+        <div class="row">
+            <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
+                <div class="table-responsive">
+                    @if ($requisitos->isNotEmpty())
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Norma Técniva Colombiana</th>
+                                <th>Descripción del producto</th>
+                                <th>Composición</th>
+                                <th>Vida útil estimada</th>
+                                <th>Condiciones de manejo</th>
+                                <th>Envase y embalaje</th>
+                                <th>Preparación y uso</th>
+                                <th>Método(s)</th>
 
-                    <tbody>
+                                <th colspan="2">Opciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
 
 
-                        @foreach ($requisitos as $requisito)
+                            @foreach ($requisitos as $requisito)
 
-                        <tr>
-                            <td>{{$requisito->str_producto}}</td>
-                            <td>{{$requisito->tecnica}}</td>
-                            <td>{{$requisito->des_producto}}</td>
-                            <td>{{$requisito->composicion}}</td>
-                            <td>{{$requisito->vida}}</td>
-                            <td>{{$requisito->condicion}}</td>
-                            <td>{{$requisito->envase}}</td>
-                            <td>{{$requisito->etiquetado}}</td>
-                            <td>{{$requisito->etiquetado}}</td>
-                            <td>
-                                <div class="form-row align-items-center">
-                                    <a
-                                        href="{{ URL::action('Planeacion\RequisitosController@edit',$requisito->id_pla_control) }}"><i
-                                            class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
+                            <tr>
+                                <td>{{$requisito->str_producto}}</td>
+                                <td>{{$requisito->tecnica}}</td>
+                                <td>{{$requisito->des_producto}}</td>
+                                <td>{{$requisito->composicion}}</td>
+                                <td>{{$requisito->vida}}</td>
+                                <td>{{$requisito->condicion}}</td>
+                                <td>{{$requisito->envase}}</td>
+                                <td>{{$requisito->etiquetado}}</td>
+                                <td>{{$requisito->etiquetado}}</td>
+                                <td>
+                                    <div class="form-row align-items-center">
+                                        <a
+                                            href="{{ URL::action('Planeacion\RequisitosController@edit',$requisito->id_pla_control) }}"><i
+                                                class=" form-inline fas fa-pencil-alt fa-2x"
+                                                style="color:#18A4B4;"></i></a>
 
-                                    <form action="{{route('productos_servicios.destroy', $requisito->id_pla_control)}}"
-                                        class="form-inline formulario-eliminar" method="POST">
+                                        <form
+                                            action="{{route('productos_servicios.destroy', $requisito->id_pla_control)}}"
+                                            class="form-inline formulario-eliminar" method="POST">
 
-                                        @csrf
-                                        @method('DELETE')
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button class=" btn btn-light btn-sm">
-                                            <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
+                                            <button class=" btn btn-light btn-sm">
+                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
 
-                    </tbody>
-                </table>
-                {{ $requisitos->links() }}
-                @else
+                        </tbody>
+                    </table>
+                    {{ $requisitos->links() }}
+                    @else
 
-                <br><br>
-                <div class="container m-5">
-                    <div class="alert alert-primary" role="alert">
-                        <p class="text-center m-3"> Ups! no hay registros 😥
-                        </p>
+                    <br><br>
+                    <div class="container m-5">
+                        <div class="alert alert-primary" role="alert">
+                            <p class="text-center m-3"> Ups! no hay registros 😥
+                            </p>
+                        </div>
                     </div>
+                    <br><br>
+                    @endif
                 </div>
-                <br><br>
-                @endif
             </div>
         </div>
     </div>
-</div>
 
 </div>
 

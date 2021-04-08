@@ -194,9 +194,9 @@
             @php
             $bio=$bio+1;
             @endphp
-                @if ($bio ==1)
-                <h5 style="color: rgb(82, 82, 82)">3.2 Biológicas</h5>
-                @endif
+            @if ($bio ==1)
+            <h5 style="color: rgb(82, 82, 82)">3.2 Biológicas</h5>
+            @endif
             <div class="card" style="padding: 10px 10px;" id="biologia">
                 <h5>Biológia {{$bio}}</h5>
                 <div class="row">
@@ -238,14 +238,14 @@
             </div>
 
             @endif
-          
+
             @if ($tipo->tipo_cataa=="sensorial")
             @php
             $sen=$sen+1;
             @endphp
-               @if ($sen ==1)
-               <h5 style="color: rgb(82, 82, 82)">3.1 Sensoriales</h5>
-               @endif
+            @if ($sen ==1)
+            <h5 style="color: rgb(82, 82, 82)">3.1 Sensoriales</h5>
+            @endif
             <div class="card" style="padding: 10px 10px;" id="sensorial">
                 <h5>Sensoriales {{$sen}}</h5>
 
@@ -253,7 +253,8 @@
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Sensoriales:</strong></label>
-                            <input type="text" name="nombre_sen[]" class="form-control" required  value="{{$tipo->nombre}}">
+                            <input type="text" name="nombre_sen[]" class="form-control" required
+                                value="{{$tipo->nombre}}">
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -274,7 +275,7 @@
             @endif
 
             {{-- ------------------fin--------------------- --}}
-           
+
             @endforeach
 
 
@@ -379,17 +380,11 @@
                     </div>
                 </div>
             </div>
-
-
-
-
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
+            {!!Form::close()!!}
+            <br>
     </div>
-
-    <button type="submit" class="btn btn-primary">Actualizar</button>
-    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-    {!!Form::close()!!}
-    <br>
-
 </div>
 
 

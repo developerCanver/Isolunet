@@ -33,18 +33,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*
-|--------------------------------------------------------------------------
-| PLANEACION
-|--------------------------------------------------------------------------
-*/
+ //PLANEACION
+
 
 Route::resource('/productos_servicios',     'Planeacion\RequisitosController');
-
 Route::resource('/planeacio_control',     'Planeacion\PlaneacioControlController');
-
 Route::resource('/producto_servicio',     'Planeacion\ProductoServicioController');
 Route::get('insumos',                    [ProductoServicio::class, 'getInsumos']);
+Route::resource('/diseño_desarrollo',     'Planeacion\DiseñoController');
+
 
 //auditoria
 Route::resource('/auditoria',     'Evaluacion\AuditoriaController');

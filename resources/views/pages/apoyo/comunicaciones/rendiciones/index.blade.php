@@ -8,7 +8,7 @@
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planificación</a>
         <a class="breadcrumb-item" href="{{ URL::to('/comunicaciones') }}">Comunicaciones</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">IR Comunicaciones</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Rendición de Cuentas</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -18,6 +18,7 @@
     <div>
         <h4>Comunicaciones - <a class="breadcrumb-item" href="{{ URL::to('/comunicaciones') }}">IR Comunicaciones</a>
         </h4>
+        <p class="mg-b-0">Rendición de Cuentas</p>
     </div>
 </div><!-- d-flex -->
 
@@ -87,73 +88,72 @@
             </div>
         </div>
 
-    </div>
-
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-    </form>
-    <br>
-    <div class="row">
-        <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
-            <div class="table-responsive">
-                @if ($rendiciones->isNotEmpty())
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Quién:</th>
-                            <th>Mecanismo y Medios:</th>
-                            <th>Frecuencia:</th>
-                            <th>A Quién:</th>
-                            <th>Registro:</th>
-                            <th>Sistema de Gestión:</th>
-                            <th> Opciones</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-                        @foreach ($rendiciones as $rendicion)
-
-                        <tr>
-                            <td>{{$rendicion->Quien}}</td>
-                            <td>{{$rendicion->mecanismo}}</td>
-                            <td>{{$rendicion->frecuencia}}</td>
-                            <td>{{$rendicion->a_quien}}</td>
-                            <td>{{$rendicion->registro}}</td>
-                            <td>{{$rendicion->sistema}}</td>
 
 
-                            <td>
-                                <a
-                                    href="{{ URL::action('Apoyo\ComunicacionesController@edit_rendicion',$rendicion->id_rendiciones) }}"><i
-                                        class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
-                                <a
-                                    href="{{ URL::action('Apoyo\ComunicacionesController@destroy_rendicion',$rendicion->id_rendiciones) }}"><i
-                                        class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
-                                        
-                            </td>
-                        </tr>
-                        @endforeach
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
+        </form>
+        <br>
+        <div class="row">
+            <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
+                <div class="table-responsive">
+                    @if ($rendiciones->isNotEmpty())
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Quién:</th>
+                                <th>Mecanismo y Medios:</th>
+                                <th>Frecuencia:</th>
+                                <th>A Quién:</th>
+                                <th>Registro:</th>
+                                <th>Sistema de Gestión:</th>
+                                <th> Opciones</th>
+                            </tr>
 
-                    </tbody>
-                </table>
-                {{ $rendiciones->links() }}
-                @else
+                        </thead>
 
-                <br><br>
-                <div class="container m-5">
-                    <div class="alert alert-primary" role="alert">
-                        <p class="text-center m-3"> Ups! no hay registros 😥
-                        </p>
+                        <tbody>
+                            @foreach ($rendiciones as $rendicion)
+
+                            <tr>
+                                <td>{{$rendicion->Quien}}</td>
+                                <td>{{$rendicion->mecanismo}}</td>
+                                <td>{{$rendicion->frecuencia}}</td>
+                                <td>{{$rendicion->a_quien}}</td>
+                                <td>{{$rendicion->registro}}</td>
+                                <td>{{$rendicion->sistema}}</td>
+
+
+                                <td>
+                                    <a
+                                        href="{{ URL::action('Apoyo\ComunicacionesController@edit_rendicion',$rendicion->id_rendiciones) }}"><i
+                                            class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
+                                    <a
+                                        href="{{ URL::action('Apoyo\ComunicacionesController@destroy_rendicion',$rendicion->id_rendiciones) }}"><i
+                                            class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
+
+                                </td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                    {{ $rendiciones->links() }}
+                    @else
+
+                    <br><br>
+                    <div class="container m-5">
+                        <div class="alert alert-primary" role="alert">
+                            <p class="text-center m-3"> Ups! no hay registros 😥
+                            </p>
+                        </div>
                     </div>
+                    <br><br>
+                    @endif
                 </div>
-                <br><br>
-                @endif
             </div>
         </div>
     </div>
-</div>
-
 </div>
 
 

@@ -28,62 +28,63 @@
 </div>
 <div class="br-pagebody">
 
-    <form>
+    <div class="br-section-wrapper">
+        <form>
 
-        <div class="row">
-            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                <h4>Seleccione Tipo de Información</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                <div class="form-group">
-
-                    @if (empty($tipo_informacion))
-                    <select name="tipo_informacion" class="form-control select2" required>
-                        <option value="" selected="true" disabled="disabled"> Seleccione Tipo Información..</option>
-                        <option value="Documentos">Documentos</option>
-                        <option value="Documentos_externos">Documentos Externos</option>
-                        <option value="Registros">Registros</option>
-                    </select>
-
-                    @else
-                    <select name="tipo_informacion" class="form-control select2" required>
-                        <option value="" selected="true" disabled="disabled"> Seleccione Tipo Información..</option>
-                        <option value="Documentos" @if($tipo_informacion=='Documentos' ) selected @endif> Documentos
-                        </option>
-                        <option value="Documentos_externos" @if($tipo_informacion=='Documentos_externos' ) selected
-                            @endif>Documentos Externos</option>
-                        <option value="Registros" @if($tipo_informacion=='Registros' ) selected @endif>Registros
-                        </option>
-                    </select>
-
-                    @endif
-
+            <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <h4>Seleccione Tipo de Información</h4>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
 
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        @if (empty($tipo_informacion))
+                        <select name="tipo_informacion" class="form-control select2" required>
+                            <option value="" selected="true" disabled="disabled"> Seleccione Tipo Información..</option>
+                            <option value="Documentos">Documentos</option>
+                            <option value="Documentos_externos">Documentos Externos</option>
+                            <option value="Registros">Registros</option>
+                        </select>
 
-                <button type="submit" class="btn btn-info"><i class="fas fa-search"></i> Buscar </button>
+                        @else
+                        <select name="tipo_informacion" class="form-control select2" required>
+                            <option value="" selected="true" disabled="disabled"> Seleccione Tipo Información..</option>
+                            <option value="Documentos" @if($tipo_informacion=='Documentos' ) selected @endif> Documentos
+                            </option>
+                            <option value="Documentos_externos" @if($tipo_informacion=='Documentos_externos' ) selected
+                                @endif>Documentos Externos</option>
+                            <option value="Registros" @if($tipo_informacion=='Registros' ) selected @endif>Registros
+                            </option>
+                        </select>
 
-                {{-- <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-                --}}
+                        @endif
 
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+
+                    <button type="submit" class="btn btn-info"><i class="fas fa-search"></i> Buscar </button>
+
+                    {{-- <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i
+                        class="fas fa-backward"></i></a>
+                    --}}
+
+
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                </div>
 
             </div>
-            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-            </div>
 
-        </div>
+        </form>
 
-    </form>
-
-  
-
+    </div>
 </div>
-    @endsection
+@endsection

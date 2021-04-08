@@ -27,7 +27,7 @@
         {{  Form::open(['action' => ['Apoyo\CompetenciaController@update',$competencia->id_competencia],'autocomplete'=>'off', 'method' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}
 
-    
+
 
         <div class="row">
         </div><br>
@@ -67,7 +67,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->area_com ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
 
                 </div>
@@ -77,8 +77,8 @@
                     <label><strong>Género:</strong></label>
                     <select name="genero" class="form-control select2" required>
                         <option value="" selected="true" disabled="disabled"> Seleccione Género..</option>
-                        <option value="Hombre" @if($competencia->genero == 'Hombre') selected  @endif > Hombre</option>
-                        <option value="Mujer" @if($competencia->genero == 'Mujer') selected  @endif > Mujer</option>
+                        <option value="Hombre" @if($competencia->genero == 'Hombre') selected @endif > Hombre</option>
+                        <option value="Mujer" @if($competencia->genero == 'Mujer') selected @endif > Mujer</option>
                     </select>
 
                 </div>
@@ -101,7 +101,8 @@
             <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
                 <div class="form-group">
                     <label><strong>Misión del Cargo:</strong></label>
-                    <textarea name="mision_cargo" rows="3" cols="110" required="true">{{$competencia->mision_cargo}}</textarea>
+                    <textarea name="mision_cargo" rows="3" cols="110"
+                        required="true">{{$competencia->mision_cargo}}</textarea>
                 </div>
             </div>
         </div>
@@ -114,13 +115,15 @@
                             Directas
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                            <input type="number" name="directas" class="form-control" value="{{$competencia->directas}}" required>
+                            <input type="number" name="directas" class="form-control" value="{{$competencia->directas}}"
+                                required>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                             Indirectas
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                            <input type="number" name="indirectas" class="form-control"  value="{{$competencia->indirectas}}" required>
+                            <input type="number" name="indirectas" class="form-control"
+                                value="{{$competencia->indirectas}}" required>
                         </div>
                     </div>
                 </div>
@@ -138,7 +141,8 @@
             <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                 <div class="form-group">
                     <label><strong>Especialidad:</strong></label>
-                    <input type="text" name="especialidad1" class="form-control" value="{{$competencia->especialidad1}}" required>
+                    <input type="text" name="especialidad1" class="form-control" value="{{$competencia->especialidad1}}"
+                        required>
                 </div>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
@@ -150,7 +154,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->edu_area1 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -159,9 +163,11 @@
                     <label><strong>Idioma/Nivel:</strong></label>
                     <select name="idioma1" class="form-control " required>
                         <option value="" selected="true" disabled="disabled"> Seleccione Idioma..</option>
-                        <option value="Bajo" @if($competencia->idioma1 == 'Bajo') selected  @endif > Bajo</option>
-                        <option value="Intermedio" @if($competencia->idioma1 == 'Intermedio') selected  @endif > Intermedio</option>
-                        <option value="Avanzado" @if($competencia->idioma1 == 'Avanzado') selected  @endif > Avanzado</option>
+                        <option value="Bajo" @if($competencia->idioma1 == 'Bajo') selected @endif > Bajo</option>
+                        <option value="Intermedio" @if($competencia->idioma1 == 'Intermedio') selected @endif >
+                            Intermedio</option>
+                        <option value="Avanzado" @if($competencia->idioma1 == 'Avanzado') selected @endif > Avanzado
+                        </option>
                     </select>
                 </div>
             </div>
@@ -170,10 +176,12 @@
                     <label><strong>Sistema/Nivel:</strong></label>
                     <select name="sistema1" class="form-control " required>
                         <option value="" selected="true" disabled="disabled"> Seleccione Idioma..</option>
-                        <option value="Bajo" @if($competencia->sistema1 == 'Bajo') selected  @endif > Bajo</option>
-                        <option value="Intermedio" @if($competencia->sistema1 == 'Intermedio') selected  @endif > Intermedio</option>
-                        <option value="Avanzado" @if($competencia->sistema1 == 'Avanzado') selected  @endif > Avanzado</option>
-        
+                        <option value="Bajo" @if($competencia->sistema1 == 'Bajo') selected @endif > Bajo</option>
+                        <option value="Intermedio" @if($competencia->sistema1 == 'Intermedio') selected @endif >
+                            Intermedio</option>
+                        <option value="Avanzado" @if($competencia->sistema1 == 'Avanzado') selected @endif > Avanzado
+                        </option>
+
                     </select>
                 </div>
             </div>
@@ -214,7 +222,8 @@
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Especialidad:</strong></label>
-                        <input type="text" name="especialidad2" class="form-control" value="{{$competencia->especialidad2}}">
+                        <input type="text" name="especialidad2" class="form-control"
+                            value="{{$competencia->especialidad2}}">
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
@@ -226,7 +235,7 @@
                             <option value="{{ $area->nom_area }}"
                                 {{ $area->nom_area == $competencia->edu_area2 ? 'selected' : '' }}>
                                 {{ $area->nom_area }}</option>
-                        @endforeach
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -235,10 +244,12 @@
                         <label><strong>Idioma/Nivel:</strong></label>
                         <select name="idioma2" class="form-control ">
                             <option value="" selected="true" disabled="disabled"> Seleccione Idioma..</option>
-                            <option value="Bajo" @if($competencia->idioma2 == 'Bajo') selected  @endif > Bajo</option>
-                            <option value="Intermedio" @if($competencia->idioma2 == 'Intermedio') selected  @endif > Intermedio</option>
-                            <option value="Avanzado" @if($competencia->idioma2 == 'Avanzado') selected  @endif > Avanzado</option>
-            
+                            <option value="Bajo" @if($competencia->idioma2 == 'Bajo') selected @endif > Bajo</option>
+                            <option value="Intermedio" @if($competencia->idioma2 == 'Intermedio') selected @endif >
+                                Intermedio</option>
+                            <option value="Avanzado" @if($competencia->idioma2 == 'Avanzado') selected @endif > Avanzado
+                            </option>
+
                         </select>
                     </div>
                 </div>
@@ -247,9 +258,11 @@
                         <label><strong>Sistema/Nivel:</strong></label>
                         <select name="sistema2" class="form-control ">
                             <option value="" selected="true" disabled="disabled"> Seleccione Idioma..</option>
-                            <option value="Bajo" @if($competencia->sistema2 == 'Bajo') selected  @endif > Bajo</option>
-                            <option value="Intermedio" @if($competencia->sistema2 == 'Intermedio') selected  @endif > Intermedio</option>
-                            <option value="Avanzado" @if($competencia->sistema2 == 'Avanzado') selected  @endif > Avanzado</option>
+                            <option value="Bajo" @if($competencia->sistema2 == 'Bajo') selected @endif > Bajo</option>
+                            <option value="Intermedio" @if($competencia->sistema2 == 'Intermedio') selected @endif >
+                                Intermedio</option>
+                            <option value="Avanzado" @if($competencia->sistema2 == 'Avanzado') selected @endif >
+                                Avanzado</option>
                         </select>
                     </div>
                 </div>
@@ -304,7 +317,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->exp_area1 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -313,10 +326,13 @@
                     <label><strong>Tiempo (Años):</strong></label>
                     <select name="tiempo1" class="form-control " required>
                         <option value="" selected="true" disabled="disabled"> Seleccione Cantidad..</option>
-                        <option value="< 3 Años" @if($competencia->tiempo1 == '< 3 Años') selected  @endif >< 3 Años</option>
-                        <option value="3 a 5 Años" @if($competencia->tiempo1 == '3 a 5 Años') selected  @endif >3 a 5 Años</option>
-                        <option value="5 a 10 Años" @if($competencia->tiempo1 == '5 a 10 Años') selected  @endif >5 a 10 Años</option>
-                        <option value="> 10 Años" @if($competencia->tiempo1 == '> 10 Años') selected  @endif >> 10 Años</option>
+                        <option value="< 3 Años" @if($competencia->tiempo1 == '< 3 Años') selected @endif>
+                                < 3 Años</option> <option value="3 a 5 Años" @if($competencia->tiempo1 == '3 a 5 Años')
+                                    selected @endif >3 a 5 Años</option>
+                        <option value="5 a 10 Años" @if($competencia->tiempo1 == '5 a 10 Años') selected @endif >5 a 10
+                            Años</option>
+                        <option value="> 10 Años" @if($competencia->tiempo1 == '> 10 Años') selected @endif >> 10 Años
+                        </option>
                     </select>
 
                 </div>
@@ -335,7 +351,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->exp_area2 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -344,10 +360,13 @@
                     <label><strong>Tiempo (Años):</strong></label>
                     <select name="tiempo2" class="form-control ">
                         <option value="" selected="true" disabled="disabled"> Seleccione Cantidad..</option>
-                        <option value="< 3 Años" @if($competencia->tiempo2 == '< 3 Años') selected  @endif >< 3 Años</option>
-                        <option value="3 a 5 Años" @if($competencia->tiempo2 == '3 a 5 Años') selected  @endif >3 a 5 Años</option>
-                        <option value="5 a 10 Años" @if($competencia->tiempo2 == '5 a 10 Años') selected  @endif >5 a 10 Años</option>
-                        <option value="> 10 Años" @if($competencia->tiempo2 == '> 10 Años') selected  @endif >> 10 Años</option>
+                        <option value="< 3 Años" @if($competencia->tiempo2 == '< 3 Años') selected @endif>
+                                < 3 Años</option> <option value="3 a 5 Años" @if($competencia->tiempo2 == '3 a 5 Años')
+                                    selected @endif >3 a 5 Años</option>
+                        <option value="5 a 10 Años" @if($competencia->tiempo2 == '5 a 10 Años') selected @endif >5 a 10
+                            Años</option>
+                        <option value="> 10 Años" @if($competencia->tiempo2 == '> 10 Años') selected @endif >> 10 Años
+                        </option>
                     </select>
                 </div>
             </div>
@@ -365,7 +384,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->exp_area3 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -374,10 +393,13 @@
                     <label><strong>Tiempo (Años):</strong></label>
                     <select name="tiempo3" class="form-control ">
                         <option value="" selected="true" disabled="disabled"> Seleccione Cantidad..</option>
-                        <option value="< 3 Años" @if($competencia->tiempo3 == '< 3 Años') selected  @endif >< 3 Años</option>
-                        <option value="3 a 5 Años" @if($competencia->tiempo3 == '3 a 5 Años') selected  @endif >3 a 5 Años</option>
-                        <option value="5 a 10 Años" @if($competencia->tiempo3 == '5 a 10 Años') selected  @endif >5 a 10 Años</option>
-                        <option value="> 10 Años" @if($competencia->tiempo3 == '> 10 Años') selected  @endif >> 10 Años</option>
+                        <option value="< 3 Años" @if($competencia->tiempo3 == '< 3 Años') selected @endif>
+                                < 3 Años</option> <option value="3 a 5 Años" @if($competencia->tiempo3 == '3 a 5 Años')
+                                    selected @endif >3 a 5 Años</option>
+                        <option value="5 a 10 Años" @if($competencia->tiempo3 == '5 a 10 Años') selected @endif >5 a 10
+                            Años</option>
+                        <option value="> 10 Años" @if($competencia->tiempo3 == '> 10 Años') selected @endif >> 10 Años
+                        </option>
                     </select>
 
                 </div>
@@ -388,7 +410,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
                     <label><strong>Descripción:</strong></label>
-                    <textarea name="descripcion" rows="2" cols="130" required="true">{{$competencia->descripcion}}</textarea>
+                    <textarea name="descripcion" rows="2" cols="130"
+                        required="true">{{$competencia->descripcion}}</textarea>
                 </div>
             </div>
         </div>
@@ -452,7 +475,8 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label><strong>Compartidas:</strong></label>
-                    <input type="text" name="compartida1" class="form-control" required  value="{{$competencia->compartida1}}">
+                    <input type="text" name="compartida1" class="form-control" required
+                        value="{{$competencia->compartida1}}">
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
@@ -464,14 +488,15 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->dec_area1 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label><strong>Autonomas:</strong></label>
-                    <input type="text" name="autonoma1" class="form-control"  value="{{$competencia->autonoma1}}" required>
+                    <input type="text" name="autonoma1" class="form-control" value="{{$competencia->autonoma1}}"
+                        required>
                 </div>
             </div>
             <div class="form-group">
@@ -482,7 +507,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label><strong>Compartidas:</strong></label>
-                    <input type="text" name="compartida2" class="form-control" value="{{$competencia->compartida2}}" >
+                    <input type="text" name="compartida2" class="form-control" value="{{$competencia->compartida2}}">
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
@@ -494,7 +519,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->dec_area2 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -524,14 +549,14 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->dec_area3 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label><strong>Autonomas:</strong></label>
-                    <input type="text" name="autonoma3" class="form-control" value="{{$competencia->autonoma3}}" >
+                    <input type="text" name="autonoma3" class="form-control" value="{{$competencia->autonoma3}}">
                 </div>
             </div>
             <div class="form-group">
@@ -554,7 +579,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->dec_area4 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -628,14 +653,15 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->int_area1 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Objetivos:</strong></label>
-                    <input type="text" name="int_objetivo1" class="form-control" required value="{{$competencia->int_objetivo1}}" >
+                    <input type="text" name="int_objetivo1" class="form-control" required
+                        value="{{$competencia->int_objetivo1}}">
                 </div>
             </div>
             <div class="form-group">
@@ -652,14 +678,15 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->int_area2 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Objetivos:</strong></label>
-                    <input type="text" name="int_objetivo2" class="form-control" value="{{$competencia->int_objetivo2}}">
+                    <input type="text" name="int_objetivo2" class="form-control"
+                        value="{{$competencia->int_objetivo2}}">
                 </div>
             </div>
             <div class="form-group">
@@ -676,14 +703,15 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->int_area3 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Objetivos:</strong></label>
-                    <input type="text" name="int_objetivo3" class="form-control" value="{{$competencia->int_objetivo3}}">
+                    <input type="text" name="int_objetivo3" class="form-control"
+                        value="{{$competencia->int_objetivo3}}">
                 </div>
             </div>
         </div>
@@ -736,7 +764,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->ext_area1 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -744,7 +772,8 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Objetivos:</strong></label>
-                    <input type="text" name="ext_objetivo1" class="form-control" required value="{{$competencia->ext_objetivo1}}">
+                    <input type="text" name="ext_objetivo1" class="form-control" required
+                        value="{{$competencia->ext_objetivo1}}">
                 </div>
             </div>
             <div class="form-group">
@@ -761,7 +790,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->ext_area2 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -769,7 +798,8 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Objetivos:</strong></label>
-                    <input type="text" name="ext_objetivo2" class="form-control" value="{{$competencia->ext_objetivo2}}">
+                    <input type="text" name="ext_objetivo2" class="form-control"
+                        value="{{$competencia->ext_objetivo2}}">
                 </div>
             </div>
             <div class="form-group">
@@ -786,7 +816,7 @@
                         <option value="{{ $area->nom_area }}"
                             {{ $area->nom_area == $competencia->ext_area3 ? 'selected' : '' }}>
                             {{ $area->nom_area }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -794,7 +824,8 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Objetivos:</strong></label>
-                    <input type="text" name="ext_objetivo3" class="form-control" value="{{$competencia->ext_objetivo3}}">
+                    <input type="text" name="ext_objetivo3" class="form-control"
+                        value="{{$competencia->ext_objetivo3}}">
                 </div>
             </div>
         </div>
@@ -803,19 +834,20 @@
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
                     <label><strong>Actividades Transversales:</strong></label>
-                    <textarea name="actividades" rows="5" cols="120" required="true">{{$competencia->actividades}}</textarea>
+                    <textarea name="actividades" rows="5" cols="120"
+                        required="true">{{$competencia->actividades}}</textarea>
                 </div>
             </div>
         </div>
 
 
+
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
+        {!!Form::close()!!}
+        <br>
     </div>
-
-    <button type="submit" class="btn btn-primary">Actualizar</button>
-    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-    {!!Form::close()!!}
-    <br>
-
 </div>
 
 

@@ -156,98 +156,100 @@
 
 
 
-    </div>
-
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-    </form>
-    <br>
-    <div class="row">
-        <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
-            <div class="table-responsive">
-                @if ($planeaciones->isNotEmpty())
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Proceso</th>
-                            <th>Material</th>
-                            <th>Variable</th>
-                            <th>Unidad</th>
-                            <th>LI</th>
-                            <th>LC</th>
-                            <th>LS</th>
-                            <th>Control</th>
-                            <th>Responsable Operación</th>
-                            <th>Frecuencia Medición</th>
-                            <th>Metodo</th>
-                            <th>Responsable Registro</th>
-                            <th>Instrumento Medición</th>
-                            <th>Registro Seguimiento</th>
-
-                            <th colspan="2">Opciones</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
 
 
-                        @foreach ($planeaciones as $planeacion)
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
+        </form>
+        <br>
+        <div class="row">
+            <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
+                <div class="table-responsive">
+                    @if ($planeaciones->isNotEmpty())
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Proceso</th>
+                                <th>Material</th>
+                                <th>Variable</th>
+                                <th>Unidad</th>
+                                <th>LI</th>
+                                <th>LC</th>
+                                <th>LS</th>
+                                <th>Control</th>
+                                <th>Responsable Operación</th>
+                                <th>Frecuencia Medición</th>
+                                <th>Metodo</th>
+                                <th>Responsable Registro</th>
+                                <th>Instrumento Medición</th>
+                                <th>Registro Seguimiento</th>
 
-                        <tr>
-                            <td>{{$planeacion->proceso}}</td>
-                            <td>{{$planeacion->material}}</td>
-                            <td>{{$planeacion->variable}}</td>
-                            <td>{{$planeacion->unidad}}</td>
-                            <td>{{$planeacion->li}}</td>
-                            <td>{{$planeacion->lc}}</td>
-                            <td>{{$planeacion->ls}}</td>
-                            <td>{{$planeacion->control}}</td>
-                            <td>{{$planeacion->operacion}}</td>
-                            <td>{{$planeacion->frecuencia}}</td>
-                            <td>{{$planeacion->metodo}}</td>
-                            <td>{{$planeacion->registro}}</td>
-                            <td>{{$planeacion->instrumento}}</td>
-                            <td>{{$planeacion->seguimiento}}</td>
-                            <td>
-                                <div class="form-row align-items-center">
-                                    <a
-                                        href="{{ URL::action('Planeacion\PlaneacioControlController@edit',$planeacion->id_planeacion) }}"><i
-                                            class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
+                                <th colspan="2">Opciones</th>
+                            </tr>
+                        </thead>
 
-                                    <form action="{{route('planeacio_control.destroy', $planeacion->id_planeacion)}}"
-                                        class="form-inline formulario-eliminar" method="POST">
+                        <tbody>
 
-                                        @csrf
-                                        @method('DELETE')
 
-                                        <button class=" btn btn-light btn-sm">
-                                            <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
-                                        </button>
-                                    </form>
-                                </div>
+                            @foreach ($planeaciones as $planeacion)
 
-                            </td>
-                        </tr>
-                        @endforeach
+                            <tr>
+                                <td>{{$planeacion->proceso}}</td>
+                                <td>{{$planeacion->material}}</td>
+                                <td>{{$planeacion->variable}}</td>
+                                <td>{{$planeacion->unidad}}</td>
+                                <td>{{$planeacion->li}}</td>
+                                <td>{{$planeacion->lc}}</td>
+                                <td>{{$planeacion->ls}}</td>
+                                <td>{{$planeacion->control}}</td>
+                                <td>{{$planeacion->operacion}}</td>
+                                <td>{{$planeacion->frecuencia}}</td>
+                                <td>{{$planeacion->metodo}}</td>
+                                <td>{{$planeacion->registro}}</td>
+                                <td>{{$planeacion->instrumento}}</td>
+                                <td>{{$planeacion->seguimiento}}</td>
+                                <td>
+                                    <div class="form-row align-items-center">
+                                        <a
+                                            href="{{ URL::action('Planeacion\PlaneacioControlController@edit',$planeacion->id_planeacion) }}"><i
+                                                class=" form-inline fas fa-pencil-alt fa-2x"
+                                                style="color:#18A4B4;"></i></a>
 
-                    </tbody>
-                </table>
-                {{ $planeaciones->links() }}
-                @else
+                                        <form
+                                            action="{{route('planeacio_control.destroy', $planeacion->id_planeacion)}}"
+                                            class="form-inline formulario-eliminar" method="POST">
 
-                <br><br>
-                <div class="container m-5">
-                    <div class="alert alert-primary" role="alert">
-                        <p class="text-center m-3"> Ups! no hay registros 😥
-                        </p>
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class=" btn btn-light btn-sm">
+                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                    {{ $planeaciones->links() }}
+                    @else
+
+                    <br><br>
+                    <div class="container m-5">
+                        <div class="alert alert-primary" role="alert">
+                            <p class="text-center m-3"> Ups! no hay registros 😥
+                            </p>
+                        </div>
                     </div>
+                    <br><br>
+                    @endif
                 </div>
-                <br><br>
-                @endif
             </div>
         </div>
     </div>
-</div>
 
 </div>
 

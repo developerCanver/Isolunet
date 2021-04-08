@@ -50,7 +50,7 @@ Route::get('insumos',                    [ProductoServicio::class, 'getInsumos']
 Route::resource('/auditoria',     'Evaluacion\AuditoriaController');
 Route::resource('/chequeo_auditoria',     'Evaluacion\ChequeoController');
 Route::resource('/fortalezas_opurtunidades',     'Evaluacion\FortalesasOportunidadesController');
-Route::resource('/hallasgos',     'Evaluacion\ChequeoController');
+Route::resource('/hallasgos',     'Evaluacion\HallazgosController');
 
 
 //APOYO

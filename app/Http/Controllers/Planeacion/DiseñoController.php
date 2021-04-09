@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Planeacion;
 
 use App\Http\Controllers\Controller;
+use App\Models\Planeacion\Diseño;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -25,25 +26,16 @@ class DiseñoController extends Controller
                         ->first();
      
 
-        $chequeos =  DB::table('tbl_empresa as e')
-                        ->join('tbl_plane_auditoria_hallazgos as p','p.fk_empresa','=','e.id_empresa')
+        $consultas =  DB::table('tbl_empresa as e')
+                        ->join('tbl_plane_diseño as p','p.fk_empresa','=','e.id_empresa')
                         ->where('e.fk_usuario','=',''.Auth::User()->id.'')
                         ->where('p.bool_estado','=','1')
+                        ->where('e.bool_estado','=','1')
                         ->paginate(20);
-                        //dd($chequeos); 
-
-
-      
-                        
-
-
-     
-                        
-                       //dd($chequeos);
                     
         return view('pages.planeacion.diseño.index',[
                                 'empresa'=>$empresa,
-                                'chequeos'=>$chequeos,
+                                'consultas'=>$consultas,
                                     ]);
     	    
     }
@@ -54,42 +46,32 @@ class DiseñoController extends Controller
     try {
                 DB::beginTransaction();
 
-                $variable 				  = new Hallazgos();
+                $variable 				  = new Diseño();
   
-                $variable->ubicacion            = ($request->get('ubicacion')) ?         $request->get('ubicacion') : '';
-                $variable->descripciones        = ($request->get('descripciones')) ?         $request->get('descripciones') : '';
-                $variable->evidencia            = ($request->get('evidencia')) ?         $request->get('evidencia') : '';
-                $variable->requisito            = ($request->get('requisito')) ?         $request->get('requisito') : '';
-                $variable->num_detectadas       = ($request->get('num_detectadas')) ?         $request->get('num_detectadas') : '';
-                $variable->num_cerredas         = ($request->get('num_cerredas')) ?         $request->get('num_cerredas') : '';
-                $variable->reviso               = ($request->get('reviso')) ?         $request->get('reviso') : '';
-                $variable->aprobo               = ($request->get('aprobo')) ?         $request->get('aprobo') : '';
-                $variable->fk_empresa           =   $request->get('fk_empresa');
-             
-
+                $variable->general          = ($request->get('general')) ?           $request->get('general') : '';
+                $variable->unitarios        = ($request->get('unitarios')) ?         $request->get('unitarios') : '';
+                $variable->cate_aspectos    = ($request->get('cate_aspectos')) ?     $request->get('cate_aspectos') : '';
+                $variable->aspectos_ambiental=($request->get('aspectos_ambiental')) ? $request->get('aspectos_ambiental') : '';
+                $variable->impacto          = ($request->get('impacto')) ?           $request->get('impacto') : '';
+                $variable->responsabilidad  = ($request->get('responsabilidad')) ?   $request->get('responsabilidad') : '';
+                $variable->situacion        = ($request->get('situacion')) ?         $request->get('situacion') : '';
+                $variable->tipo_impacto     = ($request->get('tipo_impacto')) ?      $request->get('tipo_impacto') : '';
+                $variable->legal            = ($request->get('legal')) ?             $request->get('legal') : '';
+                $variable->control          = ($request->get('control')) ?           $request->get('control') : '';
+                $variable->periodicidad     = ($request->get('periodicidad')) ?      $request->get('periodicidad') : '';
+                $variable->intensidad       = ($request->get('intensidad')) ?        $request->get('intensidad') : '';
+                $variable->permanencia      = ($request->get('permanencia')) ?       $request->get('permanencia') : '';
+                $variable->afectacion       = ($request->get('afectacion')) ?        $request->get('afectacion') : '';
+                $variable->num_sinificancia = ($request->get('num_sinificancia')) ?  $request->get('num_sinificancia') : '';
+                $variable->sinificancia     = ($request->get('sinificancia')) ?      $request->get('sinificancia') : '';
+                $variable->programa         = ($request->get('programa')) ?          $request->get('programa') : '';
+                $variable->fk_empresa       =  $request->get('fk_empresa');
+               
                 $variable->bool_estado        = '1';
-               
-        
                 $variable->save();    
-                
-                $fk_sisgestion  = $request->get('fk_sisgestion');
-                $seleccion_hallazgos     = $request->get('seleccion_hallazgos');
-               
-
-                for ($i=0; $i <  count($fk_sisgestion) ; $i++) {
-
-                    $tiporequisito = new HallazgosGestion();
-                    $tiporequisito->fk_sisgestion        =    $fk_sisgestion[$i];
-                    $tiporequisito->seleccion_hallazgos  =    $seleccion_hallazgos[$i];
-
-                    $tiporequisito->fk_hallazgos      = $variable->id_hallazgos;
-                    $tiporequisito->bool_estado    = '1';
-                    $tiporequisito->save();
-                }
-
 
                 DB::commit();
-                return Redirect::to('hallasgos')->with('status','Se guardó correctamente');
+                return Redirect::to('diseno_desarrollo')->with('status','Se guardó correctamente');
             } catch (Exception $e) {
                 DB::rollback();
         }
@@ -100,34 +82,20 @@ class DiseñoController extends Controller
     public function edit($id)
     {
 
-    
-        $chequeo   = Hallazgos::findOrfail($id);
-
-       $cheSisGestiones =  DB::table('tbl_empresa as e')
-                            ->join('tbl_plane_auditoria_hallazgos as h','h.fk_empresa','=','e.id_empresa')
-                            ->join('tbl_plane_auditoria_hallazgos_gestion as hg','hg.fk_hallazgos','=','h.id_hallazgos')
-                            ->join('tbl_sistemas_gestion as g','g.id_sisgestion','=','hg.fk_sisgestion')
-                            ->where('id_hallazgos',  $id)
-                            ->get();
+        $consulta   = Diseño::findOrfail($id);
 
         $empresa = DB::table('tbl_empresa as e')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                            ->where('e.bool_estado','=','1')
-                            ->first();
-
-        $usuarios = DB::table('users as u')
-                        ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
-                        ->where('e.bool_estado','=','1')
-                        ->get();
+        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+        ->where('e.bool_estado','=','1')
+        ->first();
                     //dd($cheSisGestiones);
-        return view('pages.evaluacion.auditoria.hallazgos.edit',[
-            'chequeo'=>$chequeo,
+        return view('pages.planeacion.diseño.edit',[
             'empresa'=>$empresa,
-            'cheSisGestiones'=>$cheSisGestiones,
-            'usuarios'=>$usuarios,
+            'consulta'=>$consulta,
             ]);
     }
+
+
 
     public function update(Request $request, $id)
     {
@@ -135,35 +103,26 @@ class DiseñoController extends Controller
             DB::beginTransaction();
 
      
-                $variable                     = Hallazgos::findOrfail($id);
-                $variable->ubicacion            = ($request->get('ubicacion')) ?         $request->get('ubicacion') : '';
-                $variable->descripciones        = ($request->get('descripciones')) ?         $request->get('descripciones') : '';
-                $variable->evidencia            = ($request->get('evidencia')) ?         $request->get('evidencia') : '';
-                $variable->requisito            = ($request->get('requisito')) ?         $request->get('requisito') : '';
-                $variable->num_detectadas       = ($request->get('num_detectadas')) ?         $request->get('num_detectadas') : '';
-                $variable->num_cerredas         = ($request->get('num_cerredas')) ?         $request->get('num_cerredas') : '';
-                $variable->reviso               = ($request->get('reviso')) ?         $request->get('reviso') : '';
-                $variable->aprobo               = ($request->get('aprobo')) ?         $request->get('aprobo') : '';
+                $variable                     = Diseño::findOrfail($id);
+                $variable->general          = ($request->get('general')) ?           $request->get('general') : '';
+                $variable->unitarios        = ($request->get('unitarios')) ?         $request->get('unitarios') : '';
+                $variable->cate_aspectos    = ($request->get('cate_aspectos')) ?     $request->get('cate_aspectos') : '';
+                $variable->aspectos_ambiental=($request->get('aspectos_ambiental')) ? $request->get('aspectos_ambiental') : '';
+                $variable->impacto          = ($request->get('impacto')) ?           $request->get('impacto') : '';
+                $variable->responsabilidad  = ($request->get('responsabilidad')) ?   $request->get('responsabilidad') : '';
+                $variable->situacion        = ($request->get('situacion')) ?         $request->get('situacion') : '';
+                $variable->tipo_impacto     = ($request->get('tipo_impacto')) ?      $request->get('tipo_impacto') : '';
+                $variable->legal            = ($request->get('legal')) ?             $request->get('legal') : '';
+                $variable->control          = ($request->get('control')) ?           $request->get('control') : '';
+                $variable->periodicidad     = ($request->get('periodicidad')) ?      $request->get('periodicidad') : '';
+                $variable->intensidad       = ($request->get('intensidad')) ?        $request->get('intensidad') : '';
+                $variable->permanencia      = ($request->get('permanencia')) ?       $request->get('permanencia') : '';
+                $variable->afectacion       = ($request->get('afectacion')) ?        $request->get('afectacion') : '';
+                $variable->num_sinificancia = ($request->get('num_sinificancia')) ?  $request->get('num_sinificancia') : '';
+                $variable->sinificancia     = ($request->get('sinificancia')) ?      $request->get('sinificancia') : '';
+                $variable->programa         = ($request->get('programa')) ?          $request->get('programa') : '';
                
-        
-            $variable->update();
-
-            HallazgosGestion::where('fk_hallazgos', $id)->delete();
-
-            $fk_sisgestion  = $request->get('fk_sisgestion');
-            $seleccion_hallazgos     = $request->get('seleccion_hallazgos');
-           
-
-            for ($i=0; $i <  count($fk_sisgestion) ; $i++) {
-
-                $tiporequisito = new HallazgosGestion();
-                $tiporequisito->fk_sisgestion        =    $fk_sisgestion[$i];
-                $tiporequisito->seleccion_hallazgos  =    $seleccion_hallazgos[$i];
-
-                $tiporequisito->fk_hallazgos      = $variable->id_hallazgos;
-                $tiporequisito->bool_estado    = '1';
-                $tiporequisito->save();
-            }
+                 $variable->update();
 
 
 
@@ -175,7 +134,7 @@ class DiseñoController extends Controller
             alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
             
         }
-        return Redirect::to('hallasgos')->with('status','Se actualizó correctamente');
+        return Redirect::to('diseno_desarrollo')->with('status','Se actualizó correctamente');
     }
 
 
@@ -183,14 +142,14 @@ class DiseñoController extends Controller
     {
             try {
             DB::beginTransaction();
-            
-            $ocultar 					= Hallazgos::findOrfail($id);
+          
+            $ocultar 					= Diseño::findOrfail($id);
             $ocultar->bool_estado		= 0;
             $ocultar->update();
 
 
            DB::commit();
-           return Redirect::to('hallasgos')->with('status','Se eliminó correctamente');
+           return Redirect::to('diseno_desarrollo')->with('status','Se eliminó correctamente');
         } catch (Exception $e) {
             DB::rollback();
         }

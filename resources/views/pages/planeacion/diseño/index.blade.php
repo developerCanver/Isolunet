@@ -25,7 +25,7 @@
 
 
 
-        <form action="{{route('diseño_desarrollo.store')}}" method="POST">
+        <form action="{{route('diseno_desarrollo.store')}}" method="POST">
             @csrf
 
             <h4>{{$empresa->razon_social}} </h4>
@@ -37,27 +37,33 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label for="datos"><strong>Proceso General/Zona:</strong></label>
-                        <input type="text" required name="ubicacion" class="form-control">
+                        <input type="text" required name="general" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                     <div class="form-group">
                         <label><strong>Procesos Unitarios:</strong></label>
-                        <input type="text" required name="descripciones" class="form-control">
+                        <input type="text" required name="unitarios" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
-                        <label for="datos"><strong>Aspecto Ambiental a Evaluar:</strong></label>
-                        <input type="text" required name="evidencia" class="form-control">
+                        <label for="datos"><strong>Categoría Aspecto Ambiental:</strong></label>
+                        <input type="text" required name="cate_aspectos" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label for="datos"><strong>Aspecto Ambiental a Evaluar:</strong></label>
+                        <input type="text" required name="aspectos_ambiental" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Impacto Ambiental:</strong></label>
-                        <input type="text" required name="requisito" class="form-control">
+                        <input type="text" required name="impacto" class="form-control">
                     </div>
                 </div>
             </div>
@@ -67,19 +73,19 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Responsabilidad:</strong></label>
-                        <input type="text" required name="num_detectadas" class="form-control">
+                        <input type="text" required name="responsabilidad" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Situación Operacional:</strong></label>
-                        <input type="text" required name="num_cerredas" class="form-control">
+                        <input type="text" required name="situacion" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Tipo De Impacto:</strong></label>
-                        <input type="text" required name="num_cerredas" class="form-control">
+                        <input type="text" required name="tipo_impacto" class="form-control">
                     </div>
                 </div>
             </div>
@@ -88,7 +94,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label for="datos"><strong>cumple Requisito Legal:</strong></label>
-                        <select name="seleccion_hallazgos" required class="form-control ">
+                        <select name="legal" required class="form-control ">
                             <option selected disabled value="">Seleccionar...</option>
                             <option value="Si">Si</option>
                             <option value="No">No</option>
@@ -97,8 +103,8 @@
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
-                        <label for="datos"><strong>Cumple Control:)</strong></label>
-                        <select name="seleccion_hallazgos" required class="form-control ">
+                        <label for="datos"><strong>Cumple Control:</strong></label>
+                        <select name="control" required class="form-control ">
                             <option selected disabled value="">Seleccionar...</option>
                             <option value="Si">Si</option>
                             <option value="No">No</option>
@@ -111,7 +117,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Periodicidad (P):</strong></label>
-                        <select name="seleccion_hallazgos" required class="form-control ">
+                        <select name="periodicidad" required class="form-control ">
                             <option selected disabled value="">Seleccionar...</option>
                             <option value="No Aplica">No Aplica</option>
                             <option value="Afectación Leve">Afectación Leve</option>
@@ -122,18 +128,18 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Intensidad (I):</strong></label>
-                        <select name="seleccion_hallazgos" required class="form-control ">
+                        <select name="intensidad" required class="form-control ">
                             <option selected disabled value="">Seleccionar...</option>
                             <option value="No Aplica">No Aplica</option>
                             <option value="Afectación Leve">Afectación Leve</option>
                             <option value="Afectación significativa">Afectación significativa</option>
                         </select>
                     </div>
-                </div>
+                </div>															
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Permanencia Del Impacto (PI):</strong></label>
-                        <select name="seleccion_hallazgos" required class="form-control ">
+                        <select name="permanencia" required class="form-control ">
                             <option selected disabled value="">Seleccionar...</option>
                             <option value="No Aplica">No Aplica</option>
                             <option value="Afectación Leve">Afectación Leve</option>
@@ -147,19 +153,19 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Afectación De Las Partes Interesadas:</strong></label>
-                        <input type="number" required name="num_detectadas" class="form-control">
+                        <input type="number" required name="afectacion" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>N° Significancia:</strong></label>
-                        <input type="number" required name="num_cerredas" class="form-control">
+                        <input type="number" required name="num_sinificancia" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Significancia:</strong></label>
-                        <select name="seleccion_hallazgos" required class="form-control ">
+                        <select name="sinificancia" required class="form-control ">
                             <option selected disabled value="">Seleccionar...</option>
                             <option value="Alta">Alta</option>
                             <option value="Media">Media</option>
@@ -174,7 +180,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                         <label for="datos"><strong>Programa ambiental asociado/tipo de control:</strong></label>
-                        <input type="number" required name="num_detectadas" class="form-control">
+                        <input type="text" required name="programa" class="form-control">
                     </div>
                 </div>
 
@@ -189,21 +195,21 @@
 
         <br>
         <br>
-        <h5 style="color: rgb(82, 82, 82)">Aspectos Positivos / Fortalezas</h5>
+        <h5 style="color: rgb(82, 82, 82)">Matriz aspectos e impactos </h5>
         <div class="row">
             <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
                 <div class="table-responsive">
-                    @if ($chequeos->isNotEmpty())
+                    @if ($consultas->isNotEmpty())
 
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Ubicación</th>
-                                <th>Descripción</th>
-                                <th>Evidencia</th>
-                                <th>Requisito</th>
-                                <th>Revisó</th>
-                                <th>Aprobó</th>
+                                <th>Proceso General</th>
+                                <th>Procesos Unitario</th>
+                                <th>Categoría Aspecto Ambiental</th>
+                                <th>Aspecto Ambiental a Evaluar</th>
+                                <th>Impacto Ambiental</th>
+                                <th>Responsabilidad:</th>
 
                                 <th colspan="2">Opciones</th>
                             </tr>
@@ -212,25 +218,25 @@
                         <tbody>
 
 
-                            @foreach ($chequeos as $chequeo)
+                            @foreach ($consultas as $consulta)
 
 
                             <tr>
-                                <td>{{$chequeo->ubicacion}}</td>
-                                <td>{{$chequeo->descripciones}}</td>
-                                <td>{{$chequeo->evidencia}}</td>
-                                <td>{{$chequeo->requisito}}</td>
-                                <td>{{$chequeo->reviso}}</td>
-                                <td>{{$chequeo->aprobo}}</td>
+                                <td>{{$consulta->general}}</td>
+                                <td>{{$consulta->unitarios}}</td>
+                                <td>{{$consulta->cate_aspectos}}</td>
+                                <td>{{$consulta->aspectos_ambiental}}</td>
+                                <td>{{$consulta->impacto}}</td>
+                                <td>{{$consulta->responsabilidad}}</td>
                                 <td>
                                     <div class="form-row align-items-center">
-
                                         <a
-                                            href="{{ URL::action('Evaluacion\HallazgosController@edit',$chequeo->id_hallazgos) }}"><i
+                                            href="{{ URL::action('Planeacion\DiseñoController@edit',$consulta->id_diseno ) }}"><i
                                                 class=" form-inline fas fa-pencil-alt fa-2x"
                                                 style="color:#18A4B4;"></i></a>
 
-                                        <form action="{{route('hallasgos.destroy', $chequeo->id_hallazgos)}}"
+                                        <form
+                                            action="{{route('diseno_desarrollo.destroy',$consulta->id_diseno )}}"
                                             class="form-inline formulario-eliminar" method="POST">
 
                                             @csrf
@@ -248,7 +254,7 @@
 
                         </tbody>
                     </table>
-                    {{ $chequeos->links() }}
+                    {{ $consultas->links() }}
                     @else
 
                     <br><br>

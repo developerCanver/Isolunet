@@ -24,6 +24,7 @@ use App\Http\Controllers\Apoyo\ComunicacionesController as Comunicaciones;
 use App\Http\Controllers\Apoyo\InformacionController as Informacion;
 use App\Http\Controllers\Apoyo\TomaConsecuenciaController as TomaConsecuencia;
 use App\Http\Controllers\Planeacion\ProductoServicioController as ProductoServicio;
+use App\Http\Controllers\Evaluacion\RevisionController as Revision;
 
 
 
@@ -34,8 +35,6 @@ Route::get('/', function () {
 });
 
  //PLANEACION
-
-
 Route::resource('/productos_servicios',     'Planeacion\RequisitosController');
 Route::resource('/planeacio_control',     'Planeacion\PlaneacioControlController');
 Route::resource('/producto_servicio',     'Planeacion\ProductoServicioController');
@@ -43,11 +42,17 @@ Route::get('insumos',                    [ProductoServicio::class, 'getInsumos']
 Route::resource('/diseno_desarrollo',     'Planeacion\DiseñoController');
 
 
-//auditoria
+//Evaluacion
 Route::resource('/auditoria',     'Evaluacion\AuditoriaController');
 Route::resource('/chequeo_auditoria',     'Evaluacion\ChequeoController');
 Route::resource('/fortalezas_opurtunidades',     'Evaluacion\FortalesasOportunidadesController');
 Route::resource('/hallasgos',     'Evaluacion\HallazgosController');
+Route::resource('/revision',     'Evaluacion\RevisionController');
+//Route::get('revision_delete/{id}',  [Revision::class, 'destroy_user']);
+Route::get('revision_delete/{id}/{tipo}/', [
+    'as' => 'revision_delete',
+    'uses' => 'Evaluacion\RevisionController@destroy_user',
+]);
 
 
 //APOYO

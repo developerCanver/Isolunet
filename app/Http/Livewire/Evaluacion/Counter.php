@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Evaluacion;
 
-use Livewire\Component;
 use App\Models\Parametrizacion\Empresa;
+use Livewire\Component;
+
 class Counter extends Component
 {
     public $count = 0;
@@ -16,7 +17,7 @@ public $departamentos= null, $municipios=null;
     }
     public function render()
     {
-        return view('livewire.counter',[
+        return view('livewire.evaluacion.counter',[
             'paises' => Empresa::all(),
         ]);
 

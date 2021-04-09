@@ -132,7 +132,7 @@
                     <div class="form-group">
                         <label for="datos"><strong>Cargo:</strong></label>
                         <select name="fk_cargo" class="form-control select2" required>
-
+                            <option value="" disabled selected>Seleccione...</option>
                             @foreach ($cargos as $cargo)
                             <option value="{{ $cargo->id_cargo }}">{{ $cargo->nom_cargo }}</option>
                             @endforeach

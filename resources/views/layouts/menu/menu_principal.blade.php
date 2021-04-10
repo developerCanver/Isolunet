@@ -120,9 +120,9 @@
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
             <li class="sub-item"><a href="{{ URL::to('anomalia') }}" class="sub-link">Anomalia</a></li>
-           <!--  <li class="sub-item"><a href="navigation.html" class="sub-link">Matricula</a></li>
-           <li class="sub-item"><a href="navigation.html" class="sub-link"> Notas de Competencia</a></li>
-           <li class="sub-item"><a href="navigation.html" class="sub-link"> Notas de Diciplina</a></li>
+           <li class="sub-item"><a href="{{ URL::to('acta') }}" class="sub-link">Acta</a></li>
+           <li class="sub-item"><a href="{{ URL::to('tareas_pendientes') }}" class="sub-link"> Tareas pendientes</a></li>
+            <!-- <li class="sub-item"><a href="navigation.html" class="sub-link"> Notas de Diciplina</a></li>
            <li class="sub-item"><a href="navigation.html" class="sub-link"> Notas de Curso</a></li>
            <li class="sub-item"><a href="navigation.html" class="sub-link">Llamadas de Atenciaon</a></li>
            <li class="sub-item"><a href="navigation.html" class="sub-link">Hoja de Vida del Estudante</a></li> -->

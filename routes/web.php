@@ -375,13 +375,17 @@ Route::get('mapa_proceso', [MapaProceso::class, 'index']);
 
 // alcance
 Route::get('alcance','alcance\AlcanceController@index');
-// mejora
+// -------mejora------------
 // anomalia
 Route::get('anomalia','mejora\AnomaliasController@index');
 Route::get('anomalia_index','mejora\AnomaliasController@anomalia');
 Route::get('causa_raiz','mejora\AnomaliasController@causa_raiz');
 Route::get('acciones_correctivas','mejora\AnomaliasController@acciones_correctivas');
 Route::post('store_anomalia','mejora\AnomaliasController@store_anomalia');
+
+Route::resource('/acta',      'Planeacion\DiseñoController');
+Route::resource('/tareas_pendientes',      'Planeacion\DiseñoController');
+
 
 // ajax mejora
 Route::get('sistema_de_gestion',array('as'=>'myform','uses'=>'Parametrizacion\OrigenanomaliaController@myformAjax'));

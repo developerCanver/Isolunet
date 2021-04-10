@@ -7,7 +7,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planeación</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Liberación de los Productos</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Trazabilidad</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -16,7 +16,7 @@
     <i class="icon icon ion-aperture"></i>
     <div>
         <h4>Planeación</h4>
-        <p class="mg-b-0">Editar Liberación de los Productos</p>
+        <p class="mg-b-0">Editar Trazabilidad</p>
     </div>
 </div><!-- d-flex -->
 

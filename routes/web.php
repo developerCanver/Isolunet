@@ -41,6 +41,7 @@ Route::resource('/producto_servicio',      'Planeacion\ProductoServicioControlle
 Route::get('insumos',                      [ProductoServicio::class, 'getInsumos']);
 Route::resource('/diseno_desarrollo',      'Planeacion\DiseñoController');
 Route::resource('/liberacion',             'Planeacion\LiberacionController');
+Route::resource('/trazabilidad',             'Planeacion\TrazabilidadController');
 
 
 //Evaluacion

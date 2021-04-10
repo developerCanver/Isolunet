@@ -14,7 +14,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Planeación</h4>
+        <h4>Planeación - <a class="breadcrumb-item" href="{{ URL::to('/trazabilidad') }}">Trazabilidad</a> </h4>
         <p class="mg-b-0">Liberación de los Productos</p>
     </div>
 </div><!-- d-flex -->

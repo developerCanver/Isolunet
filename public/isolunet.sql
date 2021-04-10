@@ -376,29 +376,34 @@ INSERT INTO `tbl_apo_comunicaciones` (`id_comunicaciones`, `parte`, `sgc`, `sga`
 -- Estructura de tabla para la tabla `tbl_apo_com_rendiciones`
 --
 
-CREATE TABLE `tbl_plane_liberacion` (
-  `id_liberacion` int(10) UNSIGNED NOT NULL,
-  `fecha_realizacion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `verificacion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `libero` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exigido` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `obtenido` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `indicacion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `equipo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `condicion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `evidencia` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `tbl_plane_trazabilidad` (
+  `id_trazabilidad` int(10) UNSIGNED NOT NULL,
+  `fecha_trazabilidad` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `terminado` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cliente_destino` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `orden_compra` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `orden_produccion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_produccion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unidades` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `materias` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `utilizados` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `utilizados_lotes` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `provedor_materias` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cantidad` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `destino_producto` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cantidad_entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
 
   `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
-  `fk_empresa` int(10) UNSIGNED NOT NULL,
-  `fk_producto` int(10) UNSIGNED NOT NULL,
-  `fk_cliente` int(10) UNSIGNED NOT NULL
+  `fk_empresa` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-ALTER TABLE `tbl_plane_liberacion`
-  ADD PRIMARY KEY (`id_liberacion`),
-  MODIFY `id_liberacion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1,
+ALTER TABLE `tbl_plane_trazabilidad`
+  ADD PRIMARY KEY (`id_trazabilidad`),
+  MODIFY `id_trazabilidad` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
-ALTER TABLE `tbl_plane_liberacion` ADD FOREIGN KEY (`fk_cliente`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_plane_trazabilidad` ADD FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa`(`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 --

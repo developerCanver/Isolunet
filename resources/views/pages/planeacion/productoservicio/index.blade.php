@@ -215,14 +215,6 @@
                                         <th colspan="2"> SST</th>
                                         <th colspan="2"> Inocuidad </th>
                                         <th colspan="2">Basic</th>
-                                        {{-- <th>Compra</th>
-                                        <th>Transporte</th>
-                                        <th>Recibo</th>
-                                        <th>Almacenamiento</th>
-                                        <th>Uso</th>
-                                        <th>Disposición Final</th> --}}
-                                     
-
                                         <th colspan="2"></th>
                                     </tr>
                                     <tr>

@@ -35,11 +35,12 @@ Route::get('/', function () {
 });
 
  //PLANEACION
-Route::resource('/productos_servicios',     'Planeacion\RequisitosController');
-Route::resource('/planeacio_control',     'Planeacion\PlaneacioControlController');
-Route::resource('/producto_servicio',     'Planeacion\ProductoServicioController');
-Route::get('insumos',                    [ProductoServicio::class, 'getInsumos']);
-Route::resource('/diseno_desarrollo',     'Planeacion\DiseñoController');
+Route::resource('/productos_servicios',    'Planeacion\RequisitosController');
+Route::resource('/planeacio_control',      'Planeacion\PlaneacioControlController');
+Route::resource('/producto_servicio',      'Planeacion\ProductoServicioController');
+Route::get('insumos',                      [ProductoServicio::class, 'getInsumos']);
+Route::resource('/diseno_desarrollo',      'Planeacion\DiseñoController');
+Route::resource('/liberacion',             'Planeacion\LiberacionController');
 
 
 //Evaluacion

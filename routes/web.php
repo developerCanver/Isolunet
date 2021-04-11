@@ -383,8 +383,12 @@ Route::get('causa_raiz','mejora\AnomaliasController@causa_raiz');
 Route::get('acciones_correctivas','mejora\AnomaliasController@acciones_correctivas');
 Route::post('store_anomalia','mejora\AnomaliasController@store_anomalia');
 
-Route::resource('/acta',      'Planeacion\DiseñoController');
-Route::resource('/tareas_pendientes',      'Planeacion\DiseñoController');
+Route::resource('/acta',      'mejora\ActaController');
+Route::get('acta_delete/{id}/{tipo}/', [
+    'as' => 'acta_delete',
+    'uses' => 'mejora\ActaController@destroy_asistente',
+]);
+Route::resource('/tareas_pendientes',      'mejora\DiseñoController');
 
 
 // ajax mejora

@@ -75,7 +75,8 @@
   	  	<div class="row">
   		<div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">
   			<div class="form-group">
-			    <textarea name="" class="form-control" rows="3" id="6m" value="{{ old(6m, $causa->str_6m) }}"></textarea>
+			
+			    <textarea name="" class="form-control" rows="3" id="6m" value="{{ old(6, $causa->str_6m) }}"></textarea>
 			</div>
   		</div>
   		<div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">

@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
+  `str_causa_raiz` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
 --
 -- Estructura de tabla para la tabla `migrations`
 --
@@ -32,6 +32,75 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+CREATE TABLE `tbl_mejo_acta` (
+  `id_acta` int(10) UNSIGNED NOT NULL,
+  `acta` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gestion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proceso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_acta` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_acta` date NOT NULL,
+  `lugar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hora_acta` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_proxima` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registrado` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observaciones_acta` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `accion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `responsable` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+   `fecha_inicio_acc` date NOT NULL,
+   `fecha_final_acc` date NOT NULL,
+  `compromiso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ejecutable` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+   `fecha_inicio_eje` date NOT NULL,
+   `fecha_final_eje` date NOT NULL,
+  `archivo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `terminada` tinyint(1) NOT NULL,
+ 
+
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_empresa` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE `tbl_mejo_acta`
+  ADD PRIMARY KEY (`id_acta`),
+  MODIFY `id_acta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `tbl_mejo_acta` ADD FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa`(`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+
+CREATE TABLE `tbl_mejo_acta_asistente` (
+  `id_asistente` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cargo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_acta` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+--
+ALTER TABLE `tbl_mejo_acta_asistente`
+  ADD PRIMARY KEY (`id_asistente`),
+  MODIFY `id_asistente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `tbl_mejo_acta_asistente` ADD FOREIGN KEY (`fk_acta`) REFERENCES `tbl_mejo_acta`(`id_acta`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+CREATE TABLE `tbl_mejo_acta_temas` (
+  `id_tema` int(10) UNSIGNED NOT NULL,
+  `tema` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comentario` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_acta` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+--
+ALTER TABLE `tbl_mejo_acta_temas`
+  ADD PRIMARY KEY (`id_tema`),
+  MODIFY `id_tema` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `tbl_mejo_acta_temas` ADD FOREIGN KEY (`fk_acta`) REFERENCES `tbl_mejo_acta`(`id_acta`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 
@@ -53,16 +122,15 @@ ALTER TABLE `tbl_eva_revision` ADD FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_em
 
 
 
-CREATE TABLE `tbl_eva_revision_users` (
-  `id_revision_user` int(10) UNSIGNED NOT NULL,
-  `represeta` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `tbl_mejo_acta_asistente` (
+  `id_asistente` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cargo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
-  `fk_revision` int(10) UNSIGNED NOT NULL,
-  `fk_user` int(10) UNSIGNED NOT NULL,
   `fk_cargor` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-ALTER TABLE `tbl_eva_revision_users`
+ALTER TABLE `tbl_mejo_acta_asistente`
   ADD PRIMARY KEY (`id_revision_user`),
   MODIFY `id_revision_user` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 

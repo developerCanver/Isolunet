@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Evaluacion;
+namespace App\Http\Livewire\Mejora;
 
 use Livewire\Component;
 
+
 use Illuminate\Support\Facades\DB;
-use Redirect;
 use Illuminate\Support\Facades\Auth;
 
-class RevisionUsers extends Component
+class ActaAsistentes extends Component
 {
     public $updateMode = false;
     public $inputs = [];
@@ -36,10 +36,9 @@ class RevisionUsers extends Component
     {
     
             //dd($this->post );
-            $consulta =  DB::table('tbl_eva_revision_users as ru')
-            ->join('users as u','u.id','=','ru.fk_user')
-            ->join('tbl_cargos as c','c.id_cargo','=','ru.fk_cargor')
-            ->where('fk_revision', $this->post )
+            $consulta =  DB::table('tbl_mejo_acta_asistente as aa')
+            ->join('tbl_mejo_acta as a','a.id_acta','=','aa.fk_acta')
+            ->where('fk_acta', $this->post )
             ->get();
             //dd($consulta);
       
@@ -58,13 +57,11 @@ class RevisionUsers extends Component
                     ->orderby('em.razon_social','desc')
                     ->get();   
 
-        return view('livewire.evaluacion.revision-users',[
+        return view('livewire.mejora.acta-asistentes',[
             'usuarios'=>$usuarios,
             'cargos'=>$cargos,
             'consulta'=>$consulta,
             'post'=>$this->post,
                 ]);
     }
-
-
 }

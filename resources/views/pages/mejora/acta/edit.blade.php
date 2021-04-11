@@ -160,6 +160,8 @@
                     </div>
                 </div>
             </div>
+@if ($consulta->terminada == 1)
+    
 
             <h5 class="pt-3" style="color: rgb(46, 46, 46);">Ejecucción de Compromisos</h5>
 
@@ -209,10 +211,12 @@
                     </div>
                 </div>
             </div>
+            @endif
           
            
 
-
+<br>
+<br>
  
 
     <button type="submit" class="btn btn-primary">Actualizar</button>

@@ -388,7 +388,13 @@ Route::get('acta_delete/{id}/{tipo}/', [
     'as' => 'acta_delete',
     'uses' => 'mejora\ActaController@destroy_asistente',
 ]);
-Route::resource('/tareas_pendientes',      'mejora\DiseñoController');
+Route::get('tema_delete/{id}/{tipo}/', [
+    'as' => 'tema_delete',
+    'uses' => 'mejora\ActaController@destroy_tema',
+]);
+
+
+Route::resource('/tareas_pendientes',      'mejora\TareasPendiente');
 
 
 // ajax mejora

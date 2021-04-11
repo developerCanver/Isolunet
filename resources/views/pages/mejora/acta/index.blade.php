@@ -80,7 +80,7 @@
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Fecha:</strong></label>
-                        <input type="date" required name="fecha_acta" class="form-control">
+                        <input type="date" required name="fecha_acta" class="form-control" value="{{date("Y-m-d") }}">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
@@ -92,7 +92,7 @@
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Hora:</strong></label>
-                        <input type="text" required name="hora_acta" class="form-control">
+                        <input type="text" required name="hora_acta" class="form-control" value="{{date("H:i:s") }}">
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Registrado por</strong></label>
-                        <input type="text" required name="registrado" class="form-control" value="{{Auth::User()->name}}">
+                        <input type="text" required name="registrado" class="form-control" value="{{ Auth::User()->name }}">
                     </div>
                 </div>
             </div>
@@ -214,7 +214,7 @@
 
         <br>
         <br>
-        <h5 style="color: rgb(82, 82, 82)">Lista Trazabilidad </h5>
+        <h5 style="color: rgb(82, 82, 82)">Lista Actas </h5>
         <div class="row">
             <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
                 <div class="table-responsive">
@@ -232,7 +232,8 @@
                                 <th>Lugar</th>
                                 <th>Hora</th>
                                 <th>Próxima Reunion</th>
-                                <th>Registrado por:</th>
+                                <th>Registrado por</th>
+                                <th>Archivo</th>
                               
                            
                              
@@ -259,6 +260,16 @@
                                 <td>{{$consulta->hora_acta}}</td>
                                 <td>{{$consulta->fecha_proxima}}</td>
                                 <td>{{$consulta->registrado}}</td>
+                                @if ($consulta->archivo) 
+                           
+                                <td>{{substr(($consulta->archivo), 10)}}  
+                                    <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}" class="btn btn-light"
+                                    download="{{$consulta->archivo}}" style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                        class="fas fa-file-download "></i></a></td>
+                                @else
+                                <td>No existe</td>
+                                @endif
+                              
                                
                               
                                 <td>

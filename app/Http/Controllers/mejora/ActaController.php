@@ -246,8 +246,8 @@ class ActaController extends Controller
                         $variable->fecha_final_acc   = ($request->get('fecha_final_acc')) ? $request->get('fecha_final_acc') : '';	
                         $variable->compromiso   = ($request->get('compromiso')) ?      $request->get('compromiso') : '';	
                         $variable->ejecutable   = ($request->get('ejecutable')) ?      $request->get('ejecutable') : '';	
-                        $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '';	
-                        $variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '';	
+                        $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
+                        $variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
                         $variable->observaciones_ejecuccion      = ($request->get('observaciones_ejecuccion')) ?         $request->get('observaciones_ejecuccion') : '';	
                      
                         $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '';	

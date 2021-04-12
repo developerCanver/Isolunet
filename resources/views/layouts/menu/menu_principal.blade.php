@@ -45,6 +45,7 @@
             <li class="sub-item"><a href="{{ URL::to('partes_interesadas') }}"  class="sub-link">Partes Interesadas</a></li>
             <li class="sub-item"><a href="{{ URL::To('alcance') }}"             class="sub-link">Alcance</a></li>
             <li class="sub-item"><a href="{{ URL::to('mapa_proceso') }}"        class="sub-link">Procesos</a></li>
+            <li class="sub-item"><a href="{{ URL::to('prevension') }}" class="sub-link">Produccion y Previsión</a></li>
           </ul>
         </li><!-- br-menu-item -->
         <li class="br-menu-item">
@@ -97,7 +98,6 @@
             <li class="sub-item"><a href="{{ URL::to('productos_servicios') }}" class="sub-link">Productos y Servicios</a></li>
             <li class="sub-item"><a href="{{ URL::to('diseno_desarrollo') }}" class="sub-link">Diseño y Desarrollo</a></li>
             <li class="sub-item"><a href="{{ URL::to('producto_servicio') }}" class="sub-link">Producto y Servicios</a></li>
-            <li class="sub-item"><a href="navigation.html" class="sub-link">Produccion y Prevision</a></li>
             <li class="sub-item"><a href="{{ URL::to('liberacion') }}" class="sub-link">Liberacion de los productos</a></li>
             <li class="sub-item"><a href="navigation.html" class="sub-link">Salidas no Conformes</a></li>
           </ul>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-04-2021 a las 04:52:44
+-- Tiempo de generación: 13-04-2021 a las 04:17:02
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.6
 
@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-  `str_causa_raiz` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+
 --
 -- Estructura de tabla para la tabla `migrations`
 --
@@ -32,98 +32,6 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
-CREATE TABLE `tbl_contexto_estrategia` (
-  `id_estrategia` int(10) UNSIGNED NOT NULL,
-  `estretegia` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `que_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `como_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `porque_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-
-  `quien` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `proceso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
- 
-  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
-  `fk_empresa` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-ALTER TABLE `tbl_contexto_estrategia`
-  ADD PRIMARY KEY (`id_estrategia`),
-  MODIFY `id_estrategia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
-ALTER TABLE `tbl_contexto_estrategia` ADD FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa`(`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-
-
-CREATE TABLE `tbl_mejo_acta_asistente` (
-  `id_asistente` int(10) UNSIGNED NOT NULL,
-  `nombre` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cargo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
-  `fk_acta` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
---
-ALTER TABLE `tbl_mejo_acta_asistente`
-  ADD PRIMARY KEY (`id_asistente`),
-  MODIFY `id_asistente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
-ALTER TABLE `tbl_mejo_acta_asistente` ADD FOREIGN KEY (`fk_acta`) REFERENCES `tbl_mejo_acta`(`id_acta`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-
-CREATE TABLE `tbl_mejo_acta_temas` (
-  `id_tema` int(10) UNSIGNED NOT NULL,
-  `tema` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comentario` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
-  `fk_acta` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
---
-ALTER TABLE `tbl_mejo_acta_temas`
-  ADD PRIMARY KEY (`id_tema`),
-  MODIFY `id_tema` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
-ALTER TABLE `tbl_mejo_acta_temas` ADD FOREIGN KEY (`fk_acta`) REFERENCES `tbl_mejo_acta`(`id_acta`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-
-CREATE TABLE `tbl_eva_revision` (
-  `id_revision` int(10) UNSIGNED NOT NULL,
-  `fecha_revision` date NOT NULL,
-  `periodo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-`entrada_salida` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-
-  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
-  `fk_empresa` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-ALTER TABLE `tbl_eva_revision`
-  ADD PRIMARY KEY (`id_revision`),
-  MODIFY `id_revision` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
-ALTER TABLE `tbl_eva_revision` ADD FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa`(`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-
-CREATE TABLE `tbl_mejo_acta_asistente` (
-  `id_asistente` int(10) UNSIGNED NOT NULL,
-  `nombre` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cargo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
-  `fk_cargor` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-ALTER TABLE `tbl_mejo_acta_asistente`
-  ADD PRIMARY KEY (`id_revision_user`),
-  MODIFY `id_revision_user` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
-ALTER TABLE `tbl_eva_revision_users` ADD FOREIGN KEY (`fk_revision`) REFERENCES `tbl_eva_revision`(`id_revision`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_eva_revision_users` ADD FOREIGN KEY (`fk_user`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_eva_revision_users` ADD FOREIGN KEY (`fk_cargor`) REFERENCES `tbl_cargos`(`id_cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
 
 --
 -- Volcado de datos para la tabla `migrations`
@@ -300,7 +208,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('2xkf2Nx7vDJ9FXlpxv4dn1QI2G23JusOZHiboaqI', 6, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoieExNVFJqcFdrOXZEQ2tseWxndldqS0hNMEpPNlRXWVNuOHlzaU9oNCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMwOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcmV2aXNpb24iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo2O3M6NToiYWxlcnQiO2E6MDp7fX0=', 1617934825);
+('CXUe5oJZLDFhc5dWY4YjU5QBKOHRmYuFqHUYHdt7', 6, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibDNkVnVIMmdBd1JHeEIxbGlzWmhPV0pub3JJZnJvZ2FPVFdTeEZBWiI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NjtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozMzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2VzdHJhdGVnaWFzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1OiJhbGVydCI7YTowOnt9fQ==', 1618279603);
 
 -- --------------------------------------------------------
 
@@ -430,35 +338,17 @@ INSERT INTO `tbl_apo_comunicaciones` (`id_comunicaciones`, `parte`, `sgc`, `sga`
 -- Estructura de tabla para la tabla `tbl_apo_com_rendiciones`
 --
 
-CREATE TABLE `tbl_plane_trazabilidad` (
-  `id_trazabilidad` int(10) UNSIGNED NOT NULL,
-  `fecha_trazabilidad` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `terminado` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cliente_destino` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `orden_compra` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `orden_produccion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fecha_produccion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `unidades` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `materias` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `utilizados` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `utilizados_lotes` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `provedor_materias` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cantidad` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `destino_producto` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fecha_entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cantidad_entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-
+CREATE TABLE `tbl_apo_com_rendiciones` (
+  `id_rendiciones` int(10) UNSIGNED NOT NULL,
+  `Quien` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mecanismo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `frecuencia` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `a_quien` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registro` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sistema` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
-  `fk_empresa` int(10) UNSIGNED NOT NULL
+  `fk_empresa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-ALTER TABLE `tbl_plane_trazabilidad`
-  ADD PRIMARY KEY (`id_trazabilidad`),
-  MODIFY `id_trazabilidad` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
-ALTER TABLE `tbl_plane_trazabilidad` ADD FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa`(`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
-
 
 --
 -- Volcado de datos para la tabla `tbl_apo_com_rendiciones`
@@ -724,6 +614,9 @@ CREATE TABLE `tbl_contexto_dofa` (
   `fortalezas` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amenazas` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `oportunidades` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pestal` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proceso` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_factor` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fk_empresa` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -733,8 +626,11 @@ CREATE TABLE `tbl_contexto_dofa` (
 -- Volcado de datos para la tabla `tbl_contexto_dofa`
 --
 
-INSERT INTO `tbl_contexto_dofa` (`id_dofa`, `debilidades`, `fortalezas`, `amenazas`, `oportunidades`, `fk_empresa`, `created_at`, `updated_at`) VALUES
-(2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 2, '2020-09-18 23:29:48', '2020-09-18 23:29:48');
+INSERT INTO `tbl_contexto_dofa` (`id_dofa`, `debilidades`, `fortalezas`, `amenazas`, `oportunidades`, `pestal`, `proceso`, `tipo_factor`, `fk_empresa`, `created_at`, `updated_at`) VALUES
+(2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '', '', '', 2, '2020-09-18 23:29:48', '2020-09-18 23:29:48'),
+(7, NULL, NULL, 'amenazas2', 'Opurtunidades2', '', '', '', 13, '2021-04-12 22:12:01', '2021-04-12 22:12:01'),
+(8, 'Debilidades:1', 'Fortalezas:1', NULL, NULL, '', 'gestión financiera', 'interno', 13, '2021-04-12 23:24:03', '2021-04-12 23:54:36'),
+(9, NULL, NULL, 'sa1', 'so1', 'Sociales', '', 'externo', 13, '2021-04-12 23:37:20', '2021-04-13 00:01:18');
 
 -- --------------------------------------------------------
 
@@ -773,6 +669,33 @@ INSERT INTO `tbl_contexto_egresos` (`id_egreso`, `nom_egreso`, `proyectado_egres
 (11, 'BONIFICACIONES', 225000, 0, -225000, -100, 1, 11, '2021-03-23 13:31:36', '2021-03-23 13:31:36'),
 (12, 'PUBILICIDAD', 23456, 0, -23456, -100, 1, 11, '2021-03-23 13:32:27', '2021-03-23 13:32:27'),
 (13, 'PUBILICIDAD', 23456, 0, -23456, -100, 1, 11, '2021-03-23 13:32:28', '2021-03-23 13:32:28');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_contexto_estrategia`
+--
+
+CREATE TABLE `tbl_contexto_estrategia` (
+  `id_estrategia` int(10) UNSIGNED NOT NULL,
+  `pestal_est` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estretegia` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `que_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `como_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `porque_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quien` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proceso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_empresa` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_contexto_estrategia`
+--
+
+INSERT INTO `tbl_contexto_estrategia` (`id_estrategia`, `pestal_est`, `estretegia`, `que_hacer`, `como_hacer`, `porque_hacer`, `quien`, `proceso`, `bool_estado`, `fk_empresa`) VALUES
+(1, '', 'scrum', 'seguir las lineamientos', 'con metologia paso a paso', 'Por qué lo voy a hacer', 'Carlos Ruiz', 'Contador', 0, 13),
+(2, 'Ambientales', 'scrum2', 'seguir las lineamientos2', 'con metologia paso a paso2', 'Por qué lo voy a hacer:2', 'Carlos Ruiz2', 'Contador2', 1, 13);
 
 -- --------------------------------------------------------
 
@@ -848,7 +771,8 @@ CREATE TABLE `tbl_contexto_riesgos_oportunidades` (
 --
 
 INSERT INTO `tbl_contexto_riesgos_oportunidades` (`id_riesgos_oportunidades`, `riesgo_oportunidad`, `clasificacion`, `fk_empresa`, `created_at`, `updated_at`) VALUES
-(2, 'Lorem ipsum dolor sit amet, consectetur  elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur  elit, sed do eiusmod tempor incididunt ut  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 2, '2020-09-18 23:34:55', '2020-09-18 23:36:51');
+(2, 'Lorem ipsum dolor sit amet, consectetur  elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur  elit, sed do eiusmod tempor incididunt ut  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 2, '2020-09-18 23:34:55', '2020-09-18 23:36:51'),
+(4, 'DESCRIPCIÓN DEL RIESGO U OPORTUNIDAD', 'CLASIFICACIÓN', 13, '2021-04-12 21:53:43', '2021-04-12 21:53:43');
 
 -- --------------------------------------------------------
 
@@ -888,6 +812,15 @@ CREATE TABLE `tbl_correcciones_anomalias` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_correcciones_anomalias`
+--
+
+INSERT INTO `tbl_correcciones_anomalias` (`id_correccion_anomalia`, `fk_anomalia`, `str_correccion_anomalia`, `str_quien`, `fecha`, `bool_estado_correcion`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Correccion', 'canver', '2021-04-10', 1, '2021-04-10 17:19:08', '2021-04-10 17:19:08'),
+(2, 1, 'Correccion', 'canver', '2021-04-10', 1, '2021-04-10 17:19:08', '2021-04-10 17:19:08'),
+(3, 1, 'Correccion', 'canver', '2021-04-10', 1, '2021-04-10 17:19:08', '2021-04-10 17:19:08');
 
 -- --------------------------------------------------------
 
@@ -1047,6 +980,58 @@ INSERT INTO `tbl_empresa` (`id_empresa`, `razon_social`, `nit`, `representante`,
 (11, 'Pasto Ciudad Digital', '10213214', 'Carlos Ruiz', 'calle 12-12|', '3216549871', 'logo CD.png', 1, 3, '2021-03-18 12:28:22', '2021-03-18 12:28:22'),
 (12, 'Café Occidente TDA', '110215121', 'Carlos Ruiz', 'calle12', '3216549874', 'output-onlinepngtools (8).png', 0, 3, '2021-03-18 20:39:31', '2021-03-20 14:49:59'),
 (13, 'CaféOccidente', '123456111', 'canver', 'calle12', '3216549874', 'output-onlinepngtools (2).png', 1, 6, '2021-03-20 14:49:51', '2021-03-31 20:20:10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_eva_revision`
+--
+
+CREATE TABLE `tbl_eva_revision` (
+  `id_revision` int(10) UNSIGNED NOT NULL,
+  `fecha_revision` date NOT NULL,
+  `periodo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `entrada_salida` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_empresa` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_eva_revision`
+--
+
+INSERT INTO `tbl_eva_revision` (`id_revision`, `fecha_revision`, `periodo`, `entrada_salida`, `bool_estado`, `fk_empresa`) VALUES
+(4, '2021-04-08', 'Septiembre 2020 - Agosto 2021', '<p><strong>3.Entradas de la Revisi&oacute;n por la Direcci&oacute;n:</strong></p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Direccionamiento estrat&eacute;gico y revisi&oacute;n de la pol&iacute;tica Integral.</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Estado de las acciones de las revisiones por la direcci&oacute;n previas (cumplimiento de acuerdos documentados en revisiones anteriores).</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Acciones propuestas de la Revisi&oacute;n Previa (A&ntilde;o Anterior)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Estado de las Acciones (Gesti&oacute;n a la Fecha de Corte del Informe)</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>&nbsp;</td>\r\n			<td>&nbsp;</td>\r\n		</tr>\r\n		<tr>\r\n			<td>&nbsp;</td>\r\n			<td>&nbsp;</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Cambios en cuestiones externas e internas pertinentes al Sistema de Gesti&oacute;n de Calidad, Ambiental, Seguridad y Salud en el Trabajo, Sistema de Gesti&oacute;n de la Inocuidad de los Alimentos (incluye cambios en la organizaci&oacute;n y su contexto) y Sistema de Gesti&oacute;n en Control y Seguridad.</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Cambios en las necesidades y expectativas de las partes interesadas; requisitos legales, reglamentarios y otros requisitos, gesti&oacute;n de riesgos y oportunidades.</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Informaci&oacute;n sobre desempe&ntilde;o y eficacia de los Sistemas de Gesti&oacute;n:&nbsp;</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Sistema de Gesti&oacute;n de Calidad, tendencias de satisfacci&oacute;n cliente, objetivos de calidad, desempe&ntilde;o de los procesos y conformidad de los productos, no conformidades y acciones correctivas de calidad, resultados seguimiento y medici&oacute;n de calidad, resultados de auditor&iacute;as de calidad y desempe&ntilde;o de proveedores externos.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Sistema de Gesti&oacute;n Ambiental, cumplimiento de objetivos, no conformidades y acciones correctivas, resultados de seguimiento y medici&oacute;n, requisitos legales aplicables, riesgos y oportunidades y resultados de auditor&iacute;a interna.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Sistema de Gesti&oacute;n de Seguridad y Salud en el Trabajo, cumplimiento de pol&iacute;tica y objetivos de la SST, incidentes, no conformidades, acciones correctivas, mejora continua, resultados del seguimiento y la medici&oacute;n, resultados de la evaluaci&oacute;n del cumplimiento con los requisitos legales y otros requisitos, resultados de la auditor&iacute;a, consulta y participaci&oacute;n de los trabajadores, riesgos y oportunidades.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Sistema de Gesti&oacute;n de la Inocuidad Alimentaria, los resultados de las actividades de actualizaci&oacute;n, los resultados del seguimiento y medici&oacute;n, el an&aacute;lisis de los resultados de las actividades de verificaci&oacute;n relacionadas con los PPR y el plan de control de peligros, las no conformidades y acciones correctivas, los resultados de las auditor&iacute;as internas y externas, las inspecciones, el desempe&ntilde;o de los proveedores externos, revisi&oacute;n de los riesgos y oportunidades y de la eficacia de las acciones tomadas para abordarlos, toda situaci&oacute;n de emergencia, incidente o retirada/recuperaci&oacute;n que hayan ocurridos y cumplimiento de objetivos.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Informaci&oacute;n sobre el desempe&ntilde;o del Sistema de Gesti&oacute;n en Control y Seguridad Basc incluidas las tendencias relativas a indicadores de los procesos, no conformidades y acciones correctivas, resultados de seguimiento y medici&oacute;n, cumplimiento de los requisitos legales y reglamentarios y resultados de las auditor&iacute;as.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Asignaci&oacute;n y adecuaci&oacute;n de recursos (Calidad, Ambiental, Seguridad y Salud en el Trabajo, Inocuidad, Control y Seguridad &ldquo;BASC&rdquo;)</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Comunicaciones pertinentes con las partes interesadas (incluye quejas ambientales)</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Eficacia de las acciones tomadas para abordar riesgos y oportunidades</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Oportunidades / Acciones de mejora continua (Calidad, Ambiental, Seguridad y Salud en el Trabajo, Inocuidad, Control y Seguridad &ldquo;BASC&rdquo;))</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p><strong>4. Las salidas de la revisi&oacute;n por la direcci&oacute;n deben incluir las decisiones relacionadas con:</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>La conveniencia, adecuaci&oacute;n y conclusiones de la eficacia contin&uacute;a de los sistemas de gesti&oacute;n en el logro de sus resultados previstos.&nbsp;</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Cualquier necesidad de cambio en los sistemas de gesti&oacute;n</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Los recursos necesarios.</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Las oportunidades de mejorar la integraci&oacute;n de los sistemas de gesti&oacute;n con otros procesos de negocio.</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Cualquier implicaci&oacute;n para la direcci&oacute;n estrat&eacute;gica de la organizaci&oacute;n.&nbsp;</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Las decisiones y acciones relacionadas con las oportunidades de mejora continua.</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Las acciones necesarias cuando no se hayan logrado los objetivos.</strong></p>\r\n	</li>\r\n</ol>', 1, 13),
+(5, '2021-04-09', 'Septiembre 2020 - Agosto 2021', '<p><strong>3.Entradas de la Revisi&oacute;n por la Direcci&oacute;n:</strong></p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Direccionamiento estrat&eacute;gico y revisi&oacute;n de la pol&iacute;tica Integral.</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Estado de las acciones de las revisiones por la direcci&oacute;n previas (cumplimiento de acuerdos documentados en revisiones anteriores).</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><strong>Acciones propuestas de la Revisi&oacute;n Previa (A&ntilde;o Anterior)</strong></p>\r\n			</td>\r\n			<td>\r\n			<p><strong>Estado de las Acciones (Gesti&oacute;n a la Fecha de Corte del Informe)</strong></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>&nbsp;</td>\r\n			<td>&nbsp;</td>\r\n		</tr>\r\n		<tr>\r\n			<td>&nbsp;</td>\r\n			<td>&nbsp;</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Cambios en cuestiones externas e internas pertinentes al Sistema de Gesti&oacute;n de Calidad, Ambiental, Seguridad y Salud en el Trabajo, Sistema de Gesti&oacute;n de la Inocuidad de los Alimentos (incluye cambios en la organizaci&oacute;n y su contexto) y Sistema de Gesti&oacute;n en Control y Seguridad.</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Cambios en las necesidades y expectativas de las partes interesadas; requisitos legales, reglamentarios y otros requisitos, gesti&oacute;n de riesgos y oportunidades.</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Informaci&oacute;n sobre desempe&ntilde;o y eficacia de los Sistemas de Gesti&oacute;n:&nbsp;</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Sistema de Gesti&oacute;n de Calidad, tendencias de satisfacci&oacute;n cliente, objetivos de calidad, desempe&ntilde;o de los procesos y conformidad de los productos, no conformidades y acciones correctivas de calidad, resultados seguimiento y medici&oacute;n de calidad, resultados de auditor&iacute;as de calidad y desempe&ntilde;o de proveedores externos.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Sistema de Gesti&oacute;n Ambiental, cumplimiento de objetivos, no conformidades y acciones correctivas, resultados de seguimiento y medici&oacute;n, requisitos legales aplicables, riesgos y oportunidades y resultados de auditor&iacute;a interna.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Sistema de Gesti&oacute;n de Seguridad y Salud en el Trabajo, cumplimiento de pol&iacute;tica y objetivos de la SST, incidentes, no conformidades, acciones correctivas, mejora continua, resultados del seguimiento y la medici&oacute;n, resultados de la evaluaci&oacute;n del cumplimiento con los requisitos legales y otros requisitos, resultados de la auditor&iacute;a, consulta y participaci&oacute;n de los trabajadores, riesgos y oportunidades.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Sistema de Gesti&oacute;n de la Inocuidad Alimentaria, los resultados de las actividades de actualizaci&oacute;n, los resultados del seguimiento y medici&oacute;n, el an&aacute;lisis de los resultados de las actividades de verificaci&oacute;n relacionadas con los PPR y el plan de control de peligros, las no conformidades y acciones correctivas, los resultados de las auditor&iacute;as internas y externas, las inspecciones, el desempe&ntilde;o de los proveedores externos, revisi&oacute;n de los riesgos y oportunidades y de la eficacia de las acciones tomadas para abordarlos, toda situaci&oacute;n de emergencia, incidente o retirada/recuperaci&oacute;n que hayan ocurridos y cumplimiento de objetivos.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Informaci&oacute;n sobre el desempe&ntilde;o del Sistema de Gesti&oacute;n en Control y Seguridad Basc incluidas las tendencias relativas a indicadores de los procesos, no conformidades y acciones correctivas, resultados de seguimiento y medici&oacute;n, cumplimiento de los requisitos legales y reglamentarios y resultados de las auditor&iacute;as.</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Asignaci&oacute;n y adecuaci&oacute;n de recursos (Calidad, Ambiental, Seguridad y Salud en el Trabajo, Inocuidad, Control y Seguridad &ldquo;BASC&rdquo;)</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Comunicaciones pertinentes con las partes interesadas (incluye quejas ambientales)</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>Eficacia de las acciones tomadas para abordar riesgos y oportunidades</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Oportunidades / Acciones de mejora continua (Calidad, Ambiental, Seguridad y Salud en el Trabajo, Inocuidad, Control y Seguridad &ldquo;BASC&rdquo;))</strong></p>\r\n	</li>\r\n</ol>\r\n\r\n<p><strong>4. Las salidas de la revisi&oacute;n por la direcci&oacute;n deben incluir las decisiones relacionadas con:</strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ol>\r\n	<li>\r\n	<p><strong>La conveniencia, adecuaci&oacute;n y conclusiones de la eficacia contin&uacute;a de los sistemas de gesti&oacute;n en el logro de sus resultados previstos.&nbsp;</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Cualquier necesidad de cambio en los sistemas de gesti&oacute;n</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Los recursos necesarios.</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Las oportunidades de mejorar la integraci&oacute;n de los sistemas de gesti&oacute;n con otros procesos de negocio.</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Cualquier implicaci&oacute;n para la direcci&oacute;n estrat&eacute;gica de la organizaci&oacute;n.&nbsp;</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Las decisiones y acciones relacionadas con las oportunidades de mejora continua.</strong></p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Las acciones necesarias cuando no se hayan logrado los objetivos.</strong></p>\r\n	</li>\r\n</ol>', 1, 13),
+(6, '2021-04-15', 'Septiembre 2020 - Agosto 2021', '', 1, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_eva_revision_users`
+--
+
+CREATE TABLE `tbl_eva_revision_users` (
+  `id_revision_user` int(10) UNSIGNED NOT NULL,
+  `represeta` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_revision` int(10) UNSIGNED NOT NULL,
+  `fk_user` int(10) UNSIGNED NOT NULL,
+  `fk_cargor` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_eva_revision_users`
+--
+
+INSERT INTO `tbl_eva_revision_users` (`id_revision_user`, `represeta`, `bool_estado`, `fk_revision`, `fk_user`, `fk_cargor`) VALUES
+(1, 'Vicepresidencia Administrativa', 1, 4, 6, 10),
+(2, 'Vicepresidencia Control', 1, 4, 6, 12),
+(10, 'Vicepresidencia Administrativa1', 1, 5, 6, 11),
+(11, 'Vicepresidencia Administrativa2', 1, 5, 6, 10),
+(12, 'Vicepresidencia Administrativa3', 1, 5, 6, 10),
+(13, 'Vicepresidencia Administrativa10', 1, 5, 6, 12),
+(14, 'Vicepresidencia Administrativa', 1, 6, 6, 10);
 
 -- --------------------------------------------------------
 
@@ -1220,6 +1205,122 @@ CREATE TABLE `tbl_mejora_anomalia` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_mejora_anomalia`
+--
+
+INSERT INTO `tbl_mejora_anomalia` (`id_anomalia`, `fk_empresa`, `str_sistema_de_gestion`, `str_proceso`, `str_origen_anomalia`, `str_reportado_por`, `fecha`, `str_anomalia`, `file_archivo`, `file_archivo_correcciones`, `bool_estado_anomalia`, `created_at`, `updated_at`) VALUES
+(1, 13, '10', '45', '2', 'canver', '2021-04-10', 'fgsdsdf sdf', NULL, NULL, 1, '2021-04-10 17:19:08', '2021-04-10 17:19:08');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_mejo_acta`
+--
+
+CREATE TABLE `tbl_mejo_acta` (
+  `id_acta` int(10) UNSIGNED NOT NULL,
+  `acta` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gestion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proceso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_acta` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_acta` date NOT NULL,
+  `lugar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hora_acta` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_proxima` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registrado` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observaciones_acta` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `accion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `responsable` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_inicio_acc` date NOT NULL,
+  `fecha_final_acc` date NOT NULL,
+  `compromiso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ejecutable` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_inicio_eje` date NOT NULL,
+  `fecha_final_eje` date NOT NULL,
+  `archivo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observaciones_ejecuccion` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `terminada` tinyint(1) NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_empresa` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_mejo_acta`
+--
+
+INSERT INTO `tbl_mejo_acta` (`id_acta`, `acta`, `gestion`, `proceso`, `tipo_acta`, `fecha_acta`, `lugar`, `hora_acta`, `fecha_proxima`, `registrado`, `observaciones_acta`, `accion`, `responsable`, `fecha_inicio_acc`, `fecha_final_acc`, `compromiso`, `ejecutable`, `fecha_inicio_eje`, `fecha_final_eje`, `archivo`, `observaciones_ejecuccion`, `terminada`, `bool_estado`, `fk_empresa`) VALUES
+(1, 'Nombre de Acta:', 'CRM', 'gestión Gerencial', 'Privada', '2021-03-31', 'lugar:', '1:00', '2021-04-10', 'Mario botina', 'Observaciones:', 'Acción:', 'canver', '2021-03-09', '2021-04-30', 'Ejecucción de Compromisos', 'Acción Ejecutable:', '2021-04-11', '2021-04-11', '', 'Observaciones Ejecucción:', 0, 1, 13),
+(2, 'Nombre de Acta:', 'ORACLE', 'gestión financiera', 'Publica', '2021-04-06', 'lugar:', '1:00', '2021-04-08', 'Mario botina', 'Observaciones:', 'Acción:', 'canver', '2021-04-17', '2021-04-16', 'Ejecucción de Compromisos', 'Acción Ejecutable:', '2021-04-10', '2021-04-10', '', 'Observaciones:', 0, 1, 13),
+(5, 'acta', 'CRM', 'gestión Gerencial', 'Privada', '2021-04-11', 'lugar:', '1:00', '2021-04-17', 'Carlos Ruiz', 'Observaciones', 'Acción:', '6', '2021-04-01', '2021-04-01', 'Ejecucción de Compromisos', 'Acción Ejecutable:', '2021-04-11', '2021-04-11', '1618122215Matriz ciclo de Vida del Producto.xlsx', 'Observaciones Ejecucción:', 1, 1, 13),
+(6, 'Nombre de Acta:', 'CRM', 'gestión Gerencial', 'Privada', '2021-04-08', 'lugar:', '1:00', '2021-04-08', 'Mario botina', 'asd', 'Acción:', '6', '2021-04-16', '2021-04-10', 'Ejecucción de Compromisos', 'Acción Ejecutable:', '2021-04-11', '2021-04-11', '', 'Observaciones Ejecucción:', 1, 1, 13),
+(8, 'acta', 'CRM', 'gestión financiera', 'Privada', '2021-04-09', 'lugar:', '1:00', '2021-03-30', 'Carlos Ruiz', 'asd', 'Acción:', 'canver', '2021-04-15', '2021-04-22', '', '', '2021-01-01', '2021-01-01', '', '', 0, 1, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_mejo_acta_asistente`
+--
+
+CREATE TABLE `tbl_mejo_acta_asistente` (
+  `id_asistente` int(10) UNSIGNED NOT NULL,
+  `asistente` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cargo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_acta` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_mejo_acta_asistente`
+--
+
+INSERT INTO `tbl_mejo_acta_asistente` (`id_asistente`, `asistente`, `cargo`, `bool_estado`, `fk_acta`) VALUES
+(15, 'canver', 'Auxiliar Admministrativo', 1, 5),
+(16, 'canver', 'Auxiliar Admministrativo', 1, 6),
+(39, 'canver', 'Auxiliar Gerente Pollo', 1, 2),
+(40, 'canver', 'Auxiliar Admministrativo', 1, 2),
+(41, 'canver', 'Auxiliar Gerente Pollo', 1, 2),
+(42, 'canver', 'Auxiliar Gerente Pollo', 1, 2),
+(43, 'canver', 'Auxiliar Gerente Pollo', 1, 2),
+(45, 'canver', 'Auxiliar Gerente Pollo', 1, 8),
+(46, 'canver', 'Auxiliar Admministrativo', 1, 8),
+(47, 'canver', 'Auxiliar Admministrativo', 1, 8),
+(51, 'canver', 'Auxiliar Gerente Pollo', 1, 1),
+(52, 'canver', 'Auxiliar Gerente Pollo', 1, 1),
+(53, 'canver', 'Auxiliar Gerente Pollo', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_mejo_acta_temas`
+--
+
+CREATE TABLE `tbl_mejo_acta_temas` (
+  `id_tema` int(10) UNSIGNED NOT NULL,
+  `tema` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comentario` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_acta` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_mejo_acta_temas`
+--
+
+INSERT INTO `tbl_mejo_acta_temas` (`id_tema`, `tema`, `comentario`, `bool_estado`, `fk_acta`) VALUES
+(10, 'Tema Tratado:', 'Comentarios Relevantes :', 1, 5),
+(11, 'Tema Tratado:', 'Comentarios Relevantes :', 1, 6),
+(31, 'Tema Tratado:', 'Comentarios Relevantes :', 1, 2),
+(32, 'Tema Tratado:2', 'Comentarios Relevantes :2', 1, 2),
+(33, 'Tema Tratado:3', 'Comentarios Relevantes :3', 1, 2),
+(34, 'Tema Tratado:4', 'Comentarios Relevantes :4', 1, 2),
+(35, 'Tema Tratado:5', 'Comentarios Relevantes :5', 1, 2),
+(37, 'Tema Tratado:', 'Comentarios Relevantes :', 1, 8),
+(38, 'Tema Tratado:3', 'Comentarios Relevantes :3', 1, 8),
+(42, 'Tema Tratado:', 'Comentarios Relevantes :', 1, 1),
+(43, 'Tema Tratado:', 'Comentarios Relevantes :', 1, 1),
+(44, 'Tema Tratado:', 'Comentarios Relevantes', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1583,8 +1684,33 @@ CREATE TABLE `tbl_plane_diseño` (
 --
 
 INSERT INTO `tbl_plane_diseño` (`id_diseno`, `general`, `unitarios`, `cate_aspectos`, `aspectos_ambiental`, `impacto`, `responsabilidad`, `situacion`, `tipo_impacto`, `legal`, `control`, `periodicidad`, `intensidad`, `permanencia`, `afectacion`, `num_sinificancia`, `sinificancia`, `programa`, `bool_estado`, `fk_empresa`) VALUES
-(1, '2OFICINAS ADMINISTRATIVAS ( Proceso Gerencial, Comercial, Gestion Humana)', '2Se dan actividades típicas de oficina como atención al público y elaboración de documentos y reportes', '2Generación de residuos', '2Sólidos aprovechables (papel, cartón, plástico de baja densidad)', '2Disminución del volumen en los rellenos sanitario por aprovechamiento para reciclable', '2Personal administrativo', '2Normal', '2Benefico', 'Si', 'Si', 'Afectación significativa', 'Afectación significativa', 'Afectación significativa', '40', '100', 'Ninguna', '2Programa de Residuos Aprovechables y no aprovechables', 1, 13),
-(2, 'OFICINAS ADMINISTRATIVAS ( Proceso Gerencial, Comercial, Gestion Humana)', 'Se dan actividades típicas de oficina como atención al público y elaboración de documentos y reportes', 'Generación de residuos', 'Sólidos no aprovechables (papel sucio, monocarbon, residuos de comida)', 'Contaminación del suelo.                               Aumento de volumen de residuos en el relleno sanitario', 'Personal administrativo', 'Normal', 'Adverso', 'No', 'No', 'Afectación Leve', 'Afectación Leve', 'Afectación Leve', '', '8', 'Media', 'Programa de Residuos Aprovechables y no aprovechables', 1, 13);
+(1, '2OFICINAS ADMINISTRATIVAS ( Proceso Gerencial, Comercial, Gestion Humana)', '2Se dan actividades típicas de oficina como atención al público y elaboración de documentos y reportes', '2Generación de residuos', '2Sólidos aprovechables (papel, cartón, plástico de baja densidad)', '2Disminución del volumen en los rellenos sanitario por aprovechamiento para reciclable', '2Personal administrativo', '2Normal', '2Benefico', 'Si', 'Si', 'Afectación significativa', 'Afectación significativa', 'Afectación significativa', '40', '100', 'Ninguna', '2Programa de Residuos Aprovechables y no aprovechables', 0, 13),
+(2, 'OFICINAS ADMINISTRATIVAS ( Proceso Gerencial, Comercial, Gestion Humana)', 'Se dan actividades típicas de oficina como atención al público y elaboración de documentos y reportes', 'Generación de residuos', 'Sólidos no aprovechables (papel sucio, monocarbon, residuos de comida)', 'Contaminación del suelo.                               Aumento de volumen de residuos en el relleno sanitario', 'Personal administrativo', 'Normal', 'Adverso', 'No', 'No', 'Afectación Leve', 'Afectación Leve', 'Afectación Leve', '', '8', 'Media', 'Programa de Residuos Aprovechables y no aprovechables', 1, 13),
+(3, '2021-04-08', 'Septiembre 2020- Agosto 2020', '', '', 'Presidente ANM', '', '', '', '', '', '', '', '', '', '', '', '', 1, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_plane_liberacion`
+--
+
+CREATE TABLE `tbl_plane_liberacion` (
+  `id_liberacion` int(10) UNSIGNED NOT NULL,
+  `lote` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_realizacion` date NOT NULL,
+  `verificacion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `libero` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exigido` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `obtenido` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `indicacion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `equipo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `condicion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `evidencia` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_empresa` int(10) UNSIGNED NOT NULL,
+  `fk_producto` int(10) UNSIGNED NOT NULL,
+  `fk_cliente` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1722,6 +1848,42 @@ CREATE TABLE `tbl_plane_producto_servicio` (
 
 INSERT INTO `tbl_plane_producto_servicio` (`id_pro_servicio`, `calidad_n1`, `calidad_n2`, `ambiental_n1`, `ambiental_n2`, `sst_n1`, `sst_n2`, `inocuidad_n1`, `inocuidad_n2`, `basic_n1`, `basic_n2`, `compra`, `transporte`, `recibo`, `almacenamiento`, `uso`, `final`, `bool_estado`, `fk_insumo`) VALUES
 (1, 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 'si', 1, 28);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_plane_trazabilidad`
+--
+
+CREATE TABLE `tbl_plane_trazabilidad` (
+  `id_trazabilidad` int(10) UNSIGNED NOT NULL,
+  `fecha_trazabilidad` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `terminado` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cliente_destino` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `orden_compra` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `orden_produccion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_produccion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unidades` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `materias` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `utilizados` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `utilizados_lotes` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `provedor_materias` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cantidad` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `destino_producto` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cantidad_entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `entrega` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observaciones_trazabilidad` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_empresa` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_plane_trazabilidad`
+--
+
+INSERT INTO `tbl_plane_trazabilidad` (`id_trazabilidad`, `fecha_trazabilidad`, `terminado`, `cliente_destino`, `orden_compra`, `orden_produccion`, `fecha_produccion`, `unidades`, `materias`, `utilizados`, `utilizados_lotes`, `provedor_materias`, `cantidad`, `destino_producto`, `fecha_entrega`, `cantidad_entrega`, `entrega`, `observaciones_trazabilidad`, `bool_estado`, `fk_empresa`) VALUES
+(1, '2021-04-02', 'Identificación producto/servicio terminado:', 'Cliente destino:', 'Orden de compra/servicio', 'Orden de producción/servicio', '2021-04-10', 'Unidades o servicios producidos:', '', 'Materias Primas o Insumos Utilizados:', 'Identificación de Materias primas o Insumos utilizados (lote / Serie / N°)', 'Proveedor de Materias primas o Insumos utilizados:', '150', 'Destino del producto:', '2021-04-10', '150', 'Empresa o Persona que entrega el producto/servicio:', '$consulta->observaciones_trazabilidad', 1, 13);
 
 -- --------------------------------------------------------
 
@@ -2247,7 +2409,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `fk
 (1, 'Crhistian David Vargas', 'cristian-d-2@hotmail.com', '2019-02-13 01:15:04', '$2y$10$wnNd76o06c77q8U0zfhq3eNJon5RdWymyTywX.rHcYSJdokeJg7d2', 3, 'zWOYkljPTPV6ObbsVErhPxDpsCJWPIETpzo01ufdYlyyXiEfzW2g7MRRXOg7', '2019-02-13 01:11:49', '2020-09-18 20:59:14'),
 (2, 'Gustavo Zuluaga', 'cygcolombia@gmail.com', '2019-02-13 01:15:04', '$2y$10$WRS.twQDm06Wtn.QpgtTG.HiAGEpjnKc/mihlTCnvJv/O1Cu2cVQS', 2, 'ZrEREgENaCUKFrjYkRc1Ut9evTZYjbkNvzlKvURsSEHUETFMKX6zP5dkf827', '2020-09-10 17:18:56', '2020-09-26 16:58:39'),
 (3, 'canver', 'canver@gmail.com', NULL, '$2y$10$MgWhYNwz7NygKI6RRg0AquSHogptflv16iTa5BggWy3cBGa3K2qA2', 12, '8TLVUNpd1rzQwW2bbKkg6Zz2i6wt2fsMkHEaNxsF2O3A3zg8Oly2oGP7uSLl', '2021-03-12 23:24:15', '2021-03-18 20:39:31'),
-(6, 'canver', 'canver-19@hotmail.com', NULL, '$2y$10$zYUW81h10HoH0UDhJP9Q/O7DnxOpOVeGKwg.bg3cOUajNlAIr/DF6', 13, NULL, '2021-03-20 14:41:11', '2021-03-20 14:49:51'),
+(6, 'canver', 'canver-19@hotmail.com', NULL, '$2y$10$zYUW81h10HoH0UDhJP9Q/O7DnxOpOVeGKwg.bg3cOUajNlAIr/DF6', 13, 'qRZqZsDOLCyzIBOsryBmiRjn3kbNyqFl4923Cy73sJGurzPneh1bjHEySa03', '2021-03-20 14:41:11', '2021-03-20 14:49:51'),
 (11, 'Mario', 'mario@gmail.com', NULL, '$2y$10$H/SM8TITRpUGLtwcfxI/z.JwiEFPmVOuiuLriii.i8qBtQvjGtHZm', 12, NULL, '2021-03-24 14:30:55', '2021-03-24 14:30:55');
 
 --
@@ -2385,6 +2547,13 @@ ALTER TABLE `tbl_contexto_egresos`
   ADD KEY `tbl_contexto_egresos_fk_empresa_foreign` (`fk_empresa`);
 
 --
+-- Indices de la tabla `tbl_contexto_estrategia`
+--
+ALTER TABLE `tbl_contexto_estrategia`
+  ADD PRIMARY KEY (`id_estrategia`),
+  ADD KEY `fk_empresa` (`fk_empresa`);
+
+--
 -- Indices de la tabla `tbl_contexto_ingresos`
 --
 ALTER TABLE `tbl_contexto_ingresos`
@@ -2449,6 +2618,22 @@ ALTER TABLE `tbl_empresa`
   ADD KEY `tbl_empresa_fk_usuario_foreign` (`fk_usuario`);
 
 --
+-- Indices de la tabla `tbl_eva_revision`
+--
+ALTER TABLE `tbl_eva_revision`
+  ADD PRIMARY KEY (`id_revision`),
+  ADD KEY `fk_empresa` (`fk_empresa`);
+
+--
+-- Indices de la tabla `tbl_eva_revision_users`
+--
+ALTER TABLE `tbl_eva_revision_users`
+  ADD PRIMARY KEY (`id_revision_user`),
+  ADD KEY `fk_revision` (`fk_revision`),
+  ADD KEY `fk_user` (`fk_user`),
+  ADD KEY `fk_cargor` (`fk_cargor`);
+
+--
 -- Indices de la tabla `tbl_indicadores`
 --
 ALTER TABLE `tbl_indicadores`
@@ -2491,6 +2676,27 @@ ALTER TABLE `tbl_lid_roles_responsabilidades`
 ALTER TABLE `tbl_mejora_anomalia`
   ADD PRIMARY KEY (`id_anomalia`),
   ADD KEY `tbl_mejora_anomalia_fk_empresa_foreign` (`fk_empresa`);
+
+--
+-- Indices de la tabla `tbl_mejo_acta`
+--
+ALTER TABLE `tbl_mejo_acta`
+  ADD PRIMARY KEY (`id_acta`),
+  ADD KEY `fk_empresa` (`fk_empresa`);
+
+--
+-- Indices de la tabla `tbl_mejo_acta_asistente`
+--
+ALTER TABLE `tbl_mejo_acta_asistente`
+  ADD PRIMARY KEY (`id_asistente`),
+  ADD KEY `fk_acta` (`fk_acta`);
+
+--
+-- Indices de la tabla `tbl_mejo_acta_temas`
+--
+ALTER TABLE `tbl_mejo_acta_temas`
+  ADD PRIMARY KEY (`id_tema`),
+  ADD KEY `fk_acta` (`fk_acta`);
 
 --
 -- Indices de la tabla `tbl_origen_anomalia`
@@ -2579,6 +2785,15 @@ ALTER TABLE `tbl_plane_diseño`
   ADD KEY `fk_empresa` (`fk_empresa`);
 
 --
+-- Indices de la tabla `tbl_plane_liberacion`
+--
+ALTER TABLE `tbl_plane_liberacion`
+  ADD PRIMARY KEY (`id_liberacion`),
+  ADD KEY `tbl_plane_liberacion_fk_producto` (`fk_producto`),
+  ADD KEY `fk_cliente` (`fk_cliente`),
+  ADD KEY `tbl_plane_liberacion_fk_empresa` (`fk_empresa`);
+
+--
 -- Indices de la tabla `tbl_plane_planeaciocontrol`
 --
 ALTER TABLE `tbl_plane_planeaciocontrol`
@@ -2605,6 +2820,13 @@ ALTER TABLE `tbl_plane_planificacion`
 ALTER TABLE `tbl_plane_producto_servicio`
   ADD PRIMARY KEY (`id_pro_servicio`),
   ADD KEY `fk_insumo` (`fk_insumo`);
+
+--
+-- Indices de la tabla `tbl_plane_trazabilidad`
+--
+ALTER TABLE `tbl_plane_trazabilidad`
+  ADD PRIMARY KEY (`id_trazabilidad`),
+  ADD KEY `fk_empresa` (`fk_empresa`);
 
 --
 -- Indices de la tabla `tbl_pla_cambio`
@@ -2757,8 +2979,6 @@ ALTER TABLE `tbl_apo_comunicaciones`
 -- AUTO_INCREMENT de la tabla `tbl_apo_com_rendiciones`
 --
 ALTER TABLE `tbl_apo_com_rendiciones`
-  ADD PRIMARY KEY (`id_rendiciones`);
-ALTER TABLE `tbl_apo_com_rendiciones`
   MODIFY `id_rendiciones` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
@@ -2807,13 +3027,19 @@ ALTER TABLE `tbl_contexto_analisis_pestal`
 -- AUTO_INCREMENT de la tabla `tbl_contexto_dofa`
 --
 ALTER TABLE `tbl_contexto_dofa`
-  MODIFY `id_dofa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_dofa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_contexto_egresos`
 --
 ALTER TABLE `tbl_contexto_egresos`
   MODIFY `id_egreso` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_contexto_estrategia`
+--
+ALTER TABLE `tbl_contexto_estrategia`
+  MODIFY `id_estrategia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_contexto_ingresos`
@@ -2825,7 +3051,7 @@ ALTER TABLE `tbl_contexto_ingresos`
 -- AUTO_INCREMENT de la tabla `tbl_contexto_riesgos_oportunidades`
 --
 ALTER TABLE `tbl_contexto_riesgos_oportunidades`
-  MODIFY `id_riesgos_oportunidades` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_riesgos_oportunidades` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_contexto_tendencias_colombia`
@@ -2837,7 +3063,7 @@ ALTER TABLE `tbl_contexto_tendencias_colombia`
 -- AUTO_INCREMENT de la tabla `tbl_correcciones_anomalias`
 --
 ALTER TABLE `tbl_correcciones_anomalias`
-  MODIFY `id_correccion_anomalia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_correccion_anomalia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_criticidad`
@@ -2868,6 +3094,18 @@ ALTER TABLE `tbl_documentos`
 --
 ALTER TABLE `tbl_empresa`
   MODIFY `id_empresa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_eva_revision`
+--
+ALTER TABLE `tbl_eva_revision`
+  MODIFY `id_revision` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_eva_revision_users`
+--
+ALTER TABLE `tbl_eva_revision_users`
+  MODIFY `id_revision_user` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_indicadores`
@@ -2903,7 +3141,25 @@ ALTER TABLE `tbl_lid_roles_responsabilidades`
 -- AUTO_INCREMENT de la tabla `tbl_mejora_anomalia`
 --
 ALTER TABLE `tbl_mejora_anomalia`
-  MODIFY `id_anomalia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_anomalia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_mejo_acta`
+--
+ALTER TABLE `tbl_mejo_acta`
+  MODIFY `id_acta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_mejo_acta_asistente`
+--
+ALTER TABLE `tbl_mejo_acta_asistente`
+  MODIFY `id_asistente` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_mejo_acta_temas`
+--
+ALTER TABLE `tbl_mejo_acta_temas`
+  MODIFY `id_tema` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_origen_anomalia`
@@ -2975,7 +3231,13 @@ ALTER TABLE `tbl_plane_auditoria_multiples`
 -- AUTO_INCREMENT de la tabla `tbl_plane_diseño`
 --
 ALTER TABLE `tbl_plane_diseño`
-  MODIFY `id_diseno` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_diseno` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_plane_liberacion`
+--
+ALTER TABLE `tbl_plane_liberacion`
+  MODIFY `id_liberacion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_plane_planeaciocontrol`
@@ -3000,6 +3262,12 @@ ALTER TABLE `tbl_plane_planificacion`
 --
 ALTER TABLE `tbl_plane_producto_servicio`
   MODIFY `id_pro_servicio` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_plane_trazabilidad`
+--
+ALTER TABLE `tbl_plane_trazabilidad`
+  MODIFY `id_trazabilidad` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_pla_cambio`
@@ -3164,6 +3432,12 @@ ALTER TABLE `tbl_contexto_egresos`
   ADD CONSTRAINT `tbl_contexto_egresos_fk_empresa_foreign` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `tbl_contexto_estrategia`
+--
+ALTER TABLE `tbl_contexto_estrategia`
+  ADD CONSTRAINT `tbl_contexto_estrategia_ibfk_1` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `tbl_contexto_ingresos`
 --
 ALTER TABLE `tbl_contexto_ingresos`
@@ -3218,6 +3492,20 @@ ALTER TABLE `tbl_empresa`
   ADD CONSTRAINT `tbl_empresa_fk_usuario_foreign` FOREIGN KEY (`fk_usuario`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `tbl_eva_revision`
+--
+ALTER TABLE `tbl_eva_revision`
+  ADD CONSTRAINT `tbl_eva_revision_ibfk_1` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tbl_eva_revision_users`
+--
+ALTER TABLE `tbl_eva_revision_users`
+  ADD CONSTRAINT `tbl_eva_revision_users_ibfk_1` FOREIGN KEY (`fk_revision`) REFERENCES `tbl_eva_revision` (`id_revision`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_eva_revision_users_ibfk_2` FOREIGN KEY (`fk_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_eva_revision_users_ibfk_3` FOREIGN KEY (`fk_cargor`) REFERENCES `tbl_cargos` (`id_cargo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `tbl_indicadores`
 --
 ALTER TABLE `tbl_indicadores`
@@ -3254,6 +3542,24 @@ ALTER TABLE `tbl_lid_roles_responsabilidades`
 --
 ALTER TABLE `tbl_mejora_anomalia`
   ADD CONSTRAINT `tbl_mejora_anomalia_fk_empresa_foreign` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tbl_mejo_acta`
+--
+ALTER TABLE `tbl_mejo_acta`
+  ADD CONSTRAINT `tbl_mejo_acta_ibfk_1` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tbl_mejo_acta_asistente`
+--
+ALTER TABLE `tbl_mejo_acta_asistente`
+  ADD CONSTRAINT `tbl_mejo_acta_asistente_ibfk_1` FOREIGN KEY (`fk_acta`) REFERENCES `tbl_mejo_acta` (`id_acta`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tbl_mejo_acta_temas`
+--
+ALTER TABLE `tbl_mejo_acta_temas`
+  ADD CONSTRAINT `tbl_mejo_acta_temas_ibfk_1` FOREIGN KEY (`fk_acta`) REFERENCES `tbl_mejo_acta` (`id_acta`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tbl_partei_master`
@@ -3320,6 +3626,14 @@ ALTER TABLE `tbl_plane_diseño`
   ADD CONSTRAINT `tbl_plane_diseño_ibfk_1` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `tbl_plane_liberacion`
+--
+ALTER TABLE `tbl_plane_liberacion`
+  ADD CONSTRAINT `tbl_plane_liberacion_fk_empresa` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_plane_liberacion_fk_producto` FOREIGN KEY (`fk_producto`) REFERENCES `tbl_producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_plane_liberacion_ibfk_1` FOREIGN KEY (`fk_cliente`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `tbl_plane_planeaciocontrol`
 --
 ALTER TABLE `tbl_plane_planeaciocontrol`
@@ -3342,6 +3656,12 @@ ALTER TABLE `tbl_plane_planificacion`
 --
 ALTER TABLE `tbl_plane_producto_servicio`
   ADD CONSTRAINT `tbl_plane_producto_servicio_ibfk_1` FOREIGN KEY (`fk_insumo`) REFERENCES `tbl_insumos` (`id_insumo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tbl_plane_trazabilidad`
+--
+ALTER TABLE `tbl_plane_trazabilidad`
+  ADD CONSTRAINT `tbl_plane_trazabilidad_ibfk_1` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tbl_pla_cambio`

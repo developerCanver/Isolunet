@@ -115,7 +115,7 @@
                         <td>{{ $e->debilidades }}</td>
                         <td>{{ $e->fortalezas }}</td>
                         <td>
-                            <a data-toggle="modal" data-target="#myModal-{{ $e->id_dofa }}" style="color: #00BE31"
+                            <a data-toggle="modal" data-target="#myModal-{{ $e->id_dofa }}" style="color: #18A4B4"
                                 title="Editar"><i class="fas fa-pencil-alt fa-2x"></i></a>
                             <a data-toggle="modal" data-target="#myModal-delete-{{ $e->id_dofa }}"
                                 style="color: #F7072F" title="Eliminar"><i class="fas fa-trash-alt fa-2x"></i></a>
@@ -261,7 +261,7 @@
                         <td>{{ $e->amenazas }}</td>
                         <td>{{ $e->oportunidades }}</td>
                         <td>
-                            <a data-toggle="modal" data-target="#myModal-{{ $e->id_dofa }}" style="color: #00BE31"
+                            <a data-toggle="modal" data-target="#myModal-{{ $e->id_dofa }}" style="color: #18A4B4"
                                 title="Editar"><i class="fas fa-pencil-alt fa-2x"></i></a>
                             <a data-toggle="modal" data-target="#myModal-delete-{{ $e->id_dofa }}"
                                 style="color: #F7072F" title="Eliminar"><i class="fas fa-trash-alt fa-2x"></i></a>

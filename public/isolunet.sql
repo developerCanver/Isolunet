@@ -35,39 +35,25 @@ CREATE TABLE `migrations` (
 
 
 
-CREATE TABLE `tbl_mejo_acta` (
-  `id_acta` int(10) UNSIGNED NOT NULL,
-  `acta` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gestion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `proceso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipo_acta` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fecha_acta` date NOT NULL,
-  `lugar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hora_acta` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fecha_proxima` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `registrado` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `observaciones_acta` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `accion` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `responsable` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-   `fecha_inicio_acc` date NOT NULL,
-   `fecha_final_acc` date NOT NULL,
-  `compromiso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ejecutable` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-   `fecha_inicio_eje` date NOT NULL,
-   `fecha_final_eje` date NOT NULL,
-  `archivo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `terminada` tinyint(1) NOT NULL,
- 
+CREATE TABLE `tbl_contexto_estrategia` (
+  `id_estrategia` int(10) UNSIGNED NOT NULL,
+  `estretegia` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `que_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `como_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `porque_hacer` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
 
+  `quien` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proceso` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+ 
   `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
   `fk_empresa` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-ALTER TABLE `tbl_mejo_acta`
-  ADD PRIMARY KEY (`id_acta`),
-  MODIFY `id_acta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+ALTER TABLE `tbl_contexto_estrategia`
+  ADD PRIMARY KEY (`id_estrategia`),
+  MODIFY `id_estrategia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
-ALTER TABLE `tbl_mejo_acta` ADD FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa`(`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_contexto_estrategia` ADD FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa`(`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 

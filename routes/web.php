@@ -354,6 +354,9 @@ Route::post('contexto_save_dofa','Contexto\DofaController@store');
 Route::post('contexto_edit_dofa/{id}','Contexto\DofaController@update');
 Route::post('contexto_eliminar_dofa/{id}','Contexto\DofaController@destroy');
 
+Route::resource('/estrategias',    'Contexto\EstrategiasController');
+Route::resource('/matriz_dofa',    'Contexto\MatrizDofaController');
+
 // Riesgos y oportunidades
 Route::get('contexto_riesgo','Contexto\RiesgoOportunidadesController@index');
 Route::post('contexto_save_riesgo','Contexto\RiesgoOportunidadesController@store');

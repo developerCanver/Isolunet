@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Contexto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use DB;
+
 use Redirect;
 use Alert;
 use View;
 use Validator;
-
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Response;
 use Illuminate\Support\Collection;
@@ -39,38 +39,38 @@ class DofaController extends Controller
                 ->where('tcd.fk_empresa','=',''.Auth::User()->fk_empresa.'')
                 ->get();
 
-        return view('pages.contexto.dofa.index',['dofa'=>$dofa]);
+        $procesos = DB::table('tbl_empresa as e')
+                ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
+                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                ->where('e.bool_estado','=','1')
+                ->where('p.bool_estado','=','1')
+                ->get();
+
+        return view('pages.contexto.dofa.index',[
+                                    'dofa'=>$dofa,
+                                    'procesos'=>$procesos,
+                                    ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function store(Request $request)
     {
         try {
              DB::beginTransaction();
+       
 
              $dofa                    = new dofa();
              $dofa->debilidades       = $request->get('debilidades');
              $dofa->fortalezas        = $request->get('fortalezas');
              $dofa->amenazas          = $request->get('amenazas');
              $dofa->oportunidades     = $request->get('oportunidades');
+             $dofa->pestal            = ($request->get('pestal')) ?  $request->get('pestal') : '';
+             $dofa->tipo_factor       = $request->get('tipo_factor');
+             $dofa->proceso           = ($request->get('proceso')) ?  $request->get('proceso') : '';
              $dofa->fk_empresa        = Auth::User()->fk_empresa;
              $dofa->save();
-
+           
              DB::commit();
              alert()->success('Se ha creado correctamente.', 'Creado!')->autoclose(3500);
         } catch (Exception $e) {
@@ -80,35 +80,10 @@ class DofaController extends Controller
         return Redirect::to('contexto_dofa');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+   
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
          try {
@@ -119,7 +94,8 @@ class DofaController extends Controller
              $dofa->fortalezas        = $request->get('fortalezas');
              $dofa->amenazas          = $request->get('amenazas');
              $dofa->oportunidades     = $request->get('oportunidades');
-             $dofa->fk_empresa        = Auth::User()->fk_empresa;
+             $dofa->pestal            = ($request->get('pestal')) ?  $request->get('pestal') : '';
+             $dofa->proceso           = ($request->get('proceso')) ?  $request->get('proceso') : '';
              $dofa->update();
 
              DB::commit();
@@ -131,12 +107,7 @@ class DofaController extends Controller
         return Redirect::to('contexto_dofa');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
          try {

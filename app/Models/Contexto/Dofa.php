@@ -16,5 +16,8 @@ class Dofa extends Model
 		'amenazas',
 		'oportunidades',
 		'fk_empresa',  
+		'pestal',  
+		'tipo_factor',  
+		'proceso',  
     ];
 }

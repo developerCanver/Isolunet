@@ -3,7 +3,7 @@
 @section('content')
 <style>
     .cont {
-        height: 110px;
+        min-height: 110px;
         width: 100%;
 		padding: 5px;
         background: #0866c6;

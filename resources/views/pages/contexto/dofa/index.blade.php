@@ -5,9 +5,9 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-		<a class="nav-item nav-link" href="{{ URL::to('/contexto_dofa') }}"><h5><span class="badge badge-info">Análisis DOFA</span></h5></a>
+		<a class="nav-item nav-link" href="{{ URL::to('/contexto_dofa') }}"><h5><span class="badge badge-info">Análisis </span></h5></a>
         <a class="nav-item nav-link" href="{{ URL::to('/estrategias') }}">Estrategias</a>
-        <a class="nav-item nav-link" href="{{ URL::to('/matriz_dofa') }}">Matriz DOFA</a>
+        <a class="nav-item nav-link" href="{{ URL::to('/matriz_dofa') }}">Matriz </a>
  
       </div>
     </div>
@@ -24,7 +24,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Análisis DOFA </h4>
+        <h4>Análisis FODA </h4>
         <p class="mg-b-0">Contexto</p>
     </div>
 </div>

@@ -36,7 +36,7 @@ class DofaController extends Controller
     {
         $dofa = DB::table('tbl_contexto_dofa as tcd')
                 ->join('tbl_empresa as te','tcd.fk_empresa','=','te.id_empresa')
-                ->where('tcd.fk_empresa','=',''.Auth::User()->fk_empresa.'')
+                ->where('te.fk_usuario','=',''.Auth::User()->id.'')
                 ->get();
 
         $procesos = DB::table('tbl_empresa as e')

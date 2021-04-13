@@ -107,7 +107,8 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Registrado por</strong></label>
-                        <input type="text" required name="registrado" class="form-control" value="{{ Auth::User()->name }}">
+                        <input type="text" required name="registrado" class="form-control"
+                            value="{{ Auth::User()->name }}">
                     </div>
                 </div>
             </div>
@@ -123,7 +124,7 @@
             @livewire('mejora.acta-asistentes', ['post' => null ])
 
             @livewire('mejora.acta-temas', ['post' => null ])
-          
+
             <h5 class="pt-3" style="color: rgb(46, 46, 46);">Acciones y Compromisos</h5>
 
             <div class="row">
@@ -144,7 +145,7 @@
                         </select>
                     </div>
                 </div>
-                						
+
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Fecha Inicio:</strong></label>
@@ -205,7 +206,7 @@
                     </div>
                 </div>
             </div> --}}
-          
+
 
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
@@ -234,9 +235,9 @@
                                 <th>Próxima Reunion</th>
                                 <th>Registrado por</th>
                                 <th>Archivo</th>
-                              
-                           
-                             
+
+
+
 
 
                                 <th colspan="2">Opciones</th>
@@ -260,12 +261,13 @@
                                 <td>{{$consulta->hora_acta}}</td>
                                 <td>{{$consulta->fecha_proxima}}</td>
                                 <td>{{$consulta->registrado}}</td>
-                                @if ($consulta->archivo) 
-                           
-                                <td>{{substr(($consulta->archivo), 10)}}  
-                                    <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}" class="btn btn-light"
-                                    download="{{$consulta->archivo}}" style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
-                                        class="fas fa-file-download "></i></a></td>
+                                @if ($consulta->archivo)
+
+                                <td>{{substr(($consulta->archivo), 10)}}
+                                    <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
+                                        class="btn btn-light" download="{{$consulta->archivo}}"
+                                        style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                        class=" fas fa-file-download "></i></a></td>
                                 @else
                                 <td>No existe</td>
                                 @endif
@@ -274,8 +276,7 @@
                               
                                 <td>
                                     <div class=" form-row align-items-center">
-                                        <a
-                                            href="{{ URL::action('mejora\ActaController@edit',$consulta->id_acta   ) }}"><i
+                                        <a href="{{ URL::action('mejora\ActaController@edit',$consulta->id_acta   ) }}"><i
                                                 class=" form-inline fas fa-pencil-alt fa-2x"
                                                 style="color:#18A4B4;"></i></a>
 

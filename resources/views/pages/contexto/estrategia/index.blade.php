@@ -25,8 +25,8 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Contexto</h4>
-        <p class="mg-b-0">Estrategia DOFA</p>
+        <h4>Estrategia FODA</h4>
+        <p class="mg-b-0">Contexto</p>
     </div>
 </div><!-- d-flex -->
 

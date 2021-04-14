@@ -177,7 +177,7 @@
                                 <td>{{$consulta->exigido}}</td>
                                 <td>{{$consulta->obtenido}}</td>
                                 @if ($consulta->evidencia)
-                                <td>{{$consulta->evidencia}}    
+                                <td>{{substr(($consulta->evidencia), 10)}}    
                                     <a title="Descargar Archivo" href="/archivos/liberacion/{{$consulta->evidencia}}" class="btn btn-light"
                                     download="{{$consulta->evidencia}}" style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
                                         class="fas fa-file-download "></i></a></td>

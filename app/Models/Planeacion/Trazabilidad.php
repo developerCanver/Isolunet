@@ -29,6 +29,7 @@ class Trazabilidad extends Model
             'fecha_entrega',	
             'cantidad_entrega',	
             'entrega',	
+            'archivo_tra',	
             'bool_estado',	
             'fk_empresa',
  

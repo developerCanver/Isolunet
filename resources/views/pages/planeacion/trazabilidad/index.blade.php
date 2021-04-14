@@ -145,10 +145,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="form-group">
+                        <label><strong>Archivo:</strong></label>
+                        <input type="file" name="archivo_tra" >
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                     <div class="form-group">
                         <label><strong>Observaciones:</strong></label>
-                        <textarea name="observaciones_trazabilidad" rows="2" cols="140" required="true"></textarea>
+                        <textarea name="observaciones_trazabilidad" rows="2" cols="90" required="true"></textarea>
                     </div>
                 </div>
             </div>
@@ -175,8 +181,7 @@
                                 <th>Orden de compra</th>
                                 <th>Orden de producción</th>
                                 <th>Fecha de producción</th>
-                                <th>Unidades o servicios</th>
-                                <th>Materias Primas</th>
+                                <th>Archivo</th>
                              
 
 
@@ -197,8 +202,14 @@
                                 <td>{{$consulta->orden_compra}}</td>
                                 <td>{{$consulta->orden_produccion}}</td>
                                 <td>{{$consulta->fecha_produccion}}</td>
-                                <td>{{$consulta->unidades}}</td>
-                                <td>{{$consulta->utilizados}}</td>
+                                @if ($consulta->archivo_tra)
+                                <td>{{ substr(($consulta->archivo_tra), 10)}}    
+                                    <a title="Descargar Archivo" href="/archivos/trazabilidad/{{$consulta->archivo_tra}}" class="btn btn-light"
+                                    download="{{$consulta->archivo_tra}}" style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                        class="fas fa-file-download "></i></a></td>
+                                @else
+                                <td>No existe</td>
+                                @endif
                                
                               
                                 <td>

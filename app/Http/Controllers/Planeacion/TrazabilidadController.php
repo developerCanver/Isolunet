@@ -69,7 +69,17 @@ class TrazabilidadController extends Controller
                     $variable->entrega           = ($request->get('entrega')) ?             $request->get('entrega') : '';		
                     $variable->observaciones_trazabilidad = ($request->get('observaciones_trazabilidad')) ?  $request->get('observaciones_trazabilidad') : '';		
                     $variable->fk_empresa        =         $request->get('fk_empresa');	
-    
+                    
+
+                    if ($request->file('archivo_tra')) {
+                        $file =$request->file('archivo_tra');
+                        $name = time().$file->getClientOriginalName();
+                        $file->move(public_path().'/archivos/trazabilidad/', $name);
+                    } else {
+                        $name='';
+                    }
+                    $variable->archivo_tra =  $name;
+
                     $variable->bool_estado        = '1';
                     $variable->save();    
     
@@ -127,6 +137,23 @@ class TrazabilidadController extends Controller
                     $variable->entrega           = ($request->get('entrega')) ?             $request->get('entrega') : '';	
                     $variable->observaciones_trazabilidad = ($request->get('observaciones_trazabilidad')) ?  $request->get('observaciones_trazabilidad') : '';
 
+                    if ($request->file('archivo_tra')) {
+                        $archivo=$request->get('archivo_tra_anterior');
+                   
+                            $mi_archivo= public_path().'/archivos/trazabilidad/'.$archivo;
+                
+                            if (is_file($mi_archivo)) {
+                                //consulto si esta ena carpeta y borro
+                                unlink(public_path().'/archivos/trazabilidad/'.$archivo);
+                            }
+                        
+    
+                        $file =$request->file('archivo_tra');
+                        $name = time().$file->getClientOriginalName();
+                        $file->move(public_path().'/archivos/trazabilidad/', $name);
+                        $variable->archivo_tra =  $name;
+                   
+                    }
                      $variable->update();
     
     

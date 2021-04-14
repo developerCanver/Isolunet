@@ -50,11 +50,6 @@ class AnalisisPestalController extends Controller
         return view('pages.contexto.analisis_pestal.index',['pestal'=>$pestal,'validacion'=>$validacion]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
         try {

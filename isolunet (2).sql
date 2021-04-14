@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-04-2021 a las 04:17:02
+-- Tiempo de generación: 13-04-2021 a las 14:45:49
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.6
 
@@ -208,7 +208,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('CXUe5oJZLDFhc5dWY4YjU5QBKOHRmYuFqHUYHdt7', 6, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibDNkVnVIMmdBd1JHeEIxbGlzWmhPV0pub3JJZnJvZ2FPVFdTeEZBWiI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NjtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozMzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2VzdHJhdGVnaWFzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1OiJhbGVydCI7YTowOnt9fQ==', 1618279603);
+('CXUe5oJZLDFhc5dWY4YjU5QBKOHRmYuFqHUYHdt7', 6, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibDNkVnVIMmdBd1JHeEIxbGlzWmhPV0pub3JJZnJvZ2FPVFdTeEZBWiI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NjtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozMzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL21hdHJpel9kb2ZhIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1OiJhbGVydCI7YTowOnt9fQ==', 1618296794);
 
 -- --------------------------------------------------------
 
@@ -627,10 +627,12 @@ CREATE TABLE `tbl_contexto_dofa` (
 --
 
 INSERT INTO `tbl_contexto_dofa` (`id_dofa`, `debilidades`, `fortalezas`, `amenazas`, `oportunidades`, `pestal`, `proceso`, `tipo_factor`, `fk_empresa`, `created_at`, `updated_at`) VALUES
-(2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '', '', '', 2, '2020-09-18 23:29:48', '2020-09-18 23:29:48'),
-(7, NULL, NULL, 'amenazas2', 'Opurtunidades2', '', '', '', 13, '2021-04-12 22:12:01', '2021-04-12 22:12:01'),
 (8, 'Debilidades:1', 'Fortalezas:1', NULL, NULL, '', 'gestión financiera', 'interno', 13, '2021-04-12 23:24:03', '2021-04-12 23:54:36'),
-(9, NULL, NULL, 'sa1', 'so1', 'Sociales', '', 'externo', 13, '2021-04-12 23:37:20', '2021-04-13 00:01:18');
+(10, 'Debilidades:2', 'Fortalezas:2', NULL, NULL, '', 'gestión Gerencial', 'interno', 13, '2021-04-13 03:37:17', '2021-04-13 03:37:51'),
+(11, 'Debilidades:3', 'Fortalezas:3', NULL, NULL, '', 'gestión financiera', 'interno', 13, '2021-04-13 03:37:42', '2021-04-13 03:37:42'),
+(12, NULL, NULL, 'Amenazas:1', 'Oportunidades:1', 'Económicas', '', 'externo', 13, '2021-04-13 03:38:13', '2021-04-13 03:38:13'),
+(13, NULL, NULL, 'Amenazas2', 'Oportunidades:2', 'Sociales', '', 'externo', 13, '2021-04-13 03:38:28', '2021-04-13 03:38:28'),
+(14, NULL, NULL, 'Amenazas:3', 'Oportunidades:4', 'Económicas', '', 'externo', 13, '2021-04-13 03:38:55', '2021-04-13 03:38:55');
 
 -- --------------------------------------------------------
 
@@ -694,8 +696,9 @@ CREATE TABLE `tbl_contexto_estrategia` (
 --
 
 INSERT INTO `tbl_contexto_estrategia` (`id_estrategia`, `pestal_est`, `estretegia`, `que_hacer`, `como_hacer`, `porque_hacer`, `quien`, `proceso`, `bool_estado`, `fk_empresa`) VALUES
-(1, '', 'scrum', 'seguir las lineamientos', 'con metologia paso a paso', 'Por qué lo voy a hacer', 'Carlos Ruiz', 'Contador', 0, 13),
-(2, 'Ambientales', 'scrum2', 'seguir las lineamientos2', 'con metologia paso a paso2', 'Por qué lo voy a hacer:2', 'Carlos Ruiz2', 'Contador2', 1, 13);
+(1, '', '', '', '', '', '', '', 0, 13),
+(2, 'Ambientales', 'scrum2', 'seguir las lineamientos2', 'con metologia paso a paso2', 'Por qué lo voy a hacer:2', 'Carlos Ruiz2', 'Contador2', 1, 13),
+(3, '', '', '', '', '', '', '', 1, 13);
 
 -- --------------------------------------------------------
 
@@ -750,6 +753,42 @@ INSERT INTO `tbl_contexto_ingresos` (`id_ingreso`, `nom_ingreso`, `proyectado_in
 (28, 'MATRICULAS CURSOS PERSONALIZADOS', 803333, 645000, -158333, -20, 1, 10, '2021-03-20 01:27:11', '2021-03-20 01:37:53'),
 (29, 'INGRESOS VARIOS', 4662500, 5256666, 594166, 13, 1, 10, '2021-03-20 01:28:13', '2021-03-20 01:38:03'),
 (30, 'MATRICULAS BACHILLERATO', 7589000, 0, -7589000, -100, 1, 11, '2021-03-23 13:27:54', '2021-03-23 13:27:54');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_contexto_matriz`
+--
+
+CREATE TABLE `tbl_contexto_matriz` (
+  `id_matriz` int(10) UNSIGNED NOT NULL,
+  `tipo_oa` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_fd` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `opo_ame` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `for_deb` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descrpcion_matriz` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bool_estado` tinyint(1) NOT NULL DEFAULT 1,
+  `fk_empresa` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_contexto_matriz`
+--
+
+INSERT INTO `tbl_contexto_matriz` (`id_matriz`, `tipo_oa`, `tipo_fd`, `opo_ame`, `for_deb`, `descrpcion_matriz`, `bool_estado`, `fk_empresa`) VALUES
+(1, 'Oportunidades', 'Fortalezas', '12', '8', 'Opo10 : For:10', 1, 13),
+(3, 'Amenazas', 'Fortalezas', '12', '8', 'FA:02', 1, 13),
+(4, 'Amenazas', 'Debilidaddes', '13', '10', 'DA01', 1, 13),
+(5, 'Oportunidades', 'Debilidaddes', '13', '10', 'De_2 : Opor_2', 1, 13),
+(6, 'Oportunidades', 'Debilidaddes', '14', '8', 'De_3 : Opor_3', 1, 13),
+(7, 'Oportunidades', 'Debilidaddes', '14', '11', 'De_4 : Opor_4', 1, 13),
+(8, 'Oportunidades', 'Debilidaddes', '12', '8', 'De_5 : Opor_5', 1, 13),
+(9, 'Oportunidades', 'Debilidaddes', '13', '10', 'De_3 : Opor_6', 1, 13),
+(11, 'Oportunidades', 'Debilidaddes', '13', '11', 'd_o: 7000', 1, 13),
+(12, 'Oportunidades', 'Fortalezas', '13', '10', 'Opo1 : For:100', 1, 13),
+(13, 'Amenazas', 'Fortalezas', '12', '8', 'F.A_1', 1, 13),
+(14, 'Amenazas', 'Debilidaddes', '13', '8', 'DA:02', 1, 13),
+(15, 'Amenazas', 'Debilidaddes', '13', '10', 'D.A:03', 1, 13);
 
 -- --------------------------------------------------------
 
@@ -2561,6 +2600,13 @@ ALTER TABLE `tbl_contexto_ingresos`
   ADD KEY `tbl_contexto_ingresos_fk_empresa_foreign` (`fk_empresa`);
 
 --
+-- Indices de la tabla `tbl_contexto_matriz`
+--
+ALTER TABLE `tbl_contexto_matriz`
+  ADD PRIMARY KEY (`id_matriz`),
+  ADD KEY `fk_empresa` (`fk_empresa`);
+
+--
 -- Indices de la tabla `tbl_contexto_riesgos_oportunidades`
 --
 ALTER TABLE `tbl_contexto_riesgos_oportunidades`
@@ -3027,7 +3073,7 @@ ALTER TABLE `tbl_contexto_analisis_pestal`
 -- AUTO_INCREMENT de la tabla `tbl_contexto_dofa`
 --
 ALTER TABLE `tbl_contexto_dofa`
-  MODIFY `id_dofa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_dofa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_contexto_egresos`
@@ -3039,13 +3085,19 @@ ALTER TABLE `tbl_contexto_egresos`
 -- AUTO_INCREMENT de la tabla `tbl_contexto_estrategia`
 --
 ALTER TABLE `tbl_contexto_estrategia`
-  MODIFY `id_estrategia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_estrategia` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_contexto_ingresos`
 --
 ALTER TABLE `tbl_contexto_ingresos`
   MODIFY `id_ingreso` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_contexto_matriz`
+--
+ALTER TABLE `tbl_contexto_matriz`
+  MODIFY `id_matriz` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_contexto_riesgos_oportunidades`
@@ -3442,6 +3494,12 @@ ALTER TABLE `tbl_contexto_estrategia`
 --
 ALTER TABLE `tbl_contexto_ingresos`
   ADD CONSTRAINT `tbl_contexto_ingresos_fk_empresa_foreign` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tbl_contexto_matriz`
+--
+ALTER TABLE `tbl_contexto_matriz`
+  ADD CONSTRAINT `tbl_contexto_matriz_ibfk_1` FOREIGN KEY (`fk_empresa`) REFERENCES `tbl_empresa` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tbl_contexto_riesgos_oportunidades`

@@ -91,7 +91,7 @@
          <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
             <i class="menu-item-icon  ion-clipboard tx-24"></i>
-            <span class="menu-item-label">Planeacion</span>
+            <span class="menu-item-label">Planeación</span>
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
             <li class="sub-item"><a href="{{ URL::to('planeacio_control') }}" class="sub-link">Planeacion y control</a></li>
@@ -108,7 +108,7 @@
             <span class="menu-item-label">Evaluacion Desempeño</span>
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
-            <li class="sub-item"><a href="navigation.html" class="sub-link">Seguimiento Medicion</a></li>
+            <li class="sub-item"><a href="{{ URL::to('seguimiento_medicion') }}" class="sub-link">Seguimiento Medicion</a></li>
             <li class="sub-item"><a href="{{ URL::to('auditoria') }}" class="sub-link">Auditoria Interna</a></li>
             <li class="sub-item"><a href="{{ URL::to('revision') }}"  class="sub-link">Revisión por la Dirección</a></li>
           </ul>

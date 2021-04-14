@@ -56,6 +56,8 @@ Route::get('revision_delete/{id}/{tipo}/', [
     'uses' => 'Evaluacion\RevisionController@destroy_user',
 ]);
 
+Route::resource('/seguimiento_medicion',     'Evaluacion\AuditoriaController');
+
 
 //APOYO
 

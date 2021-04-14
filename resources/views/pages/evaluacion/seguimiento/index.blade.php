@@ -9,7 +9,7 @@
                 <h5><span class="badge badge-info">Seguimiento Medicion</span></h5>
             </a>
 
-            <a class="nav-item nav-link" href="{{ URL::to('/satisfaccion') }}">Encuesta satisfacción</a>
+            <a class="nav-item nav-link" href="{{ URL::to('/encuesta_satisfaccion') }}">Encuesta satisfacción</a>
 
         </div>
     </div>
@@ -18,7 +18,7 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Contexto</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Evaluación Desempeño</a>
         <a class="breadcrumb-item" href=""><span class="badge badge-dark">Seguimiento</span></a>
 
     </nav>
@@ -176,8 +176,6 @@
                                         @csrf
                                         @method('PUT')
 
-
-
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                 <div class="form-group">
@@ -220,7 +218,6 @@
                                         </div>
 
                                         <div class="row">
-                                           
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                 <div class="form-group">
                                                     <label><strong>Frecuencia de Medición:</strong></label>
@@ -236,8 +233,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default"

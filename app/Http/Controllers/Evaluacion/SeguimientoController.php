@@ -124,7 +124,6 @@ class SeguimientoController extends Controller
                   
                         $ocultar->delete();
             
-            
                        DB::commit();
                        return Redirect::to('seguimiento_medicion')->with('status','Se eliminó correctamente');
                     } catch (Exception $e) {

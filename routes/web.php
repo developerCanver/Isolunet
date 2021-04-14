@@ -57,6 +57,7 @@ Route::get('revision_delete/{id}/{tipo}/', [
 ]);
 
 Route::resource('/seguimiento_medicion',     'Evaluacion\SeguimientoController');
+Route::resource('/encuesta_satisfaccion',     'Evaluacion\EncuestaController');
 
 
 //APOYO

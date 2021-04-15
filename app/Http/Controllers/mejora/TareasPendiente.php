@@ -55,7 +55,8 @@ class TareasPendiente extends Controller
                   $adicionales =  DB::table('tbl_empresa as e')
                                    ->join('tbl_mejo_tareas as a','a.fk_empresa','=','e.id_empresa')
                                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                                   ->where('a.terminada','=','0')
+                              
+                                   ->orderBy('terminada')
                                    ->paginate(20);
             
              

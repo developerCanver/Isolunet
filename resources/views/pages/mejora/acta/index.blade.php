@@ -261,8 +261,8 @@
                                 <td>{{$consulta->hora_acta}}</td>
                                 <td>{{$consulta->fecha_proxima}}</td>
                                 <td>{{$consulta->registrado}}</td>
+                                
                                 @if ($consulta->archivo)
-
                                 <td>{{substr(($consulta->archivo), 10)}}
                                     <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
                                         class="btn btn-light" download="{{$consulta->archivo}}"

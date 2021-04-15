@@ -134,13 +134,13 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th title="Codigo Compromiso Adicional"> Codigo Adicional:</th>
+                                <th title="Codigo Compromiso Adicional">Codigo Adicional</th>
                                 <th>Acciones ó Actividad</th>
                                 <th>Responsable</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
                                 <th>Estado</th>
-
+                       
                                 <th>Opcion</th>
                             </tr>
                         </thead>
@@ -150,9 +150,10 @@
 
                             @foreach ($adicionales as $consulta)
 
+                            @if ($consulta->terminada == 0)
 
                             <tr>
-                                <td>{{$consulta->id_tareas}}</td>
+                                <td> <center>{{$consulta->id_tareas}}</center></td>
                                 <td>{{$consulta->acciones_ta}}</td>
                                 <td>{{$consulta->responsable_ta}}</td>
                                 <td>{{$consulta->fechaini}}</td>
@@ -178,6 +179,32 @@
                                     <center> {{ $diferencia  }}</center>
                                     </td>
                                     @endif
+
+                                
+                            @else
+
+                            <tr>
+                                <td style="background: #acefd0;"> <center>{{$consulta->id_tareas}}</center></td>
+                                <td style="background: #acefd0;">{{$consulta->acciones_ta}}</td>
+                                <td style="background: #acefd0;">{{$consulta->responsable_ta}}</td>
+                                <td style="background: #acefd0;">{{$consulta->fechaini}}</td>
+                                <td style="background: #acefd0;">{{$consulta->fechafin}}</td>
+                   
+                                
+                                @if ($consulta->archivo_ta)
+                                <td style="background: #acefd0;">{{substr(($consulta->archivo_ta), 10)}}
+                                    <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo_ta}}"
+                                        class="btn btn-light" download="{{$consulta->archivo_ta}}"
+                                        style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                        class=" fas fa-file-download "></i></a></td>
+                                @else
+                                <td style="background: #acefd0;">No existe</td>
+                                @endif
+                               
+
+                                
+                            @endif
+                           
 
 
 
@@ -223,13 +250,13 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Compromiso:</strong></label>
-                                                            <input type="text" required name="compromiso_ta" class="form-control" >
+                                                            <input type="text" required name="compromiso_ta" class="form-control" value="{{$consulta->compromiso_ta}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Acción Ejecutable:</strong></label>
-                                                            <input type="text" required name="accion_ta" class="form-control" >
+                                                            <input type="text" required name="accion_ta" class="form-control" value="{{$consulta->accion_ta}}">
                                                        
                                                         </div>
                                                     </div>
@@ -239,13 +266,13 @@
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Fecha Inicio:</strong></label>
-                                                            <input type="date" required name="fecha_ini_ta" class="form-control" >
+                                                            <input type="date" required name="fecha_ini_ta" class="form-control" value="{{$consulta->fecha_ini_ta}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Fecha Final:</strong></label>
-                                                            <input type="date" required name="fecha_fin_ta" class="form-control" >
+                                                            <input type="date" required name="fecha_fin_ta" class="form-control" value="{{$consulta->fecha_fin_ta}}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -264,7 +291,7 @@
                                                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                         <div class="form-group">
                                                             <label><strong>Observaciones Ejecucción:</strong></label>
-                                                            <textarea name="observaciones_ta" rows="2" cols="100" required="true"></textarea>
+                                                            <textarea name="observaciones_ta" rows="2" cols="100" required="true">{{$consulta->observaciones_ta}}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -347,7 +374,7 @@
 
 
                             <tr>
-                                <td>{{$consulta->id_acta}}</td>
+                                <td><center>{{$consulta->id_acta}}</center></td>
                                 <td>{{$consulta->acta}}</td>
                                 <td>{{$consulta->accion}}</td>
                                 <td>{{$consulta->responsable}}</td>
@@ -437,7 +464,7 @@
 
 
                             <tr>
-                                <td>{{$anomalia->id_anomalia}}</td>
+                                <td><center>{{$anomalia->id_anomalia}}</center></td>
                                 <td>{{$anomalia->str_anomalia}}</td>
                                 <td></td>
                                 <td></td>

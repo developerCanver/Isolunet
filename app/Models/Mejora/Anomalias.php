@@ -19,6 +19,7 @@ class Anomalias extends Model
 		'fecha',
 		'str_anomalia',
 		'file_archivo',
+		'terminada_anomalia',
 		'file_archivo_correcciones',
 		'bool_estado_anomalia', 
     ];

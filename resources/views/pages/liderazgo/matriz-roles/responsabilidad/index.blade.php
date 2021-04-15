@@ -9,7 +9,7 @@
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Liderazgo</a>
         <a class="breadcrumb-item" href="{{ URL::to('/roles_responsabilidades') }}">Rol y Responsabilidad</a>
         <a class="breadcrumb-item" href=""><span class="badge badge-dark">Responsabilidad</span></a>
-       
+
 
     </nav>
 </div><!-- br-pageheader -->
@@ -45,12 +45,12 @@
                         <tr>
                             <td>
                                 <label><strong>Responsabilidad:</strong></label>
-                                <textarea name="nom_responsabilidades" rows="2" cols="50" required="true" ></textarea>
-                             </td>
-                             <td>
+                                <textarea name="nom_responsabilidades" rows="2" cols="50" required="true"></textarea>
+                            </td>
+                            <td>
                                 <label><strong>¿Qué Cuentas Rinde?:</strong></label>
-                                <textarea name="cuentas_rinde" rows="2" cols="50"  ></textarea>
-                             </td>
+                                <textarea name="cuentas_rinde" rows="2" cols="50"></textarea>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -65,16 +65,16 @@
                         <tr>
                             <td>
                                 <label><strong>Autoridad:</strong></label>
-                                <textarea name="autoridad" rows="2" cols="30"  ></textarea>
-                             </td>
-                             <td>
+                                <textarea name="autoridad" rows="2" cols="30"></textarea>
+                            </td>
+                            <td>
                                 <label><strong>¿A Quién?:</strong></label>
-                                <textarea name="a_quien" rows="2" cols="30"  ></textarea>
-                             </td>
-                             <td>
+                                <textarea name="a_quien" rows="2" cols="30"></textarea>
+                            </td>
+                            <td>
                                 <label><strong>¿Cada Cuánto?:</strong></label>
-                                <textarea name="cada_cuanto" rows="2" cols="30"  ></textarea>
-                             </td>
+                                <textarea name="cada_cuanto" rows="2" cols="30"></textarea>
+                            </td>
 
                         </tr>
                     </table>
@@ -89,6 +89,22 @@
         <br>
         <br>
 
+        <div class="card ">
+            <div class="card-header">
+                Rol y Cargos Asignados
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">{{$responsabilidad->nom_rol_res}}</h6>
+
+                @foreach ($cargos as $cargo)
+                <p class="card-text">{{$cargo->nom_cargo}}</p>
+                @endforeach
+            </div>
+
+        </div>
+
+        <br>
+        <br>
 
         <div class="row">
             <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
@@ -98,11 +114,11 @@
                         <thead>
                             <tr>
                                 <th>Responsabilidad</th>
-                                <th>¿Qué Cuentas Rinde?</th>
+                                <th title="¿Qué Cuentas Rinde?">¿Qué Cuentas...</th>
                                 <th> Autoridad</th>
                                 <th>¿A Quién?</th>
                                 <th>¿Cada Cuánto?</th>
-                                
+
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -110,40 +126,43 @@
                         <tbody>
 
                             @foreach ($responsabilidades as $responsabilidad)
-                                 
+
                             <tr>
                                 <td>{{$responsabilidad->nom_responsabilidades}}</td>
                                 <td>{{$responsabilidad->cuentas_rinde}}</td>
                                 <td>{{$responsabilidad->autoridad}}</td>
                                 <td>{{$responsabilidad->a_quien}}</td>
                                 <td>{{$responsabilidad->cada_cuanto}}</td>
-                              
-                            <td>
-                                <a href="{{ URL::action('Liderazgo\ResponsabilidadesController@edit',$responsabilidad->id_responsabilidades  ) }}"><i
-                                        class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
-                                <a href="{{ URL::action('Liderazgo\ResponsabilidadesController@destroy',$responsabilidad->id_responsabilidades  ) }}"><i
-                                        class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
-                            </td>
+
+                                <td>
+                                    <a
+                                        href="{{ URL::action('Liderazgo\ResponsabilidadesController@edit',$responsabilidad->id_responsabilidades  ) }}"><i
+                                            class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
+                                    <a
+                                        href="{{ URL::action('Liderazgo\ResponsabilidadesController@destroy',$responsabilidad->id_responsabilidades  ) }}"><i
+                                            class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
+                                </td>
                             </tr>
-                            @endforeach 
+                            @endforeach
 
                         </tbody>
                     </table>
                     @else
-                    
+
                     <br><br>
                     <div class="container m-5">
                         <div class="alert alert-primary" role="alert">
-                            <p class="text-center m-3"> Ups! no hay registros 😥 para la empresa {{$empresas->razon_social}}
-                    </p>
+                            <p class="text-center m-3"> Ups! no hay registros 😥 para la empresa
+                                {{$empresas->razon_social}}
+                            </p>
+                        </div>
+                    </div>
+                    <br><br>
+                    @endif
                 </div>
             </div>
-            <br><br>
-            @endif
         </div>
     </div>
-</div>
-</div>
 
 </div>
 

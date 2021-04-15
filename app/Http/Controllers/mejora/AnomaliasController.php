@@ -105,6 +105,7 @@ class AnomaliasController extends Controller
             $anomalia->file_archivo             = $request->get('documento_anomalia');
             $anomalia->file_archivo_correcciones= $request->get('documento_correcciones');
             $anomalia->bool_estado_anomalia     = 1;
+            $anomalia->terminada_anomalia       = 0;
             $anomalia->save();
 
 
@@ -137,7 +138,7 @@ class AnomaliasController extends Controller
             
         }
 
-        return Redirect::to('parm_areas');
+        return Redirect::to('anomalia_index');
     }
 
 }

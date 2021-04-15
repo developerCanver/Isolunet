@@ -38,14 +38,20 @@ class ResponsabilidadesController extends Controller
                                     ->where('rr.bool_estado','=','1')
                                     ->where('res.bool_estado','=','1')
                                     ->get();
+        $cargos =  DB::table('tbl_lid_roles_cargos as rc')
+                                    ->join('tbl_cargos as c','c.id_cargo','=','rc.fk_cargo')
+                                    ->where('rc.bool_estado','=','1')
+                                    ->where('c.bool_estado','=','1')
+                                    ->where('fk_roles_res','=',''.$id_responsabilidad.'')->get();
                                   
-                                  
+                                  //dd( $cargos);
 
          return view('pages.liderazgo.matriz-roles.responsabilidad.index',[
                                          'responsabilidad' => $responsabilidad,
                                         'empresas' => $empresas,
                                         'responsabilidades' => $responsabilidades,
                                         'id_responsabilidad' => $id_responsabilidad,
+                                        'cargos' => $cargos,
                                     ]);
     }
     

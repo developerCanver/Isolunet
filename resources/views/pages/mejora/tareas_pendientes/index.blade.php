@@ -6,7 +6,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Mejora</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Acta</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Tareas Pendientes</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -16,7 +16,7 @@
     <div>
         <h4>Mejora</a>
         </h4>
-        <p class="mg-b-0">Acta</p>
+        <p class="mg-b-0">Tareas Pendientes</p>
     </div>
 </div><!-- d-flex -->
 
@@ -24,7 +24,300 @@
     <div class="br-section-wrapper">
         @include('partials.message_flash')
 
-   
+
+
+
+        <h4>{{$empresa->razon_social}} </h4>
+        <br><br>
+
+        <input type="hidden" name="fk_empresa" class="form-control" value="{{$empresa->id_empresa}}">
+
+        <div class="col-md-11 col-md-offset-2">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <h5 style="color: rgb(46, 46, 46);">Compromiso Adicional</h5>
+
+                    <a class="btn text-white btn-info btn" data-toggle="modal" data-target="#adicionarModal"
+                        style="color: #18A4B4" title="Añadir">Añadir</a>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+
+
+
+
+
+        {{-- Adicionar modal --}}
+
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            id="adicionarModal">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header" style="background: #7ee5cd;">
+                        <center>
+                            <h5 style="color: rgb(46, 46, 46);" class="p-2">Añadir Compromiso</h5>
+                        </center>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div class="modal-body">
+
+
+                        <form action="{{route('tareas_pendientes.store')}}" method="POST">
+                            @csrf
+
+
+                            <input type="hidden" name="fk_empresa" class="form-control"
+                                value="{{$empresa->id_empresa}}">
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label><strong>Acciones ó Actividad:</strong></label>
+                                        <input type="text" required name="acciones_ta" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label><strong>Responsable:</strong></label>
+                                        <select name="responsable_ta" class="form-control " required>
+                                            <option selected disabled value="">Seleccione Usuario...</option>
+                                            @foreach ($usuarios as $usuario)
+                                            <option value="{{ $usuario->name }}">{{ $usuario->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label><strong>Fecha Inicio:</strong></label>
+                                        <input type="date" required name="fechaini" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label><strong>Fecha Final:</strong></label>
+                                        <input type="date" required name="fechafin" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- fin momdal --}}
+
+
+        <h5 style="color: rgb(82, 82, 82)">Compromiso Adicionales</h5>
+        <div class="row">
+            <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
+                <div class="table-responsive">
+                    @if ($adicionales->isNotEmpty())
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th title="Codigo Compromiso Adicional"> Codigo Adicional:</th>
+                                <th>Acciones ó Actividad</th>
+                                <th>Responsable</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Final</th>
+                                <th>Estado</th>
+
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+
+                            @foreach ($adicionales as $consulta)
+
+
+                            <tr>
+                                <td>{{$consulta->id_tareas}}</td>
+                                <td>{{$consulta->acciones_ta}}</td>
+                                <td>{{$consulta->responsable_ta}}</td>
+                                <td>{{$consulta->fechaini}}</td>
+                                <td>{{$consulta->fechafin}}</td>
+                                @php
+                                $diferencia = ((strtotime($consulta->fechafin) - strtotime(date("Y-m-d")
+                                ))/86400);
+                                @endphp
+                                @if ($diferencia >= 15)
+                                <td style="background: #1d9612;    font-weight: 600;
+                                color: white;">
+                                    <center> {{ $diferencia  }}</center>
+                                </td>
+
+                                @elseif ($diferencia >= 1)
+                                <td style="background: #d3d616;    font-weight: 600;
+                                color: #000;">
+                                    <center> {{ $diferencia  }}</center>
+                                </td>
+
+                                @elseif ($diferencia <= 0) <td style="background: #d62916;    font-weight: 600;
+                                color: white;">
+                                    <center> {{ $diferencia  }}</center>
+                                    </td>
+                                    @endif
+
+
+
+
+                                    <td>
+                                        <div class=" form-row align-items-center">
+                                            <a data-toggle="modal" data-target="#myModal-{{ $consulta->id_tareas }}"
+                                                style="color: #18A4B4" title="Editar"><i
+                                                    class="fas fa-pencil-alt fa-2x"></i></a>
+
+                                        </div>
+
+                                    </td>
+                            </tr>
+                            {{-- editar modal --}}
+
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel" id="myModal-{{ $consulta->id_tareas }}">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <center>
+                                                <h5 style="color: rgb(46, 46, 46);" class="p-2">Termino de Compromiso
+                                                    Medición</h5>
+                                            </center>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+
+                                        <div class="modal-body">
+
+
+                                            <form
+                                                action="{{ route('tareas_pendientes.update', $consulta->id_tareas)}}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <input type="hidden" name="compromiso" value="adicional">
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Compromiso:</strong></label>
+                                                            <input type="text" required name="compromiso_ta" class="form-control" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Acción Ejecutable:</strong></label>
+                                                            <input type="text" required name="accion_ta" class="form-control" >
+                                                       
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                		
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Fecha Inicio:</strong></label>
+                                                            <input type="date" required name="fecha_ini_ta" class="form-control" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Fecha Final:</strong></label>
+                                                            <input type="date" required name="fecha_fin_ta" class="form-control" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                                
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Archivo:</strong></label>
+                                                            <input type="file"  name="archivo_ta" >
+                                                            <input type="hidden"  name="archivo_ta_anterior" value="{{$consulta->archivo_ta}}">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                                        <div class="form-group">
+                                                            <label><strong>Observaciones Ejecucción:</strong></label>
+                                                            <textarea name="observaciones_ta" rows="2" cols="100" required="true"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+{{-- 
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Fecha Inicio:</strong></label>
+                                                            <input type="date" required name="fechaini"
+                                                                class="form-control" value="{{$consulta->fechaini}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Fecha Final:</strong></label>
+                                                            <input type="date" required name="fechafin"
+                                                                class="form-control" value="{{$consulta->fechafin}}">
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Editar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- fin momdal --}}
+
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{ $adicionales->links() }}
+                    @else
+
+                    <br><br>
+                    <div class="container m-5">
+                        <div class="alert alert-primary" role="alert">
+                            <p class="text-center m-3"> Ups! no hay registros Compromiso adicionales 😥
+                            </p>
+                        </div>
+                    </div>
+                    <br><br>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
 
         <h5 style="color: rgb(82, 82, 82)">Compromiso en las Actas </h5>
         <div class="row">
@@ -43,7 +336,7 @@
                                 <th>Fecha Final</th>
                                 <th>Estado</th>
 
-                                <th >Opcion</th>
+                                <th>Opcion</th>
                             </tr>
                         </thead>
 
@@ -61,38 +354,43 @@
                                 <td>{{$consulta->fecha_inicio_acc}}</td>
                                 <td>{{$consulta->fecha_final_acc}}</td>
                                 @php
-                                   $diferencia = ((strtotime($consulta->fecha_final_acc) - strtotime(date("Y-m-d") ))/86400);  
+                                $diferencia = ((strtotime($consulta->fecha_final_acc) - strtotime(date("Y-m-d")
+                                ))/86400);
                                 @endphp
                                 @if ($diferencia >= 15)
                                 <td style="background: #1d9612;    font-weight: 600;
-                                color: white;"><center> {{ $diferencia  }}</center></td>
-                               
+                                color: white;">
+                                    <center> {{ $diferencia  }}</center>
+                                </td>
+
                                 @elseif ($diferencia >= 1)
                                 <td style="background: #d3d616;    font-weight: 600;
-                                color: #000;"><center> {{ $diferencia  }}</center></td>
-                             
-                                @elseif ($diferencia <= 0)
-                                <td style="background: #d62916;    font-weight: 600;
-                                color: white;"><center> {{ $diferencia  }}</center> </td>
-                                @endif
-                               
-                               
-
-
-                                <td>
-                                    <div class=" form-row align-items-center">
-                                       
-                                        <a href="{{ URL::action('mejora\TareasPendiente@edit',$consulta->id_acta   ) }}"><i
-                                                class=" form-inline fas fa-pencil-alt fa-2x"
-                                                style="color:#18A4B4;"></i></a>
-
-                                         
-                                    </div>
-
+                                color: #000;">
+                                    <center> {{ $diferencia  }}</center>
                                 </td>
+
+                                @elseif ($diferencia <= 0) <td style="background: #d62916;    font-weight: 600;
+                                color: white;">
+                                    <center> {{ $diferencia  }}</center>
+                                    </td>
+                                    @endif
+
+
+
+
+                                    <td>
+                                        <div class=" form-row align-items-center">
+
+                                            <a
+                                                href="{{ URL::action('mejora\TareasPendiente@edit',$consulta->id_acta   ) }}"><i
+                                                    class=" form-inline fas fa-pencil-alt fa-2x"
+                                                    style="color:#18A4B4;"></i></a>
+
+                                        </div>
+
+                                    </td>
                             </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                     {{ $consultas->links() }}
@@ -110,6 +408,96 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
+        <h5 style="color: rgb(82, 82, 82)">Compromiso Anomalias </h5>
+        <div class="row">
+            <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
+                <div class="table-responsive">
+                    @if ($anomalias->isNotEmpty())
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Codigo Anomalia:</th>
+                                <th>Descripción</th>
+                                <th>Acciones ó Correctiva</th>
+                                <th>Quién</th>
+                                <th>Fecha </th>
+                                <th>Estado</th>
+
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+
+                            @foreach ($anomalias as $anomalia)
+
+
+                            <tr>
+                                <td>{{$anomalia->id_anomalia}}</td>
+                                <td>{{$anomalia->str_anomalia}}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{$anomalia->fecha}}</td>
+                                @php
+                                $diferencia = ((strtotime($anomalia->fecha) - strtotime(date("Y-m-d") ))/86400);
+                                @endphp
+                                @if ($diferencia >= 15)
+                                <td style="background: #1d9612;    font-weight: 600;
+                                color: white;">
+                                    <center> {{ $diferencia  }}</center>
+                                </td>
+
+                                @elseif ($diferencia >= 1)
+                                <td style="background: #d3d616;    font-weight: 600;
+                                color: #000;">
+                                    <center> {{ $diferencia  }}</center>
+                                </td>
+
+                                @elseif ($diferencia <= 0) <td style="background: #d62916;    font-weight: 600;
+                                color: white;">
+                                    <center> {{ $diferencia  }}</center>
+                                    </td>
+                                    @endif
+
+
+
+
+                                    <td>
+                                        <div class=" form-row align-items-center">
+
+                                            <a
+                                                href="{{ URL::action('mejora\TareasPendiente@edit',$anomalia->id_anomalia   ) }}"><i
+                                                    class=" form-inline fas fa-pencil-alt fa-2x"
+                                                    style="color:#18A4B4;"></i></a>
+
+                                        </div>
+
+                                    </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{ $consultas->links() }}
+                    @else
+
+                    <br><br>
+                    <div class="container m-5">
+                        <div class="alert alert-primary" role="alert">
+                            <p class="text-center m-3"> Ups! no hay registros 😥
+                            </p>
+                        </div>
+                    </div>
+                    <br><br>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 

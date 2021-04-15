@@ -211,7 +211,7 @@
             };
 
         </script>
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="//js/jquery-1.11.1.min.js"></script>
 
 
         <form action="{{route('productos_servicios.store')}}" method="POST">

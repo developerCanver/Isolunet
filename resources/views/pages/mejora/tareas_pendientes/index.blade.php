@@ -24,8 +24,7 @@
     <div class="br-section-wrapper">
         @include('partials.message_flash')
 
-
-
+   
 
         <h5 style="color: rgb(82, 82, 82)">Compromiso en las Actas </h5>
         <div class="row">
@@ -66,15 +65,15 @@
                                 @endphp
                                 @if ($diferencia >= 15)
                                 <td style="background: #1d9612;    font-weight: 600;
-                                color: white;">{{ $diferencia  }}</td>
+                                color: white;"><center> {{ $diferencia  }}</center></td>
                                
                                 @elseif ($diferencia >= 1)
                                 <td style="background: #d3d616;    font-weight: 600;
-                                color: #000;">{{ $diferencia  }}</td>
+                                color: #000;"><center> {{ $diferencia  }}</center></td>
                              
                                 @elseif ($diferencia <= 0)
                                 <td style="background: #d62916;    font-weight: 600;
-                                color: white;">{{ $diferencia  }}</td>
+                                color: white;"><center> {{ $diferencia  }}</center> </td>
                                 @endif
                                
                                
@@ -82,11 +81,12 @@
 
                                 <td>
                                     <div class=" form-row align-items-center">
+                                       
                                         <a href="{{ URL::action('mejora\TareasPendiente@edit',$consulta->id_acta   ) }}"><i
                                                 class=" form-inline fas fa-pencil-alt fa-2x"
                                                 style="color:#18A4B4;"></i></a>
 
-
+                                         
                                     </div>
 
                                 </td>

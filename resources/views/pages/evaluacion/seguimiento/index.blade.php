@@ -10,6 +10,7 @@
             </a>
 
             <a class="nav-item nav-link" href="{{ URL::to('/encuesta_satisfaccion') }}">Encuesta satisfacción</a>
+            <a class="nav-item nav-link" href="{{ URL::to('/plantillas') }}">Plantillas</a>
 
         </div>
     </div>

@@ -41,7 +41,8 @@ Route::resource('/producto_servicio',      'Planeacion\ProductoServicioControlle
 Route::get('insumos',                      [ProductoServicio::class, 'getInsumos']);
 Route::resource('/diseno_desarrollo',      'Planeacion\DiseñoController');
 Route::resource('/liberacion',             'Planeacion\LiberacionController');
-Route::resource('/trazabilidad',             'Planeacion\TrazabilidadController');
+Route::resource('/trazabilidad',           'Planeacion\TrazabilidadController');
+Route::resource('/salida_no_conforme',     'Planeacion\SalidasController');
 
 
 //Evaluacion
@@ -58,6 +59,7 @@ Route::get('revision_delete/{id}/{tipo}/', [
 
 Route::resource('/seguimiento_medicion',     'Evaluacion\SeguimientoController');
 Route::resource('/encuesta_satisfaccion',     'Evaluacion\EncuestaController');
+Route::resource('/plantillas',     'Evaluacion\PlantillaController');
 
 
 //APOYO

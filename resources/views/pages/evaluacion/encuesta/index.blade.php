@@ -13,6 +13,7 @@
                 <h5><span class="badge badge-info">Encuesta satisfacción
                     </span></h5>
             </a>
+            <a class="nav-item nav-link" href="{{ URL::to('/plantillas') }}">Plantillas</a>
 
         </div>
     </div>

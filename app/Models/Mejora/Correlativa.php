@@ -17,6 +17,12 @@ class Correlativa extends Model
         'quien',	
         'fecha_cer',	
         'archivo',	
+        'compromiso_co',
+        'accion_co',
+        'fecha_ini_co',
+        'fecha_fin_co',
+        'terminada_co',
+        'observaciones_co',
         'fk_causa',
     ];
 }

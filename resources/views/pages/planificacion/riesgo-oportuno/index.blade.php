@@ -24,13 +24,15 @@
         {{  Form::open(['action' => 'Planificacion\RiesgosOportunoController@store','autocomplete'=>'off', 'metdod' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}
 
-        <h4> CAUSAS  </h4>
+       
+        <h4 style="color: #414141;"> Causa - {{$causa->nom_proceso}}</h4>
         <label><strong>¿Qué podría pasar que afecte el objetivo del proceso?</strong></label>
         <div class="row">
              {{-- <input type="hidden" class="form-control" name="empresa" value="{{$empresa_selecionada->id_empresa}}"> --}}
              <input type="hidden" class="form-control" name="fk_riesgo" value="{{$fk_riesgo}}">
            
         </div><br><br>
+
 
         <div class="row">
         <div class="form-group">
@@ -124,6 +126,21 @@
         {!!Form::close()!!}
 
         <br><br>
+        <div class="card ">
+            <div class="card-header">
+                Rolesy Responsabilidades
+            </div>
+            <div class="card-body">
+                <h6 class="card-title"> Proceso {{$causa->nom_proceso}}</h6>
+
+            
+                <p class="card-text"> Causa {{$causa->nom_causa}}</p>
+        
+            </div>
+
+        </div>
+        <br>
+        <br>
         <div class="row">
             <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
                 <div class="table-responsive">

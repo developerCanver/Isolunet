@@ -37,6 +37,7 @@ public function index(Request $request)
                     ->join('tbl_mejo_causas as c','c.fk_anomalia','=','a.id_anomalia')
                     ->join('tbl_mejo_correlativas as co','co.fk_causa','=','c.id_causas')
                     ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->orderByDesc('id_anomalia')
                     ->paginate(20);
 
                 
@@ -59,7 +60,14 @@ try {
         
             $variable->que        = ($request->get('que')) ?            $request->get('que') : '';	
             $variable->quien      = ($request->get('quien')) ?          $request->get('quien') : '';	
-            $variable->fecha_cer  = ($request->get('fecha_cer')) ?      $request->get('fecha_cer') : '';	
+            $variable->fecha_cer  = ($request->get('fecha_cer')) ?      $request->get('fecha_cer') : '';
+            
+            $variable->compromiso_co  =  '';
+            $variable->fecha_ini_co   = '2021-01-01';
+            $variable->fecha_fin_co   = '2021-01-01';
+            $variable->observaciones_co  ='';
+            $variable->accion_co  ='';
+
             
             $variable->fk_causa   =  $request->get('fk_causa');	
 
@@ -98,6 +106,13 @@ public function update(Request $request, $id)
             $variable->que        = ($request->get('que')) ?            $request->get('que') : '';	
             $variable->quien      = ($request->get('quien')) ?          $request->get('quien') : '';	
             $variable->fecha_cer  = ($request->get('fecha_cer')) ?      $request->get('fecha_cer') : '';
+
+            $variable->compromiso_co  = ($request->get('compromiso_co')) ?     $request->get('compromiso_co') : '';	 
+            $variable->accion_co      = ($request->get('accion_co')) ?         $request->get('accion_co') : '';	 
+            $variable->fecha_ini_co   = ($request->get('fecha_ini_co')) ?      $request->get('fecha_ini_co') : '2021-01-01';	 
+            $variable->fecha_fin_co   = ($request->get('fecha_fin_co')) ?         $request->get('fecha_fin_co') : '2021-01-01';	 
+            $variable->observaciones_co  = ($request->get('observaciones_co')) ?  $request->get('observaciones_co') : '';
+            
 
             if ($request->file('archivo')) {
                 $archivo=$request->get('archivo_anterior');

@@ -47,10 +47,18 @@ class RiesgosController extends Controller
                         ->where('e.bool_estado',  '=','1')
                         ->where('m.bool_estado',  '=','1')
                         ->orderby('id_proceso', 'DESC')->get();
-                        //dd($procesos);
+
+        $proceso      = DB::table('tbl_procesos as p')
+                        ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
+                        ->join('tbl_pla_matriz_riesgo as m','m.fk_proceso','=','p.id_proceso')
+                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->first();
+
+                        //dd($proceso);
 
         return view('pages.planificacion.riesgos.index',[
         'riesgos'  => $riesgos,
+        'proceso'  => $proceso,
         'id_proceso'  => $id_proceso,
         ]);
     }

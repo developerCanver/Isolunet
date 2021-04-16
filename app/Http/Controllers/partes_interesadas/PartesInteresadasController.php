@@ -29,20 +29,16 @@ class PartesInteresadasController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function index(Request $request)
     {
         if ($request) {
 
 
-            $formimpacto = Calificaciones::where('tipo','=','Impacto')
+            $formimpacto = Calificaciones::where('tipopa','=','Impacto')
                                          ->where('id_calificaciones','=','1')->first();
             
-            $forminfluencia = Calificaciones::where('tipo','=','Influencia')
+            $forminfluencia = Calificaciones::where('tipopa','=','Influencia')
                                             ->where('id_calificaciones','=','2')->first(); 
             $cont = 1;
 
@@ -61,11 +57,7 @@ class PartesInteresadasController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create(Request $request)
     {
         try {

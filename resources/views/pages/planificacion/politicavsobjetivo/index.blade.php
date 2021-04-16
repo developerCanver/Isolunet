@@ -26,17 +26,17 @@
         <h4>poíticas agregadas</h4>
         <div class="row">
         </div><br>
-<br>
+        <br>
         <div class="row">
             <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
                 <div class="table-responsive">
-                 
+
                     @if ($politicas->isNotEmpty())
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>politicas</th>
-                                
+
                                 <th> Opciones</th>
                             </tr>
                         </thead>
@@ -44,38 +44,40 @@
                         <tbody>
 
                             @foreach ($politicas as $politica)
-                                 
+
                             <tr>
                                 <td>
                                     @php
-                                        $poli=html_entity_decode($politica->politica);
-                                        echo($poli);
+                                    $poli=html_entity_decode($politica->politica);
+                                    echo($poli);
                                     @endphp
                                 </td>
-                               <td>
-                                <a href="{{ URL::action('Planificacion\PoliticaVSObjetivosController@index',$politica->id_politica ) }}"><i
-                                            title="Cargo que asume el Rol" class="fas fa-arrow-circle-right  fa-2x" style="color:#665ca7;"></i></a>
-                            </td>
+                                <td>
+                                    <a
+                                        href="{{ URL::action('Planificacion\PoliticaVSObjetivosController@index',$politica->id_politica ) }}"><i
+                                            title="Cargo que asume el Rol" class="fas fa-arrow-circle-right  fa-2x"
+                                            style="color:#665ca7;"></i></a>
+                                </td>
                             </tr>
-                            @endforeach 
+                            @endforeach
 
                         </tbody>
                     </table>
                     @else
-                    
+
                     <br><br>
                     <div class="container m-5">
                         <div class="alert alert-primary" role="alert">
                             <p class="text-center m-3"> Ups! no hay registros 😥
-                    </p>
+                            </p>
+                        </div>
+                    </div>
+                    <br><br>
+                    @endif
                 </div>
             </div>
-            <br><br>
-            @endif
         </div>
     </div>
-</div>
-</div>
 
 </div>
 

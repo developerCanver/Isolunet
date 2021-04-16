@@ -543,13 +543,12 @@
 
                         <tbody>
 
-
                             @foreach ($anomalias as $anomalia)
 
 
                             <tr>
                                 <td>
-                                    <center>{{$anomalia->id_anomalia}}</center>
+                                    <center>{{$anomalia->id_correlativa}}</center>
                                 </td>
                                 <td>{{$anomalia->str_anomalia}}</td>
                                 <td>{{$anomalia->que}}</td>
@@ -590,7 +589,7 @@
                                     </td>
                             </tr>
 
-                            {{-- editar modal --}}
+                            {{-- editar modal Anomalia--}}
 
                             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
                                 aria-labelledby="myLargeModalLabel" id="anomaliaModal{{ $anomalia->id_causas }}">
@@ -609,64 +608,61 @@
                                         <div class="modal-body">
 
 
-                                            <form action="{{ route('tareas_pendientes.update', $anomalia->id_causas)}}"
+                                            <form action="{{ route('tareas_pendientes.update', $anomalia->id_correlativa)}}"
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
 
-                                                <input type="hidden" name="mejora_compromiso" value="adicional">
+                                                <input type="hidden" name="mejora_compromiso" value="anomalia">
 
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Compromiso:</strong></label>
-                                                            <input type="text" required name="compromiso_ta"
-                                                                class="form-control">
+                                                            <input type="text" required name="compromiso_co" class="form-control" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Acción Ejecutable:</strong></label>
-                                                            <input type="text" required name="accion_ta"
-                                                                class="form-control">
-
+                                                            <input type="text" required name="accion_co" class="form-control">
+            
                                                         </div>
                                                     </div>
                                                 </div>
-
+            
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Fecha Inicio:</strong></label>
-                                                            <input type="date" required name="fecha_ini_ta"
-                                                                class="form-control">
+                                                            <input type="date" required name="fecha_ini_co" class="form-control"  >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Fecha Final:</strong></label>
-                                                            <input type="date" required name="fecha_fin_ta"
-                                                                class="form-control">
+                                                            <input type="date" required name="fecha_fin_co" class="form-control" >
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                                        <div class="form-group">
-                                                            <label><strong>Archivo:</strong></label>
-                                                            <input type="file" name="archivo_ta">
-                                                            <input type="hidden" name="archivo_ta_anterior">
-
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                             
                                                 <div class="row">
                                                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                         <div class="form-group">
                                                             <label><strong>Observaciones Ejecucción:</strong></label>
-                                                            <textarea name="observaciones_ta" rows="2" cols="100"
+                                                            <textarea name="observaciones_co" rows="2" cols="100"
                                                                 required="true"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Archivo:</strong></label>
+                                                            <input type="file" name="archivo">
+                                                            <input type="hidden" name="archivo_anterior" value="{{$anomalia->archivo}}">
+            
                                                         </div>
                                                     </div>
                                                 </div>

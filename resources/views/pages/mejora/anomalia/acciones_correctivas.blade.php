@@ -28,7 +28,7 @@
 
             <h4>{{$empresa->razon_social}} </h4>
 
-       
+
             @livewire('mejora.correlativas', ['id_anomalia' => null])
 
 
@@ -96,28 +96,44 @@
 
                                 <td style="color: #FF0024"><b>Opciones</b></td>
                             </tr>
+
                             @foreach ($consultas as $consulta)
-
-
                             <tr>
+                                @if ($consulta->terminada_co == 1)
+                                <td style="background: #b6ffde;">{{ $consulta->causa }}</td>
+                                <td style="background: #b6ffde;">{{ $consulta->que }}</td>
+                                <td style="background: #b6ffde;">{{ $consulta->quien }}</td>
+                                <td style="background: #b6ffde;">{{ $consulta->fecha_cer }}</td>
+                                @if ($consulta->archivo)
+                                <td style="background: #b6ffde;">{{ substr(($consulta->archivo), 10)}}
+                                    <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
+                                        class="btn btn-light" download="{{$consulta->archivo}}"
+                                        style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                            class=" fas fa-file-download "></i></a></td>
+                                        @else
+                                            <td style=" background: #b6ffde;">No existe</td>
+                                @endif
+
+                                @else
                                 <td>{{ $consulta->causa }}</td>
                                 <td>{{ $consulta->que }}</td>
                                 <td>{{ $consulta->quien }}</td>
                                 <td>{{ $consulta->fecha_cer }}</td>
                                 @if ($consulta->archivo)
                                 <td>{{ substr(($consulta->archivo), 10)}}
-                                    <a title="Descargar Archivo" href="/archivos/plantillas/{{$consulta->archivo}}"
+                                    <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
                                         class="btn btn-light" download="{{$consulta->archivo}}"
                                         style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
-                                class=" fas fa-file-download "></i></a></td>
-                        @else
-                        <td>No existe</td>
-                        @endif
+                                        class=" fas fa-file-download "></i></a></td>
+                                        @else
+                                        <td>No existe</td>
+                                        @endif
+                                
+                                @endif
 
-                        
                       
-                        <td>
-                            <div class=" form-row align-items-center">
+                                <td>
+                                    <div class=" form-row align-items-center">
                                         <a data-toggle="modal" data-target="#myModal-{{ $consulta->id_correlativa  }}"
                                             style="color: #18A4B4" title="Editar"><i
                                                 class="fas fa-pencil-alt fa-2x"></i></a>
@@ -146,7 +162,7 @@
 
                             <div class="modal-header">
                                 <center>
-                                    <h5 style="color: rgb(46, 46, 46);" class="p-2">Editar Plantilla </h5>
+                                    <h5 style="color: rgb(46, 46, 46);" class="p-2">Editar Acciones Correctivas </h5>
                                     {{$consulta->str_anomalia}} - {{$consulta->causa}}
                                 </center>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -156,11 +172,10 @@
                             <div class="modal-body">
 
 
-                                <form action="{{ route('acciones_correctivas.update', $consulta->id_correlativa )}}"
+                                <form action="{{ route('acciones_correctivas.update', $consulta->id_correlativa)}}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
-
-
+                                    @method('PUT')
 
                                     {{-- @livewire('mejora.correlativas', ['id_anomalia' => $consulta->id_anomalia]) --}}
 
@@ -169,11 +184,12 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Qué </label>
-                                                <textarea name="que" class="form-control" rows="4">{{$consulta->que}}</textarea>
+                                                <textarea name="que" class="form-control"
+                                                    rows="4">{{$consulta->que}}</textarea>
                                             </div>
                                         </div>
                                     </div>
-                        
+
                                     <div class="row">
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
                                             <div class="form-group">
@@ -181,8 +197,9 @@
                                                 <select name="quien" class="form-control " required>
                                                     <option selected disabled value="">Seleccione Usuario...</option>
                                                     @foreach ($usuarios as $usuario)
-                                                    <option value="{{ $usuario->name }}" {{$usuario->name == $consulta->quien ? 'selected' : '' }}>
-                                                      {{ $usuario->name }}</option>
+                                                    <option value="{{ $usuario->name }}"
+                                                        {{$usuario->name == $consulta->quien ? 'selected' : '' }}>
+                                                        {{ $usuario->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -190,21 +207,67 @@
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Fecha </label>
-                                                <input type="date" name="fecha_cer" class="form-control" value="{{$consulta->fecha_cer}}">
+                                                <input type="date" name="fecha_cer" class="form-control"
+                                                    value="{{$consulta->fecha_cer}}">
                                             </div>
                                         </div>
                                     </div>
+
+                                    <br>
+                                    @if ($consulta->terminada_co == 1)
+
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Archivo </label>
-                                                <input type="file" name="archivo" class="form-control"">
-                                                <input type="hidden" name="archivo_anterior" class="form-control" value="{{$consulta->archivo}}">
-                                             </div>
+                                                <label><strong>Compromiso:</strong></label>
+                                                <input type="text" required name="compromiso_co" class="form-control" value="{{$consulta->compromiso_co}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                            <div class="form-group">
+                                                <label><strong>Acción Ejecutable:</strong></label>
+                                                <input type="text" required name="accion_co" class="form-control" value="{{$consulta->accion_co}}">
+
+                                            </div>
                                         </div>
                                     </div>
-                                   <br>
 
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                            <div class="form-group">
+                                                <label><strong>Fecha Inicio:</strong></label>
+                                                <input type="date" required name="fecha_ini_co" class="form-control"  value="{{$consulta->fecha_ini_co}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                            <div class="form-group">
+                                                <label><strong>Fecha Final:</strong></label>
+                                                <input type="date" required name="fecha_fin_co" class="form-control" value="{{$consulta->fecha_fin_co}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label><strong>Observaciones Ejecucción:</strong></label>
+                                                <textarea name="observaciones_co" rows="2" cols="100"
+                                                    required="true">{{$consulta->observaciones_co}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @endif
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                            <div class="form-group">
+                                                <label><strong>Archivo:</strong></label>
+                                                <input type="file" name="archivo">
+                                                <input type="hidden" name="archivo_anterior" value="{{$consulta->archivo}}">
+
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default"

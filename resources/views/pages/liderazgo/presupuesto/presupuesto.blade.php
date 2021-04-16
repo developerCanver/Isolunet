@@ -75,6 +75,17 @@
 
     <br>
 </div>
+@php
+$tot_ingreso=0;
+$ingreso_real=0;
+$ingreso_total_diferencia=0;
+$ingreso_diferencia=0;
+$tot_egreso=0;
+$egreso_real=0;
+$egreso_total_diferencia=0;
+$egreso_diferencia=0;
+@endphp
+
 @if (!empty($id_empresa))
 
 <div class="br-pagebody">
@@ -102,16 +113,7 @@
                               
                             </tr>
                         </thead>
-                        @php
-                            $tot_ingreso=0;
-                            $ingreso_real=0;
-                            $ingreso_total_diferencia=0;
-                            $ingreso_diferencia=0;
-                            $tot_egreso=0;
-                            $egreso_real=0;
-                            $egreso_total_diferencia=0;
-                            $egreso_diferencia=0;
-                        @endphp
+                    
                         <tbody>
 
                             @foreach ($ingresos as $ingreso)
@@ -156,11 +158,11 @@
 </div>
 
 <div class="br-pagebody">
-    @if ($ingresos->isNotEmpty())
+
     <div class="br-section-wrapper">
 
         <div class="row">
-            <a href="{{ URL::to("/egreso/{$id_empresa}") }}" class="btn btn-outline-info">Ingresos - {{$empresa_selecionada->razon_social}} <i class="fas fa-plus-circle"></i></a>
+            <a href="{{ URL::to("/egreso/{$id_empresa}") }}" class="btn btn-outline-info">Egresos - {{$empresa_selecionada->razon_social}} <i class="fas fa-plus-circle"></i></a>
           
         </div><br>
         <div class="row">
@@ -220,14 +222,7 @@
             </div>
         </div>
     </div>
-    @else
-    <div class="row">
-        <h4>Egresos - {{$empresa_selecionada->razon_social}}</h4>
-       
-    </div><br>
-    <br><br>
-    
-    @endif
+
 </div>
 
 <div class="br-pagebody">
@@ -297,7 +292,13 @@
                                {{round(((($egreso_real/$tot_egreso)*100)),1)}}
                            </td>
                            <td colspan="2">
-                               {{round(((($ingreso_real-$egreso_real)/($ingreso_real))*100),1)}}
+                               @if (($ingreso_real-$egreso_real)!=0)
+                                  {round(((($ingreso_real-$egreso_real)/($ingreso_real))*100),1)}} 
+                               @endif
+                               {{-- @php
+                                   dd(($ingreso_real-$egreso_real));
+                               @endphp --}}
+                              
                            </td>
                        </tr>
                         </tbody>

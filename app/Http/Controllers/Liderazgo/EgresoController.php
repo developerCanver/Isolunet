@@ -55,7 +55,11 @@ class EgresoController extends Controller
             $guardar->real_egreso        =$real; 
 
             $total_diferencia=$real-$proyectado;
-            $diferencia=(($real-$proyectado)/$proyectado)*100;
+            $diferencia=0;
+            if (($real-$proyectado) != 0) {
+                $diferencia=(($real-$proyectado)/$proyectado)*100;
+            }
+           
 
             $guardar->total_diferencia_egreso  =$total_diferencia;
             $guardar->diferencia_egreso        =$diferencia;

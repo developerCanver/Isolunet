@@ -5,6 +5,8 @@ namespace App\Http\Controllers\mejora;
 use App\Http\Controllers\Controller;
 use App\Models\mejora\Acta;
 use App\Models\Mejora\Anomalias;
+use App\Models\Mejora\Causa;
+use App\Models\Mejora\Correlativa;
 use App\Models\Mejora\Tarea;
 use Illuminate\Http\Request;
 
@@ -59,6 +61,7 @@ class TareasPendiente extends Controller
                        ->join('tbl_mejo_causas as c','c.fk_anomalia','=','a.id_anomalia')
                        ->join('tbl_mejo_correlativas as co','co.fk_causa','=','c.id_causas')
                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                       ->where('terminada_co','0')
                        ->paginate(20);
 
         //dd($anomalias);
@@ -236,7 +239,40 @@ class TareasPendiente extends Controller
             // compromiso Anomalia
             if ($request->get('mejora_compromiso') == 'anomalia' ) {
 
-                $variable                     = Anomalias::findOrfail($id);
+                $variable                = Correlativa::findOrfail($id);
+                $variable->compromiso_co  = ($request->get('compromiso_co')) ?     $request->get('compromiso_co') : '';	 
+                $variable->accion_co      = ($request->get('accion_co')) ?         $request->get('accion_co') : '';	 
+                $variable->fecha_ini_co   = ($request->get('fecha_ini_co')) ?      $request->get('fecha_ini_co') : '2021-01-01';	 
+                $variable->fecha_fin_co   = ($request->get('fecha_fin_co')) ?         $request->get('fecha_fin_co') : '2021-01-01';	 
+                $variable->observaciones_co  = ($request->get('observaciones_co')) ?  $request->get('observaciones_co') : '';	 
+            
+                $variable->terminada_co  = '1';
+
+                if ($request->file('archivo')) {
+                    $archivo=$request->get('archivo_anterior');
+                    //nombre para eliinar el anterior archivo
+                
+                        $mi_archivo= public_path().'/archivos/acta/'.$archivo;
+            
+                        if (is_file($mi_archivo)) {
+                            //consulto si esta ena carpeta y borro
+                            unlink(public_path().'/archivos/acta/'.$archivo);
+                        }
+                    
+    
+                    $file =$request->file('archivo');
+                    $name = time().$file->getClientOriginalName();
+                    $file->move(public_path().'/archivos/acta/', $name);
+                    $variable->archivo =  $name;
+                
+                }
+    
+
+
+
+                $variable->update(); 
+               
+                
             }
             
         

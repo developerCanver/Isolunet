@@ -23,8 +23,9 @@
     <div class="br-section-wrapper">
         {{  Form::open(['action' => 'Planificacion\RiesgosController@store','autocomplete'=>'off', 'metdod' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}
-
-        <h4> CAUSAS  </h4>
+        <h4>{{$proceso->nom_proceso}}</h4>
+        <br>
+        <h5> CAUSAS  </h5>
         <label><strong>¿Qué podría pasar que afecte el objetivo del proceso?</strong></label>
         <div class="row">
              {{-- <input type="hidden" class="form-control" name="empresa" value="{{$empresa_selecionada->id_empresa}}"> --}}

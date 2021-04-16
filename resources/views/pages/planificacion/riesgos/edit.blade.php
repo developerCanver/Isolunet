@@ -36,7 +36,7 @@
   
   <br>
   @include('partials.message_flash')
-  {{  Form::open(['action' => ['Planificacion\RiesgosOportunoController@update',$riesgos->id_riesgo],'autocomplete'=>'off', 'method' => 'POST', 'files' => true]) }}
+  {{  Form::open(['action' => ['Planificacion\RiesgosController@update',$riesgos->id_riesgo],'autocomplete'=>'off', 'method' => 'POST', 'files' => true]) }}
   {!! Form::token() !!}
   
   

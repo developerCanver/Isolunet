@@ -15,6 +15,8 @@ class Causa extends Model
     protected 	$fillable = [
 		'causa',
 		'fk_anomalia',
+    'fk_anomalia',
+    
 	
     ];
 }

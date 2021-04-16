@@ -56,7 +56,7 @@ class IngresoController extends Controller
 
             $total_diferencia=$real-$proyectado;
             $diferencia=0;
-            if (($real-$proyectado) != 0) {
+            if ((($real-$proyectado) != 0) && ($proyectado != 0)) {
                 $diferencia=(($real-$proyectado)/$proyectado)*100;
             }
 

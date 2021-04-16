@@ -83,7 +83,7 @@
             <div class="progress-bar bg-primary progress-bar-xs wd-100p" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
           </div><!-- progress -->
           <p class="tx-12">Registro de anomalia</p>
-          <p class="tx-11 lh-3 mg-b-0"><a href="{{ URL::to('anomalia_index') }}" class="btn btn-success btn-xs">Generar</a></p>
+          <p class="tx-11 lh-3 mg-b-0"><a href="{{ URL::to('lista_anomalia') }}" class="btn btn-success btn-xs">Generar</a></p>
         </div><!-- col-6 -->
         <div class="col-sm-6 mg-t-20 mg-sm-t-0 d-flex align-items-center justify-content-center">
           <img src="{{ asset('image/undraw_contract_uy56.svg') }}" alt="" height="180" width="180" class=" img-responsive" >

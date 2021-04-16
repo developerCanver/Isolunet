@@ -38,16 +38,17 @@ class UsuariosController extends Controller
     {
     	if ($request) {
     		$empresa                = DB::table('tbl_empresa as e')
-                                    ->join('users as u','e.fk_usuario','=','u.id')
-                                    ->where('u.id','=',''.Auth::User()->id.'')
+                                    ->where('fk_usuario','=',''.Auth::User()->id.'')
                                     ->where('e.bool_estado','=','1')
                                     ->first();
+                                    //dd($empresa);
 
     		$tabla_usuarios_cliente = DB::table('users as u')
-    								->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                                    ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                                    ->join('tbl_empresa as e','u.fk_empresa','e.id_empresa')
+                                    ->where('id_empresa', $empresa->id_empresa)
                                     ->where('e.bool_estado','=','1')
     								->get();
+                                    //dd($tabla_usuarios_cliente);
 
     		return view('pages.parametrizacion.usuario_cliente',['empresa'=>$empresa,'tabla_usuarios_cliente'=>$tabla_usuarios_cliente]);
     	}
@@ -65,13 +66,13 @@ class UsuariosController extends Controller
             $usuario->password 		= Hash::make($request->get('password'));
             $usuario->save();
 
-            $consul_role = DB::table('roles')
-            			->where('name','=','Usuario')
-            			->first();
+            // $consul_role = DB::table('roles')
+            // 			->where('name','=','Usuario')
+            // 			->first();
 
             $rol_user     			= new Rol_User();
             $rol_user->user_id		= $usuario->id;
-            $rol_user->role_id 		= $consul_role->id;
+            $rol_user->role_id 		= $request->get('rol_usuario');
             $rol_user->save(); 
 
             DB::commit();

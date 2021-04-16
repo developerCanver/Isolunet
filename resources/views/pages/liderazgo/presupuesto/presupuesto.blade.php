@@ -138,7 +138,13 @@ $egreso_diferencia=0;
                                 <td>{{$tot_ingreso}}</td>
                                 <td>{{$ingreso_real}}</td>
                                 <td>{{$ingreso_total_diferencia}}</td>
+                                @if ($tot_ingreso != 0)
                                 <td>{{round(((($ingreso_real-$tot_ingreso)/$tot_ingreso)*100),0)}} &nbsp;%</td>
+                                @else
+                                <td>#Ref</td>
+                                @endif 
+
+                                
                             </tr>
                         </tbody>
                     </table>
@@ -204,7 +210,12 @@ $egreso_diferencia=0;
                                 <td> {{$tot_egreso}}</td>
                                 <td>{{$egreso_real}}</td>
                                 <td> {{$egreso_total_diferencia}} </td>
+                                @if ($tot_egreso != 0)
                                 <td>{{round(((($egreso_real-$tot_egreso)/$tot_egreso)*100),0)}} &nbsp;%</td>
+                                @else
+                                <td>#Ref</td>
+                                @endif 
+                                
                             </tr>
                         </tbody>
                     </table>
@@ -293,11 +304,9 @@ $egreso_diferencia=0;
                            </td>
                            <td colspan="2">
                                @if (($ingreso_real-$egreso_real)!=0)
-                                  {round(((($ingreso_real-$egreso_real)/($ingreso_real))*100),1)}} 
+                                  {{round(((($ingreso_real-$egreso_real)/($ingreso_real))*100),1)}} 
                                @endif
-                               {{-- @php
-                                   dd(($ingreso_real-$egreso_real));
-                               @endphp --}}
+                           
                               
                            </td>
                        </tr>

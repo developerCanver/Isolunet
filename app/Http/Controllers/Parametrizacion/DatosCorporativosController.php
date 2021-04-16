@@ -46,7 +46,7 @@ class DatosCorporativosController extends Controller
     		}else{
                 
     			$empresa = DB::table('tbl_empresa')
-		    				->where('id_empresa','=',''.Auth::User()->fk_empresa.'')
+							->where('fk_usuario','=',Auth::User()->id)
 		    				->where('bool_estado','=','1')
 		    				->first();
 

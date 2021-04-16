@@ -120,7 +120,13 @@
                                 <td>{{$tot_ingreso}}</td>
                                 <td>{{$ingreso_real}}</td>
                                 <td>{{$ingreso_total_diferencia}}</td>
+                               
+                                @if ($tot_ingreso != 0)
                                 <td>{{round(((($ingreso_real-$tot_ingreso)/$tot_ingreso)*100),0)}} &nbsp;%</td>
+                                @else
+                                <td>#Ref</td>
+                                @endif 
+                               
                             </tr>
                         </tbody>
                     </table>

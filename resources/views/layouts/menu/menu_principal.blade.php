@@ -45,7 +45,7 @@
             <li class="sub-item"><a href="{{ URL::to('partes_interesadas') }}"  class="sub-link">Partes Interesadas</a></li>
             <li class="sub-item"><a href="{{ URL::To('alcance') }}"             class="sub-link">Alcance</a></li>
             <li class="sub-item"><a href="{{ URL::to('mapa_proceso') }}"        class="sub-link">Procesos</a></li>
-            <li class="sub-item"><a href="{{ URL::to('contexto_dofa') }}" class="sub-link">Produccion y Previsión</a></li>
+        
           </ul>
         </li><!-- br-menu-item -->
         <li class="br-menu-item">

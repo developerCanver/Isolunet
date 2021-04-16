@@ -390,6 +390,7 @@ Route::get('anomalia_index','mejora\AnomaliasController@anomalia');
 //Route::get('acciones_correctivas','mejora\AnomaliasController@acciones_correctivas');
 Route::post('store_anomalia','mejora\AnomaliasController@store_anomalia');
 
+Route::resource('/lista_anomalia',    'mejora\ListaAnomaliaController');
 Route::resource('/acciones_correctivas',    'mejora\CorrelativasController');
 Route::resource('/causa_raiz',    'mejora\CausaController');
 Route::resource('/acta',      'mejora\ActaController');

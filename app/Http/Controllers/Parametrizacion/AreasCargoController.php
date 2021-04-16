@@ -42,6 +42,7 @@ class AreasCargoController extends Controller
 
             $tabla_areas = DB::table('tbl_areas as a')
                         ->join('tbl_empresa as e','a.fk_empresa','=','e.id_empresa')
+                        ->where('fk_usuario','=',Auth::User()->id)
                         ->where('e.bool_estado','=','1')
                         ->where('a.bool_estado','=','1')
                         ->paginate(10);

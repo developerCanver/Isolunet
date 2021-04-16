@@ -126,7 +126,12 @@
                                 <td> {{$tot_egreso}}</td>
                                 <td>{{$egreso_real}}</td>
                                 <td> {{$egreso_total_diferencia}} </td>
+                               
+                                @if ($tot_egreso != 0)
                                 <td>{{round(((($egreso_real-$tot_egreso)/$tot_egreso)*100),0)}} &nbsp;%</td>
+                                @else
+                                <td>#Ref</td>
+                                @endif 
                             </tr>
                         </tbody>
                     </table>

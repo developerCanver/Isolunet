@@ -40,6 +40,7 @@
 {!! Form::token() !!}
 
 
+<input type="hidden" name="rol_usuario" class="form-control" value="2">
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<div class="form-group">

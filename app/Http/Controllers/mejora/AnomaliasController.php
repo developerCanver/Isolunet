@@ -64,30 +64,6 @@ class AnomaliasController extends Controller
     	}
     }
 
-    public function causa_raiz(Request $request)
-    {
-        if ($request) {
-
-            $anomalias = DB::Table('tbl_mejora_anomalia')
-                        ->where('bool_estado_anomalia','=','1')
-                        ->get();
-
-            $causa = new CausaRaiz();
-
-            return view('pages.mejora.anomalia.causa_raiz',[
-                'anomalias' => $anomalias,
-                'causa'     => $causa,
-            ]);
-        }
-    }
-
-     public function acciones_correctivas(Request $request)
-    {
-        if ($request) {
-            return view('pages.mejora.anomalia.acciones_correctivas');
-        }
-    }
-
 
     public function store_anomalia(Request $request)
     {

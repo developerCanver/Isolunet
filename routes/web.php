@@ -387,10 +387,11 @@ Route::get('alcance','alcance\AlcanceController@index');
 // anomalia
 Route::get('anomalia','mejora\AnomaliasController@index');
 Route::get('anomalia_index','mejora\AnomaliasController@anomalia');
-Route::get('causa_raiz','mejora\AnomaliasController@causa_raiz');
-Route::get('acciones_correctivas','mejora\AnomaliasController@acciones_correctivas');
+//Route::get('acciones_correctivas','mejora\AnomaliasController@acciones_correctivas');
 Route::post('store_anomalia','mejora\AnomaliasController@store_anomalia');
 
+Route::resource('/acciones_correctivas',    'mejora\CorrelativasController');
+Route::resource('/causa_raiz',    'mejora\CausaController');
 Route::resource('/acta',      'mejora\ActaController');
 Route::get('acta_delete/{id}/{tipo}/', [
     'as' => 'acta_delete',

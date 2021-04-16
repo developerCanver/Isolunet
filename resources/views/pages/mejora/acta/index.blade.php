@@ -249,7 +249,7 @@
 
                             @foreach ($consultas as $consulta)
 
-
+                            @if ($consulta->terminada == 0)
                             <tr>
                                 <td>{{$consulta->id_acta}}</td>
                                 <td>{{$consulta->acta}}</td>
@@ -261,7 +261,7 @@
                                 <td>{{$consulta->hora_acta}}</td>
                                 <td>{{$consulta->fecha_proxima}}</td>
                                 <td>{{$consulta->registrado}}</td>
-                                
+
                                 @if ($consulta->archivo)
                                 <td>{{substr(($consulta->archivo), 10)}}
                                     <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
@@ -290,10 +290,62 @@
                                                 <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
                                             </button>
                                         </form>
-                </div>
+                                 </div>
 
-                </td>
-                </tr>
+                                </td>
+                            </tr>
+                       
+                                
+                            @else
+
+                            <tr>
+                                <td  style="background: #b6ffde;">{{$consulta->id_acta}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->acta}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->gestion}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->proceso}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->tipo_acta}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->fecha_acta}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->lugar}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->hora_acta}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->fecha_proxima}}</td>
+                                <td  style="background: #b6ffde;">{{$consulta->registrado}}</td>
+
+                                @if ($consulta->archivo)
+                                <td  style="background: #b6ffde;">{{substr(($consulta->archivo), 10)}}
+                                    <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
+                                        class="btn btn-light" download="{{$consulta->archivo}}"
+                                        style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                        class=" fas fa-file-download "></i></a></td>
+                                @else
+                                <td  style="background: #b6ffde;">No existe</td>
+                                @endif
+                              
+                               
+                              
+                                <td >
+                                    <div class=" form-row align-items-center">
+                                        <a href="{{ URL::action('mejora\ActaController@edit',$consulta->id_acta   ) }}"><i
+                                                class=" form-inline fas fa-pencil-alt fa-2x"
+                                                style="color:#18A4B4;"></i></a>
+
+                                        <form action="{{route('acta.destroy',$consulta->id_acta   )}}"
+                                            class="form-inline formulario-eliminar" method="POST">
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class=" btn btn-light btn-sm">
+                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                            </button>
+                                        </form>
+                                 </div>
+
+                                </td>
+                            </tr>
+
+
+                                
+                            @endif
                 @endforeach
 
                 </tbody>

@@ -54,7 +54,7 @@ class ActaController extends Controller
                                 ->get();  
                 $usuarios = DB::table('users as u')
                                 ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                                ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
                                 ->where('e.bool_estado','=','1')
                                 ->get();
         
@@ -62,6 +62,7 @@ class ActaController extends Controller
                                 ->join('tbl_mejo_acta as a','a.fk_empresa','=','e.id_empresa')
                                 ->where('e.fk_usuario','=',''.Auth::User()->id.'')
                                 ->where('a.bool_estado','=','1')
+                                ->orderBy('id_acta', 'DESC')
                                 ->paginate(20);
                                 //dd($consultas);
         

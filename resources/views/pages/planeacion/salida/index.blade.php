@@ -62,7 +62,7 @@
 
         <br>
         <br>
-        <h5 style="color: rgb(82, 82, 82)">Lista de Plantillas  </h5>
+        <h5 style="color: rgb(82, 82, 82)">Lista de Plantillas </h5>
 
         <div class="table-responsive">
             @if ($consultas->isNotEmpty())
@@ -130,7 +130,8 @@
                     <div class="modal-body">
 
 
-                        <form action="{{ route('plantillas.update', $consulta->id_plantilla)}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('plantillas.update', $consulta->id_plantilla)}}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -139,7 +140,7 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                     <div class="form-group">
                                         <label><strong>Archivo:</strong></label>
-                                        <input type="file" name="plantilla" >
+                                        <input type="file" name="plantilla">
                                         <input type="hidden" name="plantilla_anterior" value="{{$consulta->plantilla}}">
                                     </div>
                                 </div>
@@ -148,7 +149,8 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                     <div class="form-group">
                                         <label><strong>Observaciones:</strong></label>
-                                        <textarea name="obs_plantilla" rows="2" cols="100">{{$consulta->obs_plantilla}}</textarea>
+                                        <textarea name="obs_plantilla" rows="2"
+                                            cols="100">{{$consulta->obs_plantilla}}</textarea>
                                     </div>
                                 </div>
                             </div>

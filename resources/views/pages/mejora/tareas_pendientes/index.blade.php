@@ -140,7 +140,7 @@
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
                                 <th>Estado</th>
-                       
+
                                 <th>Opcion</th>
                             </tr>
                         </thead>
@@ -153,7 +153,9 @@
                             @if ($consulta->terminada == 0)
 
                             <tr>
-                                <td> <center>{{$consulta->id_tareas}}</center></td>
+                                <td>
+                                    <center>{{$consulta->id_tareas}}</center>
+                                </td>
                                 <td>{{$consulta->acciones_ta}}</td>
                                 <td>{{$consulta->responsable_ta}}</td>
                                 <td>{{$consulta->fechaini}}</td>
@@ -180,44 +182,40 @@
                                     </td>
                                     @endif
 
-                                
-                            @else
+
+                                    @else
 
                             <tr>
-                                <td style="background: #acefd0;"> <center>{{$consulta->id_tareas}}</center></td>
-                                <td style="background: #acefd0;">{{$consulta->acciones_ta}}</td>
-                                <td style="background: #acefd0;">{{$consulta->responsable_ta}}</td>
-                                <td style="background: #acefd0;">{{$consulta->fechaini}}</td>
-                                <td style="background: #acefd0;">{{$consulta->fechafin}}</td>
-                   
-                                
+                                <td style="background: #b6ffde;">
+                                    <center>{{$consulta->id_tareas}}</center>
+                                </td>
+                                <td style="background: #b6ffde;">{{$consulta->acciones_ta}}</td>
+                                <td style="background: #b6ffde;">{{$consulta->responsable_ta}}</td>
+                                <td style="background: #b6ffde;">{{$consulta->fechaini}}</td>
+                                <td style="background: #b6ffde;">{{$consulta->fechafin}}</td>
+
+
                                 @if ($consulta->archivo_ta)
-                                <td style="background: #acefd0;">{{substr(($consulta->archivo_ta), 10)}}
+                                <td style="background: #b6ffde;">{{substr(($consulta->archivo_ta), 10)}}
                                     <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo_ta}}"
                                         class="btn btn-light" download="{{$consulta->archivo_ta}}"
                                         style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
                                         class=" fas fa-file-download "></i></a></td>
                                 @else
-                                <td style="background: #acefd0;">No existe</td>
+                                <td style=" background: #b6ffde;">No existe</td>
                                 @endif
-                               
 
-                                
-                            @endif
-                           
+                                @endif
 
+                                <td>
+                                    <div class=" form-row align-items-center">
+                                        <a data-toggle="modal" data-target="#myModal-{{ $consulta->id_tareas }}"
+                                            style="color: #18A4B4" title="Editar"><i
+                                                class="fas fa-pencil-alt fa-2x"></i></a>
 
+                                    </div>
 
-
-                                    <td>
-                                        <div class=" form-row align-items-center">
-                                            <a data-toggle="modal" data-target="#myModal-{{ $consulta->id_tareas }}"
-                                                style="color: #18A4B4" title="Editar"><i
-                                                    class="fas fa-pencil-alt fa-2x"></i></a>
-
-                                        </div>
-
-                                    </td>
+                                </td>
                             </tr>
                             {{-- editar modal --}}
 
@@ -238,52 +236,59 @@
                                         <div class="modal-body">
 
 
-                                            <form
-                                                action="{{ route('tareas_pendientes.update', $consulta->id_tareas)}}"
+                                            <form action="{{ route('tareas_pendientes.update', $consulta->id_tareas)}}"
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
 
-                                                <input type="hidden" name="compromiso" value="adicional">
+                                                <input type="hidden" name="mejora_compromiso" value="adicional">
 
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Compromiso:</strong></label>
-                                                            <input type="text" required name="compromiso_ta" class="form-control" value="{{$consulta->compromiso_ta}}">
+                                                            <input type="text" required name="compromiso_ta"
+                                                                class="form-control"
+                                                                value="{{$consulta->compromiso_ta}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Acción Ejecutable:</strong></label>
-                                                            <input type="text" required name="accion_ta" class="form-control" value="{{$consulta->accion_ta}}">
-                                                       
+                                                            <input type="text" required name="accion_ta"
+                                                                class="form-control" value="{{$consulta->accion_ta}}">
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                		
+
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Fecha Inicio:</strong></label>
-                                                            <input type="date" required name="fecha_ini_ta" class="form-control" value="{{$consulta->fecha_ini_ta}}">
+                                                            <input type="date" required name="fecha_ini_ta"
+                                                                class="form-control"
+                                                                value="{{$consulta->fecha_ini_ta}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Fecha Final:</strong></label>
-                                                            <input type="date" required name="fecha_fin_ta" class="form-control" value="{{$consulta->fecha_fin_ta}}">
+                                                            <input type="date" required name="fecha_fin_ta"
+                                                                class="form-control"
+                                                                value="{{$consulta->fecha_fin_ta}}">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                                
+
                                                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                                                         <div class="form-group">
                                                             <label><strong>Archivo:</strong></label>
-                                                            <input type="file"  name="archivo_ta" >
-                                                            <input type="hidden"  name="archivo_ta_anterior" value="{{$consulta->archivo_ta}}">
-                                                            
+                                                            <input type="file" name="archivo_ta">
+                                                            <input type="hidden" name="archivo_ta_anterior"
+                                                                value="{{$consulta->archivo_ta}}">
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -291,27 +296,12 @@
                                                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                         <div class="form-group">
                                                             <label><strong>Observaciones Ejecucción:</strong></label>
-                                                            <textarea name="observaciones_ta" rows="2" cols="100" required="true">{{$consulta->observaciones_ta}}</textarea>
+                                                            <textarea name="observaciones_ta" rows="2" cols="100"
+                                                                required="true">{{$consulta->observaciones_ta}}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
-{{-- 
-                                                <div class="row">
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                                        <div class="form-group">
-                                                            <label><strong>Fecha Inicio:</strong></label>
-                                                            <input type="date" required name="fechaini"
-                                                                class="form-control" value="{{$consulta->fechaini}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                                                        <div class="form-group">
-                                                            <label><strong>Fecha Final:</strong></label>
-                                                            <input type="date" required name="fechafin"
-                                                                class="form-control" value="{{$consulta->fechafin}}">
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
+
 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default"
@@ -355,26 +345,23 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Codigo Acta:</th>
+                                <th>Codigo Acta</th>
                                 <th>Nombre Acta</th>
                                 <th>Acciones ó Actividad</th>
                                 <th>Responsable</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
                                 <th>Estado</th>
-
                                 <th>Opcion</th>
                             </tr>
                         </thead>
-
                         <tbody>
 
-
                             @foreach ($consultas as $consulta)
-
-
                             <tr>
-                                <td><center>{{$consulta->id_acta}}</center></td>
+                                <td>
+                                    <center>{{$consulta->id_acta}}</center>
+                                </td>
                                 <td>{{$consulta->acta}}</td>
                                 <td>{{$consulta->accion}}</td>
                                 <td>{{$consulta->responsable}}</td>
@@ -401,22 +388,119 @@
                                     <center> {{ $diferencia  }}</center>
                                     </td>
                                     @endif
-
-
-
-
                                     <td>
                                         <div class=" form-row align-items-center">
+                                            <div class=" form-row align-items-center">
+                                                <a data-toggle="modal" data-target="#actaModal{{ $consulta->id_acta }}"
+                                                    style="color: #18A4B4" title="Editar"><i
+                                                        class="fas fa-pencil-alt fa-2x"></i></a>
 
-                                            <a
-                                                href="{{ URL::action('mejora\TareasPendiente@edit',$consulta->id_acta   ) }}"><i
-                                                    class=" form-inline fas fa-pencil-alt fa-2x"
-                                                    style="color:#18A4B4;"></i></a>
+                                            </div>
+
 
                                         </div>
-
                                     </td>
                             </tr>
+
+                            {{-- editar modal Acta --}}
+
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel" id="actaModal{{ $consulta->id_acta }}">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <center>
+                                                <h5 style="color: rgb(46, 46, 46);" class="p-2">Compromiso en las Actas
+                                                </h5>
+                                            </center>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form action="{{ route('tareas_pendientes.update', $consulta->id_acta)}}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+
+
+
+                                            <h5 style="color: rgb(46, 46, 46);">Acta</h5>
+
+                                            <input type="hidden" name="mejora_compromiso" value="acta">
+
+                                            <h5 class="pt-3" style="color: rgb(46, 46, 46);">Ejecucción de Compromisos
+                                            </h5>
+
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label><strong>Compromiso:</strong></label>
+                                                        <input type="text" required name="compromiso"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label><strong>Acción Ejecutable:</strong></label>
+                                                        <input type="text" required name="ejecutable"
+                                                            class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label><strong>Fecha Inicio:</strong></label>
+                                                        <input type="date" required name="fecha_inicio_eje"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label><strong>Fecha Final:</strong></label>
+                                                        <input type="date" required name="fecha_final_eje"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label><strong>Archivo:</strong></label>
+                                                        <input type="file" name="archivo">
+                                                        <input type="hidden" name="archivo_anterior"
+                                                            value="{{$consulta->archivo}}">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label><strong>Observaciones Ejecucción:</strong></label>
+                                                        <textarea name="observaciones_ejecuccion" rows="2" cols="100"
+                                                            required="true"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Editar</button>
+                                            </div>
+                                        </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- fin momdal --}}
+
+
                             @endforeach
                         </tbody>
                     </table>
@@ -446,7 +530,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Codigo Anomalia:</th>
+                                <th>Codigo Anomalia</th>
                                 <th>Descripción</th>
                                 <th>Acciones ó Correctiva</th>
                                 <th>Quién</th>
@@ -464,10 +548,12 @@
 
 
                             <tr>
-                                <td><center>{{$anomalia->id_anomalia}}</center></td>
+                                <td>
+                                    <center>{{$anomalia->id_anomalia}}</center>
+                                </td>
                                 <td>{{$anomalia->str_anomalia}}</td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$anomalia->que}}</td>
+                                <td>{{$anomalia->quien}}</td>
                                 <td>{{$anomalia->fecha}}</td>
                                 @php
                                 $diferencia = ((strtotime($anomalia->fecha) - strtotime(date("Y-m-d") ))/86400);
@@ -490,25 +576,117 @@
                                     </td>
                                     @endif
 
-
-
-
                                     <td>
-                                        <div class=" form-row align-items-center">
 
-                                            <a
-                                                href="{{ URL::action('mejora\TareasPendiente@edit',$anomalia->id_anomalia   ) }}"><i
-                                                    class=" form-inline fas fa-pencil-alt fa-2x"
-                                                    style="color:#18A4B4;"></i></a>
+                                        <div class=" form-row align-items-center">
+                                            <a data-toggle="modal"
+                                                data-target="#anomaliaModal{{ $anomalia->id_causas }}"
+                                                style="color: #18A4B4" title="Editar"><i
+                                                    class="fas fa-pencil-alt fa-2x"></i></a>
 
                                         </div>
 
+
                                     </td>
                             </tr>
+
+                            {{-- editar modal --}}
+
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel" id="anomaliaModal{{ $anomalia->id_causas }}">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <center>
+                                                <h5 style="color: rgb(46, 46, 46);" class="p-2">Termino de Compromiso
+                                                    Medición</h5>
+                                            </center>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+
+                                        <div class="modal-body">
+
+
+                                            <form action="{{ route('tareas_pendientes.update', $anomalia->id_causas)}}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <input type="hidden" name="mejora_compromiso" value="adicional">
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Compromiso:</strong></label>
+                                                            <input type="text" required name="compromiso_ta"
+                                                                class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Acción Ejecutable:</strong></label>
+                                                            <input type="text" required name="accion_ta"
+                                                                class="form-control">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Fecha Inicio:</strong></label>
+                                                            <input type="date" required name="fecha_ini_ta"
+                                                                class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Fecha Final:</strong></label>
+                                                            <input type="date" required name="fecha_fin_ta"
+                                                                class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label><strong>Archivo:</strong></label>
+                                                            <input type="file" name="archivo_ta">
+                                                            <input type="hidden" name="archivo_ta_anterior">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                                        <div class="form-group">
+                                                            <label><strong>Observaciones Ejecucción:</strong></label>
+                                                            <textarea name="observaciones_ta" rows="2" cols="100"
+                                                                required="true"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Editar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- fin momdal --}}
+
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $consultas->links() }}
+                    {{ $anomalias->links() }}
                     @else
 
                     <br><br>

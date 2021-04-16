@@ -1,7 +1,4 @@
 <div>
-
-
-
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
             <div class="form-group">

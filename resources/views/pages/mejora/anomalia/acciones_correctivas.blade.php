@@ -4,134 +4,247 @@
 
 
 <div class="br-pageheader">
-	<nav class="breadcrumb pd-0 mg-0 tx-12">
-	  <a class="breadcrumb-item" href="index.html">Bracket</a>
-	  <a class="breadcrumb-item" href="">Cards &amp; Widgets</a>
-	  <span class="breadcrumb-item active">Dashboard</span>
-	</nav>
+    <nav class="breadcrumb pd-0 mg-0 tx-12">
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Mejora</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/anomalia') }}">Anomalia</a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Acciones Correctivas</span></a>
+    </nav>
 </div>
 
 <div class="br-pagetitle">
-	<i class="icon icon ion-aperture"></i>
-	<div>
-  		<h4>Analisis de Anomalia </h4>
-  		<p class="mg-b-0">Problema o Mejora</p>
-	</div>
+    <i class="icon icon ion-aperture"></i>
+    <div>
+        <h4>Analisis de Anomalia </h4>
+        <p class="mg-b-0">Acciones Correctivas</p>
+    </div>
 </div><!-- d-flex -->
 
 <div class="br-pagebody">
-  <div class="br-section-wrapper">
-  
-  <div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-    <center>
-      <label for="">Seleccionar Anomalia </label>
-      <select name="" class="form-control">
-        <option value="">Seleccioanr</option>
-      </select><br>
-    </center>
-  </div>
-</div>
-<br>
+    <div class="br-section-wrapper">
 
-    <div class="row" style="background-color: #18A4B5; margin: 2%; color: #FFFFFF;">
-      <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-        <center>
-          <h3>Acciones Correctivas</h3>
-        </center>
-      </div>
-    </div>
+        <form action="{{route('acciones_correctivas.store')}}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-    <div class="row">
-      
-      <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Causa Raiz </label>
-          <select name="" class="form-control">
-            <option value="" selected>Seleccionar</option>
-          </select>
-      </div>
-      </div>
-    </div>
+            <h4>{{$empresa->razon_social}} </h4>
 
-    <div class="row">
-      <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Qué </label>
-          <textarea name="" class="form-control" rows="4"></textarea>
-      </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Quien </label>
-          <select name="" class="form-control">
-            <option value="" selected>Seleccionar</option>
-          </select>
-      </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Fecha  </label>
-          <input type="date" name="" class="form-control" value="{{ date("Y-m-d") }}">
-      </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-12">
-      <a href="" class="btn btn-success" title="Agregar">+</a>
-    </div>
-    </div>
+       
+            @livewire('mejora.correlativas', ['id_anomalia' => null])
 
 
-  <br>
-  <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <caption>Acciones Correctivas</caption>
-          <thead>
-            <tr>
-              <th>Causa Raiz</th>
-              <th>Accion Correctiva</th>
-              <th>Quien</th>
-              <th>Fecha</th>
-              <th>Evidencia</th>
-              <th>Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
+            <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-                  <label for="exampleInputEmail1">Solo un archivo para todas las correcciones </label>
-                  <input type="file" name="" class="form-control">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Qué </label>
+                        <textarea name="que" class="form-control" rows="4"></textarea>
+                    </div>
                 </div>
-              </td>
-              <td>
-                <a href="" class="btn btn-danger">B</a>
-                <a href="" class="btn btn-success">C</a>
-                <a href="" class="btn btn-warning">E</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Quien </label>
+                        <select name="quien" class="form-control " required>
+                            <option selected disabled value="">Seleccione Usuario...</option>
+                            @foreach ($usuarios as $usuario)
+                            <option value="{{ $usuario->name }}">{{ $usuario->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Fecha </label>
+                        <input type="date" name="fecha_cer" class="form-control" value="{{ date("Y-m-d") }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Archivo </label>
+                        <input type="file" name="archivo" class="form-control"">
+                     </div>
+                </div>
+            </div>
+           <br>
+        <button type=" submit" class="btn btn-primary">Guardar</button>
+                        <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i
+                                class="fas fa-backward"></i></a>
+        </form>
+
+
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                <br>
+                <br>
+                <h5 style="color: rgb(82, 82, 82)">Lista de Acciones Correctivas </h5>
+
+                <div class="table-responsive">
+                    @if ($consultas->isNotEmpty())
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>CAUSA RAIZ</th>
+                                <th>ACCION CORRECTIVA</th>
+                                <th>QUIEN</th>
+                                <th>FECHA</th>
+                                <th>EVIDENCIA</th>
+
+                                <td style="color: #FF0024"><b>Opciones</b></td>
+                            </tr>
+                            @foreach ($consultas as $consulta)
+
+
+                            <tr>
+                                <td>{{ $consulta->causa }}</td>
+                                <td>{{ $consulta->que }}</td>
+                                <td>{{ $consulta->quien }}</td>
+                                <td>{{ $consulta->fecha_cer }}</td>
+                                @if ($consulta->archivo)
+                                <td>{{ substr(($consulta->archivo), 10)}}
+                                    <a title="Descargar Archivo" href="/archivos/plantillas/{{$consulta->archivo}}"
+                                        class="btn btn-light" download="{{$consulta->archivo}}"
+                                        style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                class=" fas fa-file-download "></i></a></td>
+                        @else
+                        <td>No existe</td>
+                        @endif
+
+                        
+                      
+                        <td>
+                            <div class=" form-row align-items-center">
+                                        <a data-toggle="modal" data-target="#myModal-{{ $consulta->id_correlativa  }}"
+                                            style="color: #18A4B4" title="Editar"><i
+                                                class="fas fa-pencil-alt fa-2x"></i></a>
+
+                                        <form
+                                            action="{{route('acciones_correctivas.destroy', $consulta->id_correlativa )}}"
+                                            class="form-inline formulario-eliminar" method="POST">
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class=" btn btn-light btn-sm">
+                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                            </button>
+                                        </form>
+                </div>
+                </td>
+                </tr>
+
+                {{-- editar modal --}}
+
+                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                    aria-labelledby="myLargeModalLabel" id="myModal-{{ $consulta->id_correlativa  }}">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <center>
+                                    <h5 style="color: rgb(46, 46, 46);" class="p-2">Editar Plantilla </h5>
+                                    {{$consulta->str_anomalia}} - {{$consulta->causa}}
+                                </center>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+
+                            <div class="modal-body">
+
+
+                                <form action="{{ route('acciones_correctivas.update', $consulta->id_correlativa )}}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+
+
+
+                                    {{-- @livewire('mejora.correlativas', ['id_anomalia' => $consulta->id_anomalia]) --}}
+
+
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Qué </label>
+                                                <textarea name="que" class="form-control" rows="4">{{$consulta->que}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Quien </label>
+                                                <select name="quien" class="form-control " required>
+                                                    <option selected disabled value="">Seleccione Usuario...</option>
+                                                    @foreach ($usuarios as $usuario)
+                                                    <option value="{{ $usuario->name }}" {{$usuario->name == $consulta->quien ? 'selected' : '' }}>
+                                                      {{ $usuario->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Fecha </label>
+                                                <input type="date" name="fecha_cer" class="form-control" value="{{$consulta->fecha_cer}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Archivo </label>
+                                                <input type="file" name="archivo" class="form-control"">
+                                                <input type="hidden" name="archivo_anterior" class="form-control" value="{{$consulta->archivo}}">
+                                             </div>
+                                        </div>
+                                    </div>
+                                   <br>
+
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Editar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- fin momdal --}}
+
+
+                @endforeach
+
+
+                </tbody>
+
+                </table>
+                {{ $consultas->links() }}
+                @else
+
+                <br><br>
+                <div class="container m-5">
+                    <div class="alert alert-primary" role="alert">
+                        <p class="text-center m-3"> Ups! no hay registros 😥
+                        </p>
+                    </div>
+                </div>
+                <br><br>
+                @endif
+            </div>
+        </div>
+
+
+
+
     </div>
-  </div>
-
-
-
-
-  </div>
 </div>
 @endsection
 @push('scripts')
-@endpush 
+@endpush

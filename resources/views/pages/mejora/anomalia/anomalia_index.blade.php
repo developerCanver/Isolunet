@@ -7,8 +7,10 @@
 	{!! Form::token() !!}
 <div class="br-pageheader">
 	<nav class="breadcrumb pd-0 mg-0 tx-12">
-	  <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-	  <span class="breadcrumb-item active">Anomalia</span>
+		<a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Mejora</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/anomalia') }}">Anomalia</a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Registro de Anomalia</span></a>
 	</nav>
 </div><!-- br-pageheader -->
 
@@ -16,7 +18,7 @@
 	<i class="icon icon ion-aperture"></i>
 	<div>
   		<h4>Analisis de Anomalia </h4>
-  		<p class="mg-b-0">Problema o Mejora</p>
+  		<p class="mg-b-0">Ingresar  Anomalia</p>
 	</div>
 </div><!-- d-flex -->
 

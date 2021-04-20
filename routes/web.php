@@ -24,6 +24,7 @@ use App\Http\Controllers\Apoyo\ComunicacionesController as Comunicaciones;
 use App\Http\Controllers\Apoyo\InformacionController as Informacion;
 use App\Http\Controllers\Apoyo\TomaConsecuenciaController as TomaConsecuencia;
 use App\Http\Controllers\Planeacion\ProductoServicioController as ProductoServicio;
+use App\Http\Controllers\Planeacion\PrestamoController as Prestamo;
 use App\Http\Controllers\Evaluacion\RevisionController as Revision;
 
 
@@ -43,7 +44,8 @@ Route::resource('/diseno_desarrollo',      'Planeacion\DiseñoController');
 Route::resource('/liberacion',             'Planeacion\LiberacionController');
 Route::resource('/trazabilidad',           'Planeacion\TrazabilidadController');
 Route::resource('/salida_no_conforme',     'Planeacion\SalidasController');
-
+Route::resource('/servicio_prestado',     'Planeacion\PrestamoController');
+Route::get('/servicio_prestado_img',     [Prestamo::class, 'ver_img']);
 
 //Evaluacion
 Route::resource('/auditoria',     'Evaluacion\AuditoriaController');

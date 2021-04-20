@@ -86,7 +86,7 @@ class RecursosController extends Controller
         $variable                   = Recursos::findOrfail($id);
         $mi_imagen = public_path().'/archivos/recursos/'.$variable -> url;
            
-        if (file_exists($mi_imagen)) {
+        if (is_file($mi_imagen)) {
             unlink(public_path().'/archivos/recursos/'.$variable -> url);
         
         }

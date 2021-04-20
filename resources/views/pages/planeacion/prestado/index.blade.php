@@ -51,8 +51,8 @@
         <div class="row">
             <div class="col">
                 <div class="trans">
-                    <a href="{{ URL::to('recursosApp') }}" class="btn btn-info btn-sm">Agregar</a>
-                    <a href="{{ URL::to('recursosverimg') }}" class="btn btn-primary btn-sm">Ver</a>
+                    <a href="{{ URL::to('servicio_prestado') }}" class="btn btn-info btn-sm">Agregar</a>
+                    <a href="{{ URL::to('servicio_prestado_img') }}" class="btn btn-primary btn-sm">Ver</a>
                 </div>
             </div>
 
@@ -85,7 +85,6 @@
                                 <div class="trans">
                                     <div class="form-group">
                                         <h6>{{ substr(($imagen->url), 10)}}</h6>
-                                       
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +93,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="trans">
-                                    <form class="form-inline" action="{{route('recursosApp.destroy',$imagen->id_recurso)}}" method="POST">
+                                    <form class="form-inline" action="{{route('servicio_prestado.destroy',$imagen->id_recurso)}}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <button style="font-size:18px; font-size: 25px;"" type="submit" class="btn btn-light"><i class="fas fa-trash-alt "

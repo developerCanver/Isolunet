@@ -159,7 +159,7 @@
               || request()->is('calificacion_proveedores*') || request()->is('criterios_calificacion*') 
               || request()->is('liberacion*') || request()->is('salida_no_conforme*') || request()->is('edit_parm_criticidad*') 
               || request()->is('edit_calificacion_proveedores*') || request()->is('edit_criterios_calificacion*') 
-              || request()->is('trazabilidad*')  ) {
+              || request()->is('trazabilidad*') || request()->is('servicio_prestado*')  ) {
                 $Operación="style=display:block;";
                 $pdn='nav-link text-truncate';
               }
@@ -184,7 +184,7 @@
               </span></a>
               <div class="collapse" id="submenu1" aria-expanded="false">
                   <ul class="flex-column pl-2 nav">
-                    <li class="sub-item"><a href="{{ URL::to('criterios_calificacion') }}" class="sub-link {{ request()->is('criterios_calificacion*')   ? 'active' : ''}}">Servicio Prestado
+                    <li class="sub-item"><a href="{{ URL::to('servicio_prestado') }}" class="sub-link {{ request()->is('servicio_prestado*')   ? 'active' : ''}}">Servicio Prestado
                     </a></li>
                     <li class="sub-item"><a href="{{ URL::to('trazabilidad') }}"  class="sub-link {{ request()->is('trazabilidad*')  ? 'active' : ''}}">Trazabilidad</a></li>
                       {{-- <li class="nav-item">

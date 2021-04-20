@@ -6,7 +6,7 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planeación</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Operación</a>
         <a class="breadcrumb-item" href=""><span class="badge badge-dark">Planificación y control</span></a>
 
     </nav>
@@ -16,7 +16,7 @@
     <i class="icon icon ion-aperture"></i>
     <div>
         <h4>Planificación y control</h4>
-        <p class="mg-b-0">Planeación</p>
+        <p class="mg-b-0">Operación</p>
     </div>
 </div><!-- d-flex -->
 

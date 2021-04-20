@@ -126,7 +126,7 @@
         </div>
         {{$imagenes->links()}}
     </div>
-</div>
+
 </div>
 
 

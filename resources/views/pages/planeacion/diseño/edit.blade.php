@@ -6,8 +6,8 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planeación</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Diseño y Desarrollo</span></a>
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planificación</a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Aspectos e Impactos Ambientales</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -15,8 +15,8 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Planeación</h4>
-        <p class="mg-b-0"> Editar Diseño y Desarrollo</p>
+        <h4>Planificación</h4>
+        <p class="mg-b-0"> Editar Aspectos e Impactos Ambientales</p>
     </div>
 </div><!-- d-flex -->
 

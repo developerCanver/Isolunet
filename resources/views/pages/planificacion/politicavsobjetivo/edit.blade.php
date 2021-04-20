@@ -168,9 +168,10 @@
                 </div>
             </div>
         </div>
-    </div>
+   
 
     <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
     {!!Form::close()!!}
     <br>
    

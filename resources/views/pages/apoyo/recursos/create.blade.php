@@ -29,6 +29,9 @@
     display: flex;
     justify-content: center;
     }
+    .dz-default{
+        color: #000;
+    }
 </style>
 
 <div class="br-pagebody">
@@ -39,8 +42,8 @@
             <div class="col">
                
                 <div class="trans"> 
-                    <a href="{{ URL::to('recursosApp') }}" class="btn btn-info">Agregar</a>
-                        <a href="{{ URL::to('recursosverimg') }}" class="btn btn-primary">Ver</a>
+                    <a href="{{ URL::to('recursosApp') }}" class="btn btn-info btn-sm">Agregar</a>
+                        <a href="{{ URL::to('recursosverimg') }}" class="btn btn-primary btn-sm">Ver</a>
                   </div> 
                   <br>
                   
@@ -84,7 +87,7 @@
             headers:{
                 'X-CSRF-TOKEN' : "{{csrf_token()}}"
             },
-            dictDefaultMessage: "Arrastre una imagen al recuadro para subirlo",
+            dictDefaultMessage: "Adjunte aquí archivos, fotos etc…  <br> Relacionados con recursos del sistema de gestión, personas (ej: organigrama) <br> e infraestructura  (ej: edificios, equipos, tecnología)",
             maxFilesize: 10,
             maxFiles: 20,
         };

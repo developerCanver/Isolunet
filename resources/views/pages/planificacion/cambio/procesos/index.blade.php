@@ -15,7 +15,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>planificación de Cambios</h4>
+        <h4>Alineación Objetivos</h4>
     </div>
 </div><!-- d-flex -->
 
@@ -60,7 +60,7 @@
                     <br><br>
                     <div class="container m-5">
                         <div class="alert alert-primary" role="alert">
-                            <p class="text-center m-3"> Ups! no hay registros 😥
+                            <p class="text-center m-3"> Ups! no hay Procesos Registros -> Parametrización Procesos 😥
                     </p>
                 </div>
             </div>

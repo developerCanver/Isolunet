@@ -4,7 +4,7 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="#">Parametrizacion</a>
+        <a class="breadcrumb-item" href="#">Operación</a>
         <span class="breadcrumb-item active">Identificar Criticidad</span>
     </nav>
 </div><!-- br-pageheader -->

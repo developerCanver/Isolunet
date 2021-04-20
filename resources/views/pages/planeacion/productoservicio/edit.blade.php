@@ -6,8 +6,8 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="#">Planeación</a>
-        <span class="breadcrumb-item active">Producto y Servicios</span>
+        <a class="breadcrumb-item" href="#">Operación</a>
+        <span class="breadcrumb-item active">Insumos y Servicios</span>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -15,8 +15,8 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Planeación Producto y Servicios</h4>
-        <p class="mg-b-0"> Editar Control de procesos producto y servicios suministrados externamente</p>
+        <h4>Operación Insumos y Servicios</h4>
+        <p class="mg-b-0"> Editar  Insumos y Servicios </p>
     </div>
 </div><!-- d-flex -->
 

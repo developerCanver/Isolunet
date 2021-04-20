@@ -23,8 +23,10 @@ class IngresoEgresoController extends Controller
     {
      
        
-       if ($request->get('empresa')) {
-        $id_empresa =$request->get('empresa');
+   
+        $empresa = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
+        ->where('bool_estado','=','1')->first();
+        $id_empresa=$empresa->id_empresa;
        
             
        
@@ -58,22 +60,11 @@ class IngresoEgresoController extends Controller
                 'empresa_selecionada'=>$empresa_selecionada,
                 ]);
        
-       } else {
-           
-            $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('bool_estado','=','1')->get();
 
-            return view('pages.liderazgo.presupuesto.presupuesto',[
-                            'empresas'=>$empresas
-                            ]);
+     
+   
 
-       }
-       
-           
-
-      
-                
-         
+  
      
       
     }

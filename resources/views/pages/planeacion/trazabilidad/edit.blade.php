@@ -6,7 +6,7 @@
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planeación</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/') }}">Operación</a>
         <a class="breadcrumb-item" href=""><span class="badge badge-dark">Trazabilidad</span></a>
 
     </nav>
@@ -15,7 +15,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Planeación</h4>
+        <h4>Operación</h4>
         <p class="mg-b-0">Editar Trazabilidad</p>
     </div>
 </div><!-- d-flex -->

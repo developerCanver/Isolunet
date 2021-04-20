@@ -38,7 +38,7 @@ class MatrizRolesController extends Controller
 
         $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
                     ->where('bool_estado','=','1')->first();
-                    //dd($empresas);
+                   // dd($empresas);
 
                     
         return view('pages.liderazgo.matriz-roles.index',[

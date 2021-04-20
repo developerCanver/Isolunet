@@ -51,8 +51,8 @@
         <div class="row">
             <div class="col">
                 <div class="trans">
-                    <a href="{{ URL::to('recursosApp') }}" class="btn btn-info">Agregar</a>
-                    <a href="{{ URL::to('recursosverimg') }}" class="btn btn-primary">Ver</a>
+                    <a href="{{ URL::to('recursosApp') }}" class="btn btn-info btn-sm">Agregar</a>
+                    <a href="{{ URL::to('recursosverimg') }}" class="btn btn-primary btn-sm">Ver</a>
                 </div>
             </div>
 
@@ -120,7 +120,7 @@
             </div>
             {{$imagenes->links()}}
         </div>
-    </div>
+  
 </div>
 
 

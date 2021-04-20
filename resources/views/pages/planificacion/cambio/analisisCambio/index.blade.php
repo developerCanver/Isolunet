@@ -15,7 +15,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Planificación de Cambio</h4>
+        <h4>Alineación Objetivos</h4>
     </div>
 </div><!-- d-flex -->
 
@@ -221,7 +221,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+    
     </div>
 
     <button type="submit" class="btn btn-primary">Guardar</button>

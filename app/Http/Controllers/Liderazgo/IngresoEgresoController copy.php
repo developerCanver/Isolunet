@@ -24,6 +24,10 @@ class IngresoEgresoController extends Controller
      
             $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
     				        ->where('bool_estado','=','1')->get();
+
+                            $empresa = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
+                            ->where('bool_estado','=','1')->get();
+                            dd($empresa);
     
             return view('pages.liderazgo.presupuesto.presupuesto',[
                         'empresas'=>$empresas
@@ -36,6 +40,7 @@ class IngresoEgresoController extends Controller
            // $request->query('search')
 
             if ($id_empresa == null) {
+              
                 $id_empresa =$request->get('empresa');
                 
             }

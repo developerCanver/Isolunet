@@ -60,7 +60,7 @@
                     <br><br>
                     <div class="container m-5">
                         <div class="alert alert-primary" role="alert">
-                            <p class="text-center m-3"> Ups! no hay registros 😥
+                            <p class="text-center m-3"> Ups! no hay Procesos registrados 😥
                     </p>
                 </div>
             </div>

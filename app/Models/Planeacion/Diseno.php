@@ -5,8 +5,9 @@ namespace App\Models\Planeacion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Diseño extends Model
+class Diseno extends Model
 {
+    use HasFactory;
     use HasFactory;
     protected $table 		= 'tbl_plane_diseño';
     protected $primaryKey   = 'id_diseno';

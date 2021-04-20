@@ -231,7 +231,7 @@
                                 <td>
                                     <div class="form-row align-items-center">
                                         <a
-                                            href="{{ URL::action('Planeacion\DiseñoController@edit',$consulta->id_diseno ) }}"><i
+                                            href="{{ URL::action('Planeacion\DisenoController@edit',$consulta->id_diseno ) }}"><i
                                                 class=" form-inline fas fa-pencil-alt fa-2x"
                                                 style="color:#18A4B4;"></i></a>
 

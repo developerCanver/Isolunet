@@ -32,18 +32,28 @@ class TendeciasController extends Controller
 
     public function index()
     {
-         $validacion = DB::table('tbl_contexto_tendencias_colombia')
-                    ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-                    ->get();
+        
 
-        $tendencia = "";
-        if (count($validacion) != 0) {
-           $tendencia = DB::table('tbl_contexto_tendencias_colombia')
-                    ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
+                    //dd($validacion);
+        $tipoUser = DB::table('tbl_empresa as e')       
+                    ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                    ->join('role_user as ru','ru.user_id','=','u.id')
+                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
                     ->first();
-        }
 
-         return view('pages.contexto.tendencia_en_colombia.index',['tendencia'=>$tendencia,'validacion'=>$validacion]);
+                   //dd( $tipoUser);
+    
+           $tendencia = DB::table('tbl_contexto_tendencias_colombia as tc')
+                    ->join('tbl_empresa as e','tc.fk_empresa','=','e.id_empresa')
+                    
+                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    //->where('ru.role_id','1')
+                    ->first();
+
+                    //dd($tendencia);
+        
+
+         return view('pages.contexto.tendencia_en_colombia.index',['tendencia'=>$tendencia,'tipoUser'=>$tipoUser]);
     }
 
 

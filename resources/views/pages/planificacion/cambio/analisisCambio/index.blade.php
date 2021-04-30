@@ -127,7 +127,7 @@
                         <div class="form-group">
                             <label for="datos">Otro?</label>
                             <input type="radio" name="cambio_interno" id="cambio_interno" value="3">
-                            <input type="text" name="otro_interno" class="form-control" placeholder="Cual interno?">
+                            <input type="text" name="otro_interno" class="form-control" placeholder="Otro interno">
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                         <div class="form-group">
                             <label for="datos">Otro?</label>
                             <input type="radio" name="cambio_externo" id="cambio_externo" value="3">
-                            <input type="text" name="otro_externo" class="form-control" placeholder="Cual interno?">
+                            <input type="text" name="otro_externo" class="form-control" placeholder="Otro Externo">
                         </div>
                     </div>
                 </div>

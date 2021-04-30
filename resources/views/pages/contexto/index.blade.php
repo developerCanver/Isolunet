@@ -62,7 +62,7 @@
 	          		<div class="progress mg-b-10">
 	            	<div class="progress-bar bg-primary progress-bar-xs wd-{{ $cont3 }}p" role="progressbar" aria-valuenow="{{ $cont3 }}" aria-valuemin="0" aria-valuemax="100"></div>
 	          		</div><!-- progress -->
-						<p class="tx-12">Los tipos de estrategias que utilizará XXX, son el análisis PESTAL, matriz DOFA</p>
+						<p class="tx-12">Los tipos de estrategias que utilizará, son el análisis PESTAL, matriz DOFA</p>
 						<p class="tx-11 lh-3 mg-b-0"><a href="{{ URL::to('contexto_analisis_pestal') }}" class="btn btn-success btn-xs">Diligenciar</a></p>
 					</div><!-- col-6 -->
 	        		<div class="col-sm-6 mg-t-20 mg-sm-t-0 d-flex align-items-center justify-content-center">
@@ -125,9 +125,9 @@
 						<p class="tx-11 lh-3 mg-b-0">
 	          			{{-- @if ($total < 100) --}}
 	          				{{-- <a href="" class="btn btn-success btn-xs" disabled="true" >Diligenciar</a> --}}
-	          				<input type="button" disabled="true" class="btn btn-success btn-xs" value="Diligenciar" /> 
+	          			
 						{{-- 	@else --}}
-							<a href="" class="btn btn-success btn-xs">Diligenciar</a>
+							<a href="" class="btn btn-success btn-xs">Generar PDF</a>
 						{{-- 	@endif --}}
 	          			</p>
 	        		</div><!-- col-6 -->

@@ -102,11 +102,13 @@
 				</div>
 			</div>
 		</div>
-		
+	
 		 @if(count($datos_corporativos_count) == 1)
 		 	<button type="submit" class="btn btn-warning">Editar</button>
+			 <input type="hidden" name="opcion" value="{{$datos_corporativos->id_datos_corporativos}}">
 		 @else
 			<button type="submit" class="btn btn-primary">Guardar</button>
+			<input type="hidden" name="opcion" value="guardar">
 		 @endif
   			
   		<a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>

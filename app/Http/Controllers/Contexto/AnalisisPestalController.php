@@ -35,19 +35,19 @@ class AnalisisPestalController extends Controller
     public function index()
     {
        
-        $validacion = DB::table('tbl_contexto_analisis_pestal')
-                    ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-                    ->get();
+        $tipoUser = DB::table('tbl_empresa as e')       
+        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+        ->join('role_user as ru','ru.user_id','=','u.id')
+        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+        ->first();
 
-        $pestal = "";
-        if (count($validacion) != 0) {
-           $pestal = DB::table('tbl_contexto_analisis_pestal')
-                    ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
+           $pestal = DB::table('tbl_contexto_analisis_pestal as ap')  
+           ->join('tbl_empresa as e','ap.fk_empresa','=','e.id_empresa')                    
+           ->where('e.fk_usuario','=',''.Auth::User()->id.'')
                     ->first();
-        }
+       
 
-
-        return view('pages.contexto.analisis_pestal.index',['pestal'=>$pestal,'validacion'=>$validacion]);
+        return view('pages.contexto.analisis_pestal.index',['pestal'=>$pestal,'tipoUser'=>$tipoUser]);
     }
 
     public function create(Request $request)

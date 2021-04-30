@@ -39,10 +39,10 @@
 
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
-                
-                            <label><strong>Rol:</strong></label>
-                            <textarea name="nom_rol_res" rows="2" cols="100" disabled >{{$rol_res->nom_rol_res}}</textarea>
-                 
+
+                    <label><strong>Rol:</strong></label>
+                    <textarea name="nom_rol_res" rows="2" cols="100" disabled>{{$rol_res->nom_rol_res}}</textarea>
+
                 </div>
             </div>
 
@@ -61,9 +61,9 @@
                 </div>
             </div>
         </div>
-   
-   
-   
+
+
+
         <button type="submit" class="btn btn-primary">Guardar</button>
         {!!Form::close()!!}
         <br>
@@ -80,7 +80,9 @@
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         Listas
-                                        <a class="btn btn-info btn" href="{{ URL::action('Liderazgo\ResponsabilidadesController@index',$rol_res->id_rol_res ) }}">Crear Responsabilidades</a>
+                                        <a class="btn btn-info btn"
+                                            href="{{ URL::action('Liderazgo\ResponsabilidadesController@index',$rol_res->id_rol_res ) }}">Crear
+                                            Responsabilidades</a>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +92,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                             
+
                                 <th>Cargo que asume el rol</th>
                                 <th>
                                     Eliminar Cargo
@@ -101,36 +103,38 @@
                         <tbody>
 
                             @foreach ($RolesCargos as $RolesCargo)
-                                 
+
                             <tr>
                                 <td>{{$RolesCargo->nom_cargo}}</td>
 
-                            <td>
-                               
-                                <a href="{{ URL::action('Liderazgo\MatrizRolesController@destroy_cargo_rol',$RolesCargo->id_roles_cargo ) }}"><i
-                                        class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
-                               
-                            </td>
+                                <td>
+
+                                    <a
+                                        href="{{ URL::action('Liderazgo\MatrizRolesController@destroy_cargo_rol',$RolesCargo->id_roles_cargo ) }}"><i
+                                            class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
+
+                                </td>
                             </tr>
-                            @endforeach 
+                            @endforeach
 
                         </tbody>
                     </table>
                     @else
-                    
+
                     <br><br>
                     <div class="container m-5">
                         <div class="alert alert-primary" role="alert">
-                            <p class="text-center m-3"> Ups! no hay registros 😥 para la empresa {{$empresas->razon_social}}
-                    </p>
+                            <p class="text-center m-3"> Ups! no hay registros 😥 para la empresa
+                                {{$empresas->razon_social}}
+                            </p>
+                        </div>
+                    </div>
+                    <br><br>
+                    @endif
                 </div>
             </div>
-            <br><br>
-            @endif
         </div>
     </div>
-</div>
-</div>
 
 </div>
 

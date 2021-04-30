@@ -190,17 +190,6 @@
                 </div>
 
             </div>
-       
-
-
-
-  
-
-
-
-
- 
-
     <button type="submit" class="btn btn-primary">Actualizar</button>
     <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
     {!!Form::close()!!}

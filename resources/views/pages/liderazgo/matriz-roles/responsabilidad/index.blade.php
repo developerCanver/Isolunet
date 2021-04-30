@@ -7,8 +7,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Liderazgo</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/roles_responsabilidades') }}">Rol y Responsabilidad</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Responsabilidad</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Rol y Responsabilidad</span></a>
 
 
     </nav>
@@ -29,55 +28,73 @@
         {{  Form::open(['action' => 'Liderazgo\ResponsabilidadesController@store','autocomplete'=>'off', 'metdod' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}
 
-        <h6>Responsabilidades - {{$responsabilidad->nom_rol_res}}</h6>
+
         <div class="row">
-            <input type="hidden" class="form-control" name="empresa" value="{{$empresas->id_empresa}}">
-            <input type="hidden" class="form-control" name="id_responsabilidad" value="{{$id_responsabilidad }}">
+            <input type="hidden" class="form-control" name="fk_empresa" value="{{$empresas->id_empresa}}">
 
         </div><br>
 
         <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                <div class="form-group">
+                    <label><strong>Rol de los cargos en los sistemas de gestión?
+                        </strong></label>
+                    <textarea name="nom_rol_res" rows="2" cols="140" required="true"></textarea>
+                </div>
+            </div>
         </div>
+
         <div class="row">
             <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                 <div class="form-group">
-                    <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                            <td>
-                                <label><strong>Responsabilidad:</strong></label>
-                                <textarea name="nom_responsabilidades" rows="2" cols="50" required="true"></textarea>
-                            </td>
-                            <td>
-                                <label><strong>¿Qué Cuentas Rinde?:</strong></label>
-                                <textarea name="cuentas_rinde" rows="2" cols="50"></textarea>
-                            </td>
-                        </tr>
-                    </table>
+                    <label for="datos">Cargo que asume el Rol:</label>
+                    <select name="fk_cargo[]" class="form-control select2" required multiple>
+
+                        @foreach ($tabla_usuarios_cliente as $element)
+                        <option value="{{ $element->id_cargo }}">{{ $element->nom_cargo }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                <div class="form-group">
+                    <label><strong>Responsabilidad:</strong></label>
+                    <textarea name="nom_responsabilidades" rows="2" cols="60" required="true"></textarea>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                <div class="form-group">
+
+                    <label><strong>¿Qué Cuentas Rinde?:</strong></label>
+                    <textarea name="cuentas_rinde" rows="2" cols="60"></textarea>
                 </div>
             </div>
 
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
-                    <table class="table table-bordered" id="dynamic_field2">
-                        <tr>
-                            <td>
-                                <label><strong>Autoridad:</strong></label>
-                                <textarea name="autoridad" rows="2" cols="30"></textarea>
-                            </td>
-                            <td>
-                                <label><strong>¿A Quién?:</strong></label>
-                                <textarea name="a_quien" rows="2" cols="30"></textarea>
-                            </td>
-                            <td>
-                                <label><strong>¿Cada Cuánto?:</strong></label>
-                                <textarea name="cada_cuanto" rows="2" cols="30"></textarea>
-                            </td>
+                    <label><strong>Autoridad:</strong></label>
+                    <textarea name="autoridad" rows="2" cols="40"></textarea>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label><strong>¿A Quién?:</strong></label>
+                    <textarea name="a_quien" rows="2" cols="40"></textarea>
+                </div>
+            </div>
 
-                        </tr>
-                    </table>
+
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label><strong>¿Cada Cuánto?:</strong></label>
+                    <textarea name="cada_cuanto" rows="2" cols="40"></textarea>
                 </div>
             </div>
 
@@ -86,22 +103,7 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
         {!!Form::close()!!}
-        <br>
-        <br>
 
-        <div class="card ">
-            <div class="card-header">
-                Rol y Cargos Asignados
-            </div>
-            <div class="card-body">
-                <h6 class="card-title">{{$responsabilidad->nom_rol_res}}</h6>
-
-                @foreach ($cargos as $cargo)
-                <p class="card-text">{{$cargo->nom_cargo}}</p>
-                @endforeach
-            </div>
-
-        </div>
 
         <br>
         <br>
@@ -113,7 +115,8 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Responsabilidad</th>
+                                <th title="Rol de los cargos en los sistemas de gestión?">Rol</th>
+                                <th>Responsabilidad</th>                                
                                 <th title="¿Qué Cuentas Rinde?">¿Qué Cuentas...</th>
                                 <th> Autoridad</th>
                                 <th>¿A Quién?</th>
@@ -128,6 +131,7 @@
                             @foreach ($responsabilidades as $responsabilidad)
 
                             <tr>
+                                <td>{{$responsabilidad->nom_rol_res}}</td>
                                 <td>{{$responsabilidad->nom_responsabilidades}}</td>
                                 <td>{{$responsabilidad->cuentas_rinde}}</td>
                                 <td>{{$responsabilidad->autoridad}}</td>

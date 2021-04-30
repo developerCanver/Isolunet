@@ -20,39 +20,36 @@ class ResponsabilidadesController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index($id_responsabilidad)
+    public function index()
     {
+        $tabla_usuarios_cliente = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.fk_usuario','=','u.id')
+                    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                    ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+                    ->where('u.id','=',''.Auth::User()->id.'')
+                    ->where('e.bool_estado','=','1')
+                    ->where('a.bool_estado','=','1')
+                    ->where('c.bool_estado','=','1')
+                    ->get();
+            
+
         $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
-        ->where('bool_estado','=','1')->first();
+                    ->where('bool_estado','=','1')->first();
+                   // dd($empresas);
 
-   
-        $responsabilidad =  DB::table('tbl_lid_roles_responsabilidades as rr')
-                                ->where('id_rol_res','=',''.$id_responsabilidad.'')->first();
-     
+                   $responsabilidades = DB::table('tbl_lid_responsabilidades as res')
+                   ->join('tbl_empresa as e','e.id_empresa','=','res.fk_empresa')                 
+                   ->where('fk_usuario',  '=',''.Auth::User()->id.'')
+                   ->where('res.bool_estado','=','1')
+                   ->get();
 
-            $responsabilidades = DB::table('tbl_lid_roles_responsabilidades as rr')
-                                    ->join('tbl_lid_responsabilidades as res','res.fk_roles_res','=','rr.id_rol_res')
-                                    ->join('tbl_empresa as e','e.id_empresa','=','rr.fk_empresa')
-                                    ->where('id_rol_res','=',''.$id_responsabilidad.'')
-                                    ->where('fk_usuario',  '=',''.Auth::User()->id.'')
-                                    ->where('rr.bool_estado','=','1')
-                                    ->where('res.bool_estado','=','1')
-                                    ->get();
-        $cargos =  DB::table('tbl_lid_roles_cargos as rc')
-                                    ->join('tbl_cargos as c','c.id_cargo','=','rc.fk_cargo')
-                                    ->where('rc.bool_estado','=','1')
-                                    ->where('c.bool_estado','=','1')
-                                    ->where('fk_roles_res','=',''.$id_responsabilidad.'')->get();
-                                  
-                                  //dd( $cargos);
 
-         return view('pages.liderazgo.matriz-roles.responsabilidad.index',[
-                                         'responsabilidad' => $responsabilidad,
-                                        'empresas' => $empresas,
-                                        'responsabilidades' => $responsabilidades,
-                                        'id_responsabilidad' => $id_responsabilidad,
-                                        'cargos' => $cargos,
-                                    ]);
+                   return view('pages.liderazgo.matriz-roles.responsabilidad.index',[
+          
+                    'empresas' => $empresas,
+                    'tabla_usuarios_cliente' => $tabla_usuarios_cliente,
+                    'responsabilidades' => $responsabilidades,
+                ]);
     }
     
 
@@ -72,13 +69,12 @@ class ResponsabilidadesController extends Controller
             $a_quien = $request->get('a_quien');
             $cada_cuanto = $request->get('cada_cuanto');
             
-
-            $fk_roles_res =$request->get('id_responsabilidad');
-            $id_responsabilidad =$request->get('id_responsabilidad');
         
 
                $responsabilidad = new TBLResponsabilidad();
-               $responsabilidad->fk_roles_res = $fk_roles_res;
+
+               $responsabilidad->nom_rol_res    = $request->get('nom_rol_res');
+               $responsabilidad->fk_empresa    = $request->get('fk_empresa');
 
                if ($cuentas_rinde==''){             
                 $responsabilidad->cuentas_rinde =  '';
@@ -105,6 +101,18 @@ class ResponsabilidadesController extends Controller
                $responsabilidad->nom_responsabilidades = $nom_res;
                $responsabilidad->bool_estado = '1';
                $responsabilidad->save();
+               
+           $rolCargos = $request->get('fk_cargo');
+      
+           //dd( $variable->id_rol_res);
+           for ($i=0; $i <  count($rolCargos) ; $i++) {
+
+              $variable = new RolesCargos();
+              $variable->fk_roles_res = $responsabilidad->id_responsabilidades;
+              $variable->bool_estado  = '1';
+              $variable->fk_cargo = $rolCargos[$i];
+              $variable->save();
+           }
             
 
 
@@ -117,12 +125,24 @@ class ResponsabilidadesController extends Controller
             
         }
 
-        return Redirect::to('responsabilidades_matriz/'.$id_responsabilidad)->with('status','Se guardó correctamente');
+        return Redirect::to('roles_responsabilidades')->with('status','Se guardó correctamente');
     }
 
 
     public function edit($id)
     {   
+      
+        $tabla_usuarios_cliente =   DB::table('tbl_lid_responsabilidades as r')
+                                ->join('tbl_lid_roles_cargos as rc','rc.fk_roles_res','=','r.id_responsabilidades')   
+                                ->join('tbl_cargos as c','c.id_cargo','=','rc.fk_cargo')   
+                                
+                                ->get();
+
+        $tabla_usuarios_cliente = DB::table('tbl_lid_roles_cargos as rc')
+                                ->join('tbl_cargos as c','c.id_cargo','=','rc.fk_cargo')                     
+                            ->get();
+
+                           // dd($tabla_usuarios_cliente);
         
         $responsabilidad = TBLResponsabilidad::findOrfail($id);
         $id_responsabilidad=$responsabilidad->fk_roles_res;
@@ -130,6 +150,7 @@ class ResponsabilidadesController extends Controller
         return view('pages.liderazgo.matriz-roles.responsabilidad.edit',[
                             'responsabilidad'=>$responsabilidad,
                             'id_responsabilidad'=>$id_responsabilidad,
+                            'tabla_usuarios_cliente'=>$tabla_usuarios_cliente,
                             ]);
     }
     public function edit_cargo_rol ($id)
@@ -197,7 +218,7 @@ class ResponsabilidadesController extends Controller
             alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
             
         }
-        return Redirect::to('responsabilidades_matriz/'.$id_responsabilidad)->with('status','Se guardó correctamente');
+        return Redirect::to('roles_responsabilidades')->with('status','Se guardó correctamente');
     }
 
   

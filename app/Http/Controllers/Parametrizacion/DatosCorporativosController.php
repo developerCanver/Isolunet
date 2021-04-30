@@ -71,9 +71,9 @@ class DatosCorporativosController extends Controller
     {
     	
     	$id_empresa = $request->get('fk_empresa');
-    	$validacion_update = DatosCorporativos::where('fk_empresa','=',$id_empresa)->get();
+    	$validacion  = $request->get('opcion');
 
-    	if (count($validacion_update) < 1) {
+    	if ($validacion == 'guardar') {
     		try {
 	            DB::beginTransaction();
 	            
@@ -97,7 +97,9 @@ class DatosCorporativosController extends Controller
     		try {
 	            DB::beginTransaction();
 	            
-	            $empresa 						= DatosCorporativos::findOrfail($id_empresa);
+				//dd($validacion);
+	            $empresa 						= DatosCorporativos::findOrfail($validacion);
+				
 	            $empresa->str_mision			= $request->get('str_mision');
 				$empresa->str_vision			= $request->get('str_vision');
 				$empresa->str_principios		= $request->get('str_principios');

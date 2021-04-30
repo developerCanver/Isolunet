@@ -49,7 +49,7 @@
         <br>
 
         <p>Con base en la identificación de las anteriores cuestiones externas e internas que puede afectar el sistema
-            de gestión de calidad de XXX, se elaboró la matriz DOFA, la cual después de analizarla nos permitió
+            de gestión de calidad, se elaboró la matriz DOFA, la cual después de analizarla nos permitió
             identificar los riesgos y oportunidades estratégicas para el sistema de gestión de calidad:</p>
         <br>
         @include('partials.message_flash')

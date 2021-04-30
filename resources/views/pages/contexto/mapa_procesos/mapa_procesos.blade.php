@@ -77,7 +77,7 @@
             <div class="col-sm-8 col-md-8 col-lg-8 col-xs-12" align="center">
                 <div class="row">
                     @foreach ($pro_direcciones as $pro_direccion)
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12" align="center" style="margin-top: 10px;">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 mt-2" align="center" style="margin:auto;">
                         <div class="cont">
                             {{$pro_direccion->nom_proceso}}
                         </div>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="row">
                     @foreach ($proceso_misional as $proceso_mision)
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12" style="margin-top: 10px;">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 mt-2" style="margin:auto;">
                         <div class="cont">
                             {{$proceso_mision->nom_proceso}}
                         </div>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="row">
                     @foreach ($proceso_apoyo as $proceso_apo)
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12" align-self-end style="margin-top: 10px;">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 mt-2"  align-self-end style="margin:auto;">
                         <div class="cont">
                             {{$proceso_apo->nom_proceso}}
                         </div>

@@ -44,7 +44,9 @@
                             <label><strong> Cargo:</strong></label>
                             <select name="fk_cargo" class="form-control select2" required>
                                 @foreach ($cargos as $cargo)
-                                <option value="{{ $cargo->id_cargo  }}">{{ $cargo->nom_cargo }}</option>
+                                <option value="{{ $cargo->id_cargo  }}" 
+                                    {{ $cargo->id_cargo == $cambios->fk_cargo ? 'selected' : ''}} >
+                                    {{ $cargo->nom_cargo }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -58,7 +60,8 @@
                             <label><strong>Usuario:</strong></label>
                             <select name="fk_usuario" class="form-control select2" required>
                                 @foreach ($usuarios as $usuario)
-                                <option value="{{ $usuario->id  }}">{{ $usuario->name }}</option>
+                                <option value="{{ $usuario->id  }} "  {{ $usuario->id == $cambios->fk_usuario ? 'selected' : ''}}
+                                     {{ $usuario->id  }} >{{ $usuario->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -76,7 +79,8 @@
                             <label><strong>Sistema Gestion:</strong></label>
                             <select name="usuarios_relacionados[]" class="form-control select2" required >
                                 @foreach ($sistema_gestiones as $sistema_gestion)
-                                <option value="{{ $sistema_gestion->id_sisgestion  }}">
+                                <option value="{{ $sistema_gestion->id_sisgestion  }}"
+                                    {{ $sistema_gestion->id_sisgestion == $cambios->usuarios_relacionados ? 'selected' : ''}}>
                                     {{ $sistema_gestion->str_nombre }}</option>
                                 @endforeach
                             </select>
@@ -144,7 +148,7 @@
                             @if (($cambios->otro_interno))
                             <input type="text" name="otro_interno" class="form-control" value="{{$cambios->otro_interno}}">
                             @else
-                            <input type="text" name="otro_interno" class="form-control" placeholder="Cual interno?">
+                            <input type="text" name="otro_interno" class="form-control" placeholder="Otro Externo">
                             @endif
 
                         </div>
@@ -197,7 +201,7 @@
                             @if (($cambios->otro_externo))
                             <input type="text" name="otro_externo" class="form-control" value="{{$cambios->otro_externo}}">
                             @else
-                            <input type="text" name="otro_externo" class="form-control" placeholder="Cual interno?">
+                            <input type="text" name="otro_externo" class="form-control" placeholder="Otro Externo">
                             @endif
 
                         </div>
@@ -267,7 +271,7 @@
                 </div>
             </div>
         </div>
-    </div>
+  
 
     <button type="submit" class="btn btn-primary">Guardar</button>
     {!!Form::close()!!}

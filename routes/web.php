@@ -157,23 +157,23 @@ Route::get('egreso/delete/{id}',   [Egreso::class, 'destroy']);
 
 Route::get('respon/{id}',       				 [MatrizRoles::class, 'index_res']);
  // responsabilidades/cargo_rol/49
-Route::get('/roles_responsabilidades/',        	   [MatrizRoles::class, 'index']);
-Route::post('/roles_responsabilidades/create',     [MatrizRoles::class, 'store']);
-Route::get('roles_responsabilidades/edit/{id}',    [MatrizRoles::class, 'edit']);
-Route::post('roles_responsabilidades/{id}', 	   [MatrizRoles::class, 'update']);
-Route::get('roles_responsabilidades/delete/{id}',  [MatrizRoles::class, 'destroy']);
+Route::get('/roles_responsabilidades/',        	   [Responsabilidades::class, 'index']);
+Route::post('/roles_responsabilidades/create',     [Responsabilidades::class, 'store']);
+Route::get('roles_responsabilidades/edit/{id}',    [Responsabilidades::class, 'edit']);
+Route::post('roles_responsabilidades/{id}', 	   [Responsabilidades::class, 'update']);
+Route::get('roles_responsabilidades/delete/{id}',  [Responsabilidades::class, 'destroy']);
 
 
-Route::get('/responsabilidades/cargo_rol/{id}',        [MatrizRoles::class, 'index_cargo_rol']);
-Route::post('/roles_responsabilidades/cargo_rol/create',     [MatrizRoles::class, 'store_cargo']);
-Route::get('roles_responsabilidades/cargo_rol/delete/{id}',  [MatrizRoles::class, 'destroy_cargo_rol']);
-Route::get('cargo_edit/{id}',   								 [MatrizRoles::class, 'edit_cargo_rol']);
+// Route::get('/responsabilidades/cargo_rol/{id}',        [MatrizRoles::class, 'index_cargo_rol']);
+// Route::post('/roles_responsabilidades/cargo_rol/create',     [MatrizRoles::class, 'store_cargo']);
+// Route::get('roles_responsabilidades/cargo_rol/delete/{id}',  [MatrizRoles::class, 'destroy_cargo_rol']);
+// Route::get('cargo_edit/{id}',   								 [MatrizRoles::class, 'edit_cargo_rol']);
 
-Route::get('responsabilidades_matriz/{id}',        [Responsabilidades::class, 'index']);
-Route::post('/responsabilidades_matriz/create',     [Responsabilidades::class, 'store']);
-Route::get('responsabilidades_matriz/edit/{id}',    [Responsabilidades::class, 'edit']);
-Route::post('update_responsabilidad/{id}', 	   [Responsabilidades::class, 'update']);
-Route::get('responsabilidades_matriz/delete/{id}',  [Responsabilidades::class, 'destroy']);
+// Route::get('responsabilidades_matriz/{id}',        [Responsabilidades::class, 'index']);
+// Route::post('/responsabilidades_matriz/create',     [Responsabilidades::class, 'store']);
+// Route::get('responsabilidades_matriz/edit/{id}',    [Responsabilidades::class, 'edit']);
+// Route::post('update_responsabilidad/{id}', 	   [Responsabilidades::class, 'update']);
+// Route::get('responsabilidades_matriz/delete/{id}',  [Responsabilidades::class, 'destroy']);
 // ********* FIN ****Menu liderazgo *******
 
 

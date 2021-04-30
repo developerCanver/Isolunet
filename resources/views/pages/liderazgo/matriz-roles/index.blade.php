@@ -34,19 +34,27 @@
         </div><br>
 
         <div class="row">
-
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
-
                     <label><strong>Rol de los cargos en los sistemas de gestión?
                         </strong></label>
                     <textarea name="nom_rol_res" rows="2" cols="140" required="true"></textarea>
-
-
                 </div>
             </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="form-group">
+                    <label for="datos">Cargo que asume el Rol:</label>
+                    <select name="fk_cargo[]" class="form-control select2" required multiple>
 
+                        @foreach ($tabla_usuarios_cliente as $element)
+                        <option value="{{ $element->id_cargo }}">{{ $element->nom_cargo }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>

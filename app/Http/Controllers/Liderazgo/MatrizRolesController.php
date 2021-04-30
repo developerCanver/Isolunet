@@ -24,28 +24,37 @@ class MatrizRolesController extends Controller
     public function index()
     {
 
-        $responsabilidades = DB::table('users as u')
-                                    ->join('tbl_empresa as e','e.fk_usuario','=','u.id')
-                                    ->join('tbl_lid_roles_responsabilidades as r','r.fk_empresa','=','e.id_empresa')                                  
-                                                               
-                                    ->where('u.id','=',''.Auth::User()->id.'')
-                                    ->where('e.bool_estado','=','1')
-                                    ->where('r.bool_estado','=','1')
-                                    ->get();
-                        //dd($responsabilidades);
 
+         $tabla_usuarios_cliente = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.fk_usuario','=','u.id')
+                    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                    ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+                    ->where('u.id','=',''.Auth::User()->id.'')
+                    ->where('e.bool_estado','=','1')
+                    ->where('a.bool_estado','=','1')
+                    ->where('c.bool_estado','=','1')
+                    ->get();
  
 
-        $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
-                    ->where('bool_estado','=','1')->first();
-                   // dd($empresas);
+                 $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('bool_estado','=','1')->first();
+                    // dd($empresas);
+
+                $responsabilidades = DB::table('tbl_lid_roles_responsabilidades as rr')
+                    ->join('tbl_lid_responsabilidades as res','res.fk_roles_res','=','rr.id_rol_res')
+                    ->join('tbl_empresa as e','e.id_empresa','=','rr.fk_empresa')
+                    
+                    ->where('fk_usuario',  '=',''.Auth::User()->id.'')
+                    ->where('rr.bool_estado','=','1')
+                    ->where('res.bool_estado','=','1')
+                    ->get();
 
                     
-        return view('pages.liderazgo.matriz-roles.index',[
-          
-            'empresas' => $empresas,
-            'responsabilidades' => $responsabilidades,
-        ]);
+                   return view('pages.liderazgo.matriz-roles.responsabilidad.index',[          
+                                    'empresas' => $empresas,
+                                    'tabla_usuarios_cliente' => $tabla_usuarios_cliente,
+                                    'responsabilidades' => $responsabilidades,
+                                ]);
     }
 
     public function index_cargo_rol($id_rol_res)

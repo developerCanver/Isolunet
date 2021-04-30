@@ -67,18 +67,19 @@
           </a><!-- br-menu-link -->
           @php
           $contexto='';
-              if (request()->is('contexto_index') || request()->is('partes_interesadas') || request()->is('alcance') || request()->is('mapa_proceso') || request()->is('contexto_tendencias_en_colombia') || request()->is('contexto_analisis_pestal') 
-              || request()->is('contexto_dofa') || request()->is('estrategias') || request()->is('matriz_dofa')  ) {
+              if (request()->is('contexto_index') || request()->is('partes_interesadas') || request()->is('alcance') 
+              || request()->is('mapa_proceso') || request()->is('contexto_tendencias_en_colombia') || request()->is('contexto_analisis_pestal') 
+              || request()->is('contexto_dofa') || request()->is('estrategias') || request()->is('matriz_dofa') 
+              || request()->is('contexto_riesgo') || request()->is('pi_calificaciones*')  ) {
                 $contexto="style=display:block;";
               }
           @endphp
           <ul class="br-menu-sub" {{$contexto}}  >
-            <li class="sub-item active"><a href="{{ URL::to('contexto_index') }}"   class="sub-link {{ request()->is('contexto_index') || request()->is('contexto_tendencias_en_colombia') || request()->is('contexto_analisis_pestal') 
-            || request()->is('contexto_dofa') || request()->is('estrategias') || request()->is('matriz_dofa')  ? 'active' : ''}}">Cuestiones Externas e Internas</a></li>
-            <li class="sub-item"><a href="{{ URL::to('partes_interesadas') }}"      class="sub-link {{ request()->is('partes_interesadas') ? 'active' : ''}}">Partes Interesadas</a></li>
-            <li class="sub-item"><a href="{{ URL::To('alcance') }}"                 class="sub-link {{ request()->is('alcance') ? 'active' : ''}}">Alcance</a></li>
-            <li class="sub-item"><a href="{{ URL::to('mapa_proceso') }}"            class="sub-link {{ request()->is('mapa_proceso') ? 'active' : ''}}">Procesos</a></li>
-        
+            <li class="sub-item active"><a href="{{ URL::to('contexto_index') }}"   class="sub-link {{ request()->is('contexto_index*') || request()->is('contexto_tendencias_en_colombia*') || request()->is('contexto_analisis_pestal') 
+            || request()->is('contexto_dofa') || request()->is('estrategias') || request()->is('contexto_riesgo*')|| request()->is('matriz_dofa*')  ? 'active' : ''}}">Cuestiones Externas e Internas</a></li>
+            <li class="sub-item"><a href="{{ URL::to('partes_interesadas') }}"      class="sub-link {{ request()->is('partes_interesadas*') || request()->is('pi_calificaciones*')  ? 'active' : ''}}">Partes Interesadas</a></li>
+            <li class="sub-item"><a href="{{ URL::To('alcance') }}"                 class="sub-link {{ request()->is('alcance*') ? 'active' : ''}}">Alcance</a></li>
+            <li class="sub-item"><a href="{{ URL::to('mapa_proceso') }}"            class="sub-link {{ request()->is('mapa_proceso*') ? 'active' : ''}}">Procesos</a></li>    
           </ul>
         </li><!-- br-menu-item -->
         <li class="br-menu-item">
@@ -164,7 +165,6 @@
                 $pdn='nav-link text-truncate';
               }
               if (request()->is('trazabilidad*')   ) {
-               
                 $pdn='nav-link text-truncate';
               }
 

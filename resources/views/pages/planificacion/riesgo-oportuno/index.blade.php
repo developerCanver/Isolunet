@@ -73,7 +73,7 @@
                      </td>
                      <tr>
                         <td colspan="4" > 
-                            <label for="datos">Control</label>
+                            <label for="datos"><strong>Control:</strong></label>
                             <input type="text" name="control" class="form-control" >                    
                          </td>
                     </tr>
@@ -103,18 +103,18 @@
                     </tr>
                     <tr>
                         <td  > 
-                            <label for="datos">Acciones</label>
+                            <label for="datos"><strong>Acciones:</strong></label>
                             <input type="text" name="nom_accion" class="form-control" >                    
                          </td>
                          <td  > 
-                            <label for="datos">Responsable</label>
+                            <label for="datos"><strong>Responsable:</strong></label>
                             <input type="text" name="nom_responsable" class="form-control" >                    
                          </td>
 
                     </tr>
                     <tr>
                         <td colspan="2" > 
-                            <label for="datos">Indicador</label>
+                            <label for="datos"><strong>Indicador:</strong></label>
                             <input type="text" name="nom_indicador" class="form-control" >                    
                          </td>
                     </tr>

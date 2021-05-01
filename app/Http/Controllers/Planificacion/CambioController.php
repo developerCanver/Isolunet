@@ -40,9 +40,7 @@ class CambioController extends Controller
                         ->where('e.bool_estado',  '=','1')
                         ->where('sg.bool_estado',  '=','1')->get();
 
-      
-
-      
+     
             $planificaciones = DB::table('tbl_empresa as e')
                         ->join('users as u','u.id','=','e.fk_usuario')
                         ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')

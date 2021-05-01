@@ -44,9 +44,9 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
-                    <label for="datos">Cargo que asume el Rol:</label>
+                    <label for="datos"><strong>Cargo que asume el Rol:</strong></label>
                     <select name="fk_cargo[]" class="form-control select2" required multiple>
 
                         @foreach ($tabla_usuarios_cliente as $element)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Apoyo;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apoyo\InfomacionGestion;
 use App\Models\Apoyo\Informacion;
 use Illuminate\Http\Request;
 
@@ -95,12 +96,9 @@ class InformacionController extends Controller
             }
 
             return view('pages.apoyo.informacion.index');
-         
 
     }
 
-
-    
 
     public function store(Request $request)
     {
@@ -120,30 +118,44 @@ class InformacionController extends Controller
             }
           
 
-            Informacion::create([
-                'codigo' => $request->get('codigo'),	
-                'conservasion' => $request->get('conservasion'),	
-                'tipo_informacion' => $request->get('tipo_informacion'),	
-                'proceso' => $request->get('proceso'),	
-                'tit_documento' => $request->get('tit_documento'),	
-                'tit_registro' => $request->get('tit_registro'),	
-                'version' => $request->get('version'),	
-                'descripcion' => $request->get('descripcion'),	
-                'responsable' => $request->get('responsable'),	
-                'lugar_archivo' => $request->get('lugar_archivo'),	
-                'digital' => $request->get('digital'),	
-                'tie_retencion' => $request->get('tie_retencion'),	
-                'dis_final' => $request->get('dis_final'),	
-                'organiza' => $request->get('organiza'),	
-                'archivo' => $name,	
-                'fecha_info' => $request->get('fecha_info'),	
-                'vigente' => $request->get('vigente'),	
-                'contralado' => $request->get('contralado'),	
-                'sis_gestion' => $request->get('sis_gestion'),	
-                'no_copia' => $request->get('no_copia'),	
-                'bool_estado' => '1',
-                'fk_empresa' => $request->get('fk_empresa'),
-            ]);
+                 $variable = new Informacion();
+                 $variable->codigo          = $request->get('codigo');	
+                 $variable->conservasion    = $request->get('conservasion');	
+                 $variable->tipo_informacion = $request->get('tipo_informacion');	
+                 $variable->proceso         = $request->get('proceso');	
+                 $variable->tit_documento   = $request->get('tit_documento');	
+                 $variable->tit_registro    = $request->get('tit_registro');	
+                 $variable->version         = $request->get('version');	
+                 $variable->descripcion     = $request->get('descripcion');	
+                 $variable->responsable     = $request->get('responsable');	
+                 $variable->lugar_archivo   = $request->get('lugar_archivo');	
+                 $variable->digital         = $request->get('digital');	
+                 $variable->tie_retencion   = $request->get('tie_retencion');	
+                 $variable->dis_final      = $request->get('dis_final');	
+                 $variable->organiza       = $request->get('organiza');	
+                 $variable->archivo        = $name;	
+                 $variable->fecha_info    = $request->get('fecha_info');	
+                 $variable->vigente        = $request->get('vigente');	
+                 $variable->contralado     = $request->get('contralado');	
+                 $variable->no_copia       = $request->get('no_copia');	
+                 $variable->bool_estado    = '1';
+                 $variable->fk_empresa    = $request->get('fk_empresa');
+        
+                 $variable->save();
+            //InfomacionGestion
+            if ($request->get('sis_gestion')) {
+                $sis_gestion     = $request->get('sis_gestion');
+                for ($i=0; $i <  count($sis_gestion) ; $i++) {
+                    $tiporequisito = new InfomacionGestion();
+                    $tiporequisito->fk_gestion       =    $sis_gestion[$i];
+                    $tiporequisito->fk_informacion   =    $variable->id_informacion ;
+
+                    $tiporequisito->save();
+                }
+
+            }
+
+           
     
             return Redirect::to('informacion?tipo_informacion='.$tipo_informacion)->with('status','Se Guardo correctamente');
       
@@ -165,6 +177,8 @@ class InformacionController extends Controller
 
 
         $variable -> delete();
+
+        InfomacionGestion::where('fk_informacion', $id)->delete();
 
         return Redirect::to('informacion?tipo_informacion='.$tipo_informacion)->with('status','Se elimiinó correctamente');
 
@@ -192,6 +206,12 @@ class InformacionController extends Controller
                 ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
                 ->where('e.bool_estado',  '=','1')
                 ->where('sg.bool_estado',  '=','1')->get();
+
+        $info_gestion_selec = DB::table('tbl_apo_info_gestion as ig')
+                ->join('tbl_sistemas_gestion as sg','sg.id_sisgestion','=','ig.fk_gestion')    
+                ->where('fk_informacion',  $id)->get();
+
+                //dd($info_gestion_selec);
                 
         $procesos      = DB::table('tbl_procesos as p')
                 ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
@@ -208,6 +228,7 @@ class InformacionController extends Controller
             'sistema_gestiones' => $sistema_gestiones,
             'procesos' => $procesos,
             'tipo_informacion' => $tipo_informacion,
+            'info_gestion_selec' => $info_gestion_selec,
         ]);
       
     }//actualizar_info
@@ -232,22 +253,49 @@ class InformacionController extends Controller
             $variable->organiza     =$request->get('organiza');
 
             if ($request->file('archivo')) {
-                $file =$request->file('archivo');   
-            $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/ifo/documentada/', $name);
-            $variable->archivo      =$name;
+                $archivo=$request->get('archivo_anterior');
+                if ($archivo != 'Archivo no cargado') {
+                    $mi_archivo= public_path().'/ifo/'.$archivo;        
+                    if (is_file($mi_archivo)) {
+                        unlink(public_path().'/ifo/'.$archivo);
+                    }  
+                }
+                     
+                $file =$request->file('archivo');
+                $name = time().$file->getClientOriginalName();
+                $file->move(public_path().'/ifo/', $name);
+                $variable->archivo =  $name;
+           
             }
 
+    
            
             $variable->fecha_info       =$request->get('fecha_info');
             $variable->vigente      =$request->get('vigente');
             $variable->contralado       =$request->get('contralado');
-            $variable->sis_gestion      =$request->get('sis_gestion');
             $variable->no_copia     =$request->get('no_copia');
 
  
 
             $variable->update();
+
+            InfomacionGestion::where('fk_informacion', $id)->delete();
+
+            $sis_gestion     = $request->get('sis_gestion');
+
+            if ($request->get('sis_gestion')) {
+                $sis_gestion     = $request->get('sis_gestion');
+
+                for ($i=0; $i <  count($sis_gestion) ; $i++) {
+
+                    $tiporequisito = new InfomacionGestion();
+                    $tiporequisito->fk_gestion       =    $sis_gestion[$i];
+                    $tiporequisito->fk_informacion   =    $variable->id_informacion ;
+
+                    $tiporequisito->save();
+                }
+
+            }
 
 
             DB::commit();

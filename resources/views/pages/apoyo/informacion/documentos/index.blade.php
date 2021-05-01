@@ -199,10 +199,9 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Sistema de Gestión:</strong></label>
-                    <select name="sis_gestion" class="form-control select2" required>
-                        <option value="" selected="true" disabled="disabled"> Seleccione Gestión..</option>
+                    <select name="sis_gestion[]" class="form-control select2" required multiple>                       
                         @foreach ($sistema_gestiones as $sistema_gestione)
-                        <option value="{{ $sistema_gestione->str_nombre  }}">{{ $sistema_gestione->str_nombre }}
+                        <option value="{{ $sistema_gestione->id_sisgestion  }}">{{ $sistema_gestione->str_nombre }}
                         </option>
                         @endforeach
                     </select>
@@ -237,7 +236,7 @@
                                 <th>Lugar de Archivo</th>
                                 <th>Vigente</th>
                                 <th>Controlador</th>
-                                <th>Sistema Gestión</th>
+                                {{-- <th>Sistema Gestión</th> --}}
                                 <th>Archivo</th>
                                 <th colspan="2">Opciones</th>
                             </tr>
@@ -257,8 +256,14 @@
                                 <td>{{$informacion->lugar_archivo}}</td>
                                 <td>{{$informacion->vigente}}</td>
                                 <td>{{$informacion->contralado}}</td>
-                                <td>{{$informacion->sis_gestion}}</td>
+                                {{-- <td>{{$informacion->sis_gestion}}</td> --}}
+                                @if ($informacion->archivo == 'Archivo no cargado')
                                 <td>{{$informacion->archivo}}</td>
+                                @else
+                                <td>{{substr(($informacion->archivo), 10)}} </td>
+                                @endif
+                                
+                              
 
                                 <td>
                                     <a
@@ -319,7 +324,7 @@
 
     <input type="hidden" name="version" value="version">
     <input type="hidden" name="conservasion" value="conservasion">
-    <input type="hidden" name="sis_gestion" value="sis_gestion">
+
     <input type="hidden" name="digital" value="digital">
     <input type="hidden" name="digital" value="digital">
     <input type="hidden" name="digital" value="digital">
@@ -455,7 +460,12 @@
                             <td>{{$informacion->no_copia}}</td>
                             <td>{{$informacion->vigente}}</td>
                             <td>{{$informacion->contralado}}</td>
+                            @if ($informacion->archivo == 'Archivo no cargado')
                             <td>{{$informacion->archivo}}</td>
+                            @else
+                            <td>{{substr(($informacion->archivo), 10)}} qwe</td>
+                            @endif
+                            
 
                             <td>
                                 <a
@@ -553,7 +563,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Versión:</strong></label>
             <input type="number" name="version" class="form-control" required>
@@ -561,14 +571,6 @@
         </div>
     </div>
 
-    <div class="col-md-9 col-sm-9 col-xs-12 col-lg-9">
-        <div class="form-group">
-            <label><strong>Descripción:</strong></label>
-            <textarea name="descripcion" rows="3" cols="110" required="true"></textarea>
-        </div>
-    </div>
-</div>
-<div class="row">
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Responsable:</strong></label>
@@ -584,11 +586,13 @@
         <div class="form-group">
             <label><strong>lugar de Archivo final:</strong></label>
             <input type="text" name="lugar_archivo" class="form-control" required>
-
-
-
         </div>
     </div>
+
+</div>
+<div class="row">
+    
+   
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Disposición Digital:</strong></label>
@@ -599,9 +603,6 @@
             </select>
         </div>
     </div>
-</div>
-
-<div class="row">
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Como se Organiza:</strong></label>
@@ -614,17 +615,16 @@
             <input type="text" name="tie_retencion" class="form-control" required>
         </div>
     </div>
+</div>
+
+<div class="row">
+
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Disposicion Final:</strong></label>
             <input type="text" name="dis_final" class="form-control" required>
         </div>
     </div>
-
-
-</div>
-
-<div class="row">
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>conservasión:</strong></label>
@@ -634,14 +634,25 @@
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Sistema de Gestión:</strong></label>
-            <select name="sis_gestion" class="form-control select2" required>
-                <option value="" selected="true" disabled="disabled"> Seleccione Gestión..</option>
+            <select name="sis_gestion[]" class="form-control select2" required multiple>                       
                 @foreach ($sistema_gestiones as $sistema_gestione)
-                <option value="{{ $sistema_gestione->str_nombre  }}">{{ $sistema_gestione->str_nombre }}</option>
+                <option value="{{ $sistema_gestione->id_sisgestion  }}">{{ $sistema_gestione->str_nombre }}
+                </option>
                 @endforeach
             </select>
         </div>
     </div>
+</div>
+
+<div class="row">
+   <div class="col-md-9 col-sm-9 col-xs-12 col-lg-9">
+        <div class="form-group">
+            <label><strong>Descripción:</strong></label>
+            <textarea name="descripcion" rows="3" cols="140" required="true"></textarea>
+        </div>
+    </div> 
+
+  
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Archivo:</strong></label>
@@ -656,6 +667,7 @@
 <button type="submit" class="btn btn-primary">Guardar</button>
 <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
 {!!Form::close()!!}
+<br>
 <br>
 
 <div class="row">
@@ -676,7 +688,7 @@
                         <th>Tiempo de Retención:</th>
                         <th>Disposicion Final:</th>
                         <th>conservasión:</th>
-                        <th>Sistema de Gestión:</th>
+                        {{-- <th>Sistema de Gestión:</th> --}}
                         <th>Archivo</th>
                         <th colspan="2">Opciones</th>
                     </tr>
@@ -698,7 +710,7 @@
                         <td>{{$informacion->tie_retencion}}</td>
                         <td>{{$informacion->dis_final}}</td>
                         <td>{{$informacion->conservasion}}</td>
-                        <td>{{$informacion->sis_gestion}}</td>
+                        {{-- <td>{{$informacion->sis_gestion}}</td> --}}
                         <td>{{$informacion->archivo}}</td>
 
                         <td>

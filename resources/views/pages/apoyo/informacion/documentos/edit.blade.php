@@ -167,23 +167,38 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
-                            <label><strong>Sistema de Gestión:</strong></label>
-                            <select name="sis_gestion" class="form-control select2" required>
-                                <option value="" selected="true" disabled="disabled"> Seleccione Gestión..</option>
-                                @foreach ($sistema_gestiones as $sistema_gestion)
-                                <option value="{{ $sistema_gestion->str_nombre }}"
-                                    {{ $sistema_gestion->str_nombre == $informacion->sis_gestion ? 'selected' : '' }}>
+                            <label><strong>Sistema de Gestión Guardados:</strong></label>
+                            <select name="sis_gestion[]" class="form-control select2" multiple >
+                            
+                                @foreach ($info_gestion_selec as $sistema_gestion)
+                                <option value="{{ $sistema_gestion->id_sisgestion }}"
+                                    {{ $sistema_gestion->fk_informacion == $informacion->id_informacion ? 'selected' : '' }}>
                                     {{ $sistema_gestion->str_nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                        <div class="form-group">
+                            <label><strong>Adicionar Sistema de Gestión:</strong></label>
+                            <select name="sis_gestion[]" class="form-control select2" multiple>
+                               
+                                @foreach ($sistema_gestiones as $sistema_gestion)
+                                <option value="{{ $sistema_gestion->id_sisgestion }}"
+                                    {{ $sistema_gestion->id_sisgestion == $informacion->sis_gestion ? 'selected' : '' }}>
+                                    {{ $sistema_gestion->str_nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Archivo:</strong></label>
                             <input type="file" name="archivo" class="form-control">
+                            <input type="hidden" name="archivo_anterior" value="{{$informacion->archivo}}">
 
                         </div>
                     </div>
@@ -215,7 +230,6 @@
         <input type="hidden" name="tipo_informacion" value="{{$tipo_informacion}}">
 
         <input type="hidden" name="version" value="version">
-        <input type="hidden" name="sis_gestion" value="sis_gestion">
         <input type="hidden" name="digital" value="digital">
         <input type="hidden" name="conservasion" value="conservasion">
         <input type="hidden" name="digital" value="digital">
@@ -317,6 +331,7 @@
                         <div class="form-group">
                             <label><strong>Archivo:</strong></label>
                             <input type="file" name="archivo" class="form-control">
+                            <input type="hidden" name="archivo_anterior" value="{{$informacion->archivo}}">
                         </div>
                     </div>
 
@@ -399,16 +414,6 @@
 
                         </div>
                     </div>
-
-                    <div class="col-md-9 col-sm-9 col-xs-12 col-lg-9">
-                        <div class="form-group">
-                            <label><strong>Descripción:</strong></label>
-                            <textarea name="descripcion" rows="3" cols="110"
-                                required="true">{{$informacion->descripcion}}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <select name="responsable" class="form-control select2" required>
@@ -426,11 +431,12 @@
                             <label><strong>lugar de Archivo final:</strong></label>
                             <input type="text" name="lugar_archivo" class="form-control" required
                                 value="{{$informacion->lugar_archivo}}">
-
-
-
                         </div>
                     </div>
+
+                </div>
+                <div class="row">
+                  
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Disposición Digital:</strong></label>
@@ -441,9 +447,6 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Como se Organiza:</strong></label>
@@ -458,42 +461,68 @@
                                 value="{{$informacion->tie_retencion}}">
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                </div>
+
+                <div class="row">
+                   
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
                             <label><strong>Disposicion Final:</strong></label>
                             <input type="text" name="dis_final" class="form-control" required
                                 value="{{$informacion->dis_final}}">
                         </div>
                     </div>
-
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
                             <label><strong>conservasión:</strong></label>
                             <input type="text" name="conservasion" class="form-control" required
                                 value="{{$informacion->conservasion}}">
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                        <div class="form-group">
-                            <label><strong>Sistema de Gestión:</strong></label>
-                            <select name="sis_gestion" class="form-control select2" required>
-                                <option value="" selected="true" disabled="disabled"> Seleccione Gestión..</option>
-                                @foreach ($sistema_gestiones as $sistema_gestion)
-                                <option value="{{ $sistema_gestion->str_nombre }}"
-                                    {{ $sistema_gestion->str_nombre == $informacion->sis_gestion ? 'selected' : '' }}>
-                                    {{ $sistema_gestion->str_nombre }}</option>
-                                @endforeach
-                            </select>
+                  
+                </div>
+                <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group">
+                                <label><strong>Sistema de Gestión Guardados:</strong></label>
+                                <select name="sis_gestion[]" class="form-control select2" multiple >                                
+                                    @foreach ($info_gestion_selec as $sistema_gestion)
+                                    <option value="{{ $sistema_gestion->id_sisgestion }}"
+                                        {{ $sistema_gestion->fk_informacion == $informacion->id_informacion ? 'selected' : '' }}>
+                                        {{ $sistema_gestion->str_nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
+    
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group">
+                                <label><strong>Adicionar Sistema de Gestión:</strong></label>
+                                <select name="sis_gestion[]" class="form-control select2" multiple>
+                                   
+                                    @foreach ($sistema_gestiones as $sistema_gestion)
+                                    <option value="{{ $sistema_gestion->id_sisgestion }}"
+                                        {{ $sistema_gestion->id_sisgestion == $informacion->sis_gestion ? 'selected' : '' }}>
+                                        {{ $sistema_gestion->str_nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-lg-9">
+                        <div class="form-group">
+                            <label><strong>Descripción:</strong></label>
+                            <textarea name="descripcion" rows="3" cols="140"
+                                required="true">{{$informacion->descripcion}}</textarea>
+                        </div>
+                    </div> 
+                    
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                         <div class="form-group">
                             <label><strong>Archivo:</strong></label>
                             <input type="file" name="archivo" class="form-control">
+                            <input type="hidden" name="archivo_anterior" value="{{$informacion->archivo}}">
 
                         </div>
                     </div>

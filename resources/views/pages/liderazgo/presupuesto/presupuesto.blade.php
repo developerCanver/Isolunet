@@ -58,8 +58,8 @@ $egreso_diferencia=0;
                         <thead>
                             <tr>
                                 <th>Item </th>
-                                <th> 2020 Proyectado</th>
-                                <th>2020 Real</th>
+                                <th> 2021 Proyectado</th>
+                                <th>2021 Real</th>
                                 <th> Total Diferencia</th>
                                 <th>% Diferencia</th>
 
@@ -87,11 +87,14 @@ $egreso_diferencia=0;
                             @endforeach
                             <tr>
                                 <td><B>TOTAL INGRESOS</b> </td>
-                                <td>{{$tot_ingreso}}</td>
-                                <td>{{$ingreso_real}}</td>
-                                <td>{{$ingreso_total_diferencia}}</td>
+                                <td>{{number_format($tot_ingreso)}}</td>
+                                <td>{{number_format($ingreso_real)}}</td>
+                                <td>{{number_format($ingreso_total_diferencia)}}</td>
                                 @if ($tot_ingreso != 0)
-                                <td>{{round(((($ingreso_real-$tot_ingreso)/$tot_ingreso)*100),0)}} &nbsp;%</td>
+                                @php
+                                    $tot_dif_ingreso=round(((($ingreso_real-$tot_ingreso)/$tot_ingreso)*100),0);
+                                @endphp
+                                <td>{{$tot_dif_ingreso}} &nbsp;%</td>
                                 @else
                                 <td>#Ref</td>
                                 @endif
@@ -133,8 +136,8 @@ $egreso_diferencia=0;
                         <thead>
                             <tr>
                                 <th> Item</th>
-                                <th> 2020 Proyectado</th>
-                                <th>2020 Real</th>
+                                <th> 2021 Proyectado</th>
+                                <th>2021 Real</th>
                                 <th> Total Diferencia</th>
                                 <th>% Diferencia</th>
 
@@ -161,11 +164,15 @@ $egreso_diferencia=0;
                             @endforeach
                             <tr>
                                 <td> <B>TOTAL EGRESOS</b></td>
-                                <td> {{$tot_egreso}}</td>
-                                <td>{{$egreso_real}}</td>
-                                <td> {{$egreso_total_diferencia}} </td>
+                                <td> {{number_format($tot_egreso)}}</td>
+                                <td>{{number_format($egreso_real)}}</td>
+                                <td> {{number_format($egreso_total_diferencia)}} </td>
                                 @if ($tot_egreso != 0)
-                                <td>{{round(((($egreso_real-$tot_egreso)/$tot_egreso)*100),0)}} &nbsp;%</td>
+                                @php
+                                $tot_dif_egreso=round(((($egreso_real-$tot_egreso)/$tot_egreso)*100),0);
+                            @endphp
+
+                                <td>{{$tot_dif_egreso}} &nbsp;%</td>
                                 @else
                                 <td>#Ref</td>
                                 @endif
@@ -205,10 +212,10 @@ $egreso_diferencia=0;
                         <thead>
                             <tr>
                                 <th>
-                                    Total 2020 Proyectado
+                                    Total 2021 Proyectado
                                 </th>
                                 <th>
-                                    Total 2020 Real
+                                    Total 2021 Real
                                 </th>
                                 <th>
                                     Total Total Diferencia
@@ -222,16 +229,16 @@ $egreso_diferencia=0;
                         <tbody>
                             <tr>
                                 <td>
-                                    {{($tot_ingreso-$tot_egreso)}}
+                                    {{number_format($tot_ingreso-$tot_egreso)}}
                                 </td>
                                 <td>
-                                    {{($ingreso_real-$egreso_real)}}
+                                    {{number_format($ingreso_real-$egreso_real)}}
                                 </td>
                                 <td>
-                                    {{($ingreso_total_diferencia-$egreso_total_diferencia)}}
+                                    {{number_format($ingreso_total_diferencia-$egreso_total_diferencia)}}
                                 </td>
                                 <td>
-                                    {{($ingreso_diferencia-$egreso_diferencia)}}
+                                    {{($tot_dif_ingreso-$tot_dif_egreso)}}
                                 </td>
                             </tr>
                         </tbody>

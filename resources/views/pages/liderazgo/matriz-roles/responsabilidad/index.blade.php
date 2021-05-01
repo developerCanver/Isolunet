@@ -49,7 +49,6 @@
                 <div class="form-group">
                     <label for="datos">Cargo que asume el Rol:</label>
                     <select name="fk_cargo[]" class="form-control select2" required multiple>
-
                         @foreach ($tabla_usuarios_cliente as $element)
                         <option value="{{ $element->id_cargo }}">{{ $element->nom_cargo }}</option>
                         @endforeach

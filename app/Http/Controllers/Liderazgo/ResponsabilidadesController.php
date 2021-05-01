@@ -68,8 +68,6 @@ class ResponsabilidadesController extends Controller
             $autoridad = $request->get('autoridad');
             $a_quien = $request->get('a_quien');
             $cada_cuanto = $request->get('cada_cuanto');
-            
-        
 
                $responsabilidad = new TBLResponsabilidad();
 
@@ -114,8 +112,6 @@ class ResponsabilidadesController extends Controller
               $variable->save();
            }
             
-
-
             DB::commit();
             alert()->success('Se ha creado correctamente.', 'Creado!')->persistent('Cerrar');
         
@@ -128,21 +124,23 @@ class ResponsabilidadesController extends Controller
         return Redirect::to('roles_responsabilidades')->with('status','Se guardó correctamente');
     }
 
-
     public function edit($id)
     {   
       
-        $tabla_usuarios_cliente =   DB::table('tbl_lid_responsabilidades as r')
-                                ->join('tbl_lid_roles_cargos as rc','rc.fk_roles_res','=','r.id_responsabilidades')   
-                                ->join('tbl_cargos as c','c.id_cargo','=','rc.fk_cargo')   
-                                
-                                ->get();
-
-        $tabla_usuarios_cliente = DB::table('tbl_lid_roles_cargos as rc')
-                                ->join('tbl_cargos as c','c.id_cargo','=','rc.fk_cargo')                     
+        $usuarios_cargados = DB::table('tbl_lid_roles_cargos as rc')
+                                ->join('tbl_cargos as c','c.id_cargo','=','rc.fk_cargo')                            
+                            ->where('rc.fk_roles_res', $id)    
                             ->get();
 
-                           // dd($tabla_usuarios_cliente);
+         $tabla_usuarios_cliente = DB::table('users as u')
+                            ->join('tbl_empresa as e','e.fk_usuario','=','u.id')
+                            ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                            ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+                            ->where('u.id','=',''.Auth::User()->id.'')
+                            ->where('e.bool_estado','=','1')
+                            ->where('a.bool_estado','=','1')
+                            ->where('c.bool_estado','=','1')
+                            ->get();
         
         $responsabilidad = TBLResponsabilidad::findOrfail($id);
         $id_responsabilidad=$responsabilidad->fk_roles_res;
@@ -151,17 +149,7 @@ class ResponsabilidadesController extends Controller
                             'responsabilidad'=>$responsabilidad,
                             'id_responsabilidad'=>$id_responsabilidad,
                             'tabla_usuarios_cliente'=>$tabla_usuarios_cliente,
-                            ]);
-    }
-    public function edit_cargo_rol ($id)
-    {   
-        
-        $responsabilidad = TBLResponsabilidad::findOrfail($id);
-        $id_responsabilidad=$responsabilidad->fk_roles_res;
-        
-        return view('pages.liderazgo.matriz-roles.responsabilidad.edit',[
-                            'responsabilidad'=>$responsabilidad,
-                            'id_responsabilidad'=>$id_responsabilidad,
+                            'usuarios_cargados'=>$usuarios_cargados,
                             ]);
     }
 
@@ -174,14 +162,8 @@ class ResponsabilidadesController extends Controller
             $autoridad = $request->get('autoridad');
             $a_quien = $request->get('a_quien');
             $cada_cuanto = $request->get('cada_cuanto');
-            
-            $id_responsabilidad =$request->get('id_responsabilidad');
         
-
-
                 $responsabilidad     = TBLResponsabilidad::findOrfail($id);
-     
-
                if ($cuentas_rinde==''){             
                 $responsabilidad->cuentas_rinde =  '';
                }else{
@@ -205,10 +187,17 @@ class ResponsabilidadesController extends Controller
                }
                
                $responsabilidad->nom_responsabilidades = $nom_res;
-              
-         
             $responsabilidad->update();
-
+            RolesCargos::where('fk_roles_res', $id)->delete();
+            $rolCargos = $request->get('fk_cargo');
+            for ($i=0; $i <  count($rolCargos) ; $i++) {
+ 
+               $variable = new RolesCargos();
+               $variable->fk_roles_res = $responsabilidad->id_responsabilidades;
+               $variable->bool_estado  = '1';
+               $variable->fk_cargo = $rolCargos[$i];
+               $variable->save();
+            }
 
             DB::commit();
             alert()->success('Se ha Editado correctamente.', 'Editado!')->persistent('Cerrar');
@@ -231,9 +220,7 @@ class ResponsabilidadesController extends Controller
             $variable                   = TBLResponsabilidad::findOrfail($id);
             $variable->bool_estado      = '0';
             $variable->update();
-            $id_cargo=$variable->fk_roles_res;
            
-
             DB::commit();
             alert()->success('Se ha eliminado correctamente.', 'Eliminado!')->persistent('Cerrar');
         
@@ -243,33 +230,7 @@ class ResponsabilidadesController extends Controller
             
         }
 
-        return Redirect::to('responsabilidades_matriz/'.$id_cargo)->with('status','Se guardó correctamente');
-    }
-    public function destroy_cargo_rol($id)
-    {
-        try {
-            DB::beginTransaction();
-
-            $variable                    = RolesCargos::findOrfail($id);
-            $variable->bool_estado      = '0';
-            $variable->update();
-
-            $fk_roles_res  =$variable->fk_roles_res ;
-           
-
-            $id_roles_res                   = RolesResponsabilidad::findOrfail($fk_roles_res);
-            $id_roles_res=$id_roles_res->id_rol_res;
-          
-            DB::commit();
-            alert()->success('Se ha eliminado correctamente.', 'Eliminado!')->persistent('Cerrar');
-        
-        } catch (Exception $e) {
-            DB::rollback();
-            alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
-            
-        }
-
-        return Redirect::to('responsabilidades/cargo_rol/'.$id_roles_res)->with('status','Se guardó correctamente');
+        return Redirect::to('roles_responsabilidades')->with('status','Se guardó correctamente');
     }
 
 }

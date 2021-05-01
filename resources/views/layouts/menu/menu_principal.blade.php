@@ -141,7 +141,7 @@
           @endphp 
           <ul class="br-menu-sub" {{$Apoyo}}>
             <li class="sub-item"><a href="{{ URL::to('recursosApp') }}"      class="sub-link {{ request()->is('recursosApp') || request()->is('recursosverimg')  ? 'active' : ''}} ">Recursos</a></li>
-            <li class="sub-item"><a href="{{ URL::to('competencia') }}"      class="sub-link {{ request()->is('competencia*') ? 'active' : ''}}">Competencias</a></li>
+            <li class="sub-item"><a href="{{ URL::to('competencia') }}"      class="sub-link {{ request()->is('competencia*') ? 'active' : ''}}">Descriptivo Cargo</a></li>
             <li class="sub-item"><a href="{{ URL::to('tomaconsecuencia') }}" class="sub-link {{ request()->is('tomaconsecuencia*') ? 'active' : ''}}">Toma de Conciencia</a></li>
             <li class="sub-item"><a href="{{ URL::to('comunicaciones') }}"   class="sub-link {{ request()->is('comunicaciones*')  || request()->is('competencia_rendicion*')? 'active' : ''}}">Comunicacion</a></li>
             <li class="sub-item"><a href="{{ URL::to('informacion') }}"      class="sub-link {{ request()->is('informacion*') || request()->is('info_editar*')  ? 'active' : '' }} ">Informacion Documentada</a></li>

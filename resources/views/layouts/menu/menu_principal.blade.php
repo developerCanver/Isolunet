@@ -29,6 +29,7 @@
           request()->is('parm_origen_anomalia*') || 
           request()->is('parm_proveedor*') || 
           request()->is('parm_producto*') || 
+          request()->is('parametrizacion_users*') || 
         
           request()->is('edit_empresa*') ||  
           request()->is('edit_empresa*')  
@@ -43,7 +44,7 @@
               }
           @endphp
           <ul class="br-menu-sub" {{$Parametrizacion}} >          
-            <li class="sub-item"><a href="{{ URL::to('control_ususarios/users') }}"         class="sub-link {{ request()->is('control_ususarios/users*') ? 'active' : ''}}">Usuarios</a></li>          
+            <li class="sub-item"><a href="{{ URL::to('parametrizacion_users') }}"         class="sub-link {{ request()->is('parametrizacion_users*') ? 'active' : ''}}">Usuarios</a></li>          
             <li class="sub-item"><a href="{{ route('Mod_Parametrizacion::parm_empresa') }}" class="sub-link {{ request()->is('parm_empresa*') || request()->is('edit_empresa*') ? 'active' : ''}}">Empresas</a></li>          
             <li class="sub-item"><a href="{{ URL::to('parm_datos_corportativo') }}"         class="sub-link {{ request()->is('parm_datos_corportativo*') ? 'active' : ''}}">Datos Corporativos</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_areas') }}"                      class="sub-link {{ request()->is('parm_areas*') ||  request()->is('edit_parm_areas*') ? 'active' : ''}}">Areas</a></li>
@@ -241,7 +242,7 @@
               }
           @endphp 
           <ul class="br-menu-sub" {{$Mejora}}>
-            <li class="sub-item"><a href="{{ URL::to('anomalia') }}"         class="sub-link {{ request()->is('anomalia*') || request()->is('causa_raiz*') || request()->is('acciones_correctivas*') || request()->is('lista_anomalia*') ? 'active' : '' }} ">Anomalia</a></li>
+            <li class="sub-item"><a href="{{ URL::to('anomalia') }}"         class="sub-link {{ request()->is('anomalia*') || request()->is('causa_raiz*') || request()->is('acciones_correctivas*') || request()->is('lista_anomalia*') ? 'active' : '' }} ">Correlativas y Preventivas</a></li>
            <li class="sub-item"><a href="{{ URL::to('acta') }}"              class="sub-link {{ request()->is('acta*') ? 'active' : '' }} ">Acta</a></li>
            <li class="sub-item"><a href="{{ URL::to('tareas_pendientes') }}" class="sub-link {{ request()->is('tareas_pendientes*') ? 'active' : '' }} "> Tareas pendientes</a></li>
             <!-- <li class="sub-item"><a href="navigation.html" class="sub-link"> Notas de Diciplina</a></li>

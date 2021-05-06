@@ -7,8 +7,8 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Mejora</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/anomalia') }}">Anomalia</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Acciones Correctivas</span></a>
+        <a class="breadcrumb-item" href="{{ URL::to('/anomalia') }}">Acciones Correlativas y Preventivas</a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark"> Correlativas y Preventivas</span></a>
     </nav>
 </div>
 
@@ -16,7 +16,7 @@
     <i class="icon icon ion-aperture"></i>
     <div>
         <h4>Analisis de Anomalia </h4>
-        <p class="mg-b-0">Acciones Correctivas</p>
+        <p class="mg-b-0">Correlativas y Preventivas</p>
     </div>
 </div><!-- d-flex -->
 

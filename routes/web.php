@@ -44,8 +44,8 @@ Route::resource('/diseno_desarrollo',      'Planeacion\DisenoController');
 Route::resource('/liberacion',             'Planeacion\LiberacionController');
 Route::resource('/trazabilidad',           'Planeacion\TrazabilidadController');
 Route::resource('/salida_no_conforme',     'Planeacion\SalidasController');
-Route::resource('/servicio_prestado',     'Planeacion\PrestamoController');
-Route::get('/servicio_prestado_img',     [Prestamo::class, 'ver_img']);
+Route::resource('/servicio_prestado',      'Planeacion\PrestamoController');
+Route::get('/servicio_prestado_img',       [Prestamo::class, 'ver_img']);
 
 //Evaluacion
 Route::resource('/auditoria',     'Evaluacion\AuditoriaController');
@@ -205,7 +205,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['role:super-admin']], function() {
 	
-Route::get('/administracion_usuarios', 'Usuarios\UsuariosController@index')->name('admin_users');
+Route::get('/administracion_usuarios', 'usuarios\UsuariosController@index')->name('admin_users');
 Route::post('/store_usuarios', 'Usuarios\UsuariosController@store')->name('store_users');
 Route::get('/edit_usuarios/{id}', 'Usuarios\UsuariosController@edit')->name('edit_users');
 Route::post('/update_usuarios/{id}', 'Usuarios\UsuariosController@update')->name('update_users');
@@ -273,6 +273,10 @@ Route::get ('parm_documento_delete/{id}', 	'Parametrizacion\DocumentosController
 // Parametrizacion Usuarios
 Route::get('parm_usuarios', 'Parametrizacion\UsuariosController@index');
 Route::post('parm_usuarios_save', 'Parametrizacion\UsuariosController@store');
+
+// Parametrizacion Usuarios Admin
+Route::resource('/parametrizacion_users',     'Parametrizacion\UserAdminController');
+
 
 // Parametrizacion Sistema de Gestion
 Route::get('parm_sistema_gestion', 				 'Parametrizacion\SistemaGestionController@index');

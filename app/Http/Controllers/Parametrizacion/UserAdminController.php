@@ -2,70 +2,61 @@
 
 namespace App\Http\Controllers\Parametrizacion;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-use DB;
-use Redirect;
-use Alert;
-use View;
-use Validator;
-
-use Carbon\Carbon;
-use Response;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-
-use Illuminate\Support\Facades\Hash;
-
-
-use Entrust;
 use App\Models\User;
-use App\Models\Parametrizacion\Rol_User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
-
-class UsuariosController extends Controller
+class UserAdminController extends Controller
 {
     // Validacion de logueo
- 	public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
 
     public function index(Request $request)
     {
-    	if ($request) {
-    		$empresa                = DB::table('tbl_empresa as e')
-                                    ->where('fk_usuario','=',''.Auth::User()->id.'')
-                                    ->where('e.bool_estado','=','1')
-                                    ->first();
-                                    //dd($empresa);
+    	
+        $empresas       = DB::table('tbl_empresa as e')                           
+                        ->where('e.bool_estado','=','1')
+                        ->get();
+                           
 
-    		$tabla_usuarios_cliente = DB::table('users as u')
-                                    ->join('tbl_empresa as e','u.fk_empresa','e.id_empresa')
-                                    ->where('id_empresa', $empresa->id_empresa)
-                                    ->where('e.bool_estado','=','1')
-    								->get();
-                                    //dd($tabla_usuarios_cliente);
+    $consultas = DB::table('users as u')
+             ->join('roles as r','r.id','=','u.fk_rol')
+             //->join('tbl_empresa as e','e.fk_usuario','=','u.id')
+             ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+            //->where('id_empresa', $empresa->id_empresa)
+            //->where('u.bool_estado','=','1')
+            ->paginate(20);
+            //dd($consultas);
 
-    		return view('pages.parametrizacion.usuario_cliente',[
-                'empresa'=>$empresa,
-                'tabla_usuarios_cliente'=>$tabla_usuarios_cliente
+    		return view('pages.parametrizacion.usuarioAdmin.index',[
+                'empresas'=>$empresas,
+                'consultas'=>$consultas
                 ]);
-    	}
+    	
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nom_completo' =>'required|min:4|max:150',
+            'correo'       =>'required|min:4|unique:users,email',
+            'password'     =>'required|min:4|max:150',
+        ]);
     		try {
             DB::beginTransaction();
-            
+
             $usuario 				= new User();
             $usuario->name			= $request->get('nom_completo');
             $usuario->email 		= $request->get('correo');
             $usuario->fk_empresa	= $request->get('empresa');
+            $usuario->fk_rol	    = $request->get('fk_rol');
             $usuario->password 		= Hash::make($request->get('password'));
             $usuario->save();
 
@@ -73,10 +64,41 @@ class UsuariosController extends Controller
             // 			->where('name','=','Usuario')
             // 			->first();
 
-            $rol_user     			= new Rol_User();
-            $rol_user->user_id		= $usuario->id;
-            $rol_user->role_id 		= $request->get('rol_usuario');
-            $rol_user->save(); 
+       
+
+            DB::commit();
+           alert()->success('Se ha creado correctamente.', 'Creado!')->persistent('Cerrar');
+           
+        } catch (Exception $e) {
+            DB::rollback();
+            alert()->success('Ha ocurrido un error tratando de Guardar.', 'Guardado!')->persistent('Cerrar');
+        }
+        return Redirect::to('parm_usuarios')->with('status','Se guardó correctamente');
+    }
+
+    public function update(Request $request)
+    {
+    		try {
+            DB::beginTransaction();
+
+            $data = request()->validate([
+                'nom_completo'=>'required|min:4|max:150',
+                'correo'=>'required|min:4|unique:users,email,'.$request->id,
+            ]);
+            // 'correo'=> ['required|min:4|unique:users,email', Rule:.unique('users')->ignore($request->id)],
+            $usuario 				= new User();
+            $usuario->name			= $request->get('nom_completo');
+            $usuario->email 		= $request->get('correo');
+            $usuario->fk_empresa	= $request->get('empresa');
+            $usuario->fk_rol	    = $request->get('fk_rol');
+            $usuario->password 		= Hash::make($request->get('password'));
+            $usuario->save();
+
+            // $consul_role = DB::table('roles')
+            // 			->where('name','=','Usuario')
+            // 			->first();
+
+       
 
             DB::commit();
            alert()->success('Se ha creado correctamente.', 'Creado!')->persistent('Cerrar');

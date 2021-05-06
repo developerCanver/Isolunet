@@ -5,9 +5,9 @@
 
 <div class="br-pageheader">
 	<nav class="breadcrumb pd-0 mg-0 tx-12">
-	  <a class="breadcrumb-item" href="index.html">Bracket</a>
-	  <a class="breadcrumb-item" href="">Cards &amp; Widgets</a>
-	  <span class="breadcrumb-item active">Dashboard</span>
+    <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
+    <a class="breadcrumb-item" href="{{ URL::to('/') }}">Mejora</a>
+    <a class="breadcrumb-item" href=""><span class="badge badge-dark">Acciones Correlativas y Preventivas</span></a>
 	</nav>
 </div>
 

@@ -9,7 +9,7 @@
 	<nav class="breadcrumb pd-0 mg-0 tx-12">
 		<a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Mejora</a>
-        <a class="breadcrumb-item" href="{{ URL::to('/anomalia') }}">Anomalia</a>
+        <a class="breadcrumb-item" href="{{ URL::to('/anomalia') }}">Acciones Correlativas y Preventivas</a>
         <a class="breadcrumb-item" href=""><span class="badge badge-dark">Registro de Anomalia</span></a>
 	</nav>
 </div><!-- br-pageheader -->

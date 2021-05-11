@@ -3,7 +3,7 @@
   <head>
     <!-- Required meta tags -->
     @include('layouts.assets.meta')
-    <title>{{env('APP_VAR_TITLE_HEADER', 'Laravel')}}</title>
+    <title>{{env('APP_VAR_TITLE_HEADER', 'Isolunew')}}</title>
 
     <!-- vendor css -->
     @include('layouts.assets.head')
@@ -18,7 +18,8 @@
    @include('sweet::alert')
 
     <!-- ########## START: LEFT PANEL ########## -->
-<div class="br-logo"><a href=""><span>[</span><i>{{env('APP_VAR_ONE_TITLE', 'Laravel')}}</i><span>]</span></a></div>
+@livewire('logo-empresa')
+
  @include('layouts.menu.menu_principal')   
     
     <!-- ########## END: LEFT PANEL ########## -->
@@ -51,9 +52,9 @@
     </div><!-- br-header -->
     <!-- ########## END: HEAD PANEL ########## -->
 
-    <!-- ########## START: RIGHT PANEL ########## -->
-@include('layouts.includes.header_menu2')
-    <!-- br-sideright -->
+    <!-- ########## START: RIGHT PANEL ##########
+@ include('layouts.includes.header_menu2')
+    br-sideright -->
     <!-- ########## END: RIGHT PANEL ########## --->
 
     <!-- ########## START: MAIN PANEL ########## -->

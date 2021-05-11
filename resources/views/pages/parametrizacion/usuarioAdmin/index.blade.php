@@ -54,6 +54,7 @@
             <div class="form-group">
                 <label for="datos">Empresa</label>
                 <select name="fk_empresa" required class="form-control select2">
+                    <option value=""  selected disabled> Selecionar Empresa</option>
                     @foreach ($empresas as $empresa)
                     <option value="{{ $empresa->id_empresa }}">{{ $empresa->razon_social }}</option>
                     @endforeach
@@ -64,7 +65,7 @@
             <div class="form-group">
                 <label for="datos">Tipo Usuario</label>
                 <select name="fk_rol" required class="form-control select2">
-                    <option value="0" selected disabled>Selecione tipo usuario...</option>
+                    <option value="" selected disabled>Selecione tipo usuario...</option>
                     {{-- <option value="1">Super Admin</option> --}}
                     <option value="2">Admin</option>
                     <option value="2">Cliente</option>
@@ -131,17 +132,28 @@
                             <td>{{ $h->email }}</td>
                             <td>{{ $h->razon_social }}</td>
                             <td>{{ $h->name_rol }}</td>
+
                             <td colspan="2">
-                                <a type="button" data-toggle="modal" data-target="#exampleModal"><i class="
-                                    fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
-                                <a
-                                    href="{{ URL::action('Parametrizacion\AreasCargoController@destroy_cargos',$h->id) }}"><i
-                                        class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
+                                <div class="form-row align-items-center">
+                                    <a data-toggle="modal" data-target="#exampleModal{{ $h->id_user }}"
+                                        style="color: #18A4B4" title="Editar"><i class="fas fa-pencil-alt fa-2x"></i></a></a>&nbsp;
+                                    
+                                    <form action="{{route('parametrizacion_users.destroy',$h->id_user  )}}"
+                                        class="form-inline formulario-eliminar" method="POST">
+
+                                        @csrf
+                                        @method('DELETE')
+
+                                         <button class=" btn btn-light btn-sm">
+                                        <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                    </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
 
                         {{-- 	modal editar --}}
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="exampleModal{{ $h->id_user }}" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -152,7 +164,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('parametrizacion_users.update', $h->id)}}" method="POST">
+                                        <form action="{{ route('parametrizacion_users.update', $h->id_user)}}" method="POST">
                                             @csrf
                                             @method('PUT')
 

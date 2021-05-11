@@ -1,6 +1,6 @@
 <div class="br-sideleft sideleft-scrollbar">
 
-      <label class="sidebar-label pd-x-10 mg-t-20 op-3">Navigation</label>
+      <label class="sidebar-label pd-x-10 mg-t-20 op-3">Navegación</label>
       <ul class="br-sideleft-menu">
         <li class="br-menu-item">
           <a href="{{ URL::to('/') }}" class="br-menu-link {{ Request::is('/') ? 'active' : '' }}">
@@ -77,7 +77,7 @@
           @endphp
           <ul class="br-menu-sub" {{$contexto}}  >
             <li class="sub-item active"><a href="{{ URL::to('contexto_index') }}"   class="sub-link {{ request()->is('contexto_index*') || request()->is('contexto_tendencias_en_colombia*') || request()->is('contexto_analisis_pestal') 
-            || request()->is('contexto_dofa') || request()->is('estrategias') || request()->is('contexto_riesgo*')|| request()->is('matriz_dofa*')  ? 'active' : ''}}">Cuestiones Externas e Internas</a></li>
+            || request()->is('contexto_dofa') || request()->is('estrategias') || request()->is('contexto_riesgo*')|| request()->is('matriz_dofa*')  ? 'active' : ''}}">Cts Externas e Internas</a></li>
             <li class="sub-item"><a href="{{ URL::to('partes_interesadas') }}"      class="sub-link {{ request()->is('partes_interesadas*') || request()->is('pi_calificaciones*')  ? 'active' : ''}}">Partes Interesadas</a></li>
             <li class="sub-item"><a href="{{ URL::To('alcance') }}"                 class="sub-link {{ request()->is('alcance*') ? 'active' : ''}}">Alcance</a></li>
             <li class="sub-item"><a href="{{ URL::to('mapa_proceso') }}"            class="sub-link {{ request()->is('mapa_proceso*') ? 'active' : ''}}">Procesos</a></li>    

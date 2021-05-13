@@ -15,6 +15,7 @@ class UserAdmin extends Model
     protected 	$fillable = [
         'name',
 		'email',
+		'imgUser',
 		'password',
 		'fk_empresa',
 		'fk_rol',

@@ -41,24 +41,30 @@
 
 		<br>
 		<div class="row">
-			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">Razón Social</label>
 			    	<input type="text" class="form-control" id="razon_social" name="razon_social" aria-describedby="" value="{{ old('razon_social') }}" style="color: #D20000;">
 				</div>
 			</div>
-			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">NIT</label>
 			    	<input type="text" class="form-control input-number" id="nit" name="nit" aria-describedby="" value="{{ old('nit') }}">
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+				<div class="form-group">
+			    	<label for="datos">Representante</label>
+			    	<input type="text" class="form-control" id="representante" name="representante" aria-describedby="" value="{{ old('representante') }}">
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
-			    	<label for="datos">Representante</label>
-			    	<input type="text" class="form-control" id="representante" name="representante" aria-describedby="" value="{{ old('representante') }}">
+			    	<label for="datos">Ciudad</label>
+			    	<input type="text" class="form-control"  name="ciudad" aria-describedby="" value="{{ old('ciudad') }}">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -120,6 +126,9 @@
 			    			NIT
 			    		</th>
 			    		<th>
+			    			Ciudad
+			    		</th>
+						<th>
 			    			Dirección
 			    		</th>
 			    		<th>
@@ -135,6 +144,7 @@
 			    	<tr>
 			    		<td>{{ $h->razon_social }}</td>
 			    		<td>{{ $h->nit }}</td>			    
+			    		<td>{{ $h->ciudad }}</td>			    
 			    		<td>{{ $h->direccion }}</td>
 			    		<td><img src="{{asset('imgs/logo_empresa/'.$h->image)}}" alt="{{$h->image}}" height="100px" width="100px" class="img-thumbnail">  </td>
 			    		<td colspan="2">

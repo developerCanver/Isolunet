@@ -34,6 +34,7 @@ class UserAdminController extends Controller
             $consultas = DB::table('users as u')
             ->join('roles as r','r.id','=','u.fk_rol')
             ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+            ->orderByDesc('u.id')
            ->select(
                "u.id as id_user",
                "u.name",
@@ -41,7 +42,8 @@ class UserAdminController extends Controller
                "razon_social",
                "name_rol",
                "fk_empresa",
-               "fk_rol"
+               "fk_rol",
+               "imgUser"
                )
            ->paginate(20);
             
@@ -50,6 +52,7 @@ class UserAdminController extends Controller
             ->join('roles as r','r.id','=','u.fk_rol')
             ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
             ->where('fk_empresa',$id_empresa)
+            ->orderByDesc('u.id')
            ->select(
                "u.id as id_user",
                "u.name",
@@ -57,7 +60,8 @@ class UserAdminController extends Controller
                "razon_social",
                "name_rol",
                "fk_empresa",
-               "fk_rol"
+               "fk_rol",
+               "imgUser"
                )
                ->paginate(20);
 
@@ -90,12 +94,20 @@ class UserAdminController extends Controller
             $usuario->fk_empresa	= $request->get('fk_empresa');
             $usuario->fk_rol	    = $request->get('fk_rol');
             $usuario->password 		= Hash::make($request->get('password'));
+           // dd($request->file('imgUser'));
+            if ($request->file('imgUser')) {
+                $file =$request->file('imgUser');
+                $name = time().$file->getClientOriginalName();
+                $file->move(public_path().'/img/users/', $name);
+            } else {
+                $name='';
+                
+            }
+            $usuario->imgUser =  $name;
+
             $usuario->save();
 
-            // $consul_role = DB::table('roles')
-            // 			->where('name','=','Usuario')
-            // 			->first();
-
+    
        
 
             DB::commit();
@@ -129,14 +141,21 @@ class UserAdminController extends Controller
             if ($request->get('password')) {
                 $usuario->password 		= Hash::make($request->get('password'));
             }
+
+            if ($request->file('imgUser')) {
+                $archivo=$request->get('imgUser_anterior');
+                //nombre para eliinar el anterior archivo
+                    $mi_archivo= public_path().'/img/users/'.$archivo;
+                    if (is_file($mi_archivo)) {
+                        unlink(public_path().'/img/users/'.$archivo);
+                    }
+                $file =$request->file('imgUser');
+                $name = time().$file->getClientOriginalName();
+                $file->move(public_path().'/img/users/', $name);
+                $usuario->imgUser =  $name;
             
+            }
             $usuario->save();
-
-            // $consul_role = DB::table('roles')
-            // 			->where('name','=','Usuario')
-            // 			->first();
-
-       
 
             DB::commit();
            alert()->success('Se ha creado correctamente.', 'Creado!')->persistent('Cerrar');

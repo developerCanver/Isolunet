@@ -54,6 +54,7 @@ class EmpresaController extends Controller
             $empresa->representante 	= $request->get('representante');
             $empresa->direccion			= $request->get('direccion');
             $empresa->celular			= $request->get('celular');
+            $empresa->ciudad			= $request->get('ciudad');
             
             if ($request->hasFile('image')){
                 $file=  $request->file('image');
@@ -95,6 +96,7 @@ class EmpresaController extends Controller
             $empresa->representante 	= $request->get('representante');
             $empresa->direccion			= $request->get('direccion');
             $empresa->celular			= $request->get('celular');
+            $empresa->ciudad			= $request->get('ciudad');
             
             if ($request->hasFile('image')){
                 $file= $request->file('image');

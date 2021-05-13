@@ -41,24 +41,30 @@
 
 		<br>
 		<div class="row">
-			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">Razón Social</label>
 			    	<input type="text" class="form-control" id="razon_social" name="razon_social" aria-describedby="" value="{{ $empresa->razon_social }}" style="color: #D20000;">
 				</div>
 			</div>
-			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">NIT</label>
 			    	<input type="text" class="form-control input-number" id="nit" name="nit" aria-describedby="" value="{{ $empresa->nit }}">
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+				<div class="form-group">
+			    	<label for="datos">Representante</label>
+			    	<input type="text" class="form-control" id="representante" name="representante" aria-describedby="" value="{{ $empresa->representante }}">
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
-			    	<label for="datos">Representante</label>
-			    	<input type="text" class="form-control" id="representante" name="representante" aria-describedby="" value="{{ $empresa->representante }}">
+			    	<label for="datos">Ciudad</label>
+			    	<input type="text" class="form-control" id="representante" name="ciudad" aria-describedby="" value="{{ $empresa->ciudad }}">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">

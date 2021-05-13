@@ -37,7 +37,7 @@
 <br>
 @include('partials.message_flash')
 
-<form action="{{route('parametrizacion_users.store')}}" method="POST">
+<form action="{{route('parametrizacion_users.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
 
 
@@ -54,7 +54,7 @@
             <div class="form-group">
                 <label for="datos">Empresa</label>
                 <select name="fk_empresa" required class="form-control select2">
-                    <option value=""  selected disabled> Selecionar Empresa</option>
+                    <option value="" selected disabled> Selecionar Empresa</option>
                     @foreach ($empresas as $empresa)
                     <option value="{{ $empresa->id_empresa }}">{{ $empresa->razon_social }}</option>
                     @endforeach
@@ -76,7 +76,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label for="datos">Correo Electronico</label>
                 <input type="email" required name="correo" class="form-control" value="{{old('correo')}}">
@@ -84,10 +84,16 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label for="datos">Contraseña</label>
                 <input type="password" required name="password" class="form-control" value="{{old('password')}}">
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label for="datos">Imagen</label>
+                <input type="file" name="imgUser" class="form-control">
             </div>
         </div>
     </div>
@@ -120,6 +126,9 @@
                             <th>
                                 Tipo Usuario
                             </th>
+                            <th>
+                                Imagen
+                            </th>
                             <th colspan="2">
                                 Opciones
                             </th>
@@ -132,21 +141,29 @@
                             <td>{{ $h->email }}</td>
                             <td>{{ $h->razon_social }}</td>
                             <td>{{ $h->name_rol }}</td>
+                            @if ($h->imgUser)
+                            <td><img src="{{asset('img/users/'.$h->imgUser)}}" alt="{{$h->imgUser}}" height="100px"
+                                    width="100px" class="img-thumbnail"> </td>
+                            @else
+                            <td>Sin cargar </td>
+                            @endif
+
 
                             <td colspan="2">
                                 <div class="form-row align-items-center">
                                     <a data-toggle="modal" data-target="#exampleModal{{ $h->id_user }}"
-                                        style="color: #18A4B4" title="Editar"><i class="fas fa-pencil-alt fa-2x"></i></a></a>&nbsp;
-                                    
+                                        style="color: #18A4B4" title="Editar"><i
+                                            class="fas fa-pencil-alt fa-2x"></i></a></a>&nbsp;
+
                                     <form action="{{route('parametrizacion_users.destroy',$h->id_user  )}}"
                                         class="form-inline formulario-eliminar" method="POST">
 
                                         @csrf
                                         @method('DELETE')
 
-                                         <button class=" btn btn-light btn-sm">
-                                        <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
-                                    </button>
+                                        <button class=" btn btn-light btn-sm">
+                                            <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </td>
@@ -164,7 +181,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('parametrizacion_users.update', $h->id_user)}}" method="POST">
+                                        <form action="{{ route('parametrizacion_users.update', $h->id_user)}}"
+                                            method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
 
@@ -186,21 +204,23 @@
                                                         <label for="datos">Empresa</label>
                                                         <select name="fk_empresa" required class="form-control ">
                                                             @foreach ($empresas as $empresa)
-                                                            <option value="{{ $empresa->id_empresa }}"  
-																{{ $empresa->id_empresa == $h->fk_empresa ? 'selected' : '' }}>
+                                                            <option value="{{ $empresa->id_empresa }}"
+                                                                {{ $empresa->id_empresa == $h->fk_empresa ? 'selected' : '' }}>
                                                                 {{ $empresa->razon_social }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
-											</div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                     <div class="form-group">
                                                         <label for="datos">Tipo Usuario</label>
-                                                        <select name="fk_rol" required class="form-control ">                                                    
-															<option value="2" @if($h->fk_rol == '2') selected  @endif >Admin</option>
-															<option value="3" @if($h->fk_rol == '3') selected  @endif >Cliente</option>
+                                                        <select name="fk_rol" required class="form-control ">
+                                                            <option value="2" @if($h->fk_rol == '2') selected @endif
+                                                                >Admin</option>
+                                                            <option value="3" @if($h->fk_rol == '3') selected @endif
+                                                                >Cliente</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -216,20 +236,30 @@
                                                             class="text-danger">{{ $message }}</span>@enderror
                                                     </div>
                                                 </div>
-											</div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                     <div class="form-group">
                                                         <label for="datos">Contraseña</label>
-                                                        <input type="password"  name="password"
-                                                            class="form-control" >
+                                                        <input type="password" name="password" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-												<button type="submit" class="btn btn-primary">Guardar</button>
-											</div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="datos">Imagen</label>
+                                                        <input type="file" name="imgUser" class="form-control">
+                                                        <input type="hidden" name="imgUser_anterior" value="{{$h->imgUser}}">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                            </div>
                                         </form>
                                     </div>
 

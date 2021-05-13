@@ -62,6 +62,8 @@ class ProcesosController extends Controller
                                             ->where('p.bool_estado',  '=','1')
                                             ->where('e.bool_estado',  '=','1')
                                             ->orderby('id_proceso', 'DESC')->get();
+
+                                            
             
            
 
@@ -268,12 +270,19 @@ class ProcesosController extends Controller
         $usuario_responsable = DB::table('users as s')
                             ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
                             ->get();
+                           // dd($proceso_gerencial);
+        $tabla_usuarios_cliente = DB::table('users as u')
+                           ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                           ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                           ->where('e.bool_estado','=','1')
+                           ->get();
      
         return view('pages.parametrizacion.Edit.edit_proceso_gerencial',
                             [
                                 'proceso'               =>$proceso,
                                 'proceso_gerencial'     =>$proceso_gerencial, 
-                                'usuario_responsable'   =>$usuario_responsable
+                                'usuario_responsable'   =>$usuario_responsable,
+                                'tabla_usuarios_cliente'   =>$tabla_usuarios_cliente,
                             ]);
     }
         //################ MISIONALES//################
@@ -324,6 +333,7 @@ class ProcesosController extends Controller
     //################ GERENCIAL//################
     public function update_proceso_gerencial(Request $request,$id)
     {
+        //dd($id);
     try {
             DB::beginTransaction();
 
@@ -334,15 +344,25 @@ class ProcesosController extends Controller
             $variable->descripcion              = $request->get('descripcion');
             $variable->update();
 
-            $usuario_relacionados = $request->get('usuarios_relacionados');
-             for ($i=0; $i < count($usuario_relacionados) ; $i++) {
+            Procesos_user::where('proceso_id', $id)->delete();
 
-                $usuario =  Procesos_user::where('proceso_id','=',''.$variable->id_proceso.'')
-                        ->where('user_id','=',''.$usuario_relacionados[$i].'')->first();
-                $usuario->proceso_id = $variable->id_proceso;
-                $usuario->user_id = $usuario_relacionados[$i];
-                $usuario->update();   
+       
+            if ($request->get('usuarios_relacionados')) {
+                $usuario_relacionados     = $request->get('usuarios_relacionados');
+               
+
+                for ($i=0; $i <  count($usuario_relacionados) ; $i++) {
+
+                    $tiporequisito = new Procesos_user();
+                    $tiporequisito->user_id       =    $usuario_relacionados[$i];
+                    $tiporequisito->proceso_id   =    $variable->id_proceso ;
+
+                    $tiporequisito->save();
+                }
+
             }
+
+    
 
             DB::commit();
             alert()->success('Se ha editado correctamente.', 'Editado!')->persistent('Cerrar');

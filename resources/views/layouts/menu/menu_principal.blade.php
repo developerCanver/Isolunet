@@ -49,7 +49,7 @@
             <li class="sub-item"><a href="{{ URL::to('parm_datos_corportativo') }}"         class="sub-link {{ request()->is('parm_datos_corportativo*') ? 'active' : ''}}">Datos Corporativos</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_areas') }}"                      class="sub-link {{ request()->is('parm_areas*') ||  request()->is('edit_parm_areas*') ? 'active' : ''}}">Areas</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_cargo') }}"                      class="sub-link {{ request()->is('parm_cargo*') ||  request()->is('edit_parm_cargos*') ? 'active' : ''}}">Cargos</a></li>
-            <li class="sub-item"><a href="{{ URL::to('parm_usuarios') }}"                   class="sub-link {{ request()->is('parm_usuarios*') ? 'active' : ''}}">Usuarios Cliente</a></li>
+            {{-- <li class="sub-item"><a href="{{ URL::to('parm_usuarios') }}"                   class="sub-link {{ request()->is('parm_usuarios*') ? 'active' : ''}}">Usuarios Cliente</a></li> --}}
             <li class="sub-item"><a href="{{ URL::to('parm_proceso') }}"                    class="sub-link {{ request()->is('parm_proceso*') ? 'active' : ''}}">Procesos</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_documento_index') }}"            class="sub-link {{ request()->is('parm_documento_index*') ||  request()->is('parm_documento_edit*') ? 'active' : ''}}">Documentos</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_sistema_gestion') }}"            class="sub-link {{ request()->is('parm_sistema_gestion*') ||  request()->is('parm_edit_sistema_gestion*') ? 'active' : ''}}">Sistema de Gestión</a></li>

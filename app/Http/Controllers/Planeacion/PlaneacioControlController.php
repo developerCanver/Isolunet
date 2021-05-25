@@ -58,14 +58,14 @@ class PlaneacioControlController extends Controller
 
             $variable                    = new PlaneacionControl();
           
-        $variable->proceso      =$request->get('proceso');
-        $variable->variable     =$request->get('variable');
-        $variable->unidad       =$request->get('unidad');
-        $variable->control      =$request->get('control');
-        $variable->operacion    =$request->get('operacion');
-        $variable->frecuencia   =$request->get('frecuencia');
-        $variable->seguimiento  =$request->get('seguimiento');
-        $variable->fk_empresa   =$request->get('fk_empresa');
+            $variable->proceso      =$request->get('proceso');
+            $variable->variable     =$request->get('variable');
+            $variable->unidad       =$request->get('unidad');
+            $variable->control      =$request->get('control');
+            $variable->operacion    =$request->get('operacion');
+            $variable->frecuencia   =$request->get('frecuencia');
+            $variable->seguimiento  =$request->get('seguimiento');
+            $variable->fk_empresa   =$request->get('fk_empresa');
           
 
 

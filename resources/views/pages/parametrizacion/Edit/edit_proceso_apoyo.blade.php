@@ -77,20 +77,32 @@
 				</div>
 			</div>
 		</div>
-		
+	
+
 		<div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12s">
-				<div class="form-group">
-			    	<label for="datos">Usuarios Relacionados</label>
-			    	<select name="usuarios_relacionados[]" class="form-control select2" required multiple>
-			    		
-			    		@foreach ($proceso_apoyo as $pa)
-			    			<option value="{{ $pa->id }}" >{{ $pa->name }}</option>
-			    		@endforeach
-			    	</select>
-				</div>
-			</div>
-		</div>
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6">
+                <div class="form-group">
+                    <label for="datos">Usuarios Relacionados /Eliminar</label>
+                    <select name="usuarios_relacionados[]" class="form-control select2"  multiple>
+                        @foreach ($proceso_gerencial as $pg)
+                        <option value="{{ $pg->id }}" {{ $pg->proceso_id == $proceso->id_proceso ? 'selected' : '' }}>
+                            {{ $pg->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-6">
+                <div class="form-group">
+                    <label for="datos">Agregar Usuarios</label>
+                    <select name="usuarios_relacionados[]" class="form-control select2" multiple >
+                
+                        @foreach ($tabla_usuarios_cliente as $element)
+                        <option value="{{ $element->id }}">{{ $element->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
 	
 			<button type="submit" class="btn btn-primary">Editar</button>
 			

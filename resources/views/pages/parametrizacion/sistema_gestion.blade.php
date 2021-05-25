@@ -43,7 +43,7 @@
 				<div class="form-group">
 			    	<label for="datos">Seleccionar Procesos</label>
 			    	<select name="procesos[]" class="form-control select2" required multiple>
-			    		@foreach($proceso as $e)
+			    		@foreach($procesos as $e)
 			    		<option value="{{ $e->id_proceso }}">{{ $e->nom_proceso }}</option>
 			    		@endforeach
 			    	</select>
@@ -98,9 +98,9 @@
 			    		<th>
 			    			Descripcion
 			    		</th>
-			    		<th>
+			    		{{-- <th>
 			    			Procesos
-			    		</th>
+			    		</th> --}}
 			    		<th colspan="2">
 			    			Opciones
 			    		</th>
@@ -112,9 +112,9 @@
 			    		<td>{{ $h->str_nombre }}</td>
 			    		<td>{{ $h->str_sigla }}</td>
 			    		<td>{{ $h->str_descripcion }}</td>
-			    		<td>
+			    		{{-- <td>
 								'proceso'		    			
-			    		</td>
+			    		</td> --}}
 			    		<td colspan="2">
 			    			<a href="{{ URL::action('Parametrizacion\SistemaGestionController@edit',$h->id_sisgestion) }}"><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
 			    			<a href="{{ URL::action('Parametrizacion\SistemaGestionController@destroy',$h->id_sisgestion) }}"><i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>

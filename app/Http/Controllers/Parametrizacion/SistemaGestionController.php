@@ -44,10 +44,13 @@ class SistemaGestionController extends Controller
             // ->where('p.bool_estado','=','1')
             // ->get();
 
-    		$proceso                    = DB::table('tbl_procesos')
-                                        ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-                                        ->where('bool_estado','=','1')
-    				                    ->get();
+            $procesos      = DB::table('tbl_procesos as p')
+                            ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
+                            ->join('users as u','u.id','=','e.fk_usuario')
+                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->where('p.bool_estado',  '=','1')
+                            ->where('e.bool_estado',  '=','1')
+                            ->orderby('id_proceso', 'DESC')->get();
 
     		$tabla_sisgestion           = DB::table('tbl_sistemas_gestion')
                                         ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
@@ -62,7 +65,7 @@ class SistemaGestionController extends Controller
 
 
     		return view('pages.parametrizacion.sistema_gestion',[
-                'proceso'=>$proceso,
+                'procesos'=>$procesos,
                 'tabla_sisgestion'=>$tabla_sisgestion,
                 'tabla_procesos_sisgestion'=>$tabla_procesos_sisgestion
                 ]);
@@ -83,8 +86,7 @@ class SistemaGestionController extends Controller
             $variable->save();
 
             $cont = 0;
-            $procesos_relacionados = $request->get('procesos');
-            
+            $procesos_relacionados = $request->get('procesos');            
             for ($i=0; $i <  count($procesos_relacionados) ; $i++) { 
             
                $proceso = new Sistema_procesos();
@@ -113,13 +115,30 @@ class SistemaGestionController extends Controller
     							->leftjoin('tbl_procesos as tp','tsgp.proceso_id','=','tp.id_proceso')
     							->get();
 
-    	$proceso = DB::table('tbl_procesos')
-    				->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
+        $procesos      = DB::table('tbl_procesos as p')
+                                ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
+                                ->join('users as u','u.id','=','e.fk_usuario')
+                                ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                                ->where('p.bool_estado',  '=','1')
+                                ->where('e.bool_estado',  '=','1')
+                                ->orderby('id_proceso', 'DESC')->get();
+                                //dd($procesos);
+
+    	$procesoSelect = DB::table('tbl_sistemas_gestion as sg')
+    				->join('tbl_sistemas_gestion_procesos as gp','gp.sisgestionr_id','=','sg.id_sisgestion')
+    				->join('tbl_procesos as p','p.id_proceso','=','gp.proceso_id')
+                    ->where('sisgestionr_id',$id)
     				->get();
+                   // dd($procesoSelect);
 
     
 
-    	return view('pages.parametrizacion.Edit.edit_sistema_gestion',['registro'=>$registro,'tabla_procesos_sisgestion'=>$tabla_procesos_sisgestion,'proceso'=>$proceso]);
+    	return view('pages.parametrizacion.Edit.edit_sistema_gestion',[
+                        'registro'=>$registro,
+                        'tabla_procesos_sisgestion'=>$tabla_procesos_sisgestion,
+                        'procesoSelect'=>$procesoSelect,
+                        'procesos'=>$procesos,
+            ]);
     }
 
     public function update(Request $request,$id)
@@ -133,6 +152,23 @@ class SistemaGestionController extends Controller
             $variable->str_descripcion  = $request->get('descripcion');
             $variable->fk_empresa       = Auth::User()->fk_empresa;
             $variable->update();
+
+            
+            Sistema_procesos::where('sisgestionr_id', $id)->delete();
+
+       
+            if ($request->get('procesos')) {              
+
+                $procesos_relacionados = $request->get('procesos');            
+                for ($i=0; $i <  count($procesos_relacionados) ; $i++) { 
+                
+                   $proceso = new Sistema_procesos();
+                   $proceso->sisgestionr_id = $variable->id_sisgestion;
+                   $proceso->proceso_id = $procesos_relacionados[$i];
+                   $proceso->save();
+                }
+            }
+
 
            
             DB::commit();

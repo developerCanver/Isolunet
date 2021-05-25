@@ -95,8 +95,8 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label for="datos">Agregar Usuarios</label>
-                    <select name="usuarios_relacionados[]" class="form-control select2" >
-                        <option value="" disabled selected>Seleccionar....</option>
+                    <select name="usuarios_relacionados[]" class="form-control select2" multiple>
+                      
                         @foreach ($tabla_usuarios_cliente as $element)
                         <option value="{{ $element->id }}">{{ $element->name }}</option>
                         @endforeach

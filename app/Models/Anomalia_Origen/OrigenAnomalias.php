@@ -13,6 +13,7 @@ class OrigenAnomalias extends Model
 
     protected 	$fillable = [
 		'nombre',
+		'fk_empresa',
 		'bool_estado',
     ];
 

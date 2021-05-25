@@ -290,6 +290,18 @@ class ProcesosController extends Controller
     {
         $proceso            = Procesos::findOrfail($id);
 
+        $proceso_gerencial  = DB::table('tbl_procesos_user as pu') 
+                            ->join('users as u','pu.user_id','=','u.id')                    
+                            ->where('pu.proceso_id','=',''.$proceso->id_proceso.'')
+                            ->get(); 
+
+        $tabla_usuarios_cliente = DB::table('users as u')
+                            ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                            ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                            ->where('e.bool_estado','=','1')
+                            ->get();
+
+
         $proceso_misional   = DB::table('tbl_procesos_user as pu') 
                             ->join('users as u','pu.user_id','=','u.id')                    
                             ->where('proceso_id','=',''.$proceso->id_proceso.'')
@@ -303,13 +315,26 @@ class ProcesosController extends Controller
                             [
                                 'proceso'               =>$proceso,
                                 'proceso_misional'      =>$proceso_misional,
-                                'usuario_responsable'   =>$usuario_responsable
+                                'usuario_responsable'   =>$usuario_responsable,
+                                'proceso_gerencial'     =>$proceso_gerencial,
+                                'tabla_usuarios_cliente'     =>$tabla_usuarios_cliente,
                             ]);
     }
     //################ APOYO//################
     public function edit_proceso_apoyo(Request $request, $id)
     {
         $proceso            = Procesos::findOrfail($id);
+
+        $proceso_gerencial  = DB::table('tbl_procesos_user as pu') 
+                            ->join('users as u','pu.user_id','=','u.id')                    
+                            ->where('pu.proceso_id','=',''.$proceso->id_proceso.'')
+                            ->get(); 
+
+        $tabla_usuarios_cliente = DB::table('users as u')
+                            ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                            ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                            ->where('e.bool_estado','=','1')
+                            ->get();
 
         $proceso_apoyo   = DB::table('tbl_procesos_user as pu') 
                             ->join('users as u','pu.user_id','=','u.id')                    
@@ -324,7 +349,9 @@ class ProcesosController extends Controller
                             [
                                 'proceso'               =>$proceso,
                                 'proceso_apoyo'         =>$proceso_apoyo,
-                                'usuario_responsable'   =>$usuario_responsable
+                                'usuario_responsable'   =>$usuario_responsable,
+                                'proceso_gerencial'     =>$proceso_gerencial,
+                                'tabla_usuarios_cliente'=>$tabla_usuarios_cliente,
                             ]);
     }
 
@@ -348,18 +375,15 @@ class ProcesosController extends Controller
 
        
             if ($request->get('usuarios_relacionados')) {
-                $usuario_relacionados     = $request->get('usuarios_relacionados');
-               
+                $usuario_relacionados     = $request->get('usuarios_relacionados');               
 
                 for ($i=0; $i <  count($usuario_relacionados) ; $i++) {
 
                     $tiporequisito = new Procesos_user();
                     $tiporequisito->user_id       =    $usuario_relacionados[$i];
                     $tiporequisito->proceso_id   =    $variable->id_proceso ;
-
                     $tiporequisito->save();
                 }
-
             }
 
     
@@ -388,14 +412,19 @@ class ProcesosController extends Controller
             $variable->descripcion              = $request->get('descripcion');
             $variable->update();
 
-            $usuario_relacionados = $request->get('usuarios_relacionados');
-             for ($i=0; $i < count($usuario_relacionados) ; $i++) {
+            Procesos_user::where('proceso_id', $id)->delete();
 
-                $usuario =  Procesos_user::where('proceso_id','=',''.$variable->id_proceso.'')
-                        ->where('user_id','=',''.$usuario_relacionados[$i].'')->first();
-                $usuario->proceso_id = $variable->id_proceso;
-                $usuario->user_id = $usuario_relacionados[$i];
-                $usuario->update();   
+       
+            if ($request->get('usuarios_relacionados')) {
+                $usuario_relacionados     = $request->get('usuarios_relacionados');              
+
+                for ($i=0; $i <  count($usuario_relacionados) ; $i++) {
+                    $tiporequisito = new Procesos_user();
+                    $tiporequisito->user_id       =    $usuario_relacionados[$i];
+                    $tiporequisito->proceso_id   =    $variable->id_proceso ;
+                    $tiporequisito->save();
+                }
+
             }
 
             DB::commit();
@@ -422,14 +451,20 @@ class ProcesosController extends Controller
             $variable->descripcion              = $request->get('descripcion');
             $variable->update();
 
-            $usuario_relacionados = $request->get('usuarios_relacionados');
-             for ($i=0; $i < count($usuario_relacionados) ; $i++) {
+            Procesos_user::where('proceso_id', $id)->delete();
 
-                $usuario =  Procesos_user::where('proceso_id','=',''.$variable->id_proceso.'')
-                        ->where('user_id','=',''.$usuario_relacionados[$i].'')->first();
-                $usuario->proceso_id = $variable->id_proceso;
-                $usuario->user_id = $usuario_relacionados[$i];
-                $usuario->update();   
+       
+            if ($request->get('usuarios_relacionados')) {
+                $usuario_relacionados     = $request->get('usuarios_relacionados');               
+
+                for ($i=0; $i <  count($usuario_relacionados) ; $i++) {
+
+                    $tiporequisito = new Procesos_user();
+                    $tiporequisito->user_id       =    $usuario_relacionados[$i];
+                    $tiporequisito->proceso_id   =    $variable->id_proceso ;
+                    $tiporequisito->save();
+                }
+
             }
 
             DB::commit();

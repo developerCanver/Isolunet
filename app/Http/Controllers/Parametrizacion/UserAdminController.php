@@ -24,7 +24,13 @@ class UserAdminController extends Controller
     	
         $empresas       = DB::table('tbl_empresa as e')                           
                         ->where('e.bool_estado','=','1')
-                        ->get();
+                        ->get();      
+        $empresa       = DB::table('users as u')   
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')                       
+                        ->where('u.id',Auth::User()->id)
+                        ->where('e.bool_estado',1)
+                        ->first();
+                        //dd($empresa  );
                            
         $usuario 					= User::findOrfail(Auth::User()->id);
         $rolUsuario=$usuario->fk_rol;
@@ -66,12 +72,11 @@ class UserAdminController extends Controller
                ->paginate(20);
 
         }
-
-          
-
     		return view('pages.parametrizacion.usuarioAdmin.index',[
+                'empresa'=>$empresa,
                 'empresas'=>$empresas,
-                'consultas'=>$consultas
+                'consultas'=>$consultas,
+                'rolUsuario'=>$rolUsuario,
                 ]);
     	
     }

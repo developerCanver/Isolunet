@@ -53,12 +53,20 @@
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
             <div class="form-group">
                 <label for="datos">Empresa</label>
+                @if ($rolUsuario==1)
                 <select name="fk_empresa" required class="form-control select2">
                     <option value="" selected disabled> Selecionar Empresa</option>
                     @foreach ($empresas as $empresa)
                     <option value="{{ $empresa->id_empresa }}">{{ $empresa->razon_social }}</option>
                     @endforeach
                 </select>
+
+                @else
+                <input type="text" disabled class="form-control" value="{{$empresa->razon_social}}">
+                <input type="hidden" name="fk_empresa" class="form-control" value="{{$empresa->id_empresa}}">
+
+                @endif
+
             </div>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -202,13 +210,24 @@
                                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                     <div class="form-group">
                                                         <label for="datos">Empresa</label>
+                                                        @if ($rolUsuario==1)
                                                         <select name="fk_empresa" required class="form-control ">
+                                                            <option value="" selected disabled> Selecionar Empresa
+                                                            </option>
                                                             @foreach ($empresas as $empresa)
                                                             <option value="{{ $empresa->id_empresa }}"
                                                                 {{ $empresa->id_empresa == $h->fk_empresa ? 'selected' : '' }}>
                                                                 {{ $empresa->razon_social }}</option>
                                                             @endforeach
                                                         </select>
+
+                                                        @else
+                                                        <input type="text" disabled class="form-control"
+                                                            value="{{$empresa->razon_social}}">
+                                                        <input type="hidden" name="fk_empresa" class="form-control"
+                                                            value="{{$empresa->id_empresa}}">
+
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -250,8 +269,9 @@
                                                     <div class="form-group">
                                                         <label for="datos">Imagen</label>
                                                         <input type="file" name="imgUser" class="form-control">
-                                                        <input type="hidden" name="imgUser_anterior" value="{{$h->imgUser}}">
-                                                        
+                                                        <input type="hidden" name="imgUser_anterior"
+                                                            value="{{$h->imgUser}}">
+
                                                     </div>
                                                 </div>
                                             </div>

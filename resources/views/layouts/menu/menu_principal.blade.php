@@ -43,9 +43,9 @@
             $Parametrizacion="style=display:block;";
               }
           @endphp
-          <ul class="br-menu-sub" {{$Parametrizacion}} >          
-            <li class="sub-item"><a href="{{ URL::to('parametrizacion_users') }}"         class="sub-link {{ request()->is('parametrizacion_users*') ? 'active' : ''}}">Usuarios</a></li>          
-            <li class="sub-item"><a href="{{ route('Mod_Parametrizacion::parm_empresa') }}" class="sub-link {{ request()->is('parm_empresa*') || request()->is('edit_empresa*') ? 'active' : ''}}">Empresas</a></li>          
+          <ul class="br-menu-sub" {{$Parametrizacion}} >     
+            <li class="sub-item"><a href="{{ route('Mod_Parametrizacion::parm_empresa') }}" class="sub-link {{ request()->is('parm_empresa*') || request()->is('edit_empresa*') ? 'active' : ''}}">Empresas</a></li>      
+            <li class="sub-item"><a href="{{ URL::to('parametrizacion_users') }}"         class="sub-link {{ request()->is('parametrizacion_users*') ? 'active' : ''}}">Usuarios</a></li> 
             <li class="sub-item"><a href="{{ URL::to('parm_datos_corportativo') }}"         class="sub-link {{ request()->is('parm_datos_corportativo*') ? 'active' : ''}}">Datos Corporativos</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_areas') }}"                      class="sub-link {{ request()->is('parm_areas*') ||  request()->is('edit_parm_areas*') ? 'active' : ''}}">Areas</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_cargo') }}"                      class="sub-link {{ request()->is('parm_cargo*') ||  request()->is('edit_parm_cargos*') ? 'active' : ''}}">Cargos</a></li>

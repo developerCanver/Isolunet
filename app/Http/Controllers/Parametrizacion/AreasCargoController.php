@@ -34,15 +34,16 @@ class AreasCargoController extends Controller
     {
     	if($request){
     		
-    		$empresa = DB::table('tbl_empresa as e')
-                    ->join('users as u','e.fk_usuario','=','u.id')
-                    ->where('u.id','=',''.Auth::User()->id.'')
-    				->where('e.bool_estado','=','1')
-    				->first();
+            $empresa = DB::table('users as u')
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                        ->where('u.id','=',Auth::User()->id)
+                        ->where('e.bool_estado','=','1')
+                        ->first();
 
             $tabla_areas = DB::table('tbl_areas as a')
                         ->join('tbl_empresa as e','a.fk_empresa','=','e.id_empresa')
-                        ->where('fk_usuario','=',Auth::User()->id)
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                        ->where('u.id',Auth::User()->id)
                         ->where('e.bool_estado','=','1')
                         ->where('a.bool_estado','=','1')
                         ->paginate(10);
@@ -79,9 +80,9 @@ class AreasCargoController extends Controller
     {
         $areas = Areas::findOrfail($id);
 
-        $empresa = DB::table('tbl_empresa as e')
-                    ->join('users as u','e.fk_usuario','=','u.id')
-                    ->where('u.id','=',''.Auth::User()->id.'')
+        $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
                     ->where('e.bool_estado','=','1')
                     ->first();
                     
@@ -137,22 +138,31 @@ class AreasCargoController extends Controller
  public function index_cargos(Request $request)
     {
         if($request){
+
+
+            // $empresa = DB::table('users as u')
+            // ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+            // ->where('u.id','=',Auth::User()->id)
+            // ->where('e.bool_estado','=','1')
+            // ->first();
             
             $areas = DB::table('tbl_areas as t')
                     ->join('tbl_empresa as e','t.fk_empresa','=','e.id_empresa')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                    ->where('u.id',Auth::User()->id)
                     ->where('t.bool_estado','=','1')                  
                     ->where('e.bool_estado','=','1')                  
                     ->get();
 
             $tabla_cargos = DB::table('tbl_areas as a')
-                        ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
-                        ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
-                        ->where('em.fk_usuario','=',''.Auth::User()->id.'')
+                        ->join('tbl_empresa as e','a.fk_empresa','=','e.id_empresa')
+                        ->join('tbl_cargos as c','a.id_area','=','c.fk_area')
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                        ->where('u.id',Auth::User()->id)
                         ->where('e.bool_estado','=','1')
-                        ->where('em.bool_estado','=','1')
+                        ->where('c.bool_estado','=','1')
                         ->where('a.bool_estado','=','1')
-                        ->orderby('em.razon_social','desc')
+                        ->orderby('e.razon_social','desc')
                         ->paginate(10);
 
             return view('pages.parametrizacion.cargos',['areas'=>$areas,'tabla_cargos'=>$tabla_cargos]);

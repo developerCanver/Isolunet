@@ -44,41 +44,36 @@
 			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">Razón Social</label>
-			    	<input type="text" class="form-control" id="razon_social" name="razon_social" aria-describedby="" value="{{ $empresa->razon_social }}" style="color: #D20000;">
+			    	<input type="text" class="form-control" required name="razon_social" aria-describedby="" value="{{ $empresa->razon_social }}" style="color: #D20000;">
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">NIT</label>
-			    	<input type="text" class="form-control input-number" id="nit" name="nit" aria-describedby="" value="{{ $empresa->nit }}">
+			    	<input type="text" class="form-control input-number" required name="nit" aria-describedby="" value="{{ $empresa->nit }}">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">Representante</label>
-			    	<input type="text" class="form-control" id="representante" name="representante" aria-describedby="" value="{{ $empresa->representante }}">
+			    	<input type="text" class="form-control" required name="representante" aria-describedby="" value="{{ $empresa->representante }}">
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<div class="form-group">
 			    	<label for="datos">Ciudad</label>
-			    	<input type="text" class="form-control" id="representante" name="ciudad" aria-describedby="" value="{{ $empresa->ciudad }}">
+			    	<input type="text" class="form-control" required name="ciudad" aria-describedby="" value="{{ $empresa->ciudad }}">
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<div class="form-group">
 			    	<label for="datos">Dirección</label>
-			    	<input type="text" class="form-control" id="direccion" name="direccion" aria-describedby="" value="{{ $empresa->direccion }}">
+			    	<input type="text" class="form-control" required name="direccion" aria-describedby="" value="{{ $empresa->direccion }}">
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-				<div class="form-group">
-			    	<label for="datos">Celular</label>
-			    	<input type="text" class="form-control input-number" id="celular" name="celular" aria-describedby="" value="{{ $empresa->celular }}">
-				</div>
-			</div>
+			
 		</div>
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
@@ -88,26 +83,14 @@
 			    	<img src="{{asset('imgs/logo_empresa/'.$empresa->image)}}" alt="{{$empresa->image}}" height="200px" width="200px" class="img-thumbnail">
 				</div>
 			</div>
-
 			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<div class="form-group">
-			    	<label for="datos">Usuario Administrador</label>
-			    	<select name="fk_usuario" class="form-control select2">
-			    		
-			    		@foreach ($usuarios as $element)
-			    			@if($element->id == $empresa->fk_usuario)
-			    			<option value="{{ $element->id }}" selected>{{ $element->name }}</option>
-			    			@else
-			    			<option value="{{ $element->id }}">{{ $element->name }}</option>
-			    			@endif
-			    		@endforeach
-			    	</select>
+			    	<label for="datos">Celular</label>
+			    	<input type="text" class="form-control input-number" required name="celular" aria-describedby="" value="{{ $empresa->celular }}">
 				</div>
-			</div>
+			</div>		
 		</div>
-  		
-		
- 
+  
   		<button type="submit" class="btn btn-warning">Editar</button>	
   		<a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
   {!!Form::close()!!}

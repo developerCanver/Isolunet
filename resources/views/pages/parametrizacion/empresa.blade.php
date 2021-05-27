@@ -44,66 +44,59 @@
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">Razón Social</label>
-			    	<input type="text" class="form-control" id="razon_social" name="razon_social" aria-describedby="" value="{{ old('razon_social') }}" style="color: #D20000;">
+			    	<input type="text" class="form-control" id="razon_social" required name="razon_social" aria-describedby="" value="{{ old('razon_social') }}" style="color: #D20000;">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">NIT</label>
-			    	<input type="text" class="form-control input-number" id="nit" name="nit" aria-describedby="" value="{{ old('nit') }}">
+			    	<input type="text" class="form-control input-number" required name="nit" aria-describedby="" value="{{ old('nit') }}">
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">Representante</label>
-			    	<input type="text" class="form-control" id="representante" name="representante" aria-describedby="" value="{{ old('representante') }}">
+			    	<input type="text" class="form-control" required name="representante" aria-describedby="" value="{{ old('representante') }}">
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<div class="form-group">
 			    	<label for="datos">Ciudad</label>
-			    	<input type="text" class="form-control"  name="ciudad" aria-describedby="" value="{{ old('ciudad') }}">
+			    	<input type="text" class="form-control" required name="ciudad" aria-describedby="" value="{{ old('ciudad') }}">
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<div class="form-group">
 			    	<label for="datos">Dirección</label>
-			    	<input type="text" class="form-control" id="direccion" name="direccion" aria-describedby="" value="{{ old('direccion') }}">
+			    	<input type="text" class="form-control" required name="direccion" aria-describedby="" value="{{ old('direccion') }}">
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-				<div class="form-group">
-			    	<label for="datos">Celular</label>
-			    	<input type="text" class="form-control input-number" id="celular" name="celular" aria-describedby="" value="{{ old('celular') }}">
-				</div>
-			</div>
+			
 		</div>
 		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+				<div class="form-group">
+			    	<label for="datos">Celular</label>
+			    	<input type="text" class="form-control input-number" required name="celular" aria-describedby="" value="{{ old('celular') }}">
+				</div>
+			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<div class="form-group">
 			    	<label for="datos">Logo de la Empresa</label>
-			    	<input type="file" class="form-control" id="image" name="image" aria-describedby="" value="{{ old('image') }}">
+			    	<input type="file" class="form-control" required name="image" aria-describedby="" value="{{ old('image') }}">
 				</div>
 			</div>
 
-			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-				<div class="form-group">
-			    	<label for="datos">Usuario Administrador</label>
-			    	<select name="fk_usuario" class="form-control select2">
-			    		<option value="">Seleccionar...</option>
-			    		@foreach ($usuarios as $element)
-			    			<option value="{{ $element->id }}">{{ $element->name }}</option>
-			    		@endforeach
-			    	</select>
-				</div>
-			</div>
+		
 		</div>
   		
 		
- 
-  		<button type="submit" class="btn btn-primary">Guardar</button>	
+			@if ($rolUsuario==1)
+			<button type="submit" class="btn btn-primary">Guardar</button>	
+			@endif
+				
   		<a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
   {!!Form::close()!!}
 <br>
@@ -149,7 +142,10 @@
 			    		<td><img src="{{asset('imgs/logo_empresa/'.$h->image)}}" alt="{{$h->image}}" height="100px" width="100px" class="img-thumbnail">  </td>
 			    		<td colspan="2">
 			    			<a href="{{ URL::action('Parametrizacion\EmpresaController@edit',$h->id_empresa) }}""><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
-			    			<a href="{{ URL::action('Parametrizacion\EmpresaController@destroy',$h->id_empresa) }}" ><i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
+							@if  ($rolUsuario==1)
+							<a href="{{ URL::action('Parametrizacion\EmpresaController@destroy',$h->id_empresa) }}" ><i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
+							@endif
+			    			
 			    		</td>
 			    	</tr>
 			    	@endforeach

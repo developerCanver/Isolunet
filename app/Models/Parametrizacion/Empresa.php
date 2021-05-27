@@ -18,8 +18,7 @@ class Empresa extends Model
         'celular',  
         'ciudad',         
         'image',
-        'bool_estado', 
-        'fk_usuario',          
+        'bool_estado',          
     ];
 
 }

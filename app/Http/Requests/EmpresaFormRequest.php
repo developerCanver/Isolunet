@@ -36,7 +36,7 @@ class EmpresaFormRequest extends FormRequest
     {
         return [
             'nit.unique'                => 'Por favor Verificar. El NIT ya se encuentra almacenado',
-            'nit.required'              => 'Por favor Verificar. El Nit  estÁ vacio',
+            'nit.required'              => 'Por favor Verificar. El Nit  está vacio',
             'razon_social.required'     => 'Por favor Verificar. El Campo Razon Social no se ha ingresado',
         ];
     }

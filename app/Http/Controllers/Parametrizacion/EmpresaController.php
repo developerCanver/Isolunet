@@ -32,14 +32,30 @@ class EmpresaController extends Controller
     public function index(Request $request)
     {
     	if($request){
+
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+            if ( $rolUsuario==1) {
+                $empresa = DB::table('tbl_empresa')
+                            ->where('bool_estado','=','1')
+                            ->paginate(15);
+            }else {
+                $empresa = DB::table('tbl_empresa')
+                            ->where('bool_estado','=','1')
+                            ->where('id_empresa',$id_empresa)
+                            ->paginate(15);
+            }
     		$usuarios = DB::table('users')
     					->get();
 
-    		$empresa = DB::table('tbl_empresa')
-    				->where('bool_estado','=','1')
-    				->paginate(15);
+    		
 
-    		return view('pages.parametrizacion.empresa',['usuarios'=>$usuarios,'empresa'=>$empresa]);
+    		return view('pages.parametrizacion.empresa',[
+                'usuarios'=>$usuarios,
+                'empresa'=>$empresa,
+                'rolUsuario'=>$rolUsuario
+                ]);
     	}
     }
 
@@ -62,12 +78,9 @@ class EmpresaController extends Controller
                 $empresa->image =$file->getClientOriginalName();
             }
             $empresa->bool_estado		= 1;
-            $empresa->fk_usuario		= $request->get('fk_usuario');
             $empresa->save();
 
-            $usuarios                   = User::findOrfail($request->get('fk_usuario'));
-            $usuarios->fk_empresa       = $empresa->id_empresa;
-            $usuarios->update(); 
+     
 
            DB::commit();
            return Redirect::to('parm_empresa')->with('status','Se guardó correctamente');
@@ -104,7 +117,6 @@ class EmpresaController extends Controller
                 $empresa->image =$file->getClientOriginalName();
             }
             $empresa->bool_estado			= 1;
-            $empresa->fk_usuario		= $request->get('fk_usuario');
             $empresa->update();
 
            DB::commit();

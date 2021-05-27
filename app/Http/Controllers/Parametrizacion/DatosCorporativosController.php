@@ -35,31 +35,36 @@ class DatosCorporativosController extends Controller
     {
     	if($request){
     		
-    		$empresa_count = DB::table('tbl_empresa')
-    				->where('fk_usuario','=',Auth::User()->id)
-    				->where('bool_estado','=','1')
-    				->get();
-    		
+    		$empresa_count =  DB::table('users as u')
+							->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+							->where('u.id','=',Auth::User()->id)
+							->where('e.bool_estado','=','1')
+							->get();
+					
     				// dd($empresa);
     		if (count($empresa_count) < 1) {	
     			return view('pages.parametrizacion.datos_corporativa_sin_datos');
     		}else{
                 
-    			$empresa = DB::table('tbl_empresa')
-							->where('fk_usuario','=',Auth::User()->id)
-		    				->where('bool_estado','=','1')
-		    				->first();
+    			$empresa = DB::table('users as u')
+									->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+									->where('u.id','=',Auth::User()->id)
+									->where('e.bool_estado','=','1')
+									->first();
 
     			$datos_corporativos_count = DB::table('tbl_datos_corporativos')
     								->where('fk_empresa','=',''.$empresa->id_empresa.'')
     								->get();
-
     		
     			$datos_corporativos = DB::table('tbl_datos_corporativos')
     								->where('fk_empresa','=',''.$empresa->id_empresa.'')
     								->first();
     			
-    			return view('pages.parametrizacion.datos_corporativa',['empresa'=>$empresa,'datos_corporativos'=>$datos_corporativos,'datos_corporativos_count'=>$datos_corporativos_count]);
+    			return view('pages.parametrizacion.datos_corporativa',[
+								'empresa'=>$empresa,
+								'datos_corporativos'=>$datos_corporativos,
+								'datos_corporativos_count'=>$datos_corporativos_count
+					]);
 
     		}
     		// dd($empresa);

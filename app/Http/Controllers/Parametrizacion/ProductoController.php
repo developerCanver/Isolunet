@@ -34,15 +34,16 @@ class ProductoController extends Controller
     {
     	if($request){
 
-            $empresa    = DB::table('tbl_empresa as e')
-                        ->join('users as u','e.fk_usuario','=','u.id')
-                        ->where('u.id','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+            $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
+                    ->first();
 
             $producto = DB::table('tbl_producto as p')
                         ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa') 
+                        ->where('u.id', Auth::User()->id)
                         ->where('p.bool_estado','=','1')
                         ->where('e.bool_estado','=','1')
                         ->paginate(15);

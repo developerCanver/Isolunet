@@ -37,9 +37,8 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
-                    <label><strong>Rol de los cargos en los sistemas de gestión?
-                        </strong></label>
-                    <textarea name="nom_rol_res" rows="2" cols="140" required="true"></textarea>
+                    <label><strong>Rol de los cargos en los sistemas de gestión?</strong></label>
+                    <textarea class="form-control" name="nom_rol_res" required="true"></textarea>
                 </div>
             </div>
         </div>
@@ -61,7 +60,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Responsabilidad:</strong></label>
-                    <textarea name="nom_responsabilidades" rows="2" cols="60" required="true"></textarea>
+                    <textarea name="nom_responsabilidades" class="form-control" required="true"></textarea>
 
                 </div>
             </div>
@@ -69,7 +68,7 @@
                 <div class="form-group">
 
                     <label><strong>¿Qué Cuentas Rinde?:</strong></label>
-                    <textarea name="cuentas_rinde" rows="2" cols="60"></textarea>
+                    <textarea name="cuentas_rinde" class="form-control"></textarea>
                 </div>
             </div>
 
@@ -79,13 +78,13 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label><strong>Autoridad:</strong></label>
-                    <textarea name="autoridad" rows="2" cols="40"></textarea>
+                    <textarea name="autoridad" class="form-control"></textarea>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label><strong>¿A Quién?:</strong></label>
-                    <textarea name="a_quien" rows="2" cols="40"></textarea>
+                    <textarea name="a_quien" class="form-control"></textarea>
                 </div>
             </div>
 
@@ -93,7 +92,7 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label><strong>¿Cada Cuánto?:</strong></label>
-                    <textarea name="cada_cuanto" rows="2" cols="40"></textarea>
+                    <textarea name="cada_cuanto" class="form-control"></textarea>
                 </div>
             </div>
 

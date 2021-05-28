@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Contexto\Analisis_pestal;
+use App\Models\User;
 
 class AnalisisPestalController extends Controller
 {
@@ -35,19 +36,18 @@ class AnalisisPestalController extends Controller
     public function index()
     {
        
-        $tipoUser = DB::table('tbl_empresa as e')       
-        ->join('users as u','u.fk_empresa','=','e.id_empresa')
-        ->join('role_user as ru','ru.user_id','=','u.id')
-        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-        ->first();
+        $usuario	= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
 
            $pestal = DB::table('tbl_contexto_analisis_pestal as ap')  
-           ->join('tbl_empresa as e','ap.fk_empresa','=','e.id_empresa')                    
-           ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->join('tbl_empresa as e','ap.fk_empresa','=','e.id_empresa')                    
+                    ->join('users as u','u.fk_empresa','=','e.id_empresa') 
+                    ->where('u.id', Auth::User()->id)
                     ->first();
        
 
-        return view('pages.contexto.analisis_pestal.index',['pestal'=>$pestal,'tipoUser'=>$tipoUser]);
+        return view('pages.contexto.analisis_pestal.index',['pestal'=>$pestal,'tipoUser'=>$rolUsuario]);
     }
 
     public function create(Request $request)

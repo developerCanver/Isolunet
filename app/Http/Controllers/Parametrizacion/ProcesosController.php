@@ -22,6 +22,7 @@ use Entrust;
 use App\Models\Parametrizacion\Procesos;
 use App\Models\Parametrizacion\Procesos_user;
 use App\Models\Sistema_procesos;
+use App\Models\User;
 
 class ProcesosController extends Controller
 {
@@ -43,30 +44,34 @@ class ProcesosController extends Controller
     {
     	if ($request) {
 
-    		$empresa                = DB::table('tbl_empresa')
-                                    ->where('fk_usuario','=',''.Auth::User()->id.'')
-                                    ->where('bool_estado','=','1')
-                                    ->first();
+            $empresa       = DB::table('users as u')   
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')                       
+                            ->where('u.id',Auth::User()->id)
+                            ->where('e.bool_estado',1)
+                            ->first();
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
 
             $tabla_usuarios_cliente = DB::table('users as u')
                                     ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                                    ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                                    ->where('e.id_empresa',$id_empresa)
                                     ->where('e.bool_estado','=','1')
+                                    ->where('fk_rol',2)
                                     ->get();
 
             $proceso_gerencial      = DB::table('tbl_procesos as p')
                                             ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                                            ->join('users as u','u.id','=','e.fk_usuario')
-                                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                                            ->join('users as u','u.id','=','p.fk_usuario_responsable')
+                                            ->where('p.fk_empresa',$id_empresa)
                                             ->where('p.tipo_proceso',  '=','Procesos Gerenciales')
                                             ->where('p.bool_estado',  '=','1')
                                             ->where('e.bool_estado',  '=','1')
-                                            ->orderby('id_proceso', 'DESC')->get();
+                                            ->orderby('id_proceso', 'DESC')
+                                            ->paginate(20);
+                                           // dd($proceso_gerencial);
 
-                                            
-            
-           
-
+                                        
             return view('pages.parametrizacion.sub-proceso.proceso_gerenciales',
                         [
                             'empresa'                =>  $empresa,
@@ -80,28 +85,35 @@ class ProcesosController extends Controller
     {
         if ($request) {
 
-            $empresa                = DB::table('tbl_empresa')
-                                    ->where('fk_usuario','=',''.Auth::User()->id.'')
-                                    ->where('bool_estado','=','1')
-                                    ->first();
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+
+            $empresa       = DB::table('users as u')   
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')                       
+                            ->where('u.id',Auth::User()->id)
+                            ->where('e.bool_estado',1)
+                            ->first();
 
             $tabla_usuarios_cliente = DB::table('users as u')
-                                    ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                                    ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
-                                    ->where('e.bool_estado','=','1')
-                                    ->get();
+                            ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                            ->where('e.id_empresa',$id_empresa)
+                            ->where('e.bool_estado','=','1')
+                            ->where('fk_rol',2)
+                            ->get();
 
-         $proceso_misional      = DB::table('tbl_procesos as p')
-                                    ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                                    ->join('users as u','u.id','=','e.fk_usuario')
-                                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                                    ->where('p.tipo_proceso',  '=','Procesos Misionales')
-                                    ->where('p.bool_estado',  '=','1')
-                                    ->where('e.bool_estado',  '=','1')
-                                    ->orderby('id_proceso', 'DESC')->get();
+        $proceso_misional      = DB::table('tbl_procesos as p')
+                            ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
+                            ->join('users as u','u.id','=','p.fk_usuario_responsable')
+                            ->where('p.fk_empresa',$id_empresa)
+                            ->where('p.tipo_proceso',  '=','Procesos Misionales')
+                            ->where('p.bool_estado',  '=','1')
+                            ->where('e.bool_estado',  '=','1')
+                            ->orderby('id_proceso', 'DESC')
+                            ->paginate(20);
             
       
-
+                                    
 
             return view('pages.parametrizacion.sub-proceso.proceso_misionales',
                         [
@@ -116,27 +128,33 @@ class ProcesosController extends Controller
     {
         if ($request) {
 
-            $empresa                = DB::table('tbl_empresa')
-                                    ->where('fk_usuario','=',''.Auth::User()->id.'')
-                                    ->where('bool_estado','=','1')
-                                    ->first();
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+
+            $empresa       = DB::table('users as u')   
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')                       
+                            ->where('u.id',Auth::User()->id)
+                            ->where('e.bool_estado',1)
+                            ->first();
 
             $tabla_usuarios_cliente = DB::table('users as u')
-                                    ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                                    ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
-                                    ->where('e.bool_estado','=','1')
-                                    ->get();
+                            ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                            ->where('e.id_empresa',$id_empresa)
+                            ->where('e.bool_estado','=','1')
+                            ->where('fk_rol',2)
+                            ->get();
 
-            $proceso_apoyo          = DB::table('tbl_procesos as p')
-                                    ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                                    ->join('users as u','u.id','=','e.fk_usuario')
-                                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                                    ->where('p.tipo_proceso',  '=','Procesos de Apoyo')
-                                    ->where('p.bool_estado',  '=','1')
-                                    ->where('e.bool_estado',  '=','1')
-                                    ->orderby('id_proceso', 'DESC')->get();          
+        $proceso_apoyo      = DB::table('tbl_procesos as p')
+                            ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
+                            ->join('users as u','u.id','=','p.fk_usuario_responsable')
+                            ->where('p.fk_empresa',$id_empresa)
+                            ->where('p.tipo_proceso',  '=','Procesos de Apoyo')
+                            ->where('p.bool_estado',  '=','1')
+                            ->where('e.bool_estado',  '=','1')
+                            ->orderby('id_proceso', 'DESC')
+                            ->paginate(20);
 
-    
 
             }
             return view('pages.parametrizacion.sub-proceso.proceso_apoyo',
@@ -261,20 +279,27 @@ class ProcesosController extends Controller
     public function edit_proceso_gerencial(Request $request, $id)
     {
         $proceso            = Procesos::findOrfail($id);
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
 
         $proceso_gerencial  = DB::table('tbl_procesos_user as pu') 
                             ->join('users as u','pu.user_id','=','u.id')                    
                             ->where('pu.proceso_id','=',''.$proceso->id_proceso.'')
                             ->get(); 
 
-        $usuario_responsable = DB::table('users as s')
-                            ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-                            ->get();
-                           // dd($proceso_gerencial);
+      
+         $usuario_responsable = DB::table('users as u')
+                           ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                           ->where('e.id_empresa',$id_empresa)
+                           ->where('e.bool_estado','=','1')
+                           ->where('fk_rol',2)
+                           ->get(); 
         $tabla_usuarios_cliente = DB::table('users as u')
                            ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                           ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                           ->where('e.id_empresa',$id_empresa)
                            ->where('e.bool_estado','=','1')
+                           ->where('fk_rol',2)
                            ->get();
      
         return view('pages.parametrizacion.Edit.edit_proceso_gerencial',
@@ -290,26 +315,34 @@ class ProcesosController extends Controller
     {
         $proceso            = Procesos::findOrfail($id);
 
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+
         $proceso_gerencial  = DB::table('tbl_procesos_user as pu') 
-                            ->join('users as u','pu.user_id','=','u.id')                    
-                            ->where('pu.proceso_id','=',''.$proceso->id_proceso.'')
-                            ->get(); 
+        ->join('users as u','pu.user_id','=','u.id')                    
+        ->where('pu.proceso_id','=',''.$proceso->id_proceso.'')
+        ->get(); 
 
         $tabla_usuarios_cliente = DB::table('users as u')
-                            ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                            ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
-                            ->where('e.bool_estado','=','1')
-                            ->get();
-
+        ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+        ->where('e.id_empresa',$id_empresa)
+        ->where('e.bool_estado','=','1')
+        ->where('fk_rol',2)
+        ->get();
 
         $proceso_misional   = DB::table('tbl_procesos_user as pu') 
-                            ->join('users as u','pu.user_id','=','u.id')                    
-                            ->where('proceso_id','=',''.$proceso->id_proceso.'')
-                            ->get(); 
+        ->join('users as u','pu.user_id','=','u.id')                    
+        ->where('proceso_id','=',''.$proceso->id_proceso.'')
+        ->get(); 
+        
 
-        $usuario_responsable = DB::table('users as s')
-                            ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-                            ->get();
+        $usuario_responsable = DB::table('users as u')
+        ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+        ->where('e.id_empresa',$id_empresa)
+        ->where('e.bool_estado','=','1')
+        ->where('fk_rol',2)
+        ->get(); 
      
         return view('pages.parametrizacion.Edit.edit_proceso_misional',
                             [
@@ -324,6 +357,9 @@ class ProcesosController extends Controller
     public function edit_proceso_apoyo(Request $request, $id)
     {
         $proceso            = Procesos::findOrfail($id);
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
 
         $proceso_gerencial  = DB::table('tbl_procesos_user as pu') 
                             ->join('users as u','pu.user_id','=','u.id')                    
@@ -332,8 +368,9 @@ class ProcesosController extends Controller
 
         $tabla_usuarios_cliente = DB::table('users as u')
                             ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                            ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                            ->where('e.id_empresa',$id_empresa)
                             ->where('e.bool_estado','=','1')
+                            ->where('fk_rol',2)
                             ->get();
 
         $proceso_apoyo   = DB::table('tbl_procesos_user as pu') 
@@ -341,9 +378,12 @@ class ProcesosController extends Controller
                             ->where('proceso_id','=',''.$proceso->id_proceso.'')
                             ->get(); 
 
-        $usuario_responsable = DB::table('users as s')
-                            ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-                            ->get();
+        $usuario_responsable = DB::table('users as u')
+                            ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                            ->where('e.id_empresa',$id_empresa)
+                            ->where('e.bool_estado','=','1')
+                            ->where('fk_rol',2)
+                            ->get(); 
      
         return view('pages.parametrizacion.Edit.edit_proceso_apoyo',
                             [

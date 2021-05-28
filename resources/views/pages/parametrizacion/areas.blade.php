@@ -44,9 +44,19 @@
 			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<div class="form-group">
 			    	<label for="datos">Empresa</label>
-			    	<select name="empresa" class="form-control select2" required>			    				    		
-			    		<option value="{{ $empresa->id_empresa }}" selected>{{ $empresa->razon_social }}</option>				 			    
-			    	</select>
+					@if ($rolUsuario==1)
+					<select name="empresa" required class="form-control select2">
+						<option value="" selected disabled> Selecionar Empresa</option>
+						@foreach ($empresas as $empresa)
+						<option value="{{ $empresa->id_empresa }}">{{ $empresa->razon_social }}</option>
+						@endforeach
+					</select>
+	
+					@else
+					<input type="text" disabled class="form-control" value="{{$empresa->razon_social}}">
+					<input type="hidden" name="empresa" class="form-control" value="{{$empresa->id_empresa}}">
+
+					@endif
 				</div>
 			</div>
 

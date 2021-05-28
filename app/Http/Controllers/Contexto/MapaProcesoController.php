@@ -17,8 +17,8 @@ class MapaProcesoController extends Controller
     {
             $pro_direcciones      = DB::table('tbl_procesos as p')
                                     ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                                    ->join('users as u','u.id','=','e.fk_usuario')
-                                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                                    ->join('users as u','u.fk_empresa','=','e.id_empresa') 
+                                     ->where('u.id', Auth::User()->id)
                                     ->where('p.tipo_proceso',  '=','Procesos Gerenciales')
                                     ->where('p.bool_estado',  '=','1')
                                     ->where('e.bool_estado',  '=','1')
@@ -26,8 +26,8 @@ class MapaProcesoController extends Controller
 
             $proceso_misional      = DB::table('tbl_procesos as p')
                                     ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                                    ->join('users as u','u.id','=','e.fk_usuario')
-                                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                                    ->join('users as u','u.fk_empresa','=','e.id_empresa') 
+                                     ->where('u.id', Auth::User()->id)
                                     ->where('p.tipo_proceso',  '=','Procesos Misionales')
                                     ->where('p.bool_estado',  '=','1')
                                     ->where('e.bool_estado',  '=','1')
@@ -35,8 +35,8 @@ class MapaProcesoController extends Controller
 
             $proceso_apoyo          = DB::table('tbl_procesos as p')
                                     ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                                    ->join('users as u','u.id','=','e.fk_usuario')
-                                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                                    ->join('users as u','u.fk_empresa','=','e.id_empresa') 
+                                     ->where('u.id', Auth::User()->id)
                                     ->where('p.tipo_proceso',  '=','Procesos de Apoyo')
                                     ->where('p.bool_estado',  '=','1')
                                     ->where('e.bool_estado',  '=','1')

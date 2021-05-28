@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Anomalia_Origen\OrigenAnomalias;
+use App\Models\User;
 
 class OrigenanomaliaController extends Controller
 {
@@ -32,9 +33,13 @@ class OrigenanomaliaController extends Controller
     {
     	if($request){
 
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+
             $anomalias = DB::table('tbl_origen_anomalia as o')
                         ->join('tbl_empresa as e','e.id_empresa','=','o.fk_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa', $id_empresa)
                         ->where('o.bool_estado','=','1')
                         ->get();
 
@@ -52,10 +57,15 @@ class OrigenanomaliaController extends Controller
          try {
             DB::beginTransaction();
 
-            $empresa                = DB::table('tbl_empresa')
-                                    ->where('fk_usuario','=',''.Auth::User()->id.'')
-                                    ->where('bool_estado','=','1')
-                                    ->first();
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+
+            $empresa = DB::table('users as u')
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                            ->where('u.id','=',Auth::User()->id)
+                            ->where('e.bool_estado','=','1')
+                            ->first();
 
             $origen_anomalia                    = new OrigenAnomalias();
             $origen_anomalia->nombre            = $request->get('origen_anomalia');
@@ -78,11 +88,15 @@ class OrigenanomaliaController extends Controller
     public function edit_origen_anomalia(Request $request, $id)
     {
         if($request){
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
 
             $anomalia = OrigenAnomalias::where('id_origen_anomalia','=',$id)->firstOrfail();
+
             $anomalias = DB::table('tbl_origen_anomalia as o')
                             ->join('tbl_empresa as e','e.id_empresa','=','o.fk_empresa')
-                            ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                            ->where('e.id_empresa', $id_empresa)
                             ->where('o.bool_estado','=','1')
                             ->get();
 

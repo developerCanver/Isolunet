@@ -19,8 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Contexto\Tendencias_en_colombia;
-
-
+use App\Models\User;
 
 class TendeciasController extends Controller
 {
@@ -35,25 +34,22 @@ class TendeciasController extends Controller
         
 
                     //dd($validacion);
-        $tipoUser = DB::table('tbl_empresa as e')       
-                    ->join('users as u','u.fk_empresa','=','e.id_empresa')
-                    ->join('role_user as ru','ru.user_id','=','u.id')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                    ->first();
+            $usuario	= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
 
                    //dd( $tipoUser);
     
            $tendencia = DB::table('tbl_contexto_tendencias_colombia as tc')
-                    ->join('tbl_empresa as e','tc.fk_empresa','=','e.id_empresa')
-                    
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                    //->where('ru.role_id','1')
+                    ->join('tbl_empresa as e','tc.fk_empresa','=','e.id_empresa')                    
+                    ->join('users as u','u.fk_empresa','=','e.id_empresa') 
+                    ->where('u.id', Auth::User()->id)
                     ->first();
 
                     //dd($tendencia);
         
 
-         return view('pages.contexto.tendencia_en_colombia.index',['tendencia'=>$tendencia,'tipoUser'=>$tipoUser]);
+         return view('pages.contexto.tendencia_en_colombia.index',['tendencia'=>$tendencia,'tipoUser'=>$rolUsuario]);
     }
 
 

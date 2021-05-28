@@ -90,14 +90,14 @@
           </a><!-- br-menu-link -->
           @php
           $Liderazgo='';
-              if (request()->is('politica') || request()->is('roles_responsabilidades') 
+              if (request()->is('politica') || request()->is('roles_responsabilidades*') 
               || request()->is('parm_presupuesto') || request()->is('responsabilid*') || request()->is('ingreso*') || request()->is('egreso*')   ) {
                 $Liderazgo="style=display:block;";
               }
           @endphp
           <ul class="br-menu-sub"  {{$Liderazgo}}>
             <li class="sub-item"><a href="{{ URL::to('politica') }}"                 class="sub-link {{ request()->is('politica') ? 'active' : ''}}">Politica</a></li>
-            <li class="sub-item"><a href="{{ URL::to('roles_responsabilidades') }}"  class="sub-link {{ request()->is('roles_responsabilidades') || request()->is('responsabilid*') ? 'active' : ''}}">Roles y Responsabilidades</a></li>
+            <li class="sub-item"><a href="{{ URL::to('roles_responsabilidades') }}"  class="sub-link {{ request()->is('roles_responsabilidades*') || request()->is('responsabilid*') ? 'active' : ''}}">Roles y Responsabilidades</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_presupuesto') }}"         class="sub-link {{ request()->is('parm_presupuesto') || request()->is('egreso*')  || request()->is('ingreso*')  ? 'active' : ''}}">Presupuesto</a></li>
             {{-- <li class="sub-item"><a href="navigation.html"               class="sub-link"> Notas de Competencia</a></li> --}}
             {{-- <li class="sub-item"><a href="navigation.html"               class="sub-link"> Notas de Diciplina</a></li> --}}

@@ -226,7 +226,6 @@
                                                             value="{{$empresa->razon_social}}">
                                                         <input type="hidden" name="fk_empresa" class="form-control"
                                                             value="{{$empresa->id_empresa}}">
-
                                                         @endif
                                                     </div>
                                                 </div>

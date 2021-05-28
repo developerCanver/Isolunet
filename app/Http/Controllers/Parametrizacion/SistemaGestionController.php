@@ -24,6 +24,7 @@ use App\Models\Parametrizacion\Areas;
 use App\Models\Parametrizacion\Cargos;
 use App\Models\Parametrizacion\Sistema_gestion;
 use App\Models\Parametrizacion\Sistema_procesos;
+use App\Models\User;
 
 class SistemaGestionController extends Controller
 {
@@ -36,24 +37,20 @@ class SistemaGestionController extends Controller
     public function index(Request $request)
     {
     	if ($request) {
-
-            // $proceso                    = DB::table('tbl_procesos as p')
-            // ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-            // ->join('users as u','u.id','=','e.fk_usuario')
-            // ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-            // ->where('p.bool_estado','=','1')
-            // ->get();
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
 
             $procesos      = DB::table('tbl_procesos as p')
                             ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                            ->join('users as u','u.id','=','e.fk_usuario')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                            ->where('u.id', Auth::User()->id)
                             ->where('p.bool_estado',  '=','1')
                             ->where('e.bool_estado',  '=','1')
                             ->orderby('id_proceso', 'DESC')->get();
 
     		$tabla_sisgestion           = DB::table('tbl_sistemas_gestion')
-                                        ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
+                                        ->where('fk_empresa', $id_empresa)
                                         ->where('bool_estado','=','1')
                                         ->orderby('id_sisgestion', 'DESC')->get();
 
@@ -117,8 +114,8 @@ class SistemaGestionController extends Controller
 
         $procesos      = DB::table('tbl_procesos as p')
                                 ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                                ->join('users as u','u.id','=','e.fk_usuario')
-                                ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                                ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                                ->where('u.id', Auth::User()->id)
                                 ->where('p.bool_estado',  '=','1')
                                 ->where('e.bool_estado',  '=','1')
                                 ->orderby('id_proceso', 'DESC')->get();

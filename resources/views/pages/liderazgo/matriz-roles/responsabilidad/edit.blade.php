@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label><strong>Rol de los cargos en los sistemas de gestión?
                         </strong></label>
-                    <textarea name="nom_rol_res" rows="2" cols="140" required="true">{{$responsabilidad->nom_rol_res}}</textarea>
+                    <textarea name="nom_rol_res" class="form-control" required="true">{{$responsabilidad->nom_rol_res}}</textarea>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <div class="form-group">
                             <label><strong>Responsabilidad:</strong></label>
-                            <textarea name="nom_responsabilidades" rows="3" cols="60" required="true" >{{$responsabilidad->nom_responsabilidades}}</textarea>
+                            <textarea name="nom_responsabilidades" class="form-control" required="true" >{{$responsabilidad->nom_responsabilidades}}</textarea>
                            
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label><strong>¿Qué Cuentas Rinde?:</strong></label>
-                        <textarea name="cuentas_rinde" rows="3" cols="60" " >{{$responsabilidad->cuentas_rinde}}</textarea>
+                        <textarea name="cuentas_rinde" class="form-control" >{{$responsabilidad->cuentas_rinde}}</textarea>
                        
         
                     </div>
@@ -94,35 +94,34 @@
            
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <div class="form-group">
                         <label><strong>Autoridad:</strong></label>
-                        <textarea name="autoridad" rows="3" cols="60"  >{{$responsabilidad->autoridad}}</textarea>
+                        <textarea name="autoridad" class="form-control"  >{{$responsabilidad->autoridad}}</textarea>
                        
                     </div>
                 </div>
             </div>
           
         
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <div class="form-group">
                         <label><strong>¿A Quién?:</strong></label>
-                        <textarea name="a_quien" rows="3" cols="60"  >{{$responsabilidad->a_quien}}</textarea>
+                        <textarea name="a_quien" class="form-control"  >{{$responsabilidad->a_quien}}</textarea>
                       
                     </div>
                 </div>
             </div>
           
-        </div>
-        <div class="row">
+    
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <div class="form-group">
                         <label><strong>¿Cada Cuánto?:</strong></label>
                        
-                        <textarea name="cada_cuanto" rows="3" cols="100" >{{$responsabilidad->cada_cuanto}}</textarea>
+                        <textarea name="cada_cuanto" class="form-control" >{{$responsabilidad->cada_cuanto}}</textarea>
                       
                     </div>
                 </div>

@@ -35,15 +35,21 @@ class DocumentosController extends Controller
     {
     	if ($request) {
 
-            $empresa    = DB::table('tbl_empresa')
-                        ->where('fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('bool_estado','=','1')
-                        ->first();
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+
+            $empresa       = DB::table('users as u')   
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')                       
+                            ->where('u.id',Auth::User()->id)
+                            ->where('e.bool_estado',1)
+                            ->first();
 
             $documento = DB::table('tbl_documentos as d')
                         ->join('tbl_empresa as e','d.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa', $id_empresa)
                         ->where('d.bool_estado','=','1')
+                        ->orderByDesc('id_documento')
                         ->get();
 
             return view('pages.parametrizacion.documento',['documento'=>$documento, 'empresa'=>$empresa]);                       
@@ -81,11 +87,12 @@ class DocumentosController extends Controller
     {
         $documento = Documentos::findOrfail($id);
 
-        $empresa = DB::table('tbl_empresa as e')
-                    ->join('users as u','e.fk_usuario','=','u.id')
-                    ->where('u.id','=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado','=','1')
-                    ->first();
+        $empresa       = DB::table('users as u')   
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')                       
+                        ->where('u.id',Auth::User()->id)
+                        ->where('e.bool_estado',1)
+                        ->first();
+
                     
         return view('pages.parametrizacion.Edit.edit_documento',['documento'=>$documento, 'empresa'=>$empresa]);
     }

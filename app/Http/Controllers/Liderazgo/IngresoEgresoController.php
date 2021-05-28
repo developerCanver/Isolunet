@@ -24,15 +24,21 @@ class IngresoEgresoController extends Controller
      
        
    
-        $empresa = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
-        ->where('bool_estado','=','1')->first();
+        $empresa = DB::table('users as u')
+        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+        ->where('u.id','=',Auth::User()->id)
+        ->where('e.bool_estado','=','1')
+        ->first();
         $id_empresa=$empresa->id_empresa;
        
             
        
 
-        $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
-                    ->where('bool_estado','=','1')->get();
+        $empresas = DB::table('users as u')
+        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+        ->where('u.id','=',Auth::User()->id)
+        ->where('e.bool_estado','=','1')
+        ->get();
 
         $empresa_selecionada = Empresa::where('id_empresa','=',$id_empresa)
                                 ->where('bool_estado','=','1')

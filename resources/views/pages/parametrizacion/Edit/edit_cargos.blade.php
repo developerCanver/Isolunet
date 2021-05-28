@@ -45,14 +45,12 @@
 			    	<label for="datos">Area</label>
 			    	<select name="area" class="form-control select2" required>
 			    		
-			    		@foreach($areas as $e)
-			    			@if ($cargos->fk_area == $e->id_area)
-								<option value="{{ $e->id_area }}" selected>{{ $e->nom_area }}</option>	
-								<@else
-								<option value="" selected>Seleccionar...</option>
-								<option value="{{ $e->id_area }}" selected>{{ $e->nom_area }}</option>								
-							@endif							
-			    		@endforeach
+						@foreach ($areas as $area)
+						<option value="{{ $area->id_area }}"{{ $area->id_area == $cargos->fk_area ? 'selected' : '' }}>
+							{{ $area->nom_area }}</option>
+						@endforeach
+
+			    		
 			    	</select>
 				</div>
 			</div>

@@ -23,30 +23,34 @@ class ResponsabilidadesController extends Controller
     public function index()
     {
         $tabla_usuarios_cliente = DB::table('users as u')
-                    ->join('tbl_empresa as e','e.fk_usuario','=','u.id')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
                     ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
                     ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                    ->where('u.id','=',''.Auth::User()->id.'')
+                    ->where('u.id',Auth::User()->id)
                     ->where('e.bool_estado','=','1')
                     ->where('a.bool_estado','=','1')
                     ->where('c.bool_estado','=','1')
                     ->get();
             
 
-        $empresas = Empresa::where('fk_usuario','=',''.Auth::User()->id.'')
-                    ->where('bool_estado','=','1')->first();
-                   // dd($empresas);
+                    $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
+                    ->first();
 
                    $responsabilidades = DB::table('tbl_lid_responsabilidades as res')
                    ->join('tbl_empresa as e','e.id_empresa','=','res.fk_empresa')                 
-                   ->where('fk_usuario',  '=',''.Auth::User()->id.'')
+                   ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                   ->where('u.id','=',Auth::User()->id)
                    ->where('res.bool_estado','=','1')
+                   ->orderByDesc('id_responsabilidades')
                    ->get();
 
 
                    return view('pages.liderazgo.matriz-roles.responsabilidad.index',[
           
-                    'empresas' => $empresas,
+                    'empresas' => $empresa,
                     'tabla_usuarios_cliente' => $tabla_usuarios_cliente,
                     'responsabilidades' => $responsabilidades,
                 ]);
@@ -133,10 +137,10 @@ class ResponsabilidadesController extends Controller
                             ->get();
 
          $tabla_usuarios_cliente = DB::table('users as u')
-                            ->join('tbl_empresa as e','e.fk_usuario','=','u.id')
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
                             ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
                             ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                            ->where('u.id','=',''.Auth::User()->id.'')
+                            ->where('u.id',Auth::User()->id)
                             ->where('e.bool_estado','=','1')
                             ->where('a.bool_estado','=','1')
                             ->where('c.bool_estado','=','1')

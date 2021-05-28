@@ -83,6 +83,7 @@
                            
                         </tbody>
                     </table>
+                    {{ $riesgos->links() }}
                     @else
                     
                     <br><br>

@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        @if ($tipoUser->role_id == 1 || $tipoUser->role_id == 2)
+        @if ($tipoUser == 1 || $tipoUser == 2)
         <button type="submit" class="btn btn-primary">Guardar</button>
         @endif
 
@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        @if ($tipoUser->role_id == 1 || $tipoUser->role_id == 2)
+        @if ($tipoUser == 1 || $tipoUser == 2)
         <button type="submit" class="btn btn-warning">Editar</button>
         @endif
 

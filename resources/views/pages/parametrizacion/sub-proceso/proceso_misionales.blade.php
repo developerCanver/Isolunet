@@ -130,9 +130,9 @@
 									</th><th>
 										Descripción
 									</th>
-									<th>
+									{{-- <th>
 										Usuarios relacionados
-									</th>
+									</th> --}}
 									<th colspan="2">
 										Opciones
 									</th>
@@ -145,7 +145,7 @@
 									<td>{{ $pm->sigla }}</td>
 									<td>{{ $pm->name }}</td>
 									<td>{{ $pm->descripcion }}</td>
-									<td>{{ $pm->name.' '.$pm->fk_usuario_responsable }}</td>
+									{{-- <td>{{ $pm->name.' '.$pm->fk_usuario_responsable }}</td> --}}
 									<td colspan="2">
 										<a href="{{ URL::action('Parametrizacion\ProcesosController@edit_proceso_misional',$pm->id_proceso) }}""><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
 										<a href="{{ URL::action('Parametrizacion\ProcesosController@destroy_proceso_misional',$pm->id_proceso) }}" ><i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>

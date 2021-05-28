@@ -36,12 +36,14 @@ class DofaController extends Controller
     {
         $dofa = DB::table('tbl_contexto_dofa as tcd')
                 ->join('tbl_empresa as te','tcd.fk_empresa','=','te.id_empresa')
-                ->where('te.fk_usuario','=',''.Auth::User()->id.'')
-                ->get();
+                ->join('users as u','u.fk_empresa','=','te.id_empresa') 
+                ->where('u.id', Auth::User()->id)
+                ->paginate(20);
 
         $procesos = DB::table('tbl_empresa as e')
                 ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                ->join('users as u','u.fk_empresa','=','e.id_empresa') 
+                ->where('u.id', Auth::User()->id)
                 ->where('e.bool_estado','=','1')
                 ->where('p.bool_estado','=','1')
                 ->get();

@@ -186,6 +186,7 @@
                 </tbody>
 
             </table>
+            {{ $dofa->links() }}
 
         </div>
 
@@ -334,7 +335,7 @@
                 </tbody>
 
             </table>
-
+            {{ $dofa->links() }}
         </div>
 
 

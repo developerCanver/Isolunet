@@ -127,12 +127,11 @@
 									</th>
 									<th>
 										Usuario responsable
-									</th><th>
-										Descripción
 									</th>
 									<th>
-										Usuarios relacionados
+										Descripción
 									</th>
+								
 									<th colspan="2">
 										Opciones
 									</th>
@@ -145,7 +144,7 @@
 								<td>{{ $pg->sigla }}</td>
 								<td>{{ $pg->name }}</td>
 								<td>{{ $pg->descripcion }}</td>
-								<td>{{ $pg->name.' '.$pg->fk_usuario_responsable}}</td>	
+								
 								<td colspan="2">
 									<a href="{{ URL::action('Parametrizacion\ProcesosController@edit_proceso_gerencial',$pg->id_proceso) }}""><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
 									<a href="{{ URL::action('Parametrizacion\ProcesosController@destroy_proceso_gerencial',$pg->id_proceso) }}" ><i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
@@ -154,6 +153,7 @@
 			    	@endforeach
 							</tbody>
 						</table>
+						{{ $proceso_gerencial->links() }}
 					</div>					
 				</div>
 			</div>

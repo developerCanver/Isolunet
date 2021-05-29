@@ -28,6 +28,7 @@ class Cambio extends Model
         'fk_proceso',	
         'fk_usuario',	
         'fk_cargo',       
+        'fk_empresa',       
     ];
 }
 /*

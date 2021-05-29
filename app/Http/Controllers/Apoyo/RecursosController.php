@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apoyo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apoyo\Recursos;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -19,12 +20,11 @@ class RecursosController extends Controller
     }
     public function index()
     {
-    
-    		$empresa = DB::table('tbl_empresa as e')
-                        ->join('users as u','e.fk_usuario','=','u.id')
-                        ->where('u.id','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+        $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
+                    ->first();
                         
 
             return view('pages.apoyo.recursos.create',[
@@ -34,11 +34,14 @@ class RecursosController extends Controller
     }
     public function ver_img()
     {
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+        
         $class='RecursosController';
     		$imagenes = DB::table('tbl_empresa as e')
-                        ->join('users as u','e.fk_usuario','=','u.id')
                         ->join('tbl_apo_recursos as r','r.fk_empresa','=','e.id_empresa')
-                        ->where('u.id','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('class',$class)
                         ->paginate(20);
@@ -60,11 +63,11 @@ class RecursosController extends Controller
 
        $class='RecursosController';
 
-       $empresa = DB::table('tbl_empresa as e')
-                        ->join('users as u','e.fk_usuario','=','u.id')
-                        ->where('u.id','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+       $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
+                    ->first();
 
             $file =$request->file('file');
             $name = time().$file->getClientOriginalName();

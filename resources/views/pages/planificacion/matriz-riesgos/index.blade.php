@@ -26,7 +26,7 @@
         <h4>Matrz de riesgos </h4>
         <div class="row">
         </div><br>
-<br>
+        <br>
         <div class="row">
             <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
                 <div class="table-responsive">
@@ -35,41 +35,40 @@
                         <thead>
                             <tr>
                                 <th>Procesos</th>
-                                
+
                                 <th> Opciones</th>
                             </tr>
                         </thead>
-
                         <tbody>
-
                             @foreach ($procesos as $proceso)
-                                 
+
                             <tr>
                                 <td>{{$proceso->nom_proceso}}</td>
-                               <td>
-                                <a href="{{ URL::action('Planificacion\RiesgosController@index_procesos',$proceso->id_proceso ) }}"><i
-                                            title="Cargo que asume el Rol" class="fas fa-arrow-circle-right  fa-2x" style="color:#665ca7;"></i></a>
-                            </td>
+                                <td>
+                                    <a
+                                        href="{{ URL::action('Planificacion\RiesgosController@index_procesos',$proceso->id_proceso ) }}"><i
+                                            title="Cargo que asume el Rol" class="fas fa-arrow-circle-right  fa-2x"
+                                            style="color:#665ca7;"></i></a>
+                                </td>
                             </tr>
-                            @endforeach 
-
+                            @endforeach
                         </tbody>
                     </table>
+                    {{$procesos->links() }}
                     @else
-                    
                     <br><br>
                     <div class="container m-5">
                         <div class="alert alert-primary" role="alert">
                             <p class="text-center m-3"> Ups! no hay Procesos registrados 😥
-                    </p>
+                            </p>
+                        </div>
+                    </div>
+                    <br><br>
+                    @endif
                 </div>
             </div>
-            <br><br>
-            @endif
         </div>
     </div>
-</div>
-</div>
 
 </div>
 

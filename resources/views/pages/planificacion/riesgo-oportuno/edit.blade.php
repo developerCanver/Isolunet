@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Probabilidad: </label>
                     <select name="probabilidad"  class="form-control" required>
@@ -91,7 +91,7 @@
                     
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Impacto: </label>
                     <select name="impacto"  class="form-control" required>
@@ -99,16 +99,17 @@
                         <option value="3" @if($riesgos->impacto == '3') selected  @endif >3</option>
                         <option value="2" @if($riesgos->impacto == '2') selected  @endif >2</option>
                         <option value="1" @if($riesgos->impacto == '1') selected  @endif >1</option>
-                    </select>
-                   
+                    </select>                   
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label for="datos">Controles: </label>
+                    <input type="text" class="form-control" name="control" aria-describedby=""
+                        value="{{$riesgos->control}}">          
                 </div>
             </div>
 
-        </div>
-        <div class="row">
-            <label for="datos">Controles: </label>
-            <input type="text" class="form-control" name="control" aria-describedby=""
-                value="{{$riesgos->control}}">
         </div>
 
         <br>
@@ -116,7 +117,7 @@
             <h4>Editar Reevaluación Causa </h4>
         </div><br>
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Probabilidad: </label>
                     <select name="ree_probabilidad"  class="form-control" required>
@@ -127,7 +128,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Impacto: </label>
                     <select name="ree_impacto"  class="form-control" required>
@@ -138,9 +139,6 @@
                     </select>
                 </div>
             </div>
-
-        </div>
-        <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Acciones: </label>
@@ -148,14 +146,17 @@
                         value="{{$riesgos->nom_accion}}">
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+
+        </div>
+        <div class="row">          
+            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label for="datos">Responsable: </label>
                     <input type="text" class="form-control" name="nom_responsable" aria-describedby=""
                         value="{{$riesgos->nom_responsable}}">
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label for="datos">Indicador: </label>
                     <input type="text" class="form-control" name="nom_indicador" aria-describedby=""
@@ -164,7 +165,6 @@
             </div>
 
         </div>
-
 
         <button type="submit" class="btn btn-primary">Editar</button>
 

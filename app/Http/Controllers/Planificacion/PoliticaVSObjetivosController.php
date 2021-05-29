@@ -24,8 +24,8 @@ class PoliticaVSObjetivosController extends Controller
 
             $procesos      = DB::table('tbl_procesos as p')
                             ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                            ->join('users as u','u.id','=','e.fk_usuario')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                            ->where('u.id',Auth::User()->id)
                             ->where('p.bool_estado',  '=','1')
                             ->where('e.bool_estado',  '=','1')
                             ->orderby('id_proceso', 'DESC')->get();
@@ -34,18 +34,18 @@ class PoliticaVSObjetivosController extends Controller
              $cargos      = DB::table('tbl_empresa as e')
                             ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
                             ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                            ->join('users as u','u.id','=','e.fk_usuario')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                            ->where('u.id',Auth::User()->id)
                             ->where('a.bool_estado',  '=','1')
                             ->where('c.bool_estado',  '=','1')->get();
 
             $politicas      = DB::table('tbl_empresa as e')
-                            ->join('users as u','u.id','=','e.fk_usuario')
                             ->join('tbl_politica as p','p.fk_empresa','=','e.id_empresa')
                             ->join('tbl_pla_politica_objetivo as po','po.fk_politica','=','p.id_politica')
                             ->join('tbl_cargos as c','c.id_cargo','=','po.fk_cargo')
                             ->join('tbl_procesos as pr','pr.id_proceso','=','po.fk_proceso')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                            ->where('u.id',Auth::User()->id)
                             ->where('po.bool_estado',  '=','1') ->paginate(10);
                             //dd($politicas);
 
@@ -61,10 +61,10 @@ class PoliticaVSObjetivosController extends Controller
         
         public function index_politicas()
         {
-            $politicas      = DB::table('tbl_empresa as e')
-                        ->join('users as u','u.id','=','e.fk_usuario')
+            $politicas      = DB::table('tbl_empresa as e')                       
                         ->join('tbl_politica as p','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                        ->where('u.id',Auth::User()->id)
                         ->where('e.bool_estado',  '=','1')
                         ->orderby('id_politica', 'DESC')->get();
            
@@ -128,8 +128,8 @@ class PoliticaVSObjetivosController extends Controller
 
             $procesos      = DB::table('tbl_procesos as p')
                         ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                        ->where('u.id',Auth::User()->id)
                         ->where('p.bool_estado',  '=','1')
                         ->where('e.bool_estado',  '=','1')
                         ->orderby('id_proceso', 'DESC')->get();
@@ -138,8 +138,8 @@ class PoliticaVSObjetivosController extends Controller
             $cargos      = DB::table('tbl_empresa as e')
                         ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
                         ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                        ->where('u.id',Auth::User()->id)
                         ->where('a.bool_estado',  '=','1')
                         ->where('c.bool_estado',  '=','1')->get();
 

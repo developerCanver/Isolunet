@@ -72,10 +72,6 @@
 
                     <button type="submit" class="btn btn-info"><i class="fas fa-search"></i> Buscar </button>
 
-                    {{-- <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i
-                        class="fas fa-backward"></i></a>
-                    --}}
-
 
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">

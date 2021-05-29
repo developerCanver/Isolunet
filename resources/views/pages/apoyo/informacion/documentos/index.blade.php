@@ -343,7 +343,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
             <div class="form-group">
                 <label><strong>Descripción:</strong></label>
-                <textarea name="descripcion" rows="4" cols="150" required="true"></textarea>
+                <textarea name="descripcion" class="form-control" required="true"></textarea>
             </div>
         </div>
     </div>
@@ -648,7 +648,7 @@
    <div class="col-md-9 col-sm-9 col-xs-12 col-lg-9">
         <div class="form-group">
             <label><strong>Descripción:</strong></label>
-            <textarea name="descripcion" rows="3" cols="140" required="true"></textarea>
+            <textarea name="descripcion"  class="form-control" required="true"></textarea>
         </div>
     </div> 
 

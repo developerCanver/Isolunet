@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Planeacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\Planeacion\Diseno;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -21,15 +22,21 @@ class DisenoController extends Controller
     
         public function index(Request $request)
         {
-            $empresa = DB::table('tbl_empresa as e')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                            ->where('e.bool_estado','=','1')
-                            ->first();
+
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+
+            $empresa = DB::table('users as u')
+                                ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                                ->where('u.id','=',Auth::User()->id)
+                                ->where('e.bool_estado','=','1')
+                                ->first();
          
     
             $consultas =  DB::table('tbl_empresa as e')
                             ->join('tbl_plane_diseño as p','p.fk_empresa','=','e.id_empresa')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                           ->where('e.id_empresa',  $id_empresa)
                             ->where('p.bool_estado','=','1')
                             ->where('e.bool_estado','=','1')
                             ->paginate(20);
@@ -85,8 +92,9 @@ class DisenoController extends Controller
     
             $consulta   = Diseno::findOrfail($id);
     
-            $empresa = DB::table('tbl_empresa as e')
-            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+            $empresa = DB::table('users as u')
+            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+            ->where('u.id','=',Auth::User()->id)
             ->where('e.bool_estado','=','1')
             ->first();
                         //dd($cheSisGestiones);

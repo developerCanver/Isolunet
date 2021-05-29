@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Planificacion;
 use App\Http\Controllers\Controller;
 use App\Models\Planificacion\Cambio;
 use App\Models\Planificacion\SistemaGestion;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -21,42 +22,45 @@ class CambioController extends Controller
   
     public function index($fk_proceso)
     {
-        
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+
         $cargos      = DB::table('tbl_empresa as e')
                     ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
                     ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                    ->join('users as u','u.id','=','e.fk_usuario')
-                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('a.bool_estado',  '=','1')
                     ->where('c.bool_estado',  '=','1')->get();
 
-        $usuarios      = DB::table('users as u')
-                        ->where('u.id',  '=',''.Auth::User()->id.'')->get();
+        $usuarios   = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')        
+                    ->where('e.id_empresa',  $id_empresa)
+                    ->where('e.bool_estado','=','1')
+                    ->where('fk_rol','3')->get();
+
                     
         $sistema_gestiones = DB::table('tbl_empresa as e')
                         ->join('tbl_sistemas_gestion as sg','sg.fk_empresa','=','e.id_empresa')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado',  '=','1')
                         ->where('sg.bool_estado',  '=','1')->get();
 
-     
-            $planificaciones = DB::table('tbl_empresa as e')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                        ->join('tbl_pla_cambio as c','c.fk_proceso','=','p.id_proceso')
-                        ->join('users as usuario','usuario.id','=','c.fk_usuario')
+                  $planificaciones = DB::table('tbl_pla_cambio as c')                       
+                        ->join('tbl_procesos as p','p.id_proceso','=','c.fk_proceso')                       
+                        ->join('users as u','u.id','=','c.fk_usuario')
                         ->join('tbl_cargos as car','car.id_cargo','=','c.fk_cargo')
                         ->join('tbl_pla_gestion_cambio as gc','gc.fk_cambio','=','c.id_cambio')
-                        ->join('tbl_sistemas_gestion as g','g.id_sisgestion','=','gc.fk_gestion')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->join('tbl_sistemas_gestion as g','g.id_sisgestion','=','gc.fk_gestion')                        
+                        ->join('tbl_empresa as e','e.id_empresa','=','c.fk_empresa') 
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('c.fk_proceso',     '=',''.$fk_proceso.'')
                         ->where('c.bool_estado',  '=','1')
                         ->where('p.bool_estado',  '=','1')
                         ->where('car.bool_estado',  '=','1')
                         ->paginate(10);
                      
-          //dd($planificaciones);
+     
         
         return view('pages.planificacion.cambio.analisisCambio.index',[
                     'planificaciones'  => $planificaciones,
@@ -72,12 +76,12 @@ class CambioController extends Controller
     {
         $procesos      = DB::table('tbl_procesos as p')
                         ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                        ->where('u.id',Auth::User()->id)
                         ->where('p.bool_estado',  '=','1')
                         ->where('e.bool_estado',  '=','1')
                         ->orderby('id_proceso', 'DESC')->get();
-                        //dd($procesos);
+                     
 
         return view('pages.planificacion.cambio.procesos.index',[
         'procesos'  => $procesos,
@@ -88,7 +92,11 @@ class CambioController extends Controller
     public function store(Request $request)
     {
         try {
-            //dd($request);
+
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+  
             DB::beginTransaction();
            $fk_proceso = $request->get('fk_proceso');
 
@@ -108,6 +116,7 @@ class CambioController extends Controller
                 $variable->otro_externo  ='';
             }
             
+            $variable->fk_empresa            = $id_empresa;
             $variable->actividad            = $request->get('actividad');
             $variable->responsable         = $request->get('responsable');
             $variable->tiempo              = $request->get('tiempo');
@@ -150,22 +159,28 @@ class CambioController extends Controller
         $cambios = Cambio::findOrfail($id);
         $fk_proceso=$cambios->fk_proceso;
 
-        $cargos      = DB::table('tbl_empresa as e')
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+            $cargos      = DB::table('tbl_empresa as e')
                     ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
                     ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                    ->join('users as u','u.id','=','e.fk_usuario')
-                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('a.bool_estado',  '=','1')
                     ->where('c.bool_estado',  '=','1')->get();
 
-        $sistema_gestiones = DB::table('tbl_empresa as e')
-                            ->join('tbl_sistemas_gestion as sg','sg.fk_empresa','=','e.id_empresa')
-                            ->join('users as u','u.id','=','e.fk_usuario')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                            ->where('sg.bool_estado',  '=','1')->get();
+            $usuarios   = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')        
+                    ->where('e.id_empresa',  $id_empresa)
+                    ->where('e.bool_estado','=','1')
+                    ->where('fk_rol','3')->get();
 
-        $usuarios      = DB::table('users as u')
-                        ->where('u.id',  '=',''.Auth::User()->id.'')->get();
+                    
+            $sistema_gestiones = DB::table('tbl_empresa as e')
+                        ->join('tbl_sistemas_gestion as sg','sg.fk_empresa','=','e.id_empresa')
+                        ->where('e.id_empresa',  $id_empresa)
+                        ->where('e.bool_estado',  '=','1')
+                        ->where('sg.bool_estado',  '=','1')->get();
         
         return view('pages.planificacion.cambio.analisisCambio.edit',[
             'cambios'=>$cambios,

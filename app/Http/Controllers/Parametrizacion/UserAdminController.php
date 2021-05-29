@@ -53,7 +53,7 @@ class UserAdminController extends Controller
                )
            ->paginate(20);
             
-        }elseif($rolUsuario==2){
+        }elseif($rolUsuario==2 || $rolUsuario==3 ){
             $consultas = DB::table('users as u')
             ->join('roles as r','r.id','=','u.fk_rol')
             ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')

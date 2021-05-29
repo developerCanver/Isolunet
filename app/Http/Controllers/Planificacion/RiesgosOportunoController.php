@@ -25,14 +25,14 @@ class RiesgosOportunoController extends Controller
                             ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
                             ->join('tbl_pla_matriz_riesgo as m','m.fk_proceso','=','p.id_proceso')
                             ->join('tbl_pla_riesgo_oportuno as rp','rp.fk_riesgo','=','m.id_riesgo')
-                            ->join('users as u','u.id','=','e.fk_usuario')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                            ->where('u.id',Auth::User()->id)
                             ->where('m.id_riesgo',     '=',''.$fk_riesgo.'')
                             ->where('p.bool_estado',  '=','1')
                             ->where('rp.bool_estado',  '=','1')
                             ->where('e.bool_estado',  '=','1')
                             ->where('m.bool_estado',  '=','1')
-                            ->orderby('id_proceso', 'DESC')->get();
+                            ->orderby('id_proceso', 'DESC')->paginate();
 
             $causa      = DB::table('tbl_procesos as p')
                                     ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')

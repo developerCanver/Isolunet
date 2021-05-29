@@ -98,10 +98,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10 col-sm-10 col-xs-10 col-lg-10">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
                     <label><strong>Misión del Cargo:</strong></label>
-                    <textarea name="mision_cargo" rows="3" cols="110"
+                    <textarea name="mision_cargo" class="form-control" 
                         required="true">{{$competencia->mision_cargo}}</textarea>
                 </div>
             </div>
@@ -410,7 +410,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
                     <label><strong>Descripción:</strong></label>
-                    <textarea name="descripcion" rows="2" cols="130"
+                    <textarea name="descripcion" class="form-control" 
                         required="true">{{$competencia->descripcion}}</textarea>
                 </div>
             </div>
@@ -594,13 +594,13 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Técnicas:</strong></label>
-                    <textarea name="tecnica" rows="2" cols="65" required="true">{{$competencia->tecnica}}</textarea>
+                    <textarea name="tecnica" class="form-control"  required="true">{{$competencia->tecnica}}</textarea>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Especiales:</strong></label>
-                    <textarea name="especial" rows="2" cols="70" required="true">{{$competencia->especial}}</textarea>
+                    <textarea name="especial" class="form-control"  required="true">{{$competencia->especial}}</textarea>
                 </div>
             </div>
         </div>
@@ -834,7 +834,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
                     <label><strong>Actividades Transversales:</strong></label>
-                    <textarea name="actividades" rows="5" cols="120"
+                    <textarea name="actividades"  class="form-control" 
                         required="true">{{$competencia->actividades}}</textarea>
                 </div>
             </div>

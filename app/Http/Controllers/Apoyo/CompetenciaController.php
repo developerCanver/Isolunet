@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apoyo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apoyo\Competencia;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -22,42 +23,35 @@ class CompetenciaController extends Controller
     public function index()
     {
 
-        // $procesos      = DB::table('tbl_procesos as p')
-        //                 ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-        //                 ->join('users as u','u.id','=','e.fk_usuario')
-        //                 ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-        //                 ->where('p.bool_estado',  '=','1')
-        //                 ->where('e.bool_estado',  '=','1')
-        //                 ->orderby('id_proceso', 'DESC')->get();
-        //                 //dd($procesos);
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
 
-         $cargos      = DB::table('tbl_empresa as e')
-                        ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
-                        ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                        ->where('a.bool_estado',  '=','1')
-                        ->where('c.bool_estado',  '=','1')->get();
+                    $cargos      = DB::table('tbl_empresa as e')
+                    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                    ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+                    ->where('e.id_empresa',  $id_empresa)
+                    ->where('a.bool_estado',  '=','1')
+                    ->where('c.bool_estado',  '=','1')->get();
 
         $areas      = DB::table('tbl_empresa as e')
                         ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('a.bool_estado',  '=','1')->get();
                         //dd($areas);
 
         $competencias      = DB::table('tbl_empresa as e')
                         ->join('tbl_apo_competencia as ap','ap.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado',  '=','1')
                         ->where('ap.bool_estado',  '=','1')
                          ->paginate(10);
 
-       $empresa      = DB::table('tbl_empresa as e')
-                         ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                         ->where('e.bool_estado',  '=','1')
-                          ->first();
-                        //dd($politicas);
+                         $empresa = DB::table('users as u')
+                         ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                         ->where('u.id','=',Auth::User()->id)
+                         ->where('e.bool_estado','=','1')
+                         ->first();
 
 
         return view('pages.apoyo.competencia.index',[
@@ -249,27 +243,22 @@ class CompetenciaController extends Controller
     public function edit($id)
     {
         $competencia = Competencia::findOrfail($id);
-      
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
 
         $cargos      = DB::table('tbl_empresa as e')
-                ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
-                ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                ->join('users as u','u.id','=','e.fk_usuario')
-                ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                ->where('a.bool_estado',  '=','1')
-                ->where('c.bool_estado',  '=','1')->get();
+                    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                    ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+                    ->where('e.id_empresa',  $id_empresa)
+                    ->where('a.bool_estado',  '=','1')
+                    ->where('c.bool_estado',  '=','1')->get();
 
         $areas      = DB::table('tbl_empresa as e')
-                ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
-                ->join('users as u','u.id','=','e.fk_usuario')
-                ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                ->where('a.bool_estado',  '=','1')->get();
-                //dd($areas);
+                    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                    ->where('e.id_empresa',  $id_empresa)
+                    ->where('a.bool_estado',  '=','1')->get();
 
- 
-
-
-                //dd($politicas);
 
 
         return view('pages.apoyo.competencia.edit',[

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apoyo;
 use App\Http\Controllers\Controller;
 use App\Models\Apoyo\Comunicaciones;
 use App\Models\Apoyo\ComunicacionesRendiciones;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -22,14 +23,19 @@ public function __construct()
 
 public function index()
 {
-    $empresa      = DB::table('tbl_empresa as e')
-                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado',  '=','1')
+    $usuario 					= User::findOrfail(Auth::User()->id);
+    $rolUsuario=$usuario->fk_rol;
+    $id_empresa=$usuario->fk_empresa;
+
+    $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
                     ->first();
 
      $comunicaciones    = DB::table('tbl_empresa as e')
                         ->join('tbl_apo_comunicaciones as c','c.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                       ->where('e.id_empresa',  $id_empresa)
                         ->where('c.bool_estado',  '=','1')
                         ->where('e.bool_estado',  '=','1')
                         ->paginate(20);
@@ -45,14 +51,19 @@ public function index()
 
     public function index_rendicion()
 {
-    $empresa      = DB::table('tbl_empresa as e')
-                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado',  '=','1')
+    $usuario 					= User::findOrfail(Auth::User()->id);
+    $rolUsuario=$usuario->fk_rol;
+    $id_empresa=$usuario->fk_empresa;
+
+    $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
                     ->first();
 
      $rendiciones    = DB::table('tbl_empresa as e')
                         ->join('tbl_apo_com_rendiciones as c','c.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                         ->where('e.id_empresa',  $id_empresa)
                         ->where('c.bool_estado',  '=','1')
                         ->where('e.bool_estado',  '=','1')
                         ->paginate(20);
@@ -60,8 +71,7 @@ public function index()
     $cargos      = DB::table('tbl_empresa as e')
                         ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
                         ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('a.bool_estado',  '=','1')
                         ->where('c.bool_estado',  '=','1')->get();
 
@@ -142,13 +152,13 @@ public function store_rendicion(Request $request)
         $variable                    = new ComunicacionesRendiciones();
        
         $variable->Quien          = $request->get('Quien');
-        $variable->mecanismo       = $request->get('mecanismo');
-        $variable->frecuencia         = $request->get('frecuencia');
-        $variable->a_quien      = $request->get('a_quien');
-        $variable->registro     = $request->get('registro');
-        $variable->sistema          = $request->get('sistema');
+        $variable->mecanismo      = $request->get('mecanismo');
+        $variable->frecuencia     = $request->get('frecuencia');
+        $variable->a_quien        = $request->get('a_quien');
+        $variable->registro       = $request->get('registro');
+        $variable->sistema        = $request->get('sistema');
         $variable->fk_empresa     = $request->get('fk_empresa');
-        $variable->bool_estado           = '1';
+        $variable->bool_estado    = '1';
   
         $variable->save();
      
@@ -178,13 +188,16 @@ public function edit($id)
 }
 public function edit_rendicion($id)
 {
-        $cargos      = DB::table('tbl_empresa as e')
-                    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
-                    ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                    ->join('users as u','u.id','=','e.fk_usuario')
-                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                    ->where('a.bool_estado',  '=','1')
-                    ->where('c.bool_estado',  '=','1')->get();
+    $usuario 					= User::findOrfail(Auth::User()->id);
+    $rolUsuario=$usuario->fk_rol;
+    $id_empresa=$usuario->fk_empresa;
+    
+    $cargos      = DB::table('tbl_empresa as e')
+    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+    ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+    ->where('e.id_empresa',  $id_empresa)
+    ->where('a.bool_estado',  '=','1')
+    ->where('c.bool_estado',  '=','1')->get();
 
     $comunicacion = ComunicacionesRendiciones::findOrfail($id);
 
@@ -194,9 +207,6 @@ public function edit_rendicion($id)
      
         ]);
 }
-
-
-
 
 public function update(Request $request, $id)
 {

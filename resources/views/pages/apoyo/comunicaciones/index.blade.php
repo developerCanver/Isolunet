@@ -133,7 +133,7 @@
                     <div class="form-group">
                         <label><strong>Detalle de la Información recolectada (necesidades y
                                 expectativas):</strong></label>
-                        <textarea name="detalle" rows="3" cols="140" required="true"></textarea>
+                        <textarea name="detalle" class="form-control"required="true"></textarea>
                     </div>
                 </div>
             </div>

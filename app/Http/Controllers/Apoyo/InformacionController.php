@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apoyo;
 use App\Http\Controllers\Controller;
 use App\Models\Apoyo\InfomacionGestion;
 use App\Models\Apoyo\Informacion;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -24,40 +25,42 @@ class InformacionController extends Controller
         if ($request->get('tipo_informacion')) {
 
             $tipo_informacion =$request->get('tipo_informacion');
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
 
-            $empresa = DB::table('tbl_empresa as e')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                            ->where('e.bool_estado','=','1')
-                            ->first();
+            $empresa = DB::table('users as u')
+            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+            ->where('u.id','=',Auth::User()->id)
+            ->where('e.bool_estado','=','1')
+            ->first();
 
             $cargos      = DB::table('tbl_empresa as e')
-                            ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
-                            ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                            ->join('users as u','u.id','=','e.fk_usuario')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                            ->where('a.bool_estado',  '=','1')
-                            ->where('e.bool_estado',  '=','1')
-                            ->where('c.bool_estado',  '=','1')->get();
+                        ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+                        ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+                        ->where('e.id_empresa',  $id_empresa)
+                        ->where('a.bool_estado',  '=','1')
+                        ->where('c.bool_estado',  '=','1')->get();
 
             $sistema_gestiones = DB::table('tbl_empresa as e')
                             ->join('tbl_sistemas_gestion as sg','sg.fk_empresa','=','e.id_empresa')
-                            ->join('users as u','u.id','=','e.fk_usuario')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->where('e.id_empresa',  $id_empresa)
                             ->where('e.bool_estado',  '=','1')
                             ->where('sg.bool_estado',  '=','1')->get();
                             
-            $procesos      = DB::table('tbl_procesos as p')
+                            $procesos      = DB::table('tbl_procesos as p')
                             ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                            ->join('users as u','u.id','=','e.fk_usuario')
-                            ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                            ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                            ->where('u.id',Auth::User()->id)
                             ->where('p.bool_estado',  '=','1')
                             ->where('e.bool_estado',  '=','1')
                             ->orderby('id_proceso', 'DESC')->get();
 
             if ($tipo_informacion=='Documentos') {
+
                 $informaciones =  DB::table('tbl_empresa as e')
                 ->join('tbl_apo_informacion as i','i.fk_empresa','=','e.id_empresa')
-                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                  ->where('e.id_empresa',  $id_empresa)
                 ->where('e.bool_estado','=','1')
                 ->where('i.bool_estado','=','1')
                 ->where('tipo_informacion','=','Documentos')
@@ -67,7 +70,7 @@ class InformacionController extends Controller
             if ($tipo_informacion=='Documentos_externos') {
                 $informaciones =  DB::table('tbl_empresa as e')
                 ->join('tbl_apo_informacion as i','i.fk_empresa','=','e.id_empresa')
-                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                ->where('e.id_empresa',  $id_empresa)
                 ->where('e.bool_estado','=','1')
                 ->where('i.bool_estado','=','1')
                 ->where('tipo_informacion','=','Documentos_externos')
@@ -76,7 +79,7 @@ class InformacionController extends Controller
             if ($tipo_informacion=='Registros') {
                 $informaciones =  DB::table('tbl_empresa as e')
                 ->join('tbl_apo_informacion as i','i.fk_empresa','=','e.id_empresa')
-                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                ->where('e.id_empresa',  $id_empresa)
                 ->where('e.bool_estado','=','1')
                 ->where('i.bool_estado','=','1')
                 ->where('tipo_informacion','=','Registros')
@@ -189,23 +192,22 @@ class InformacionController extends Controller
     {
  
         $informacion = Informacion::findOrfail($id);
-        
+        $usuario 					= User::findOrfail(Auth::User()->id);
+                    $rolUsuario=$usuario->fk_rol;
+                    $id_empresa=$usuario->fk_empresa;
         
         $cargos      = DB::table('tbl_empresa as e')
-                    ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
-                    ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
-                    ->join('users as u','u.id','=','e.fk_usuario')
-                    ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                    ->where('a.bool_estado',  '=','1')
-                    ->where('e.bool_estado',  '=','1')
-                    ->where('c.bool_estado',  '=','1')->get();
+        ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')
+        ->join('tbl_cargos as c','c.fk_area','=','a.id_area')
+        ->where('e.id_empresa',  $id_empresa)
+        ->where('a.bool_estado',  '=','1')
+        ->where('c.bool_estado',  '=','1')->get();
 
         $sistema_gestiones = DB::table('tbl_empresa as e')
-                ->join('tbl_sistemas_gestion as sg','sg.fk_empresa','=','e.id_empresa')
-                ->join('users as u','u.id','=','e.fk_usuario')
-                ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                ->where('e.bool_estado',  '=','1')
-                ->where('sg.bool_estado',  '=','1')->get();
+        ->join('tbl_sistemas_gestion as sg','sg.fk_empresa','=','e.id_empresa')
+        ->where('e.id_empresa',  $id_empresa)
+        ->where('e.bool_estado',  '=','1')
+        ->where('sg.bool_estado',  '=','1')->get();
 
         $info_gestion_selec = DB::table('tbl_apo_info_gestion as ig')
                 ->join('tbl_sistemas_gestion as sg','sg.id_sisgestion','=','ig.fk_gestion')    
@@ -213,10 +215,10 @@ class InformacionController extends Controller
 
                 //dd($info_gestion_selec);
                 
-        $procesos      = DB::table('tbl_procesos as p')
+                $procesos      = DB::table('tbl_procesos as p')
                 ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                ->join('users as u','u.id','=','e.fk_usuario')
-                ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                ->where('u.id',Auth::User()->id)
                 ->where('p.bool_estado',  '=','1')
                 ->where('e.bool_estado',  '=','1')
                 ->orderby('id_proceso', 'DESC')->get();

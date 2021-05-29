@@ -22,11 +22,11 @@ class RiesgosController extends Controller
     {
         $procesos      = DB::table('tbl_procesos as p')
                         ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                        ->where('u.id',Auth::User()->id)
                         ->where('p.bool_estado',  '=','1')
                         ->where('e.bool_estado',  '=','1')
-                        ->orderby('id_proceso', 'DESC')->get();
+                        ->orderby('id_proceso', 'DESC')->paginate();
                         //dd($procesos);
 
         return view('pages.planificacion.matriz-riesgos.index',[
@@ -40,15 +40,15 @@ class RiesgosController extends Controller
         $riesgos      = DB::table('tbl_procesos as p')
                         ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
                         ->join('tbl_pla_matriz_riesgo as m','m.fk_proceso','=','p.id_proceso')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->join('users as u','u.fk_empresa','=','e.id_empresa')
+                        ->where('u.id',Auth::User()->id)
                         ->where('p.id_proceso',     '=',''.$id_proceso.'')
                         ->where('p.bool_estado',  '=','1')
                         ->where('e.bool_estado',  '=','1')
                         ->where('m.bool_estado',  '=','1')
-                        ->orderby('id_proceso', 'DESC')->get();
+                        ->orderby('id_proceso', 'DESC')->paginate();
 
-        $proceso      = DB::table('tbl_procesos as p')                       
+        $proceso      = DB::table('tbl_procesos as p')                     
         
                         ->where('id_proceso',$id_proceso  )
                         ->first();

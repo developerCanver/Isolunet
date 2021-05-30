@@ -4,6 +4,7 @@ namespace App\Http\Controllers\mejora;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mejora\Causa;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -22,11 +23,14 @@ public function __construct()
 
 public function index(Request $request)
 {
+    $usuario = User::findOrfail(Auth::User()->id);
+    $id_empresa=$usuario->fk_empresa;
+
 
 
     $anomalias =  DB::table('tbl_empresa as e')
                     ->join('tbl_mejora_anomalia as a','a.fk_empresa','=','e.id_empresa')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->get();
    
             return view('pages.mejora.anomalia.causa_raiz',[
@@ -64,12 +68,6 @@ try {
     }
 
 }
-
-
-
-
-
-
 
 }
 

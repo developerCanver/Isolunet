@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Evaluacion;
 use App\Http\Controllers\Controller;
 use App\Models\Evaluacion\FortalesasOportunidades;
 use App\Models\Evaluacion\FortalesasOportunidadesGestion;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -22,17 +23,21 @@ class FortalesasOportunidadesController extends Controller
 
     public function index(Request $request)
     {
-        $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+        $usuario = User::findOrfail(Auth::User()->id);
+        $id_empresa=$usuario->fk_empresa;
+
+        $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
+                    ->first();
      
 
         $chequeos =  DB::table('tbl_empresa as e')
                         ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
                         ->join('tbl_plane_auditoria_foropur as c','c.fk_proceso','=','p.id_proceso')
                         ->join('users as u','u.id','=','c.fk_usuario')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('p.bool_estado','=','1')
                         ->where('c.bool_estado','=','1')
                         ->paginate(20);
@@ -40,20 +45,21 @@ class FortalesasOportunidadesController extends Controller
 
         $procesos = DB::table('tbl_empresa as e')
                         ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('p.bool_estado','=','1')
                         ->get();
 
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
+                        ->where('fk_rol',3)
                         ->get();
                         
        $gestiones = DB::table('tbl_empresa as e')
                         ->join('tbl_sistemas_gestion as g','g.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('g.bool_estado','=','1')
                         ->orderby('str_nombre')->get();
@@ -120,11 +126,13 @@ class FortalesasOportunidadesController extends Controller
 
     }
 
-
     public function edit($id)
     {
+        $usuario = User::findOrfail(Auth::User()->id);
+        $id_empresa=$usuario->fk_empresa;
 
-    
+
+
         $chequeo   = FortalesasOportunidades::findOrfail($id);
 
        $cheSisGestiones =  DB::table('tbl_empresa as e')
@@ -135,20 +143,23 @@ class FortalesasOportunidadesController extends Controller
                             ->where('id_foropur',  $id)
                             ->get();
 
-        $empresa = DB::table('tbl_empresa as e')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+        $empresa = DB::table('users as u')
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                            ->where('u.id','=',Auth::User()->id)
                             ->where('e.bool_estado','=','1')
                             ->first();
+             
 
        $procesos = DB::table('tbl_empresa as e')
                         ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('p.bool_estado','=','1')
                         ->get();
+
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->get();
                     //dd($cheSisGestiones);

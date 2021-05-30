@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Evaluacion;
 use App\Http\Controllers\Controller;
 use App\Models\Evaluacion\Chequeo;
 use App\Models\Evaluacion\ChequeoSisGEstion;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -21,16 +22,20 @@ class ChequeoController extends Controller
 
     public function index(Request $request)
     {
-        $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+        $usuario = User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+
+        $empresa = DB::table('users as u')
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                        ->where('u.id','=',Auth::User()->id)
                         ->where('e.bool_estado','=','1')
                         ->first();
-     
 
         $chequeos =  DB::table('tbl_empresa as e')
                         ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
                         ->join('tbl_plane_auditoria_chequeo as c','c.fk_proceso','=','p.id_proceso')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('p.bool_estado','=','1')
                         ->where('c.bool_estado','=','1')
                         ->paginate(20);
@@ -38,14 +43,14 @@ class ChequeoController extends Controller
 
         $procesos = DB::table('tbl_empresa as e')
                         ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('p.bool_estado','=','1')
                         ->get();
                         
        $gestiones = DB::table('tbl_empresa as e')
                         ->join('tbl_sistemas_gestion as g','g.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('g.bool_estado','=','1')
                         ->orderby('str_nombre')->get();
@@ -55,7 +60,7 @@ class ChequeoController extends Controller
                         ->join('tbl_plane_auditoria_chequeo as c','c.fk_proceso','=','p.id_proceso')
                         ->join('tbl_plane_auditoria_che_sis_gestion as ag','ag.fk_audchequeo','=','c.id_chequeo')
                         ->join('tbl_sistemas_gestion as g','g.id_sisgestion','=','ag.fk_sisgestion')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('p.bool_estado','=','1')
                         ->where('c.bool_estado','=','1')
                         ->where('ag.bool_estado','=','1')
@@ -120,7 +125,9 @@ class ChequeoController extends Controller
     public function edit($id)
     {
 
-    
+        $usuario = User::findOrfail(Auth::User()->id);
+        $id_empresa=$usuario->fk_empresa;
+
         $chequeo =  DB::table('tbl_empresa as e')
                             ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
                             ->join('tbl_plane_auditoria_chequeo as c','c.fk_proceso','=','p.id_proceso')
@@ -137,14 +144,15 @@ class ChequeoController extends Controller
                             ->where('fk_audchequeo',  $id)
                             ->get();
 
-        $empresa = DB::table('tbl_empresa as e')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+        $empresa = DB::table('users as u')
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                            ->where('u.id','=',Auth::User()->id)
                             ->where('e.bool_estado','=','1')
                             ->first();
 
        $procesos = DB::table('tbl_empresa as e')
                         ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('p.bool_estado','=','1')
                         ->get();

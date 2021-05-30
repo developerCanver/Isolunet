@@ -26,7 +26,7 @@
 
 
 
-        <form action="{{route('plantillas.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('salida_no_conforme.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <h4>{{$empresa->razon_social}} </h4>
@@ -46,14 +46,10 @@
                 <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                     <div class="form-group">
                         <label><strong>Observaciones:</strong></label>
-                        <textarea name="obs_plantilla" rows="2" cols="90"></textarea>
+                        <textarea name="obs_plantilla" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
-
-
-
-
 
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
@@ -97,7 +93,7 @@
                                 <a data-toggle="modal" data-target="#myModal-{{ $consulta->id_plantilla }}"
                                     style="color: #18A4B4" title="Editar"><i class="fas fa-pencil-alt fa-2x"></i></a>
 
-                                <form action="{{route('plantillas.destroy', $consulta->id_plantilla)}}"
+                                <form action="{{route('salida_no_conforme.destroy', $consulta->id_plantilla)}}"
                                     class="form-inline formulario-eliminar" method="POST">
 
                                     @csrf
@@ -130,11 +126,10 @@
                     <div class="modal-body">
 
 
-                        <form action="{{ route('plantillas.update', $consulta->id_plantilla)}}" method="POST"
+                        <form action="{{ route('salida_no_conforme.update', $consulta->id_plantilla)}}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-
 
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
@@ -149,8 +144,7 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                     <div class="form-group">
                                         <label><strong>Observaciones:</strong></label>
-                                        <textarea name="obs_plantilla" rows="2"
-                                            cols="100">{{$consulta->obs_plantilla}}</textarea>
+                                        <textarea name="obs_plantilla" class="form-control">{{$consulta->obs_plantilla}}</textarea>
                                     </div>
                                 </div>
                             </div>

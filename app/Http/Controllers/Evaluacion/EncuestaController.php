@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Evaluacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\Evaluacion\Encuesta;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -23,23 +24,28 @@ public function __construct()
 }
 
 public function index(Request $request)
-{
-    $empresa = DB::table('tbl_empresa as e')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+{   
+    $usuario = User::findOrfail(Auth::User()->id);
+    $id_empresa=$usuario->fk_empresa;
+
+
+    $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
                     ->where('e.bool_estado','=','1')
                     ->first();
     
 
     $procesos = DB::table('tbl_empresa as e')
                     ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
                     ->where('p.bool_estado','=','1')
                     ->get();
 
     $consultas = DB::table('tbl_eva_encuesta as ee')
                     ->join('tbl_empresa as e','e.id_empresa','=','ee.fk_empresa')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
                     ->paginate(20);
 

@@ -90,8 +90,7 @@ class DisenoController extends Controller
         public function edit($id)
         {
     
-            $consulta   = Diseno::findOrfail($id);
-    
+            $consulta   = Diseno::findOrfail($id);    
             $empresa = DB::table('users as u')
             ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
             ->where('u.id','=',Auth::User()->id)

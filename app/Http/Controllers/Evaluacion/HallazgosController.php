@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Evaluacion;
 use App\Http\Controllers\Controller;
 use App\Models\Evaluacion\Hallazgos;
 use App\Models\Evaluacion\HallazgosGestion;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -21,15 +22,20 @@ class HallazgosController extends Controller
 
     public function index(Request $request)
     {
-        $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+        $usuario = User::findOrfail(Auth::User()->id);
+                    $id_empresa=$usuario->fk_empresa;
+		
+
+   $empresa = DB::table('users as u')
+               ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+               ->where('u.id','=',Auth::User()->id)
+               ->where('e.bool_estado','=','1')
+               ->first();
      
 
         $chequeos =  DB::table('tbl_empresa as e')
                         ->join('tbl_plane_auditoria_hallazgos as p','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('p.bool_estado','=','1')
                         ->paginate(20);
                         //dd($chequeos); 
@@ -37,13 +43,13 @@ class HallazgosController extends Controller
 
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->get();
                         
        $gestiones = DB::table('tbl_empresa as e')
                         ->join('tbl_sistemas_gestion as g','g.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('g.bool_estado','=','1')
                         ->orderby('str_nombre')->get();
@@ -113,7 +119,6 @@ class HallazgosController extends Controller
     public function edit($id)
     {
 
-    
         $chequeo   = Hallazgos::findOrfail($id);
 
        $cheSisGestiones =  DB::table('tbl_empresa as e')
@@ -123,14 +128,18 @@ class HallazgosController extends Controller
                             ->where('id_hallazgos',  $id)
                             ->get();
 
-        $empresa = DB::table('tbl_empresa as e')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                            ->where('e.bool_estado','=','1')
-                            ->first();
+            $usuario = User::findOrfail(Auth::User()->id);
+            $id_empresa=$usuario->fk_empresa;               
+        
+           $empresa = DB::table('users as u')
+                       ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                       ->where('e.id_empresa',  $id_empresa)
+                       ->where('e.bool_estado','=','1')
+                       ->first();
 
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->get();
                     //dd($cheSisGestiones);

@@ -52,7 +52,7 @@ Route::resource('/auditoria',     'Evaluacion\AuditoriaController');
 Route::resource('/chequeo_auditoria',     'Evaluacion\ChequeoController');
 Route::resource('/fortalezas_opurtunidades',     'Evaluacion\FortalesasOportunidadesController');
 Route::resource('/hallasgos',     'Evaluacion\HallazgosController');
-Route::resource('/revision',     'Evaluacion\RevisionController');
+Route::resource('/revision',      'Evaluacion\RevisionController');
 //Route::get('revision_delete/{id}',  [Revision::class, 'destroy_user']);
 Route::get('revision_delete/{id}/{tipo}/', [
     'as' => 'revision_delete',

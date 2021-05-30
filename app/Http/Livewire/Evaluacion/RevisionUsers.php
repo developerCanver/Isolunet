@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Evaluacion;
 
+use App\Models\User;
 use Livewire\Component;
 
 use Illuminate\Support\Facades\DB;
@@ -34,24 +35,28 @@ class RevisionUsers extends Component
     }
     public function render()
     {
+        $usuario = User::findOrfail(Auth::User()->id);
+        $id_empresa=$usuario->fk_empresa;
+
     
             //dd($this->post );
             $consulta =  DB::table('tbl_eva_revision_users as ru')
-            ->join('users as u','u.id','=','ru.fk_user')
-            ->join('tbl_cargos as c','c.id_cargo','=','ru.fk_cargor')
-            ->where('fk_revision', $this->post )
-            ->get();
-            //dd($consulta);
+                            ->join('users as u','u.id','=','ru.fk_user')
+                            ->join('tbl_cargos as c','c.id_cargo','=','ru.fk_cargor')
+                            ->where('fk_revision', $this->post )
+                            ->get();
+      
       
         $usuarios = DB::table('users as u')
                     ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                    ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
                     ->get();
+
         $cargos = DB::table('tbl_areas as a')
                     ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
                     ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
-                    ->where('em.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('em.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
                     ->where('em.bool_estado','=','1')
                     ->where('a.bool_estado','=','1')

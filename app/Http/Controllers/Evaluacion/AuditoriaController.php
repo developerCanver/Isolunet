@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Evaluacion;
 use App\Http\Controllers\Controller;
 use App\Models\Evaluacion\Auditoria;
 use App\Models\Evaluacion\AuditoriaMultiple;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -21,15 +22,21 @@ class AuditoriaController extends Controller
 
     public function index(Request $request)
     {
-        $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+        $usuario = User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+        
+        $empresa = DB::table('users as u')
+               ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+               ->where('u.id','=',Auth::User()->id)
+               ->where('e.bool_estado','=','1')
+               ->first();
+
     
         $cargos = DB::table('tbl_areas as a')
                         ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
                         ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
-                        ->where('em.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('em.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('em.bool_estado','=','1')
                         ->where('a.bool_estado','=','1')
@@ -40,7 +47,7 @@ class AuditoriaController extends Controller
                         ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
                         ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
                         ->join('tbl_plane_auditoria as pa','pa.fk_cargo','=','e.id_cargo')
-                        ->where('em.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('em.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('em.bool_estado','=','1')
                         ->where('pa.bool_estado','=','1')
@@ -129,15 +136,19 @@ class AuditoriaController extends Controller
 
     public function edit($id)
     {
-         $cargos = DB::table('tbl_areas as a')
-                        ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
-                        ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
-                        ->where('em.fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->where('em.bool_estado','=','1')
-                        ->where('a.bool_estado','=','1')
-                        ->orderby('em.razon_social','desc')
-                        ->get();   
+        $usuario = User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+        
+        $cargos = DB::table('tbl_areas as a')
+                                ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
+                                ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
+                                ->where('em.id_empresa',  $id_empresa)
+                                ->where('e.bool_estado','=','1')
+                                ->where('em.bool_estado','=','1')
+                                ->where('a.bool_estado','=','1')
+                                ->orderby('em.razon_social','desc')
+                                ->get();     
 
         $auditoria = DB::table('tbl_areas as a')
                     ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')

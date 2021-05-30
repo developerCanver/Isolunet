@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Planeacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\Planeacion\Liberacion;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -20,17 +21,21 @@ class LiberacionController extends Controller
 
     public function index(Request $request)
     {
-        $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+        $empresa = DB::table('users as u')
+                                ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                                ->where('u.id','=',Auth::User()->id)
+                                ->where('e.bool_estado','=','1')
+                                ->first();
      
 
         $consultas =  DB::table('tbl_empresa as e')
                         ->join('tbl_plane_liberacion as r','r.fk_empresa','=','e.id_empresa')
                         ->join('users as u','u.id','=','r.fk_cliente')
                         ->join('tbl_producto as p','p.id_producto','=','r.fk_producto')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('r.bool_estado','=','1')
                         ->where('e.bool_estado','=','1')
                         ->paginate(20);
@@ -38,15 +43,16 @@ class LiberacionController extends Controller
 
         $Productos = DB::table('tbl_empresa as e')
                         ->join('tbl_producto as p','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('p.bool_estado','=','1')
                         ->get();
 
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
+                        ->where('fk_rol',3)
                         ->get();
     
                     
@@ -107,25 +113,30 @@ class LiberacionController extends Controller
     public function edit($id)
     {
 
-        $consulta   = Liberacion::findOrfail($id);
+        $consulta                    = Liberacion::findOrfail($id);
+
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+        $empresa = DB::table('users as u')
+                                ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                                ->where('u.id','=',Auth::User()->id)
+                                ->where('e.bool_estado','=','1')
+                                ->first();
+
         $Productos = DB::table('tbl_empresa as e')
-                    ->join('tbl_producto as p','p.fk_empresa','=','e.id_empresa')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado','=','1')
-                    ->where('p.bool_estado','=','1')
-                    ->get();
+                        ->join('tbl_producto as p','p.fk_empresa','=','e.id_empresa')
+                        ->where('e.id_empresa',  $id_empresa)
+                        ->where('e.bool_estado','=','1')
+                        ->where('p.bool_estado','=','1')
+                        ->get();
 
         $usuarios = DB::table('users as u')
-                    ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                    ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
-                    ->where('e.bool_estado','=','1')
-                    ->get();
-
-
-        $empresa = DB::table('tbl_empresa as e')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado','=','1')
-                    ->first();
+                        ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                        ->where('e.id_empresa',  $id_empresa)
+                        ->where('e.bool_estado','=','1')
+                        ->where('fk_rol',3)
+                        ->get();
                  
         return view('pages.planeacion.liberacion.edit',[
             'empresa'=>$empresa,

@@ -296,7 +296,7 @@
                                                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                         <div class="form-group">
                                                             <label><strong>Observaciones Ejecucción:</strong></label>
-                                                            <textarea name="observaciones_ta" rows="2" cols="100"
+                                                            <textarea name="observaciones_ta" class="form-control"
                                                                 required="true">{{$consulta->observaciones_ta}}</textarea>
                                                         </div>
                                                     </div>
@@ -482,7 +482,7 @@
                                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                     <div class="form-group">
                                                         <label><strong>Observaciones Ejecucción:</strong></label>
-                                                        <textarea name="observaciones_ejecuccion" rows="2" cols="100"
+                                                        <textarea name="observaciones_ejecuccion" class="form-control"
                                                             required="true"></textarea>
                                                     </div>
                                                 </div>
@@ -650,7 +650,7 @@
                                                     <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                         <div class="form-group">
                                                             <label><strong>Observaciones Ejecucción:</strong></label>
-                                                            <textarea name="observaciones_co" rows="2" cols="100"
+                                                            <textarea name="observaciones_co" class="form-control"
                                                                 required="true"></textarea>
                                                         </div>
                                                     </div>

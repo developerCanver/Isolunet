@@ -154,13 +154,13 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label for="datos"><strong>Alcance:</strong></label>
-                        <textarea name="alcance" required rows="2" cols="60" required="true"></textarea>
+                        <textarea name="alcance" required class="form-control" required="true"></textarea>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label for="datos"><strong>Criterios de Auditoría:</strong></label>
-                        <textarea name="criterios" rows="2" cols="60" required="true"></textarea>
+                        <textarea name="criterios" class="form-control" required="true"></textarea>
                     </div>
                 </div>
 
@@ -205,7 +205,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                         <label for="datos"><strong>Descripción de Auditoría:</strong></label>
-                        <textarea name="descripcion" rows="10" cols="140" required="true"></textarea>
+                        <textarea name="descripcion" class="form-control" required="true"></textarea>
                     </div>
                 </div>
             </div>
@@ -477,7 +477,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                         <label for="datos">Observaciones:</label>
-                        <textarea name="observaciones" rows="2" cols="140" required="true"></textarea>
+                        <textarea name="observaciones" class="form-control" required="true"></textarea>
                     </div>
                 </div>
 
@@ -504,7 +504,6 @@
             <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
         </form>
         <br>
-    </div>
     <div class="row">
         <div class="col-md-12 col-sm-612 col-xs-12 col-lg-12">
             <div class="table-responsive">

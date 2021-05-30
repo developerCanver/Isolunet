@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Evaluacion;
 use App\Http\Controllers\Controller;
 use App\Models\Evaluacion\Revision;
 use App\Models\Evaluacion\RevisionUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -20,25 +21,31 @@ class RevisionController extends Controller
 
     public function index(Request $request)
     {
-        $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+
+     
+        $usuario = User::findOrfail(Auth::User()->id);
+        $id_empresa=$usuario->fk_empresa;
+        
+
+        $empresa = DB::table('users as u')
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                        ->where('u.id','=',Auth::User()->id)
                         ->where('e.bool_estado','=','1')
                         ->first();
      
 
         $consultas =  DB::table('tbl_empresa as e')
                         ->join('tbl_eva_revision as r','r.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('r.bool_estado','=','1')
                         ->where('e.bool_estado','=','1')
                         ->paginate(20);
 
-       
-                    
+                     
+
         return view('pages.evaluacion.revision.index',[
                                 'empresa'=>$empresa,
-                                'consultas'=>$consultas,
-                              
+                                'consultas'=>$consultas,                              
                                     ]);
     	    
     }
@@ -56,12 +63,9 @@ class RevisionController extends Controller
                 $variable->entrada_salida   = ($request->get('entrada_salida')) ?    $request->get('entrada_salida') : '';
        
                 $variable->fk_empresa       =  $request->get('fk_empresa');
-               
                 $variable->bool_estado        = '1';
                 $variable->save();    
-
-
-                				
+		
                 $represeta  = $request->get('represeta');
                 $fk_user     = $request->get('fk_user');
                 $fk_cargor     = $request->get('fk_cargor');
@@ -79,8 +83,6 @@ class RevisionController extends Controller
                     $tiporequisito->save();
                 }
 
-
-
                 DB::commit();
                 return Redirect::to('revision')->with('status','Se guardó correctamente');
             } catch (Exception $e) {
@@ -89,37 +91,34 @@ class RevisionController extends Controller
 
     }
 
-
     public function edit($id)
     {
 
         $consulta   = Revision::findOrfail($id);
 
-        $empresa = DB::table('tbl_empresa as e')
-        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-        ->where('e.bool_estado','=','1')
-        ->first();
+        $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
+                    ->first();
                     //dd($cheSisGestiones);
+
         return view('pages.evaluacion.revision.edit',[
             'empresa'=>$empresa,
             'consulta'=>$consulta,
             ]);
     }
 
-
-
     public function update(Request $request, $id)
     {
         try {
             DB::beginTransaction();
 
-     
                 $variable                     = Revision::findOrfail($id);
                 $variable->fecha_revision   = ($request->get('fecha_revision')) ?    $request->get('fecha_revision') : '';
                 $variable->periodo          = ($request->get('periodo')) ?           $request->get('periodo') : '';
                 $variable->entrada_salida   = ($request->get('entrada_salida')) ?    $request->get('entrada_salida') : '';
-         
-               
+
                  $variable->update();
 
                  RevisionUser::where('fk_revision', $id)->delete();
@@ -127,8 +126,7 @@ class RevisionController extends Controller
                  $represeta  = $request->get('represeta');
                  $fk_user     = $request->get('fk_user');
                  $fk_cargor     = $request->get('fk_cargor');
-                
- 
+
                  for ($i=0; $i <  count($fk_user) ; $i++) {
  
                      $tiporequisito = new RevisionUser();
@@ -162,7 +160,6 @@ class RevisionController extends Controller
             $ocultar 					= Revision::findOrfail($id);
             $ocultar->bool_estado		= 0;
             $ocultar->update();
-
 
            DB::commit();
            return Redirect::to('revision')->with('status','Se eliminó correctamente');

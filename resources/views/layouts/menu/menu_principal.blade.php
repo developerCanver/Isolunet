@@ -108,7 +108,8 @@
         </li><!-- br-menu-item -->
         <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
-            <i class="menu-item-icon  ion-clipboard tx-24"></i>
+            <i class="fas fa-balance-scale tx-20"></i>
+           
             <span class="menu-item-label">Planificacion</span>
           </a><!-- br-menu-link -->
           @php
@@ -128,7 +129,7 @@
         </li><!-- br-menu-item -->
          <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
-            <i class="menu-item-icon  ion-clipboard tx-24"></i>
+            <i class="fas fa-hands-helping tx-20"></i>
             <span class="menu-item-label">Apoyo</span>
           </a><!-- br-menu-link -->
           @php
@@ -150,7 +151,7 @@
         </li><!-- br-menu-item -->
          <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
-            <i class="menu-item-icon  ion-clipboard tx-24"></i>
+            <i class="fas fa-bezier-curve tx-20"></i>
             <span class="menu-item-label">Operación</span>
           </a><!-- br-menu-link -->
           @php
@@ -209,7 +210,7 @@
         </li><!-- br-menu-item -->
          <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
-            <i class="menu-item-icon  ion-clipboard tx-24"></i>
+            <i class="fas fa-check-double tx-20"></i>
             <span class="menu-item-label">Evaluacion Desempeño</span>
           </a><!-- br-menu-link -->
           @php
@@ -224,14 +225,14 @@
           @endphp 
           <ul class="br-menu-sub" {{$Evaluacion}}>
             <li class="sub-item"><a href="{{ URL::to('seguimiento_medicion') }}" class="sub-link {{ request()->is('seguimiento_medicion*') || request()->is('encuesta_satisfaccion*') || request()->is('plantillas*')  ? 'active' : '' }} ">Seguimiento Medicion</a></li>
-            <li class="sub-item"><a href="{{ URL::to('indicadores') }}"          class="sub-link {{ request()->is('indicadores*') ? 'active' : '' }}">Indicadores</a></li>
+            {{-- <li class="sub-item"><a href="{{ URL::to('indicadores') }}"          class="sub-link {{ request()->is('indicadores*') ? 'active' : '' }}">Indicadores</a></li> --}}
             <li class="sub-item"><a href="{{ URL::to('auditoria') }}"            class="sub-link {{ request()->is('auditoria*') || request()->is('chequeo_auditoria*')|| request()->is('fortalezas_opurtunidades*')|| request()->is('hallasgos*') ? 'active' : '' }} ">Auditoria Interna</a></li>
             <li class="sub-item"><a href="{{ URL::to('revision') }}"             class="sub-link {{ request()->is('revision*') ? 'active' : '' }} ">Revisión por la Dirección</a></li>
           </ul>
         </li><!-- br-menu-item -->
          <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
-           <i class="menu-item-icon  ion-clipboard tx-24"></i>
+           <i class="fas fa-chart-area tx-24"></i>
             <span class="menu-item-label">Mejora</span>
           </a><!-- br-menu-link -->
           @php

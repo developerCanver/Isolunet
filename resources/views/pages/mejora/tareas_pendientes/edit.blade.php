@@ -81,7 +81,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                         <label><strong>Observaciones Ejecucción:</strong></label>
-                        <textarea name="observaciones_ejecuccion" rows="2" cols="140" required="true"></textarea>
+                        <textarea name="observaciones_ejecuccion" class="form-control" required="true"></textarea>
                     </div>
                 </div>
             </div>

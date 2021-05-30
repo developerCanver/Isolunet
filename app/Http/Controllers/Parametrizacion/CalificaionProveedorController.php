@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\models\Parametrizacion\CalificaionProveedor;
 use App\models\Parametrizacion\Insumo;
+use App\Models\User;
 
 class CalificaionProveedorController extends Controller
 {
@@ -22,18 +23,23 @@ class CalificaionProveedorController extends Controller
 
     public function index(Request $request)
     {
+        $usuario = User::findOrfail(Auth::User()->id);
+                $rolUsuario=$usuario->fk_rol;
+                $id_empresa=$usuario->fk_empresa;
+
+
         $proveedores = DB::table('tbl_proveedor as p')
-                    ->join('tbl_empresa as e','e.id_empresa','=','p.fk_empresa')
-                    ->where('e.bool_estado','=','1')
-                    ->where('fk_usuario','=', ''.Auth::User()->id)
-                    ->where('p.bool_estado','=','1')
-                    ->get();
+                        ->join('tbl_empresa as e','e.id_empresa','=','p.fk_empresa')
+                        ->where('e.bool_estado','=','1')
+                        ->where('e.id_empresa',  $id_empresa)
+                        ->where('p.bool_estado','=','1')
+                        ->get();
         if($request){
             $consultas = DB::table('tbl_proveedor as a')
                         ->join('tbl_empresa as e','a.fk_empresa','=','e.id_empresa')
                         ->join('tbl_insumos as i','i.fk_proveedor','=','a.id_proveedor')
                         ->join('tbl_cal_proveedor as p','p.fk_insumo','=','i.id_insumo')
-                        ->where('fk_usuario','=', ''.Auth::User()->id)
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('a.bool_estado','=','1')
                         ->where('i.bool_estado','=','1')
                         ->where('p.bool_estado','=','1')
@@ -147,11 +153,11 @@ class CalificaionProveedorController extends Controller
                         ->first();
                       
        // dd($consultas);
-        $empresa = DB::table('tbl_empresa as e')
-                    ->join('users as u','e.fk_usuario','=','u.id')
-                    ->where('u.id','=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado','=','1')
-                    ->first();
+       $empresa = DB::table('users as u')
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                        ->where('u.id','=',Auth::User()->id)
+                        ->where('e.bool_estado','=','1')
+                        ->first();
                     
         return view('pages.parametrizacion.Edit.edit_calificacion_proveedor',['empresa'=>$empresa,'consultas'=>$consultas]);
     }

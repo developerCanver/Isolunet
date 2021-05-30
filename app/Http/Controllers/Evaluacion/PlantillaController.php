@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Evaluacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\Evaluacion\Plantilla;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -22,24 +23,22 @@ class PlantillaController extends Controller
 
     public function index(Request $request)
     {
-        $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+        $usuario = User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+
+        $empresa = DB::table('users as u')
+               ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+               ->where('u.id','=',Auth::User()->id)
+               ->where('e.bool_estado','=','1')
+               ->first();
     
 
         $consultas = DB::table('tbl_eva_plantilla as ep')
                         ->join('tbl_empresa as e','e.id_empresa','=','ep.fk_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->paginate(20);
-
-
-                        //dd($consultas);
-                        
-
-
-        
                     
         return view('pages.evaluacion.plantilla.index',[
                                 'empresa'=>$empresa,
@@ -53,9 +52,7 @@ class PlantillaController extends Controller
     {
     try {
                 DB::beginTransaction();
-
-                $variable 				  = new Plantilla();
-           
+                $variable = new Plantilla();           
         
                 if ($request->file('plantilla')) {
                     $file =$request->file('plantilla');
@@ -70,11 +67,10 @@ class PlantillaController extends Controller
                 $variable->obs_plantilla = ($request->get('obs_plantilla')) ?  $request->get('obs_plantilla') : '';
                 $variable->fk_empresa    =  $request->get('fk_empresa');
                 
-     
                 $variable->save();    
 
                 DB::commit();
-                return Redirect::to('plantillas')->with('status','Se guardó correctamente');
+                return Redirect::to('salida_no_conforme')->with('status','Se guardó correctamente');
             } catch (Exception $e) {
                 DB::rollback();
         }
@@ -123,7 +119,7 @@ class PlantillaController extends Controller
             alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
             
         }
-        return Redirect::to('plantillas')->with('status','Se actualizó correctamente');
+        return Redirect::to('salida_no_conforme')->with('status','Se actualizó correctamente');
     }
 
 
@@ -144,7 +140,7 @@ class PlantillaController extends Controller
             $variable->delete();
 
             DB::commit();
-            return Redirect::to('plantillas')->with('status','Se eliminó correctamente');
+            return Redirect::to('salida_no_conforme')->with('status','Se eliminó correctamente');
         } catch (Exception $e) {
             DB::rollback();
         }

@@ -253,13 +253,13 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Descripción del producto:</strong></label>
-                        <textarea name="des_producto" rows="3" cols="60"></textarea>
+                        <textarea name="des_producto" class="form-control"  class="form-control" ></textarea>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Composición:</strong></label>
-                        <textarea name="composicion" rows="3" cols="60"></textarea>
+                        <textarea name="composicion" class="form-control"  class="form-control" ></textarea>
                     </div>
                 </div>
             </div>
@@ -469,13 +469,13 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Vida útil estimada:</strong></label>
-                        <textarea name="vida" rows="3" cols="60"></textarea>
+                        <textarea name="vida" class="form-control" ></textarea>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Condiciones de manejo/almacenamiento:</strong></label>
-                        <textarea name="condicion" rows="3" cols="60"></textarea>
+                        <textarea name="condicion" class="form-control" ></textarea>
                     </div>
                 </div>
             </div>
@@ -486,7 +486,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                         <label><strong>Envase y embalaje:</strong></label>
-                        <textarea name="envase" rows="2" cols="140"></textarea>
+                        <textarea name="envase" class="form-control" ></textarea>
                     </div>
                 </div>
             </div>
@@ -498,13 +498,13 @@
                     <div class="form-group">
                         <label><strong>Etiquetado e instrucciones para manipulación preparación y
                                 uso:</strong></label>
-                        <textarea name="etiquetado" rows="3" cols="65"></textarea>
+                        <textarea name="etiquetado" class="form-control" ></textarea>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Método(s) de distribución y entrega:</strong></label>
-                        <textarea name="metodo" rows="3" cols="65"></textarea>
+                        <textarea name="metodo" class="form-control" ></textarea>
                     </div>
                 </div>
             </div>
@@ -514,7 +514,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                         <label><strong>Requisitos legales y reglamentarios:</strong></label>
-                        <textarea name="requisito" rows="4" cols="140"></textarea>
+                        <textarea name="requisito" class="form-control" ></textarea>
                     </div>
                 </div>
             </div>
@@ -534,7 +534,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
-                        <textarea name="uso" rows="4" cols="140"></textarea>
+                        <textarea name="uso" class="form-control" ></textarea>
                     </div>
                 </div>
             </div>
@@ -542,22 +542,23 @@
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <label><strong>Riesgo Físico:</strong></label>
-                    <textarea name="fisico" rows="3" cols="43"></textarea>
+                    <textarea name="fisico" class="form-control" ></textarea>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <label><strong>Riesgo Biológico:</strong></label>
-                    <textarea name="biologico" rows="3" cols="43"></textarea>
+                    <textarea name="biologico" class="form-control" ></textarea>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <label><strong>Riesgo Químico:</strong></label>
-                    <textarea name="quimico" rows="3" cols="43"></textarea>
+                    <textarea name="quimico" class="form-control" ></textarea>
                 </div>
             </div>
+            <br>
             <h5 style="color: rgb(82, 82, 82)">11. Presentaciones disponibles</h5>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
-                        <textarea name="presentacion" rows="4" cols="140"></textarea>
+                        <textarea name="presentacion" class="form-control" ></textarea>
                     </div>
                 </div>
             </div>

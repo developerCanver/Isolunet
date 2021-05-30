@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Planeacion;
 use App\Http\Controllers\Controller;
 use App\Models\Parametrizacion\Insumo;
 use App\Models\Planeacion\ProductoServicio;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -22,18 +23,22 @@ class ProductoServicioController extends Controller
 
     public function index(Request $request)
     {
+        $usuario 					= User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+        
         $proveedores = DB::table('tbl_proveedor as p')
                     ->join('tbl_empresa as e','e.id_empresa','=','p.fk_empresa')
                     ->where('e.bool_estado','=','1')
-                    ->where('fk_usuario','=', ''.Auth::User()->id)
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('p.bool_estado','=','1')
                     ->get();
     
-                    $consultas = DB::table('tbl_empresa as e')
+        $consultas = DB::table('tbl_empresa as e')
                     ->join('tbl_proveedor as a','a.fk_empresa','=','e.id_empresa')
                     ->join('tbl_insumos as i','i.fk_proveedor','=','a.id_proveedor')
                     ->join('tbl_plane_producto_servicio as ps','ps.fk_insumo','=','i.id_insumo')
-                    ->where('fk_usuario','=', ''.Auth::User()->id)
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('a.bool_estado','=','1')
                     ->where('i.bool_estado','=','1')
                     ->where('ps.bool_estado','=','1')
@@ -46,8 +51,7 @@ class ProductoServicioController extends Controller
         return view('pages.planeacion.productoservicio.index',[
                                 'consultas'=>$consultas,
                                 'proveedores'=>$proveedores,
-                                    ]);
-    	
+                                    ]);    	
         
     }
 
@@ -163,8 +167,7 @@ class ProductoServicioController extends Controller
     public function getInsumos(Request $request)
     {        
         if ($request->ajax()) {
-            $insumos = Insumo::where('fk_proveedor', $request->id_proveedor)
-            
+            $insumos = Insumo::where('fk_proveedor', $request->id_proveedor)            
                         ->where('bool_estado','=','1')
                         ->get();
             foreach ($insumos as $insumo) {

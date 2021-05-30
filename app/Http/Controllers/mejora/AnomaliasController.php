@@ -22,7 +22,7 @@ use App\Models\Mejora\AccionesCorrectiva;
 use App\Models\Mejora\Anomalias;
 use App\Models\Mejora\CausaRaiz;
 use App\Models\Mejora\Correcciones;
-
+use App\Models\User;
 
 class AnomaliasController extends Controller
 {
@@ -41,19 +41,28 @@ class AnomaliasController extends Controller
      public function anomalia(Request $request)
     {
     	if ($request) {
+            $usuario = User::findOrfail(Auth::User()->id);
+            $id_empresa=$usuario->fk_empresa;
 
-            $sistema_gestion = DB::table('tbl_sistemas_gestion')
-                            ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
+
+
+            $sistema_gestion = DB::table('tbl_sistemas_gestion as s')
+                            ->where('fk_empresa',  $id_empresa)
+                            ->where('bool_estado','=','1')
                             ->get();
 
-            $usuarios   = DB::table('users')
-                        ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-                        ->get();
+            $usuarios   = DB::table('users as u')
+                            ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                            ->where('e.id_empresa',  $id_empresa)
+                            ->where('e.bool_estado','=','1')
+                            ->where('fk_rol',3)
+                            ->get();
 
 
             $origen_anomalias   = DB::table('tbl_origen_anomalia')
-                        ->where('bool_estado','=','1')
-                        ->get();
+                                ->where('fk_empresa',  $id_empresa)
+                                ->where('bool_estado','=','1')
+                                ->get();
 
 
     		return view('pages.mejora.anomalia.anomalia_index',[

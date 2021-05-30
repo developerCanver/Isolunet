@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Planeacion;
 use App\Http\Controllers\Controller;
 use App\Models\Planeacion\Requisitos;
 use App\Models\Planeacion\TipoRequisitos;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -22,14 +23,19 @@ class RequisitosController extends Controller
         public function index()
         {
     
-                    $empresa = DB::table('tbl_empresa as e')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+            $usuario 					= User::findOrfail(Auth::User()->id);
+                    $rolUsuario=$usuario->fk_rol;
+                    $id_empresa=$usuario->fk_empresa;
+
+            $empresa = DB::table('users as u')
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                            ->where('u.id','=',Auth::User()->id)
                             ->where('e.bool_estado','=','1')
                             ->first();
 
                     $Productos = DB::table('tbl_empresa as e')
                             ->join('tbl_producto as p','p.fk_empresa','=','e.id_empresa')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                            ->where('e.id_empresa',  $id_empresa)
                             ->where('e.bool_estado','=','1')
                             ->where('p.bool_estado','=','1')
                             ->get();
@@ -40,7 +46,7 @@ class RequisitosController extends Controller
                     $requisitos =  DB::table('tbl_empresa as e')
                             ->join('tbl_producto as p','p.fk_empresa','=','e.id_empresa')
                             ->join('tbl_plane_planeaciocontrol as pla','pla.fk_producto','=','p.id_producto')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                            ->where('e.id_empresa',  $id_empresa)
                             ->where('e.bool_estado','=','1')
                             ->where('p.bool_estado','=','1')
                             ->where('pla.bool_estado','=','1')
@@ -186,16 +192,21 @@ class RequisitosController extends Controller
        
         public function edit($id)
         {
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+            $id_empresa=$usuario->fk_empresa;
+            
             $requisito = Requisitos::findOrfail($id);
        
-            $empresa = DB::table('tbl_empresa as e')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado','=','1')
-                    ->first();
+            $empresa = DB::table('users as u')
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                        ->where('u.id','=',Auth::User()->id)
+                        ->where('e.bool_estado','=','1')
+                        ->first();
 
             $Productos = DB::table('tbl_empresa as e')
                     ->join('tbl_producto as p','p.fk_empresa','=','e.id_empresa')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
                     ->where('p.bool_estado','=','1')
                     ->get();
@@ -207,7 +218,7 @@ class RequisitosController extends Controller
                     ->join('tbl_producto as p','p.fk_empresa','=','e.id_empresa')
                     ->join('tbl_plane_planeaciocontrol as pla','pla.fk_producto','=','p.id_producto')
                     ->join('tbl_plane_planeacion_tipo_car as tipo','tipo.fk_pla_control','=','pla.id_pla_control')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
                     ->where('pla.id_pla_control','=',''.$id)
                     ->where('p.bool_estado','=','1')

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\mejora\Acta;
 use App\Models\mejora\ActaAsistente;
 use App\Models\mejora\ActaTemas;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -24,21 +25,26 @@ class ActaController extends Controller
         
             public function index(Request $request)
             {
-                $empresa = DB::table('tbl_empresa as e')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                                ->where('e.bool_estado','=','1')
-                                ->first();
+                $usuario = User::findOrfail(Auth::User()->id);
+                $id_empresa=$usuario->fk_empresa;
+    
+
+                $empresa = DB::table('users as u')
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                            ->where('u.id','=',Auth::User()->id)
+                            ->where('e.bool_estado','=','1')
+                            ->first();
 
                 $gestiones = DB::table('tbl_empresa as e')
                                 ->join('tbl_sistemas_gestion as g','g.fk_empresa','=','e.id_empresa')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                                ->where('e.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
                                 ->where('g.bool_estado','=','1')
                                 ->orderby('str_nombre')->get();
                                 
                 $procesos = DB::table('tbl_empresa as e')
                                 ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                                ->where('e.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
                                 ->where('p.bool_estado','=','1')
                                 ->get();
@@ -46,7 +52,7 @@ class ActaController extends Controller
                 $cargos = DB::table('tbl_areas as a')
                                 ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
                                 ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
-                                ->where('em.fk_usuario','=',''.Auth::User()->id.'')
+                                ->where('em.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
                                 ->where('em.bool_estado','=','1')
                                 ->where('a.bool_estado','=','1')
@@ -54,13 +60,14 @@ class ActaController extends Controller
                                 ->get();  
                 $usuarios = DB::table('users as u')
                                 ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                                ->where('e.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
+                                ->where('fk_rol',3)
                                 ->get();
         
                 $consultas =  DB::table('tbl_empresa as e')
                                 ->join('tbl_mejo_acta as a','a.fk_empresa','=','e.id_empresa')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                                ->where('e.id_empresa',  $id_empresa)
                                 ->where('a.bool_estado','=','1')
                                 ->orderBy('id_acta', 'DESC')
                                 ->paginate(20);
@@ -159,9 +166,6 @@ class ActaController extends Controller
                             $tiporequisito->save();
                         }
 
-                        
-
-        
                         DB::commit();
                         return Redirect::to('acta')->with('status','Se guardó correctamente');
                     } catch (Exception $e) {
@@ -173,17 +177,21 @@ class ActaController extends Controller
         
             public function edit($id)
             {
-        
+                $usuario = User::findOrfail(Auth::User()->id);
+                $rolUsuario=$usuario->fk_rol;
+                $id_empresa=$usuario->fk_empresa;
+    
+
                 $gestiones = DB::table('tbl_empresa as e')
                                 ->join('tbl_sistemas_gestion as g','g.fk_empresa','=','e.id_empresa')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                                ->where('e.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
                                 ->where('g.bool_estado','=','1')
                                 ->orderby('str_nombre')->get();
                                 
                 $procesos = DB::table('tbl_empresa as e')
                                 ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                                ->where('e.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
                                 ->where('p.bool_estado','=','1')
                                 ->get();
@@ -191,7 +199,7 @@ class ActaController extends Controller
                 $cargos = DB::table('tbl_areas as a')
                                 ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
                                 ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
-                                ->where('em.fk_usuario','=',''.Auth::User()->id.'')
+                                ->where('em.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
                                 ->where('em.bool_estado','=','1')
                                 ->where('a.bool_estado','=','1')
@@ -199,19 +207,20 @@ class ActaController extends Controller
                                 ->get();  
                 $usuarios = DB::table('users as u')
                                 ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                                ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                                ->where('e.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
+                                ->where('fk_rol',3)
                                 ->get();
                                 
                 $consulta   = Acta::findOrfail($id);
     
         
         
-                $empresa = DB::table('tbl_empresa as e')
-                            ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                            ->where('e.bool_estado','=','1')
-                            ->first();
-                         
+                $empresa = DB::table('users as u')
+                                ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                                ->where('u.id','=',Auth::User()->id)
+                                ->where('e.bool_estado','=','1')
+                                ->first();
                 return view('pages.mejora.acta.edit',[
                     'empresa'=>$empresa,
                     'gestiones'=>$gestiones,
@@ -274,17 +283,13 @@ class ActaController extends Controller
                             $variable->archivo =  $name;
                        
                         }
-
-
-
                         $variable->update(); 
                         
                         ActaAsistente::where('fk_acta', $id)->delete();
 
                         $asistente     = $request->get('fk_user');
                         $cargo     = $request->get('fk_cargor');
-                       
-        
+            
                         for ($i=0; $i <  count($asistente) ; $i++) {
         
                             $tiporequisito = new ActaAsistente();
@@ -312,11 +317,6 @@ class ActaController extends Controller
                             $tiporequisito->bool_estado    = '1';
                             $tiporequisito->save();
                         }
-
-    
-                        
-        
-        
                     DB::commit();
                     alert()->success('Se ha Editado correctamente.', 'Editado!')->persistent('Cerrar');
                 

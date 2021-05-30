@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Mejora;
 
+use App\Models\User;
 use Livewire\Component;
 
 use Illuminate\Support\Facades\DB;
@@ -21,9 +22,13 @@ class Correlativas extends Component
 
         public function render()
     {
+        $usuario = User::findOrfail(Auth::User()->id);
+        $id_empresa=$usuario->fk_empresa;
+
+
         $anomalias =  DB::table('tbl_empresa as e')
                     ->join('tbl_mejora_anomalia as a','a.fk_empresa','=','e.id_empresa')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->get();
                    // dd($anomalias);
 

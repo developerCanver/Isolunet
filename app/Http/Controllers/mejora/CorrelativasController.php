@@ -5,6 +5,7 @@ namespace App\Http\Controllers\mejora;
 use App\Http\Controllers\Controller;
 use App\Models\Mejora\Correcciones;
 use App\Models\Mejora\Correlativa;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -21,22 +22,27 @@ public function __construct()
 
 public function index(Request $request)
 {
+    $usuario = User::findOrfail(Auth::User()->id);
+    $id_empresa=$usuario->fk_empresa;
+
+
     $empresa = DB::table('tbl_empresa as e')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
                     ->first();
 
     $usuarios = DB::table('users as u')
-                    ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado','=','1')
-                    ->get();
+                ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
+                ->where('e.id_empresa',  $id_empresa)
+                ->where('e.bool_estado','=','1')
+                ->where('fk_rol',3)
+                ->get();
 
     $consultas =  DB::table('tbl_mejora_anomalia as a')
                      ->join('tbl_empresa as e','e.id_empresa','=','a.fk_empresa')
                     ->join('tbl_mejo_causas as c','c.fk_anomalia','=','a.id_anomalia')
                     ->join('tbl_mejo_correlativas as co','co.fk_causa','=','c.id_causas')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                    ->where('e.id_empresa',  $id_empresa)
                     ->orderByDesc('id_anomalia')
                     ->paginate(20);
 
@@ -49,7 +55,6 @@ public function index(Request $request)
     ]);
         
 }
-
 
 public function store(Request $request)
 {
@@ -71,8 +76,6 @@ try {
             
             $variable->fk_causa   =  $request->get('fk_causa');	
 
-      
-                    
             if ($request->file('archivo')) {
                 $file =$request->file('archivo');
                 $name = time().$file->getClientOriginalName();
@@ -92,14 +95,10 @@ try {
 
 }
 
-
-
-
 public function update(Request $request, $id)
 {
     try {
         DB::beginTransaction();
-
     
             $variable                     = Correlativa::findOrfail($id);
         
@@ -134,9 +133,6 @@ public function update(Request $request, $id)
             }
 
             $variable->update(); 
-            
- 
-
 
         DB::commit();
         alert()->success('Se ha Editado correctamente.', 'Editado!')->persistent('Cerrar');
@@ -148,7 +144,6 @@ public function update(Request $request, $id)
     }
     return Redirect::to('acciones_correctivas')->with('status','Se actualizó correctamente');
 }
-
 
 public function destroy($id)
 {

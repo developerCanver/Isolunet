@@ -145,13 +145,13 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label for="datos"><strong>Alcance:</strong></label>
-                        <textarea name="alcance" required rows="2" cols="60" required="true">{{$auditoria->alcance}}</textarea>
+                        <textarea name="alcance" required class="form-control" required="true">{{$auditoria->alcance}}</textarea>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label for="datos"><strong>Criterios de Auditoría:</strong></label>
-                        <textarea name="criterios" rows="2" cols="60" required="true">{{$auditoria->criterios}}</textarea>
+                        <textarea name="criterios" class="form-control" required="true">{{$auditoria->criterios}}</textarea>
                     </div>
                 </div>
 
@@ -198,7 +198,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                         <label for="datos"><strong>Descripción de Auditoría:</strong></label>
-                        <textarea name="descripcion" rows="10" cols="140" required="true">{{$auditoria->descripcion}}</textarea>
+                        <textarea name="descripcion" class="form-control" required="true">{{$auditoria->descripcion}}</textarea>
                     </div>
                 </div>
             </div>
@@ -457,8 +457,6 @@
                         <div class="form-group">
                             <label><strong>Equipo Auditor:</strong></label>
                             <input type="text" name="equipo[]" class="form-control" value="{{$multiple->equipo}}">
-
-
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
@@ -477,7 +475,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                         <label for="datos">Observaciones:</label>
-                        <textarea name="observaciones" rows="2" cols="140" required="true">{{$auditoria->observaciones}}</textarea>
+                        <textarea name="observaciones" class="form-control" required="true">{{$auditoria->observaciones}}</textarea>
                     </div>
                 </div>
 
@@ -497,14 +495,7 @@
                         <input type="date" name="fecha_emision" class="form-control" required value="{{$auditoria->fecha_emision}}">
                     </div>
                 </div>
-
             </div>
-
-
-
-
-
-    </div>
 
     <button type="submit" class="btn btn-primary">Actualizar</button>
     <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>

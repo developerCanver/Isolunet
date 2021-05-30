@@ -8,6 +8,7 @@ use App\Models\Mejora\Anomalias;
 use App\Models\Mejora\Causa;
 use App\Models\Mejora\Correlativa;
 use App\Models\Mejora\Tarea;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -25,8 +26,13 @@ class TareasPendiente extends Controller
 
     public function index(Request $request)
     {
-        $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+        $usuario = User::findOrfail(Auth::User()->id);
+        $id_empresa=$usuario->fk_empresa;
+
+
+        $empresa = DB::table('users as u')
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                        ->where('u.id','=',Auth::User()->id)
                         ->where('e.bool_estado','=','1')
                         ->first();
 
@@ -34,7 +40,7 @@ class TareasPendiente extends Controller
 
         $consultas =  DB::table('tbl_empresa as e')
                         ->join('tbl_mejo_acta as a','a.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('a.bool_estado','=','1')
                         ->where('a.terminada','=','0')
                         ->paginate(20);
@@ -44,15 +50,14 @@ class TareasPendiente extends Controller
 
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->get();
                         // dd($consulta_anomalias);
 
         $adicionales =  DB::table('tbl_empresa as e')
                         ->join('tbl_mejo_tareas as a','a.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                    
+                        ->where('e.id_empresa',  $id_empresa)
                         ->orderBy('terminada')
                         ->paginate(20);
 
@@ -60,12 +65,11 @@ class TareasPendiente extends Controller
                         ->join('tbl_empresa as e','e.id_empresa','=','a.fk_empresa')
                        ->join('tbl_mejo_causas as c','c.fk_anomalia','=','a.id_anomalia')
                        ->join('tbl_mejo_correlativas as co','co.fk_causa','=','c.id_causas')
-                       ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                       ->where('e.id_empresa',  $id_empresa)
                        ->where('terminada_co','0')
                        ->paginate(20);
 
-        //dd($anomalias);
-                    
+        //dd($anomalias);      
 
         return view('pages.mejora.tareas_pendientes.index',[
                                 'empresa'=>$empresa,
@@ -97,13 +101,8 @@ class TareasPendiente extends Controller
                 $variable->fk_empresa   =  $request->get('fk_empresa');	
 
                 $variable->terminada  = '0';
-                        
-            
 
                 $variable->save();   
-                
-            
-
                 DB::commit();
                 return Redirect::to('tareas_pendientes')->with('status','Se guardó correctamente');
             } catch (Exception $e) {
@@ -116,16 +115,20 @@ class TareasPendiente extends Controller
     public function edit($id)
     {
 
+        $usuario = User::findOrfail(Auth::User()->id);
+        $id_empresa=$usuario->fk_empresa;
+
+
         $gestiones = DB::table('tbl_empresa as e')
                         ->join('tbl_sistemas_gestion as g','g.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('g.bool_estado','=','1')
                         ->orderby('str_nombre')->get();
                         
         $procesos = DB::table('tbl_empresa as e')
                         ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('p.bool_estado','=','1')
                         ->get();
@@ -133,7 +136,7 @@ class TareasPendiente extends Controller
 
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa','=',''.Auth::User()->fk_empresa.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->get();
                         
@@ -141,10 +144,11 @@ class TareasPendiente extends Controller
 
 
 
-        $empresa = DB::table('tbl_empresa as e')
-                    ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                    ->where('e.bool_estado','=','1')
-                    ->first();
+        $empresa = DB::table('users as u')
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                        ->where('u.id','=',Auth::User()->id)
+                        ->where('e.bool_estado','=','1')
+                        ->first();
                     
         return view('pages.mejora.tareas_pendientes.edit',[
             'empresa'=>$empresa,
@@ -229,9 +233,6 @@ class TareasPendiente extends Controller
                     $variable->archivo =  $name;
                 
                 }
-
-
-
                 $variable->update(); 
 
             }
@@ -258,29 +259,16 @@ class TareasPendiente extends Controller
                             //consulto si esta ena carpeta y borro
                             unlink(public_path().'/archivos/acta/'.$archivo);
                         }
-                    
-    
+
                     $file =$request->file('archivo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/archivos/acta/', $name);
                     $variable->archivo =  $name;
                 
                 }
-    
-
-
-
                 $variable->update(); 
-               
                 
             }
-            
-        
-                
-                
-                
-                
-
 
             DB::commit();
             alert()->success('Se ha Editado correctamente.', 'Editado!')->persistent('Cerrar');
@@ -292,11 +280,5 @@ class TareasPendiente extends Controller
         }
         return Redirect::to('tareas_pendientes')->with('status','Se actualizó correctamente');
     }
-
-            
-        
-   
-    
-    
     
 }

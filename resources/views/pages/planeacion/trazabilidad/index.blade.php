@@ -154,7 +154,7 @@
                 <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                     <div class="form-group">
                         <label><strong>Observaciones:</strong></label>
-                        <textarea name="observaciones_trazabilidad" rows="2" cols="90" required="true"></textarea>
+                        <textarea name="observaciones_trazabilidad"  class="form-control" required="true"></textarea>
                     </div>
                 </div>
             </div>

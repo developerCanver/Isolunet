@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Planeacion;
 
 use App\Http\Controllers\Controller;
 use App\Models\Planeacion\PlaneacionControl;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -21,23 +22,27 @@ class PlaneacioControlController extends Controller
     public function index()
     {
 
-                $empresa = DB::table('tbl_empresa as e')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                        ->where('e.bool_estado','=','1')
-                        ->first();
+        $usuario = User::findOrfail(Auth::User()->id);
+        $rolUsuario=$usuario->fk_rol;
+        $id_empresa=$usuario->fk_empresa;
+
+        $empresa = DB::table('users as u')
+                    ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                    ->where('u.id','=',Auth::User()->id)
+                    ->where('e.bool_estado','=','1')
+                    ->first();
 
                         
-                $procesos      = DB::table('tbl_procesos as p')
-                        ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
-                        ->where('p.bool_estado',  '=','1')
-                        ->where('e.bool_estado',  '=','1')
-                        ->orderby('id_proceso', 'DESC')->get();
+        $procesos      = DB::table('tbl_procesos as p')
+                    ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
+                    ->where('e.id_empresa',  $id_empresa)
+                    ->where('p.bool_estado',  '=','1')
+                    ->where('e.bool_estado',  '=','1')
+                    ->orderby('id_proceso', 'DESC')->get();
 
                 $planeaciones =  DB::table('tbl_empresa as e')
                         ->join('tbl_plane_planificacion as i','i.fk_empresa','=','e.id_empresa')
-                        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('e.bool_estado','=','1')
                         ->where('i.bool_estado','=','1')
                         ->paginate(20);
@@ -98,19 +103,22 @@ class PlaneacioControlController extends Controller
    
     public function edit($id)
     {
+        $usuario 					= User::findOrfail(Auth::User()->id);
+                    $rolUsuario=$usuario->fk_rol;
+                    $id_empresa=$usuario->fk_empresa;
+                    
         $planeacion = PlaneacionControl::findOrfail($id);
    
 
-        $empresa = DB::table('tbl_empresa as e')
-        ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-        ->where('e.bool_estado','=','1')
-        ->first();
-
+        $empresa = DB::table('users as u')
+                        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                        ->where('u.id','=',Auth::User()->id)
+                        ->where('e.bool_estado','=','1')
+                        ->first();
         
         $procesos      = DB::table('tbl_procesos as p')
                         ->join('tbl_empresa as e','p.fk_empresa','=','e.id_empresa')
-                        ->join('users as u','u.id','=','e.fk_usuario')
-                        ->where('e.fk_usuario',     '=',''.Auth::User()->id.'')
+                        ->where('e.id_empresa',  $id_empresa)
                         ->where('p.bool_estado',  '=','1')
                         ->where('e.bool_estado',  '=','1')
                         ->orderby('id_proceso', 'DESC')->get();
@@ -128,7 +136,7 @@ class PlaneacioControlController extends Controller
         try {
             DB::beginTransaction();
 
-                $variable                   = PlaneacionControl::findOrfail($id);
+                $variable               = PlaneacionControl::findOrfail($id);
                 $variable->proceso      =$request->get('proceso');
                 $variable->variable     =$request->get('variable');
                 $variable->unidad       =$request->get('unidad');
@@ -150,10 +158,6 @@ class PlaneacioControlController extends Controller
 
 
             $variable->update();
-
-            
-         
-
 
             DB::commit();
             alert()->success('Se ha Editado correctamente.', 'Editado!')->persistent('Cerrar');

@@ -11,9 +11,12 @@ class master extends Model
     public $timestamps 		= true;
 
     protected 	$fillable = [
-		'Partes_interesadas',
+		'nombreInteresada',
 		'impacto',
 		'influencia',
+		'expectativa',
+		'estrategia',
+		'medicion',
 		'fk_empresa',
     ];
 

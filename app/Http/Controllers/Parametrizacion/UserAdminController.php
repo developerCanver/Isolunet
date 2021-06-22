@@ -51,6 +51,7 @@ class UserAdminController extends Controller
                "fk_rol",
                "imgUser"
                )
+            ->where('fk_rol','!=',1)
            ->paginate(20);
             
         }elseif($rolUsuario==2 || $rolUsuario==3 ){

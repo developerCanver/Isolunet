@@ -40,19 +40,19 @@ class PartesInteresadasController extends Controller
             
             $forminfluencia = Calificaciones::where('tipopa','=','Influencia')
                                             ->where('id_calificaciones','=','2')->first(); 
-            $cont = 1;
+            // $cont = 1;
 
-            $partes_interesadas = DB::table('tbl_partei_master as tpm')
-                                    ->join('tbl_empresa as te','tpm.fk_empresa','=','te.id_empresa')
-                                    ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-                                    ->get();
+            // $partes_interesadas = DB::table('tbl_partei_master as tpm')
+            //                         ->join('tbl_empresa as te','tpm.fk_empresa','=','te.id_empresa')
+            //                         ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
+            //                         ->get();
 
             
             return view('pages.partes_interesadas.index',[
                 'formimpacto'               => $formimpacto,
                 'forminfluencia'            => $forminfluencia,
-                'cont'                      => $cont,
-                'table_partes_interesadas'  => $partes_interesadas
+                // 'cont'                      => $cont,
+                // 'table_partes_interesadas'  => $partes_interesadas
             ]);
         }
     }
@@ -272,25 +272,25 @@ class PartesInteresadasController extends Controller
     }
 
 
-    public function form_partes(Request $request)
-    {
-        try {
-            DB::beginTransaction();
+    // public function form_partes(Request $request)
+    // {
+    //     try {
+    //         DB::beginTransaction();
             
-            $table                      = new ModelPartesInteresadas;
-            $table->partes_interesadas  = $request->get('partes_interesadas');
-            $table->impacto             = $request->get('impacto');
-            $table->influencia          = $request->get('influencia');
-            $table->fk_empresa          = Auth::User()->fk_empresa;    
-            $table->save();
+    //         $table                      = new ModelPartesInteresadas;
+    //         $table->partes_interesadas  = $request->get('partes_interesadas');
+    //         $table->impacto             = $request->get('impacto');
+    //         $table->influencia          = $request->get('influencia');
+    //         $table->fk_empresa          = Auth::User()->fk_empresa;    
+    //         $table->save();
 
-            DB::commit();
-            alert()->success('Se ha creado correctamente.', 'Creado!')->persistent('Cerrar');
-        } catch (Exception $e) {
-            DB::rollback();
-             alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
-        }
+    //         DB::commit();
+    //         alert()->success('Se ha creado correctamente.', 'Creado!')->persistent('Cerrar');
+    //     } catch (Exception $e) {
+    //         DB::rollback();
+    //          alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
+    //     }
 
-        return redirect::to('partes_interesadas')->with('status','Se Creo Correctamente');
-    }
+    //     return redirect::to('partes_interesadas')->with('status','Se Creo Correctamente');
+    // }
 }

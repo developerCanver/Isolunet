@@ -124,15 +124,15 @@
 						<th>
 			    			Dirección
 			    		</th>
-			    		<th>
-			    			Logo
-			    		</th>
+			    		<th>Logo</th>
+			    		<th>Estado</th>
 			    		<th colspan="2">
 			    			Opciones
 			    		</th>
 			    	</tr>			    	
 			    </thead>
 			    <tbody>
+					
 			    	@foreach($empresa as $h)
 			    	<tr>
 			    		<td>{{ $h->razon_social }}</td>
@@ -140,6 +140,12 @@
 			    		<td>{{ $h->ciudad }}</td>			    
 			    		<td>{{ $h->direccion }}</td>
 			    		<td><img src="{{asset('imgs/logo_empresa/'.$h->image)}}" alt="{{$h->image}}" height="100px" width="100px" class="img-thumbnail">  </td>
+						@if ($h->bool_estado==1)
+						<td><span style="color:#f4f7f7;" class="badge bg-success">Activo</span></td>
+						@else
+						<td><span style="color:#f4f7f7;" class="badge bg-danger">Desactivado</span></td>
+						@endif
+						
 			    		<td colspan="2">
 			    			<a href="{{ URL::action('Parametrizacion\EmpresaController@edit',$h->id_empresa) }}""><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
 							@if  ($rolUsuario==1)

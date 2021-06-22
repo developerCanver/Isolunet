@@ -38,11 +38,11 @@ class EmpresaController extends Controller
             $id_empresa=$usuario->fk_empresa;
             if ( $rolUsuario==1) {
                 $empresa = DB::table('tbl_empresa')
-                            ->where('bool_estado','=','1')
+                           // ->where('bool_estado','=','1')
                             ->paginate(15);
             }else {
                 $empresa = DB::table('tbl_empresa')
-                            ->where('bool_estado','=','1')
+                            //->where('bool_estado','=','1')
                             ->where('id_empresa',$id_empresa)
                             ->paginate(15);
             }

@@ -23,6 +23,16 @@ class CalificaionProveedorController extends Controller
 
     public function index(Request $request)
     {
+        $empresa = DB::table('users as u')
+        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+        ->where('u.id','=',Auth::User()->id)
+        ->where('e.bool_estado','=','1')
+        ->first();
+        if ($empresa==null) {
+            Auth::logout();
+            return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+        }
+        
         $usuario = User::findOrfail(Auth::User()->id);
                 $rolUsuario=$usuario->fk_rol;
                 $id_empresa=$usuario->fk_empresa;

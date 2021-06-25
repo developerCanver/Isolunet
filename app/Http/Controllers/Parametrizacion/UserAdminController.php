@@ -21,16 +21,22 @@ class UserAdminController extends Controller
 
     public function index(Request $request)
     {
+
     	
         $empresas       = DB::table('tbl_empresa as e')                           
                         ->where('e.bool_estado','=','1')
-                        ->get();      
+                        ->get();     
+                     
         $empresa       = DB::table('users as u')   
                         ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')                       
                         ->where('u.id',Auth::User()->id)
                         ->where('e.bool_estado',1)
                         ->first();
-                        //dd($empresa  );
+                        if ($empresa==null) {
+                            Auth::logout();
+                            return Redirect::to('login')->with('status','Se guardó correctamente');
+                        }
+                       
                            
         $usuario 					= User::findOrfail(Auth::User()->id);
         $rolUsuario=$usuario->fk_rol;

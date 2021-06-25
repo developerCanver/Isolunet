@@ -70,7 +70,7 @@
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 				<div class="form-group">
-			    	<label for="datos">Principios</label>
+			    	<label for="datos">Principios y/o Valores</label>
 			    	<textarea name="str_principios" class="form-control" row="5">@if(count($datos_corporativos_count) == 1){{ $datos_corporativos->str_principios}}@endif</textarea>
 				</div>
 			</div>

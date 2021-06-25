@@ -12,7 +12,7 @@ use App\Models\Partes_interesadas\master as ModelPartesInteresadas;
 
 class PartesInteresadas extends Component
 {
-    public $nombreInteresada='',$impacto='',$influencia='',$necesidad,$expectativa,$estrategia,$medicion,$id_partei_master;
+    public  $opcion='guardar',$nombreInteresada='',$impacto='',$influencia='',$necesidad,$expectativa,$estrategia,$medicion,$id_partei_master;
     public function render()
     {
         $table_partes_interesadas = DB::table('tbl_partei_master as tpm')
@@ -37,26 +37,31 @@ class PartesInteresadas extends Component
             
          ]);
 
-        //  try {
-        //     DB::beginTransaction();
-           //dd($this->part_interesada);
             $guardar  = new ModelPartesInteresadas();
             $guardar->nombreInteresada     = $this->nombreInteresada;
             $guardar->impacto               = $this->impacto;
             $guardar->influencia            = $this->influencia;
             $guardar->fk_empresa            = Auth::User()->fk_empresa;; 
             $guardar->save();
-
-        //     DB::commit();
-        //     alert()->success('Se ha creado correctamente.', 'Creado!')->persistent('Cerrar');
-        // } catch (Exception $e) {
-        //     DB::rollback();
-        //      alert()->error('Se ha Presentador un error.', 'Error!')->persistent('Cerrar');
-        // }
-       // return redirect('/partes_interesadas');
-        //return redirect::to('partes_interesadas')->with('status','Se Creo Correctamente');
-        
+            $this->cancelar();
     }
+
+    
+    public function edit($id){
+     
+        $edit= ModelPartesInteresadas::where('id_partei_master',$id)->first();
+        $this->id_partei_master = $id;
+        $this->nombreInteresada = $edit->nombreInteresada;
+        $this->impacto          = $edit->impacto;
+        $this->influencia       = $edit->influencia;
+        $this->opcion           = 'editar';
+    }
+    public  function delete($id){
+        ModelPartesInteresadas::destroy($id);            
+        $this->cancelar();
+    }
+
+
     public function update($id_partei_master,$opcion)
     {
         
@@ -73,10 +78,30 @@ class PartesInteresadas extends Component
         }
         
         $actualizar->update();
-
         $this->cancelar();
         
     }
+    public function updatePartes()
+    {
+        $this->validate([
+            'nombreInteresada' => 'required',
+            'impacto' => 'required',
+            'influencia' => 'required',
+            
+         ]);
+
+        $actualizar= ModelPartesInteresadas::find($this->id_partei_master); 
+        //dd($actualizar);
+
+        $actualizar->nombreInteresada   = $this->nombreInteresada;    
+        $actualizar->impacto            = $this->impacto;     
+        $actualizar->influencia         = $this->influencia;   
+
+        $actualizar->update();
+        $this->cancelar();
+        
+    }
+    
 
     public function cancelar(){
         $this->nombreInteresada     = '';
@@ -86,6 +111,7 @@ class PartesInteresadas extends Component
         $this->expectativa          = '';
         $this->estrategia           = '';
         $this->medicion             = '';
+        $this->opcion               = 'guardar';
         return redirect('/partes_interesadas');
     }
 

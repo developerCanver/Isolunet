@@ -5,13 +5,13 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="">Contexto</a>
-        <span class="breadcrumb-item active">Tendencia en Clombia</span>
+        <span class="breadcrumb-item active">Tendencias</span>
     </nav>
 </div>
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Administración de Tendencias en Colombia</h4>
+        <h4>Administración de Tendencias</h4>
         <p class="mg-b-0">Contexto</p>
     </div>
 </div>
@@ -39,10 +39,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
-                    <label for="datos">Con la información Misión, Visión, Principios, Valores, Estrategias, Política de
-                        Calidad, Objetivos y basada en la metodología del Balanced score card de Kaplan y Norton se
-                        realizaron preguntas que permiten consolidar la información y focalizarla para definir su futuro
-                        estratégico.</label><br>
+                    <label for="datos">Contribuye a identificar los elementos que marcaran el rumbo de la organización.</label><br> 
                     <textarea name="tendencia" id="editor1"></textarea>
                 </div>
             </div>
@@ -61,10 +58,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
-                    <label for="datos">Con la información Misión, Visión, Principios, Valores, Estrategias, Política de
-                        Calidad, Objetivos y basada en la metodología del Balanced score card de Kaplan y Norton se
-                        realizaron preguntas que permiten consolidar la información y focalizarla para definir su futuro
-                        estratégico.</label><br>
+                  <label for="datos">Contribuye a identificar los elementos que marcaran el rumbo de la organización.</label><br>
                     <textarea name="tendencia"
                         id="editor1">@if(($tendencia) != null){{ $tendencia->tendencia_colombia }}@endif</textarea>
                 </div>

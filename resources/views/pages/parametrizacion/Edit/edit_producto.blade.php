@@ -49,6 +49,7 @@
 				<div class="form-group">
 			    	<label for="datos">Imagen</label>
 			    	<input type="file" class="form-control" id="str_imagen" name="str_imagen" aria-describedby="" value="{{ old('str_imagen') }}">
+			    	<input type="hidden"  name="image_anterior" aria-describedby="" value="{{ $producto->str_imagen  }}">
 			    	<img src="{{asset('img/'.$producto->str_imagen)}}" alt="{{$producto->str_imagen}}" height="200px" width="200px" class="img-thumbnail">
 				</div>
 			</div>			

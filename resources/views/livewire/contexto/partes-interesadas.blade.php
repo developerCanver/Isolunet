@@ -36,8 +36,17 @@
                     @error('influencia') <span class="text-danger">{{ $message }}</span>@enderror
                 </div>
             </div>
+           
             <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12" style="margin-top: 3%;">
-                <button type="submit" wire:click="store" class="btn btn-success">Agregar</button>
+            @if ($opcion=='guardar')
+            <button type="submit" wire:click="store" class="btn btn-success">Agregar</button>
+            @else
+            <input type="hidden" class="form-control"  wire:model="id_partei_master">
+            <button type="button"
+            wire:click.prevent="updatePartes()"
+            class="btn btn-primary" data-dismiss="modal">Actualizar</button>
+            @endif
+               
 
             </div>
         </div>
@@ -61,6 +70,7 @@
                             <th>Partes Interesadas</th>
                             <th>Impacto</th>
                             <th>Influencia</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,6 +79,24 @@
                             <th>{{ $element->nombreInteresada }}</th>
                             <th>{{ $element->impacto }}</th>
                             <th>{{ $element->influencia }}</th>
+
+                    
+                            <th>  
+                                <button data-toggle="modal"                            
+                                    style="color:#18A4B4;"  wire:click="edit({{ $element->id_partei_master }})"
+                                    class="btn-sm">
+                                    <i class="  fas fa-pencil-alt " style="color:#18A4B4;"></i>
+                                </button>
+
+                            <button                            
+                                 wire:click="delete({{ $element->id_partei_master }})"
+                                class="btn-sm">
+                                <i style="color: #F7072F" class="fas fa-trash-alt "></i>
+                            </button>
+                        
+                            </th>
+                    
+        
                         </tr>
                         @endforeach
                     </tbody>

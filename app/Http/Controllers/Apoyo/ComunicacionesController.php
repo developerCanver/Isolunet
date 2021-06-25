@@ -41,7 +41,10 @@ public function index()
                         ->paginate(20);
                         //dd($comunicaciones);
                         
-
+    if ($empresa==null) {
+        Auth::logout();
+        return Redirect::to('login')->with('status','Se guardó correctamente');
+    }
    
     return view('pages.apoyo.comunicaciones.index',[
                     'empresa'  => $empresa,

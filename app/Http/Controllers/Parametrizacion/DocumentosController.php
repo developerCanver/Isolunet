@@ -33,6 +33,8 @@ class DocumentosController extends Controller
 
     public function index_documento(Request $request)
     {
+  
+
     	if ($request) {
 
             $usuario 					= User::findOrfail(Auth::User()->id);
@@ -44,6 +46,12 @@ class DocumentosController extends Controller
                             ->where('u.id',Auth::User()->id)
                             ->where('e.bool_estado',1)
                             ->first();
+
+                            if ($empresa==null) {
+                                Auth::logout();
+                                return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+                            }
+                            
 
             $documento = DB::table('tbl_documentos as d')
                         ->join('tbl_empresa as e','d.fk_empresa','=','e.id_empresa')

@@ -34,6 +34,10 @@ class InformacionController extends Controller
             ->where('u.id','=',Auth::User()->id)
             ->where('e.bool_estado','=','1')
             ->first();
+            if ($empresa==null) {
+                Auth::logout();
+                return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+            }
 
             $cargos      = DB::table('tbl_empresa as e')
                         ->join('tbl_areas as a','a.fk_empresa','=','e.id_empresa')

@@ -47,11 +47,16 @@ class CompetenciaController extends Controller
                         ->where('ap.bool_estado',  '=','1')
                          ->paginate(10);
 
-                         $empresa = DB::table('users as u')
+        $empresa = DB::table('users as u')
                          ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
                          ->where('u.id','=',Auth::User()->id)
                          ->where('e.bool_estado','=','1')
                          ->first();
+
+        if ($empresa==null) {
+            Auth::logout();
+            return Redirect::to('login')->with('status','Se guardó correctamente');
+        }
 
 
         return view('pages.apoyo.competencia.index',[

@@ -31,6 +31,15 @@ class EmpresaController extends Controller
 
     public function index(Request $request)
     {
+        $empresa = DB::table('users as u')
+		->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+		->where('u.id','=',Auth::User()->id)
+		->where('e.bool_estado','=','1')
+		->first();
+	if ($empresa==null) {
+		Auth::logout();
+		return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+	}
     	if($request){
 
             $usuario 					= User::findOrfail(Auth::User()->id);
@@ -110,13 +119,14 @@ class EmpresaController extends Controller
             $empresa->direccion			= $request->get('direccion');
             $empresa->celular			= $request->get('celular');
             $empresa->ciudad			= $request->get('ciudad');
+            $empresa->bool_estado	    = $request->get('bool_estado') ? $request->get('bool_estado') : '0' ;
             
             if ($request->hasFile('image')){
                 $file= $request->file('image');
                 $file->move(public_path().'/imgs/logo_empresa/',$file->getClientOriginalName());
                 $empresa->image =$file->getClientOriginalName();
             }
-            $empresa->bool_estado			= 1;
+           
             $empresa->update();
 
            DB::commit();

@@ -33,11 +33,7 @@
             </div>
         </div><br>
         <p>
-            Los tipos de estrategias que utilizará XXX, son el análisis PESTAL, matriz DOFA y el pensamiento basado en
-            Riesgo, con el propósito de decidir cuáles son nuestras prioridades, que nos permitan gestionar
-            estratégicamente la prestación de nuestros servicios tomando como referencia la información anteriormente
-            mencionada, el grupo directivo aplicó la metodología PESTAL, analizando seis tipos de información, los
-            cuales se enumeran a continuación:
+            El grupo directivo aplicó la metodología PESTAL, analizando seis tipos de información, los cuales se enumeran a continuación
         </p>
         <br>
         <p>

@@ -36,13 +36,24 @@ class UsuariosController extends Controller
 
     public function index(Request $request)
     {
+        $empresa = DB::table('users as u')
+        ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+        ->where('u.id','=',Auth::User()->id)
+        ->where('e.bool_estado','=','1')
+        ->first();
+    if ($empresa==null) {
+        Auth::logout();
+        return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+    }
+
+    
     	if ($request) {
     		$empresa                = DB::table('tbl_empresa as e')
                                     ->where('fk_usuario','=',''.Auth::User()->id.'')
                                     ->where('e.bool_estado','=','1')
                                     ->first();
                                     //dd($empresa);
-
+                         
     		$tabla_usuarios_cliente = DB::table('users as u')
                                     ->join('tbl_empresa as e','u.fk_empresa','e.id_empresa')
                                     ->where('id_empresa', $empresa->id_empresa)

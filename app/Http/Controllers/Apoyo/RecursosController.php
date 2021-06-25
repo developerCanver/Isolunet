@@ -25,7 +25,11 @@ class RecursosController extends Controller
                     ->where('u.id','=',Auth::User()->id)
                     ->where('e.bool_estado','=','1')
                     ->first();
-                        
+    if ($empresa==null) {
+        Auth::logout();
+        return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+    }
+        
 
             return view('pages.apoyo.recursos.create',[
                         'empresa'=>$empresa,

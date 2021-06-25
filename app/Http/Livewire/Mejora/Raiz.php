@@ -48,23 +48,4 @@ class Raiz extends Component
     {
         return view('livewire.mejora.raiz');
     }
-
-    // public  function add(){
-    //     if ($this->m6) {
-    //        if ($this->pq5) {
-    //         $this->validacion=$this->pq5;
-    //        }elseif($this->pq4){
-    //         $this->validacion=$this->pq4;
-    //        }elseif($this->pq3){
-    //         $this->validacion=$this->pq3;
-    //        }elseif($this->pq2){
-    //         $this->validacion=$this->pq2;
-    //        }elseif($this->pq1){
-    //         $this->validacion=$this->pq1;
-    //        }
-    //     }
-        
-        
-    // }
-
 }

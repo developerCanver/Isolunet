@@ -36,12 +36,12 @@
 	    	<div class="card shadow-base card-body pd-25 bd-0" style="height: 100%;">
 	      		<div class="row">
 	        		<div class="col-sm-6">
-	          			<h6 class="card-title tx-uppercase tx-12">Tendencias en Colombia</h6>
+	          			<h6 class="card-title tx-uppercase tx-12">Tendencias</h6>
 	          			<p class="display-4 tx-medium tx-inverse mg-b-5 tx-lato">{{ $cont1 }}%</p>
 	          		<div class="progress mg-b-10">
 	            	<div class="progress-bar bg-primary progress-bar-xs wd-{{ $cont1 }}p" role="progressbar" aria-valuenow="{{ $cont1 }}" aria-valuemin="0" aria-valuemax="100"></div>
 	          		</div><!-- progress -->
-	          			<p class="tx-12">Consolidar la información y focalizarla para definir su futuro estratégico.</p>
+	          			<p class="tx-12">Contribuye a identificar los elementos que marcaran el rumbo de la organización.</p>
 	          			<p class="tx-11 lh-3 mg-b-0"><a href="{{ URL::to('contexto_tendencias_en_colombia') }}" class="btn btn-success btn-xs">Diligenciar</a></p>
 	        		</div><!-- col-6 -->
 	        		<div class="col-sm-6 mg-t-20 mg-sm-t-0 d-flex align-items-center justify-content-center">
@@ -62,7 +62,7 @@
 	          		<div class="progress mg-b-10">
 	            	<div class="progress-bar bg-primary progress-bar-xs wd-{{ $cont3 }}p" role="progressbar" aria-valuenow="{{ $cont3 }}" aria-valuemin="0" aria-valuemax="100"></div>
 	          		</div><!-- progress -->
-						<p class="tx-12">Los tipos de estrategias que utilizará, son el análisis PESTAL, matriz DOFA</p>
+						<p class="tx-12">Identifica los factores del entorno general que pueden  afectar a la organización.</p>
 						<p class="tx-11 lh-3 mg-b-0"><a href="{{ URL::to('contexto_analisis_pestal') }}" class="btn btn-success btn-xs">Diligenciar</a></p>
 					</div><!-- col-6 -->
 	        		<div class="col-sm-6 mg-t-20 mg-sm-t-0 d-flex align-items-center justify-content-center">
@@ -81,7 +81,8 @@
 	          		<div class="progress mg-b-10">
 					<div class="progress-bar bg-primary progress-bar-xs wd-{{ $cont4 }}p" role="progressbar" aria-valuenow="{{ $cont4 }}" aria-valuemin="0" aria-valuemax="100"></div>
 					</div><!-- progress -->
-						<p class="tx-12">identificar los riesgos y oportunidades estratégicas para el sistema de gestión de calidad</p>
+						<p class="tx-12">Identifica las debilidades, oportunidades, fortalezas y amenazas de la organización,
+							para la generación creativa de posibles estrategias.</p>
 						<p class="tx-11 lh-3 mg-b-0"><a href="{{ URL::to('contexto_dofa') }}" class="btn btn-success btn-xs">Diligenciar</a></p>
 					</div><!-- col-6 -->
 					<div class="col-sm-6 mg-t-20 mg-sm-t-0 d-flex align-items-center justify-content-center">

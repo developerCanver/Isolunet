@@ -90,6 +90,22 @@
 				</div>
 			</div>		
 		</div>
+		@if ($empresa->bool_estado==0)
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+				<div class="form-group">
+					<label for="datos">Estado</label>
+					<select class="form-control" name="bool_estado" >
+					
+						<option value="1">Activar</option>
+						<option selected value="0">Desactivada</option>
+					</select>
+				</div>
+			</div>
+		@endif
+		
+			
+		</div>
   
   		<button type="submit" class="btn btn-warning">Editar</button>	
   		<a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>

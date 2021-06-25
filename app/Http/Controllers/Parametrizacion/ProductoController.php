@@ -32,6 +32,16 @@ class ProductoController extends Controller
 
     public function index(Request $request)
     {
+
+        $empresa = DB::table('users as u')
+		->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+		->where('u.id','=',Auth::User()->id)
+		->where('e.bool_estado','=','1')
+		->first();
+	if ($empresa==null) {
+		Auth::logout();
+		return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+	}
     	if($request){
 
             $empresa = DB::table('users as u')
@@ -65,6 +75,8 @@ class ProductoController extends Controller
                 $file=  $request->file('str_imagen');
                 $file->move(public_path().'/img/',$file->getClientOriginalName());
                 $producto->str_imagen =$file->getClientOriginalName();
+            }else{
+                $producto->str_imagen='';
             }
             $producto->fk_empresa	= $request->get('fk_empresa');
             $producto->bool_estado	= 1;
@@ -92,12 +104,20 @@ class ProductoController extends Controller
             $producto 					= Producto::findOrfail($id);
             $producto->str_producto		= $request->get('producto');            
             
-            if ($request->hasFile('image'))
-            {
-                $file= $request->file('str_imagen');
-                $file->move(public_path().'/img/',$file->getClientOriginalName());
-                $producto->str_imagen =$file->getClientOriginalName();
+            if ($request->file('str_imagen')) {
+                $archivo=$request->get('image_anterior');
+                //nombre para eliinar el anterior archivo
+                    $mi_archivo= public_path().'/img/'.$archivo;
+                    if (is_file($mi_archivo)) {
+                        unlink(public_path().'/img/'.$archivo);
+                    }
+                $file =$request->file('str_imagen');
+                $name = time().$file->getClientOriginalName();
+                $file->move(public_path().'/img/', $name);
+                $producto->str_imagen =  $name;
+            
             }
+
             $producto->update();
 
            DB::commit();

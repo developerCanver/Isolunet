@@ -148,7 +148,7 @@
 						
 			    		<td colspan="2">
 			    			<a href="{{ URL::action('Parametrizacion\EmpresaController@edit',$h->id_empresa) }}""><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
-							@if  ($rolUsuario==1)
+							@if  (($rolUsuario==1) && ( Auth::User()->fk_empresa!=$h->id_empresa))
 							<a href="{{ URL::action('Parametrizacion\EmpresaController@destroy',$h->id_empresa) }}" ><i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>
 							@endif
 			    			

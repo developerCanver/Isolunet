@@ -388,7 +388,7 @@ Route::get('mapa_proceso', [MapaProceso::class, 'index']);
 
 
 // alcance
-Route::get('alcance','alcance\AlcanceController@index');
+Route::get('alcance','Contexto\AlcanceController@index');
 // -------mejora------------
 // anomalia
 Route::get('anomalia','mejora\AnomaliasController@index');

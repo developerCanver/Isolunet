@@ -65,13 +65,7 @@ class IngresoEgresoController extends Controller
                 'id_empresa'=>$id_empresa,
                 'empresa_selecionada'=>$empresa_selecionada,
                 ]);
-       
 
-     
-   
-
-  
-     
       
     }
     public function getEmpresa(Request $request ,$id_empresa=null)
@@ -112,11 +106,7 @@ class IngresoEgresoController extends Controller
                     'empresa_selecionada'=>$empresa_selecionada,
                     ]);
            
-         	
-      
+ 
     }
-    
-
-
   
 }

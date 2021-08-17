@@ -161,22 +161,19 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>N° Significancia:</strong></label>
-                        <input type="number" required name="num_sinificancia" class="form-control" value="{{$consulta->num_sinificancia}}">
+                        <input type="number" disabled required name="num_sinificancia" class="form-control" value="{{$consulta->num_sinificancia}}">
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Significancia:</strong></label>
-                        <select name="sinificancia" required class="form-control ">
+                        <select name="sinificancia" disabled required class="form-control ">
                             <option selected disabled value="">Seleccionar...</option>
                             <option value="Alta" @if($consulta->sinificancia == 'Alta') selected  @endif >Alta</option>
                             <option value="Media" @if($consulta->sinificancia == 'Media') selected  @endif >Media</option>
                             <option value="Baja" @if($consulta->sinificancia == 'Baja') selected  @endif >Baja</option>
-                            <option value="Ninguna" @if($consulta->sinificancia == 'Ninguna') selected  @endif >Ninguna</option>
-                     
+                            <option value="Ninguna" @if($consulta->sinificancia == 'Ninguna') selected  @endif >Ninguna</option>                     
                         </select>
-                 
-
                     </div>
                 </div>
             </div>

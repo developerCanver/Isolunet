@@ -32,8 +32,6 @@ class TendeciasController extends Controller
     public function index()
     {
         
-
-                    //dd($validacion);
             $usuario	= User::findOrfail(Auth::User()->id);
             $rolUsuario=$usuario->fk_rol;
             $id_empresa=$usuario->fk_empresa;

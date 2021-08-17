@@ -7,7 +7,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planificación</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Matriz y Riesgos</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Matriz de Riesgos</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -15,7 +15,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Matriz y Riesgos</h4>
+        <h4>Matriz de Riesgos</h4>
     </div>
 </div><!-- d-flex -->
 

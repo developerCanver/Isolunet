@@ -21,10 +21,12 @@ class ProveedorController extends Controller
     public function index(Request $request)
     {
         $empresa = DB::table('users as u')
-		->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
-		->where('u.id','=',Auth::User()->id)
-		->where('e.bool_estado','=','1')
-		->first();
+                ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                ->where('u.id','=',Auth::User()->id)
+                ->where('e.bool_estado','=','1')
+                ->first();
+    $id_empresa=$empresa->fk_empresa;
+
 	if ($empresa==null) {
 		Auth::logout();
 		return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
@@ -32,33 +34,31 @@ class ProveedorController extends Controller
 
     	if($request){
 
-
-    		
-            $empresa = DB::table('users as u')
-            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
-            ->where('u.id','=',Auth::User()->id)
-            ->where('e.bool_estado','=','1')
-            ->first();
-
-            $tabla_proveedor = DB::table('tbl_proveedor as a')
-                        ->Join('tbl_empresa as e','a.fk_empresa','=','e.id_empresa')
+            $tabla_proveedor = DB::table('tbl_proveedor as a')                     
                         ->join('tbl_insumos as i','i.fk_proveedor','=','a.id_proveedor')
-                        ->join('users as u','e.id_empresa','=','u.fk_empresa')
-                        ->where('u.id','=',''.Auth::User()->id.'')
+                        ->where('a.fk_empresa',  $id_empresa)
                          ->where('a.bool_estado','=','1')
                         ->where('i.bool_estado','=','1')
-                         ->orderBy('razon_social')
                          ->orderBy('nom_proveedor')
                          ->orderBy('nom_insumo')
+                         ->orderBy('a.ciudad')
+                         ->select(
+                            'a.ciudad as ciudad',
+                            'nit_proveedor',
+                            'nom_proveedor',
+                            'teléfono',
+                            'nom_insumo',
+                            'id_proveedor',
+                            'id_insumo',
+                         )
                         ->paginate(10);   
 
-                        $proveedores = DB::table('tbl_proveedor as p')                            
+            $proveedores = DB::table('tbl_proveedor as p')
                         ->join('tbl_empresa as e','e.id_empresa','=','p.fk_empresa')
-                        ->join('users as u','e.id_empresa','=','u.fk_empresa')
-                        ->where('u.id', Auth::User()->id)                            
-                        ->where('p.bool_estado','=','1')
                         ->where('e.bool_estado','=','1')
-                        ->get();                
+                        ->where('e.id_empresa',  $id_empresa)
+                        ->where('p.bool_estado','=','1')
+                        ->get();              
 
     		return view('pages.parametrizacion.proveedor',[
                     'empresa'=>$empresa,
@@ -127,13 +127,12 @@ class ProveedorController extends Controller
         $proveedores = DB::table('tbl_proveedor')->where('bool_estado','=','1')->get();  
 
         $proveedor = DB::table('tbl_proveedor as a')
-                        ->join('tbl_empresa as e','a.fk_empresa','=','e.id_empresa')
                         ->join('tbl_insumos as i','i.fk_proveedor','=','a.id_proveedor')
                         ->where('a.id_proveedor','=', $id)
                         ->first();
                       
 
-                        $empresa = DB::table('users as u')
+        $empresa = DB::table('users as u')
                         ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
                         ->where('u.id','=',Auth::User()->id)
                         ->where('e.bool_estado','=','1')

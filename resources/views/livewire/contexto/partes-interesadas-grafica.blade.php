@@ -55,6 +55,9 @@
                     type: 'bubble',
                     data: bubbleChartData,
                     options: {
+                         legend: {
+        position: 'bottom',
+      },
                         responsive: true,
                         title:{
                             display:true,

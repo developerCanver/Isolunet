@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Contexto;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contexto\MatrizDofa;
+use App\Models\Parametrizacion\Empresa;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -24,29 +25,27 @@ class MatrizDofaController extends Controller
         
             public function index(Request $request)
             {
-                $empresa = DB::table('tbl_empresa as e')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                                ->where('e.bool_estado','=','1')
-                                ->first();
+                $empresa = Empresa::where('id_empresa',Auth::User()->fk_empresa)->where('bool_estado', '1')->first(); 
+                $id_empresa=$empresa->id_empresa;
+                if ($empresa==null) {
+                    Auth::logout();
+                    return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+                }
+    
              
         
-                $consulta_opor =  DB::table('tbl_empresa as e')
-                                ->join('tbl_contexto_matriz as p','p.fk_empresa','=','e.id_empresa')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                                ->where('p.bool_estado','=','1')
-                                ->where('e.bool_estado','=','1')
+                $consulta_opor =  DB::table('tbl_contexto_matriz')
+                                ->where('fk_empresa',$id_empresa)
+                                ->where('bool_estado','=','1')
                                 ->where('tipo_oa','=','Oportunidades')
                                 ->get();
 
-                $consulta_ame =  DB::table('tbl_empresa as e')
-                                ->join('tbl_contexto_matriz as p','p.fk_empresa','=','e.id_empresa')
-                                ->where('e.fk_usuario','=',''.Auth::User()->id.'')
-                                ->where('p.bool_estado','=','1')
-                                ->where('e.bool_estado','=','1')
-                                ->where('tipo_oa','=','Amenazas')
-                                ->get();
-                                //dd($consulta_ame);
-                                
+                $consulta_ame  =  DB::table('tbl_contexto_matriz')
+                                    ->where('fk_empresa',$id_empresa)
+                                    ->where('bool_estado','=','1')
+                                    ->where('tipo_oa','=','Amenazas')
+                                    ->get();
+                                                    
 
 
               

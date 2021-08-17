@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Redirect;
 use Alert;
+use App\Models\Parametrizacion\Empresa;
 use View;
 use Validator;
 
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\Partes_interesadas\Calificaciones;
 use App\Models\Partes_interesadas\master as ModelPartesInteresadas;
+use App\Models\User;
 
 class PartesInteresadasController extends Controller
 {
@@ -40,19 +42,21 @@ class PartesInteresadasController extends Controller
             
             $forminfluencia = Calificaciones::where('tipopa','=','Influencia')
                                             ->where('id_calificaciones','=','2')->first(); 
-            // $cont = 1;
 
-            // $partes_interesadas = DB::table('tbl_partei_master as tpm')
-            //                         ->join('tbl_empresa as te','tpm.fk_empresa','=','te.id_empresa')
-            //                         ->where('fk_empresa','=',''.Auth::User()->fk_empresa.'')
-            //                         ->get();
+            $usuario 					= User::findOrfail(Auth::User()->id);
+            $rolUsuario=$usuario->fk_rol;
+
+            $empresa = Empresa::where('id_empresa',Auth::User()->fk_empresa)->where('bool_estado', '1')->first(); 
+            if ($empresa==null) {
+                Auth::logout();
+                return Redirect::to('login')->with('status','El Administrador acaba de cerrar la empresa, para más información comuníquese con el administrador');
+            }
 
             
             return view('pages.partes_interesadas.index',[
                 'formimpacto'               => $formimpacto,
                 'forminfluencia'            => $forminfluencia,
-                // 'cont'                      => $cont,
-                // 'table_partes_interesadas'  => $partes_interesadas
+                'rolUsuario'                => $rolUsuario,
             ]);
         }
     }

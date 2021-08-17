@@ -44,27 +44,47 @@ class UserAdminController extends Controller
 
         if ($rolUsuario==1) {
             $consultas = DB::table('users as u')
-            ->join('roles as r','r.id','=','u.fk_rol')
-            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
-            ->orderByDesc('u.id')
-           ->select(
-               "u.id as id_user",
-               "u.name",
-               "u.email",
-               "razon_social",
-               "name_rol",
-               "fk_empresa",
-               "fk_rol",
-               "imgUser"
-               )
-            ->where('fk_rol','!=',1)
-           ->paginate(20);
+                                ->join('roles as r','r.id','=','u.fk_rol')
+                                ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                                ->orderByDesc('u.id')
+                                ->select(
+                                    "u.id as id_user",
+                                    "u.name",
+                                    "u.email",
+                                    "razon_social",
+                                    "name_rol",
+                                    "fk_empresa",
+                                    "fk_rol",
+                                    "imgUser"
+                                    )
+                                //->where('fk_rol','!=',1)
+                                ->paginate(20);
             
-        }elseif($rolUsuario==2 || $rolUsuario==3 ){
+        }else if($rolUsuario==2 ){
+            $consultas = DB::table('users as u')
+                            ->join('roles as r','r.id','=','u.fk_rol')
+                            ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
+                            ->where('fk_empresa',$id_empresa)
+                            ->orderByDesc('u.id')
+                            ->select(
+                            "u.id as id_user",
+                            "u.name",
+                            "u.email",
+                            "razon_social",
+                            "name_rol",
+                            "fk_empresa",
+                            "fk_rol",
+                            "imgUser"
+                            )
+                            ->paginate(20);
+               //dd($usuario);
+
+        }else if( $rolUsuario==3 ){
             $consultas = DB::table('users as u')
             ->join('roles as r','r.id','=','u.fk_rol')
             ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
             ->where('fk_empresa',$id_empresa)
+            ->where('u.id',Auth::User()->id)
             ->orderByDesc('u.id')
            ->select(
                "u.id as id_user",
@@ -76,15 +96,20 @@ class UserAdminController extends Controller
                "fk_rol",
                "imgUser"
                )
-               ->paginate(20);
+               ->paginate();
+               //dd($consultas);
 
         }
+
+        //dd($consultas);
     		return view('pages.parametrizacion.usuarioAdmin.index',[
                 'empresa'=>$empresa,
                 'empresas'=>$empresas,
                 'consultas'=>$consultas,
                 'rolUsuario'=>$rolUsuario,
+                'usuario'=>$usuario,
                 ]);
+
     	
     }
 

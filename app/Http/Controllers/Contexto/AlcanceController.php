@@ -21,7 +21,7 @@ class AlcanceController extends Controller
     public function index(Request $request)
     {
         if ($request) {
-            return view('pages.Contexto.alcance.index');
+            return view('pages.contexto.alcance.index');
         }
     }
 

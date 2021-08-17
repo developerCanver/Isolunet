@@ -53,22 +53,34 @@ class RiesgosOportunoController extends Controller
             DB::beginTransaction();
             
            $id_proceso = $request->get('fk_riesgo');
+           //dd($request);
 
-            $variable                    = new RiesgosOportuno();
-            $variable->nom_posivito      = $request->get('nom_posivito');
-            $variable->nom_riesgo        = $request->get('nom_riesgo');
-            $variable->nom_negativo      = $request->get('nom_negativo');
-            $variable->control           = $request->get('control');
-            $variable->probabilidad      = $request->get('probabilidad');
-            $variable->impacto            = $request->get('impacto');
+            $variable                        = new RiesgosOportuno();
+            $variable->nom_posivito          = $request->get('nom_posivito');
+            $variable->nom_riesgo            = $request->get('nom_riesgo');
+            $variable->nom_negativo          = $request->get('nom_negativo');
+            $variable->control               = $request->get('control');
+            $variable->probabilidad          = $request->get('probabilidad');
+            $variable->impacto               = $request->get('impacto');
            
             $variable->ree_probabilidad      = $request->get('ree_probabilidad');
-            $variable->ree_impacto           = $request->get('ree_impacto');
+            $variable->ree_impacto           =  ($request->get('ree_impacto')) ?  $request->get('ree_impacto') : '';
             $variable->nom_accion            = $request->get('nom_accion');
             $variable->nom_responsable       = $request->get('nom_responsable');
             $variable->nom_indicador         = $request->get('nom_indicador');
             $variable->bool_estado           = '1';
             $variable->fk_riesgo             = $request->get('fk_riesgo');
+            $variable->fechaEvaluacion       = $request->get('fechaEvaluacion');
+            $variable->fechaReevaluacion     = $request->get('fechaReevaluacion');
+
+            if ($request->file('archivo')) {
+                $file =$request->file('archivo');
+                $name = time().$file->getClientOriginalName();
+                $file->move(public_path().'/archivos/planificacion/', $name);
+            } else {
+                $name='';
+            }
+            $variable->archivo             = $name;
             $variable->save();
 
 
@@ -118,15 +130,34 @@ class RiesgosOportunoController extends Controller
             $variable->control           = $request->get('control');
             $variable->probabilidad      = $request->get('probabilidad');
             $variable->impacto            = $request->get('impacto');
-           
-
-         
+        
             $variable->ree_probabilidad      = $request->get('ree_probabilidad');
             $variable->ree_impacto           = $request->get('ree_impacto');
             $variable->nom_accion            = $request->get('nom_accion');
             $variable->nom_responsable       = $request->get('nom_responsable');
             $variable->nom_indicador         = $request->get('nom_indicador');
-            
+            $variable->fechaEvaluacion       = $request->get('fechaEvaluacion');
+            $variable->fechaReevaluacion     = $request->get('fechaReevaluacion');
+
+            if ($request->file('archivo')) {
+                $archivo=$request->get('archivo_anterior');
+                //nombre para eliinar el anterior archivo
+           
+                    $mi_archivo= public_path().'/archivos/planificacion/'.$archivo;
+        
+                    if (is_file($mi_archivo)) {
+                        //consulto si esta ena carpeta y borro
+                        unlink(public_path().'/archivos/planificacion/'.$archivo);
+                    }
+                
+
+                $file =$request->file('archivo');
+                $name = time().$file->getClientOriginalName();
+                $file->move(public_path().'/archivos/planificacion/', $name);
+                $variable->archivo =  $name;
+           
+            }
+
             $variable->update();
 
 

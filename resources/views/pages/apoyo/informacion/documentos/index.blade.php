@@ -185,7 +185,7 @@
 
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
-                    <label><strong>Controlador:</strong></label>
+                    <label><strong>Controlado:</strong></label>
                     <select name="contralado" class="form-control select2" required>
                         <option value="" selected="true" disabled="disabled"> Seleccione..</option>
                         <option value="1"> Si</option>
@@ -199,7 +199,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Sistema de Gestión:</strong></label>
-                    <select name="sis_gestion[]" class="form-control select2" required multiple>                       
+                    <select name="sis_gestion[]" class="form-control select2" required multiple>
                         @foreach ($sistema_gestiones as $sistema_gestione)
                         <option value="{{ $sistema_gestione->id_sisgestion  }}">{{ $sistema_gestione->str_nombre }}
                         </option>
@@ -235,7 +235,7 @@
                                 <th>Fecha Actualización</th>
                                 <th>Lugar de Archivo</th>
                                 <th>Vigente</th>
-                                <th>Controlador</th>
+                                <th>Controlado</th>
                                 {{-- <th>Sistema Gestión</th> --}}
                                 <th>Archivo</th>
                                 <th colspan="2">Opciones</th>
@@ -254,16 +254,26 @@
                                 <td>{{$informacion->version}}</td>
                                 <td>{{$informacion->fecha_info}}</td>
                                 <td>{{$informacion->lugar_archivo}}</td>
-                                <td>{{$informacion->vigente}}</td>
-                                <td>{{$informacion->contralado}}</td>
+                                <td>@if ($informacion->vigente=='1')
+                                    Si
+                                    @else
+                                    No
+                                    @endif
+                                </td>
+                                <td>@if ($informacion->contralado=='1')
+                                    Si
+                                    @else
+                                    No
+                                    @endif
+                                </td>
                                 {{-- <td>{{$informacion->sis_gestion}}</td> --}}
                                 @if ($informacion->archivo == 'Archivo no cargado')
                                 <td>{{$informacion->archivo}}</td>
                                 @else
                                 <td>{{substr(($informacion->archivo), 10)}} </td>
                                 @endif
-                                
-                              
+
+
 
                                 <td>
                                     <a
@@ -275,7 +285,7 @@
                                             class="fas fa-trash-alt " style="color:#C10000;"></i></a>&nbsp;
 
                                     @if ($informacion->archivo!='Archivo no cargado')
-                                    <a title="Descargar Archivo" href="ifo/documentada/{{$informacion->archivo}}"
+                                    <a title="Descargar Archivo" href="/ifo/{{$informacion->archivo}}"
                                         download="{{$informacion->archivo}}"
                                         style="color: rgb(53, 87, 53); font-size:18px;"> <i
                                             class="fas fa-file-download"></i></a>
@@ -458,14 +468,26 @@
                             <td>{{$informacion->responsable}}</td>
                             <td>{{$informacion->lugar_archivo}}</td>
                             <td>{{$informacion->no_copia}}</td>
-                            <td>{{$informacion->vigente}}</td>
-                            <td>{{$informacion->contralado}}</td>
+                            <td>@if ($informacion->vigente=='1')
+                                Si
+                                @else
+                                No
+                                @endif
+                            </td>
+                            <td>@if ($informacion->contralado=='1')
+                                Si
+                                @else
+                                No
+                                @endif
+                            </td>
+
+
                             @if ($informacion->archivo == 'Archivo no cargado')
                             <td>{{$informacion->archivo}}</td>
                             @else
                             <td>{{substr(($informacion->archivo), 10)}} qwe</td>
                             @endif
-                            
+
 
                             <td>
                                 <a
@@ -477,7 +499,7 @@
                                         class="fas fa-trash-alt " style="color:#C10000;"></i></a>&nbsp;
 
                                 @if ($informacion->archivo!='Archivo no cargado')
-                                <a title="Descargar Archivo" href="ifo/documentada/{{$informacion->archivo}}"
+                                <a title="Descargar Archivo" href="/ifo/{{$informacion->archivo}}"
                                     download="{{$informacion->archivo}}"
                                     style="color: rgb(53, 87, 53); font-size:18px;"> <i
                                         class="fas fa-file-download"></i></a>
@@ -591,8 +613,8 @@
 
 </div>
 <div class="row">
-    
-   
+
+
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Disposición Digital:</strong></label>
@@ -634,7 +656,7 @@
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Sistema de Gestión:</strong></label>
-            <select name="sis_gestion[]" class="form-control select2" required multiple>                       
+            <select name="sis_gestion[]" class="form-control select2" required multiple>
                 @foreach ($sistema_gestiones as $sistema_gestione)
                 <option value="{{ $sistema_gestione->id_sisgestion  }}">{{ $sistema_gestione->str_nombre }}
                 </option>
@@ -645,14 +667,14 @@
 </div>
 
 <div class="row">
-   <div class="col-md-9 col-sm-9 col-xs-12 col-lg-9">
+    <div class="col-md-9 col-sm-9 col-xs-12 col-lg-9">
         <div class="form-group">
             <label><strong>Descripción:</strong></label>
-            <textarea name="descripcion"  class="form-control" required="true"></textarea>
+            <textarea name="descripcion" class="form-control" required="true"></textarea>
         </div>
-    </div> 
+    </div>
 
-  
+
     <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
         <div class="form-group">
             <label><strong>Archivo:</strong></label>
@@ -705,7 +727,12 @@
                         <td>{{$informacion->version}}</td>
                         <td>{{$informacion->descripcion}}</td>
                         <td>{{$informacion->lugar_archivo}}</td>
-                        <td>{{$informacion->digital}}</td>
+                        <td>@if ($informacion->digital=='1')
+                            Si
+                            @else
+                            No
+                            @endif
+                        </td>
                         <td>{{$informacion->organiza}}</td>
                         <td>{{$informacion->tie_retencion}}</td>
                         <td>{{$informacion->dis_final}}</td>
@@ -722,8 +749,12 @@
                                 href="{{url('informacion_delete', array('id'=>$informacion->id_informacion,'tipo_informacion'=>$tipo_informacion))}}"><i
                                     class="fas fa-trash-alt " style="color:#C10000;"></i></a>&nbsp;
 
+                                    
+
                             @if ($informacion->archivo!='Archivo no cargado')
-                            <a title="Descargar Archivo" href="ifo/documentada/{{$informacion->archivo}}"
+
+                            
+                            <a title="Descargar Archivo" href="/ifo/{{$informacion->archivo}}"
                                 download="{{$informacion->archivo}}" style="color: rgb(53, 87, 53); font-size:18px;"> <i
                                     class="fas fa-file-download"></i></a>
 

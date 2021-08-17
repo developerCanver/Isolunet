@@ -57,14 +57,14 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Efectos negativos:</label>
-                    <input type="text" class="form-control" name="nom_negativo" aria-describedby=""
+                    <input type="text" class="form-control" name="nom_negativo" required
                         value="{{$riesgos->nom_negativo}}">
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Efectos positivos:</label>
-                    <input type="text" class="form-control" name="nom_posivito" aria-describedby=""
+                    <input type="text" class="form-control" name="nom_posivito" required
                         value="{{$riesgos->nom_posivito}}">
                 </div>
             </div>
@@ -73,13 +73,13 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Riesgo negativo: </label>
-                    <input type="text" class="form-control" name="nom_riesgo" aria-describedby=""
+                    <input type="text" class="form-control" name="nom_riesgo"required
                         value="{{$riesgos->nom_riesgo}}">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                 <div class="form-group">
                     <label for="datos">Probabilidad: </label>
                     <select name="probabilidad"  class="form-control" required>
@@ -91,7 +91,7 @@
                     
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                 <div class="form-group">
                     <label for="datos">Impacto: </label>
                     <select name="impacto"  class="form-control" required>
@@ -102,11 +102,17 @@
                     </select>                   
                 </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                 <div class="form-group">
                     <label for="datos">Controles: </label>
-                    <input type="text" class="form-control" name="control" aria-describedby=""
+                    <input type="text" class="form-control" required name="control" aria-describedby=""
                         value="{{$riesgos->control}}">          
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="form-group">
+                    <label for="datos"><strong>Fecha Evaluación:</strong></label>
+                    <input type="date" required name="fechaEvaluacion" class="form-control" value="{{$riesgos->fechaEvaluacion}}">
                 </div>
             </div>
 
@@ -142,25 +148,38 @@
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Acciones: </label>
-                    <input type="text" class="form-control" name="nom_accion" aria-describedby=""
+                    <input type="text" class="form-control" name="nom_accion" required
                         value="{{$riesgos->nom_accion}}">
                 </div>
             </div>
 
         </div>
         <div class="row">          
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Responsable: </label>
-                    <input type="text" class="form-control" name="nom_responsable" aria-describedby=""
+                    <input type="text" class="form-control" name="nom_responsable" required
                         value="{{$riesgos->nom_responsable}}">
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                 <div class="form-group">
                     <label for="datos">Indicador: </label>
-                    <input type="text" class="form-control" name="nom_indicador" aria-describedby=""
+                    <input type="text" class="form-control" name="nom_indicador" required
                         value="{{$riesgos->nom_indicador}}">
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                <div class="form-group">
+                    <label for="datos"><strong>Fecha Reevaluación:</strong></label>
+                    <input type="date" required name="fechaReevaluacion" class="form-control"  value="{{$riesgos->fechaReevaluacion}}">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="form-group">
+                    <label for="datos">Archivo</label>
+                    <input type="file" class="form-control" name="archivo">
+                    <input type="hidden" class="form-control" name="archivo_anterior"  value="{{$riesgos->archivo}}">
                 </div>
             </div>
 

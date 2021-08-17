@@ -70,7 +70,7 @@
             headers:{
                 'X-CSRF-TOKEN' : "{{csrf_token()}}"
             },
-            dictDefaultMessage: "Arrastre una imagen al recuadro para subirlo",
+            dictDefaultMessage: "Adjunte aquí archivos, fotos etc…  <br> Relacionados con recursos del sistema de gestión, personas (ej: organigrama) <br> e infraestructura  (ej: edificios, equipos, tecnología)",
             maxFilesize: 10,
             maxFiles: 20,
         };

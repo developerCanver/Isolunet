@@ -5,14 +5,14 @@
 	<nav class="breadcrumb pd-0 mg-0 tx-12">
 	  <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
 	  <a class="breadcrumb-item" href="#">Parametrizacion</a>
-	  <span class="breadcrumb-item active">Agregar Producto</span>
+	  <span class="breadcrumb-item active">Agregar Productos o Servicios</span>
 	</nav>
 </div><!-- br-pageheader -->
 
 <div class="br-pagetitle">
 	<i class="icon icon ion-aperture"></i>
 	<div>
-  		<h4>Administración de Productos</h4>
+  		<h4>Administración de Productos o Servicios</h4>
 	</div>
 </div><!-- d-flex -->
 
@@ -38,17 +38,8 @@
 		{!! Form::token() !!}
 		<br>
 
-		<div class="row">
-			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-				<div class="form-group">
-			    	<label for="datos">Empresa</label>
-			    	<select name="fk_empresa" class="form-control select2">
-			    		<option value="">Seleccionar</option>			    		
-			    		<option value="{{ $empresa->id_empresa }}" selected>{{ $empresa->razon_social }}</option>			    		
-			    	</select>
-				</div>
-			</div>
-
+		<div class="row">		
+			<input type="hidden" name="fk_empresa" value="{{ $empresa->id_empresa }}">
 			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
 				<div class="form-group">
 			    	<label for="datos">Nombre Producto</label>
@@ -79,11 +70,9 @@
 						<table class="table">
 							<thead>
 								<tr>
+								
 									<th>
-										Empresa
-									</th>
-									<th>
-										Producto
+										Productos o servicios
 									</th>
 									<th>
 										Imagen
@@ -96,9 +85,7 @@
 							<tbody>
 								@foreach($producto as $p)
 								<tr>
-									<td>									
-										{{ $p->razon_social }}										
-									</td>
+									
 									<td>{{ $p->str_producto }}</td>			    
 									<td><img src="{{asset('img/'.$p->str_imagen)}}" alt="{{$p->str_imagen}}" height="100px" width="100px" class="img-thumbnail">  </td>
 									<td colspan="2">

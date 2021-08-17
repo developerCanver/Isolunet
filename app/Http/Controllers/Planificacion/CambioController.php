@@ -116,17 +116,32 @@ class CambioController extends Controller
                 $variable->otro_externo  ='';
             }
             
-            $variable->fk_empresa            = $id_empresa;
+            $variable->fk_empresa           = $id_empresa;
             $variable->actividad            = $request->get('actividad');
-            $variable->responsable         = $request->get('responsable');
-            $variable->tiempo              = $request->get('tiempo');
-            $variable->recursos            = $request->get('recursos');
+            $variable->responsable          = $request->get('responsable');
+            $variable->tiempo               = $request->get('tiempo');
+            $variable->recursos             = $request->get('recursos');
             $variable->seguimiento          = $request->get('seguimiento');
             $variable->validad              = $request->get('validad');
-            $variable->bool_estado           = '1';
-            $variable->fk_proceso             = $request->get('fk_proceso');
-            $variable->fk_usuario             = $request->get('fk_usuario');
+            $variable->bool_estado          = '1';
+            $variable->fk_proceso           = $request->get('fk_proceso');
+            $variable->fk_usuario           = $request->get('fk_usuario');
             $variable->fk_cargo             = $request->get('fk_cargo');
+
+            $variable->descripcionCambio    = $request->get('descripcionCambio');
+            $variable->justificacionCambio  = $request->get('justificacionCambio');
+
+            if ($request->file('archivo')) {
+                $file =$request->file('archivo');
+                $name = time().$file->getClientOriginalName();
+                $file->move(public_path().'/archivos/planificacion/', $name);
+            } else {
+                $name='';
+            }
+            $variable->archivo             = $name;
+
+
+
             $variable->save();
 
            
@@ -224,6 +239,26 @@ class CambioController extends Controller
             $variable->fk_proceso             = $request->get('fk_proceso');
             $variable->fk_usuario             = $request->get('fk_usuario');
             $variable->fk_cargo             = $request->get('fk_cargo');
+            $variable->descripcionCambio    = $request->get('descripcionCambio');
+            $variable->justificacionCambio  = $request->get('justificacionCambio');
+            if ($request->file('archivo')) {
+                $archivo=$request->get('archivo_anterior');
+                //nombre para eliinar el anterior archivo
+           
+                    $mi_archivo= public_path().'/archivos/planificacion/'.$archivo;
+        
+                    if (is_file($mi_archivo)) {
+                        //consulto si esta ena carpeta y borro
+                        unlink(public_path().'/archivos/planificacion/'.$archivo);
+                    }
+                
+
+                $file =$request->file('archivo');
+                $name = time().$file->getClientOriginalName();
+                $file->move(public_path().'/archivos/planificacion/', $name);
+                $variable->archivo =  $name;
+           
+            }
             $variable->update();
 
             

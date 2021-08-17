@@ -4,21 +4,23 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-		<a class="nav-item nav-link" href="{{ URL::to('/contexto_dofa') }}"><h5><span class="badge badge-info">Análisis </span></h5></a>
-        <a class="nav-item nav-link" href="{{ URL::to('/estrategias') }}">Estrategias</a>
-        <a class="nav-item nav-link" href="{{ URL::to('/matriz_dofa') }}">Matriz </a>
- 
-      </div>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{{ URL::to('/contexto_dofa') }}">
+                <h5><span class="badge badge-info">Análisis </span></h5>
+            </a>
+            <a class="nav-item nav-link" href="{{ URL::to('/estrategias') }}">Estrategias</a>
+            <a class="nav-item nav-link" href="{{ URL::to('/matriz_dofa') }}">Matriz </a>
+
+        </div>
     </div>
-  </nav>
+</nav>
 
 <div class="br-pageheader">
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="">Contexto</a>
 
-		<a class="breadcrumb-item" href=""><span class="badge badge-dark">Análisis </span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Análisis </span></a>
     </nav>
 </div>
 <div class="br-pagetitle">
@@ -99,7 +101,7 @@
 
                 <tbody>
                     <tr>
-                        <td style="color:#C10000">Empresa</td>
+                        
                         <td style="color: #00B050"><b>Proceso</b></td>
                         <td style="color: #00B050"><b>Debilidades</b></td>
                         <td style="color: #00B050"><b>Fortalezas</b></td>
@@ -110,7 +112,7 @@
 
 
                     <tr>
-                        <td>{{ $e->razon_social }}</td>
+                     
                         <td>{{ $e->proceso }}</td>
                         <td>{{ $e->debilidades }}</td>
                         <td>{{ $e->fortalezas }}</td>
@@ -122,7 +124,7 @@
                         </td>
                     </tr>
 
-					{{-- editar analisis interno --}}	
+                    {{-- editar analisis interno --}}
 
                     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel" id="myModal-{{ $e->id_dofa }}">
@@ -130,9 +132,9 @@
                             <div class="modal-content">
 
                                 <div class="modal-header">
-									<center>
-										<h5 style="color: rgb(46, 46, 46);" class="p-2">Editar Análisis Interno</h5>
-									</center> 
+                                    <center>
+                                        <h5 style="color: rgb(46, 46, 46);" class="p-2">Editar Análisis Interno</h5>
+                                    </center>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></button>
                                 </div>
@@ -153,29 +155,31 @@
                                             @endforeach
                                         </select>
                                     </div>
-                             
-                                <div class="form-group">
-                                    <label><strong>Debilidades</strong></label>
-                                    <input type="text" name="debilidades" class="form-control"
-                                        value="{{ $e->debilidades }}">
-                                </div>
-                                <div class="form-group">
-                                    <label><strong>Fortalezas</strong></label>
-                                    <input type="text" name="fortalezas" class="form-control"
-                                        value="{{ $e->fortalezas }}">
-                                </div>
+
+                                    <div class="form-group">
+                                        <label><strong>Debilidades</strong></label>
+                                        <input type="text" name="debilidades" class="form-control"
+                                            value="{{ $e->debilidades }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><strong>Fortalezas</strong></label>
+                                        <input type="text" name="fortalezas" class="form-control"
+                                            value="{{ $e->fortalezas }}">
+                                    </div>
 
 
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary">Editar</button>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Editar</button>
+                                    </div>
+                                    {!!Form::close()!!}
                                 </div>
-                                {!!Form::close()!!}
                             </div>
                         </div>
                     </div>
-					{{-- fin momdal --}}
+                    {{-- fin momdal --}}
 
 
                     @include('pages.contexto.dofa.modals.modal_delete')
@@ -247,7 +251,7 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <td style="color:#C10000">Empresa</td>
+                       
                         <td style="color: #00B050"><b>Pestal</b></td>
                         <td style="color: #00B050"><b>Amenazas</b></td>
                         <td style="color: #00B050"><b>Opurtunidades</b></td>
@@ -257,7 +261,7 @@
                     @if ( $e->tipo_factor == "externo" )
 
                     <tr>
-                        <td>{{ $e->razon_social }}</td>
+                        
                         <td>{{ $e->pestal }}</td>
                         <td>{{ $e->amenazas }}</td>
                         <td>{{ $e->oportunidades }}</td>
@@ -271,61 +275,70 @@
 
 
 
-              		{{-- editar analisis externo --}}	
+                    {{-- editar analisis externo --}}
 
-					  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-					  aria-labelledby="myLargeModalLabel" id="myModal-{{ $e->id_dofa }}">
-					  <div class="modal-dialog modal-lg" role="document">
-						  <div class="modal-content">
+                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                        aria-labelledby="myLargeModalLabel" id="myModal-{{ $e->id_dofa }}">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
 
-							  <div class="modal-header">
-								  <center>
-									  <h5 style="color: rgb(46, 46, 46);" class="p-2">Editar Análisis Externo</h5>
-								  </center> 
-								  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-										  aria-hidden="true">&times;</span></button>
-							  </div>
-							  {{  Form::open(['action' => ['Contexto\DofaController@update',$e->id_dofa],'autocomplete'=>'off', 'method' => 'POST', 'files' => true]) }}
-							  <div class="modal-body">
-
-
-								  {!! Form::token() !!}
-
-								  <div class="form-group">
-									<label><strong>Tipo PESTAL</strong></label>
-									<select name="pestal" required class="form-control">
-										<option selected disabled value="">Seleccionar...</option>
-										<option value="Políticas" {{$e->pestal == "Políticas" ? 'selected' : '' }}>Políticas</option>
-										<option value="Económicas" {{$e->pestal == "Económicas" ? 'selected' : '' }}>Económicas</option>
-										<option value="Sociales" {{$e->pestal == "Sociales" ? 'selected' : '' }}>Sociales</option>
-										<option value="Tecnológicas" {{$e->pestal == "Tecnológicas" ? 'selected' : '' }}>Tecnológicas</option>
-										<option value="Ambientales" {{$e->pestal == "Ambientales" ? 'selected' : '' }}>Ambientales</option>
-										<option value="Legales" {{$e->pestal == "Legales" ? 'selected' : '' }}>Legales</option>
-									</select>
-								  </div>
-						   
-							  <div class="form-group">
-								  <label><strong>Amenazas</strong></label>
-								  <input type="text" name="amenazas" class="form-control"
-									  value="{{ $e->amenazas }}">
-							  </div>
-							  <div class="form-group">
-								  <label><strong>Oportunidades</strong></label>
-								  <input type="text" name="oportunidades" class="form-control"
-									  value="{{ $e->oportunidades }}">
-							  </div>
+                                <div class="modal-header">
+                                    <center>
+                                        <h5 style="color: rgb(46, 46, 46);" class="p-2">Editar Análisis Externo</h5>
+                                    </center>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                                {{  Form::open(['action' => ['Contexto\DofaController@update',$e->id_dofa],'autocomplete'=>'off', 'method' => 'POST', 'files' => true]) }}
+                                <div class="modal-body">
 
 
+                                    {!! Form::token() !!}
 
-							  <div class="modal-footer">
-								  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-								  <button type="submit" class="btn btn-primary">Editar</button>
-							  </div>
-							  {!!Form::close()!!}
-						  </div>
-					  </div>
-				  </div>
-				  {{-- fin momdal --}}
+                                    <div class="form-group">
+                                        <label><strong>Tipo PESTAL</strong></label>
+                                        <select name="pestal" required class="form-control">
+                                            <option selected disabled value="">Seleccionar...</option>
+                                            <option value="Políticas" {{$e->pestal == "Políticas" ? 'selected' : '' }}>
+                                                Políticas</option>
+                                            <option value="Económicas"
+                                                {{$e->pestal == "Económicas" ? 'selected' : '' }}>Económicas</option>
+                                            <option value="Sociales" {{$e->pestal == "Sociales" ? 'selected' : '' }}>
+                                                Sociales</option>
+                                            <option value="Tecnológicas"
+                                                {{$e->pestal == "Tecnológicas" ? 'selected' : '' }}>Tecnológicas
+                                            </option>
+                                            <option value="Ambientales"
+                                                {{$e->pestal == "Ambientales" ? 'selected' : '' }}>Ambientales</option>
+                                            <option value="Legales" {{$e->pestal == "Legales" ? 'selected' : '' }}>
+                                                Legales</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><strong>Amenazas</strong></label>
+                                        <input type="text" name="amenazas" class="form-control"
+                                            value="{{ $e->amenazas }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><strong>Oportunidades</strong></label>
+                                        <input type="text" name="oportunidades" class="form-control"
+                                            value="{{ $e->oportunidades }}">
+                                    </div>
+
+
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Editar</button>
+                                    </div>
+                                    {!!Form::close()!!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- fin momdal --}}
 
                     @include('pages.contexto.dofa.modals.modal_delete')
                     @endif

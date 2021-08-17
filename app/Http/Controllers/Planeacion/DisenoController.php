@@ -40,6 +40,7 @@ class DisenoController extends Controller
                             ->where('p.bool_estado','=','1')
                             ->where('e.bool_estado','=','1')
                             ->paginate(20);
+                            
                         
             return view('pages.planeacion.diseno.index',[
                                     'empresa'=>$empresa,
@@ -70,10 +71,71 @@ class DisenoController extends Controller
                     $variable->intensidad       = ($request->get('intensidad')) ?        $request->get('intensidad') : '';
                     $variable->permanencia      = ($request->get('permanencia')) ?       $request->get('permanencia') : '';
                     $variable->afectacion       = ($request->get('afectacion')) ?        $request->get('afectacion') : '';
-                    $variable->num_sinificancia = ($request->get('num_sinificancia')) ?  $request->get('num_sinificancia') : '';
-                    $variable->sinificancia     = ($request->get('sinificancia')) ?      $request->get('sinificancia') : '';
+                    
+                  
                     $variable->programa         = ($request->get('programa')) ?          $request->get('programa') : '';
                     $variable->fk_empresa       =  $request->get('fk_empresa');
+
+                    //=I5+J5+(2*(K5+L5+M5))+N5
+                
+                    $legal      = ($request->get('legal')=='Si') ? 1 : 0; 
+                    $control    = ($request->get('control')=='Si') ? 1 : 0; 
+                    $periodicidad =$request->get('periodicidad');
+                    $afectacion =$request->get('afectacion');
+
+                    if ( $periodicidad=='No Aplica') {
+                        $periodicidad=0;
+                    } else if ( $periodicidad=='Afectación Leve') {
+                        $periodicidad=1;
+                    }else if ( $periodicidad=='Afectación significativa') {
+                        $periodicidad=2;
+                    }
+
+                    $intensidad =$request->get('intensidad');
+                    if ( $intensidad=='No Aplica') {
+                        $intensidad=0;
+                    } else if ( $intensidad=='Afectación Leve') {
+                        $intensidad=1;
+                    }else if ( $intensidad=='Afectación significativa') {
+                        $intensidad=2;                    }
+                    $intensidad =$request->get('intensidad');
+                    if ( $intensidad=='No Aplica') {
+                        $intensidad=0;
+                    } else if ( $intensidad=='Afectación Leve') {
+                        $intensidad=1;
+                    }else if ( $intensidad=='Afectación significativa') {
+                        $intensidad=2;
+                    }
+
+                    $permanencia =$request->get('permanencia');
+                    if ( $permanencia=='No Aplica') {
+                        $permanencia=0;
+                    } else if ( $permanencia=='Afectación Leve') {
+                        $permanencia=1;
+                    }else if ( $permanencia=='Afectación significativa') {
+                        $permanencia=2;                    }
+                    $permanencia =$request->get('permanencia');
+                    if ( $permanencia=='No Aplica') {
+                        $permanencia=0;
+                    } else if ( $permanencia=='Afectación Leve') {
+                        $permanencia=1;
+                    }else if ( $permanencia=='Afectación significativa') {
+                        $permanencia=2;
+                    }
+                    $numero=$legal+$control+(2*($periodicidad+$intensidad+$permanencia))+$afectacion;                    
+                    $variable->num_sinificancia = $numero;
+                    $sinificancia='';
+                    if ($numero>=9) {
+                        $sinificancia='AlTA';
+                    }else if ($numero>=8) {
+                        $sinificancia='MEDIA';
+                    }else if ($numero>=7) {
+                        $sinificancia='BAJA';
+                    }else if ($numero<=6) {
+                        $sinificancia='NINGUNA';
+                    }
+                  
+                    $variable->sinificancia     = $sinificancia;
                    
                     $variable->bool_estado        = '1';
                     $variable->save();    
@@ -126,9 +188,66 @@ class DisenoController extends Controller
                     $variable->intensidad       = ($request->get('intensidad')) ?        $request->get('intensidad') : '';
                     $variable->permanencia      = ($request->get('permanencia')) ?       $request->get('permanencia') : '';
                     $variable->afectacion       = ($request->get('afectacion')) ?        $request->get('afectacion') : '';
-                    $variable->num_sinificancia = ($request->get('num_sinificancia')) ?  $request->get('num_sinificancia') : '';
-                    $variable->sinificancia     = ($request->get('sinificancia')) ?      $request->get('sinificancia') : '';
+        
                     $variable->programa         = ($request->get('programa')) ?          $request->get('programa') : '';
+                    $legal      = ($request->get('legal')=='Si') ? 1 : 0; 
+                    $control    = ($request->get('control')=='Si') ? 1 : 0; 
+                    $periodicidad =$request->get('periodicidad');
+                    $afectacion =$request->get('afectacion');
+
+                    if ( $periodicidad=='No Aplica') {
+                        $periodicidad=0;
+                    } else if ( $periodicidad=='Afectación Leve') {
+                        $periodicidad=1;
+                    }else if ( $periodicidad=='Afectación significativa') {
+                        $periodicidad=2;
+                    }
+
+                    $intensidad =$request->get('intensidad');
+                    if ( $intensidad=='No Aplica') {
+                        $intensidad=0;
+                    } else if ( $intensidad=='Afectación Leve') {
+                        $intensidad=1;
+                    }else if ( $intensidad=='Afectación significativa') {
+                        $intensidad=2;                    }
+                    $intensidad =$request->get('intensidad');
+                    if ( $intensidad=='No Aplica') {
+                        $intensidad=0;
+                    } else if ( $intensidad=='Afectación Leve') {
+                        $intensidad=1;
+                    }else if ( $intensidad=='Afectación significativa') {
+                        $intensidad=2;
+                    }
+
+                    $permanencia =$request->get('permanencia');
+                    if ( $permanencia=='No Aplica') {
+                        $permanencia=0;
+                    } else if ( $permanencia=='Afectación Leve') {
+                        $permanencia=1;
+                    }else if ( $permanencia=='Afectación significativa') {
+                        $permanencia=2;                    }
+                    $permanencia =$request->get('permanencia');
+                    if ( $permanencia=='No Aplica') {
+                        $permanencia=0;
+                    } else if ( $permanencia=='Afectación Leve') {
+                        $permanencia=1;
+                    }else if ( $permanencia=='Afectación significativa') {
+                        $permanencia=2;
+                    }
+                    $numero=$legal+$control+(2*($periodicidad+$intensidad+$permanencia))+$afectacion;                    
+                    $variable->num_sinificancia = $numero;
+                    $sinificancia='';
+                    if ($numero>=9) {
+                        $sinificancia='AlTA';
+                    }else if ($numero>=8) {
+                        $sinificancia='MEDIA';
+                    }else if ($numero>=7) {
+                        $sinificancia='BAJA';
+                    }else if ($numero<=6) {
+                        $sinificancia='NINGUNA';
+                    }
+                  
+                    $variable->sinificancia     = $sinificancia;
                    
                      $variable->update();
     

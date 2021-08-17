@@ -53,10 +53,13 @@
             <li class="sub-item"><a href="{{ URL::to('parm_proceso') }}"                    class="sub-link {{ request()->is('parm_proceso*') ? 'active' : ''}}">Procesos</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_documento_index') }}"            class="sub-link {{ request()->is('parm_documento_index*') ||  request()->is('parm_documento_edit*') ? 'active' : ''}}">Documentos</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_sistema_gestion') }}"            class="sub-link {{ request()->is('parm_sistema_gestion*') ||  request()->is('parm_edit_sistema_gestion*') ? 'active' : ''}}">Sistema de Gestión</a></li>
+            @if (Auth::User()->fk_rol==1)                
             <li class="sub-item"><a href="{{ URL::to('parm_usuarios_camb') }}"              class="sub-link {{ request()->is('parm_usuarios_camb*') ? 'active' : ''}}">Cambiar Usuario-Empresa</a></li>
+            @endif
+            
             <li class="sub-item"><a href="{{ URL::to('parm_origen_anomalia') }}"            class="sub-link {{ request()->is('parm_origen_anomalia*') ? 'active' : ''}}">Origen de anomalÍa</a></li>
             <li class="sub-item"><a href="{{ URL::to('parm_proveedor') }}"                  class="sub-link {{ request()->is('parm_proveedor*')  ||  request()->is('edit_parm_proveedor*') ? 'active' : ''}}">Proveedores e insumos</a></li>
-            <li class="sub-item"><a href="{{ URL::to('parm_producto') }}"                   class="sub-link {{ request()->is('parm_producto*') ||  request()->is('edit_parm_producto*') ? 'active' : ''}}">Productos</a></li>
+            <li class="sub-item"><a href="{{ URL::to('parm_producto') }}"                   class="sub-link {{ request()->is('parm_producto*') ||  request()->is('edit_parm_producto*') ? 'active' : ''}}">Productos o Servicios</a></li>
 
           
           </ul>

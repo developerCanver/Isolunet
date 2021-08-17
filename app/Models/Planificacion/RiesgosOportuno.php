@@ -26,6 +26,7 @@ class RiesgosOportuno extends Model
 		'nom_accion',        
 		'nom_responsable',        
 		'nom_indicador',        
+		'>archivo',        
     ];
 }
 /*

@@ -13,17 +13,16 @@
 	{!! Form::token() !!}
 		<div class="form-group">
 		    	<label for="datos">Descripción del riesgo u oportunidad</label><br>
-		    	<input type="text" name="riesgo"  class="form-control" value="{{ $e->riesgo_oportunidad }}">
+		    	<input type="text" required name="riesgo"  class="form-control" value="{{ $e->riesgo_oportunidad }}">
 		</div>
 		<div class="form-group">
 		    	<label for="datos">Clasificación</label><br>
-		    	<input type="text" name="clasificacion"  class="form-control" value="{{ $e->clasificacion }}">
+
+				<select required name="clasificacion" class="form-control">
+					<option value="Riesgo estratégico" {{$e->clasificacion=='Riesgo estratégico' ? 'selected' : ''}}>Riesgo estratégico</option>
+					<option value="Oportunidad estratégica" {{$e->clasificacion=='Oportunidad estratégica' ? 'selected' : ''}}>Oportunidad estratégica</option>
+				</select>
 		</div>
-	
-
-
-
-
 	    </div>
 	    <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

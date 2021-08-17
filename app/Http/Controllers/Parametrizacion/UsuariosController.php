@@ -59,7 +59,7 @@ class UsuariosController extends Controller
                                     ->where('id_empresa', $empresa->id_empresa)
                                     ->where('e.bool_estado','=','1')
     								->get();
-                                    //dd($tabla_usuarios_cliente);
+                                   // dd($tabla_usuarios_cliente);
 
     		return view('pages.parametrizacion.usuario_cliente',[
                 'empresa'=>$empresa,

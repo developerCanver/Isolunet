@@ -47,17 +47,10 @@
                         {{  Form::open(['action' => 'Parametrizacion\ProveedorController@store','autocomplete'=>'off', 'metod' => 'POST', 'files' => true]) }}
                         {!! Form::token() !!}
 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                <div class="form-group">
-                                    <label for="datos">Empresa</label>
-                                    <select name="empresa" class="form-control select2" required>
-                                        <option value="{{ $empresa->id_empresa }}" selected>{{ $empresa->razon_social }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-						</div>
+                 
+                        <input type="hidden" class="form-control"  name="empresa"
+                                        value="{{ $empresa->id_empresa }}" >
+
 						<div class="row">
 							<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                 <div class="form-group">
@@ -116,20 +109,12 @@
         {!! Form::token() !!}
 
         <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                <div class="form-group">
-                    <label for="datos">Empresa</label>
-                    <select name="empresa" class="form-control select2" required>
-                        <option value="{{ $empresa->id_empresa }}" selected>{{ $empresa->razon_social }}</option>
-                    </select>
-                </div>
-            </div>
+           
 
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Proveedor /
-                        <a type="button" class=" btn-light" data-toggle="modal" data-target="#exampleModal">Nuevo
-                            Proveedor</a>
+                        <a type="button" class=" btn-light" data-toggle="modal" data-target="#exampleModal">  <span  style="color: aliceblue; font-size: 1em" class="badge bg-success btn">Nuevo Proveedor</span></a>
                     </label>
                     <select name="nom_proveedor" class="form-control select2" required>
                         @foreach($proveedores as $proveedor)
@@ -165,17 +150,16 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                   
+                                  
                                     <th>
-                                        Empresa
-                                    </th>
-                                    <th>
-                                        Ciudad
+                                        Proveedor
                                     </th>
                                     <th>
                                         Nit Proveedor
                                     </th>
                                     <th>
-                                        Proveedor
+                                        Ciudad
                                     </th>
                                     <th>
                                         Teléfono
@@ -192,11 +176,9 @@
 
                                 @foreach($tabla_proveedor as $h)
                                 <tr>
-                                   
-                                    <td>{{ $h->razon_social }}</td>
-                                    <td>{{ $h->ciudad }}</td>
-                                    <td>{{ $h->nit_proveedor }}</td>
                                     <td>{{ $h->nom_proveedor }}</td>
+                                    <td>{{ $h->nit_proveedor }}</td>
+                                    <td>{{ $h->ciudad }}</td>
                                     <td>{{ $h->teléfono }}</td>
                                     <td>{{ $h->nom_insumo }}</td>
 

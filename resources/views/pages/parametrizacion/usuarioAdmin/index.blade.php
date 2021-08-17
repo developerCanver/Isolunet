@@ -159,20 +159,51 @@
 
                             <td colspan="2">
                                 <div class="form-row align-items-center">
+                                    @if ($rolUsuario==2)
+                                        @if ($h->id_user==$usuario->id)
+                                        <a data-toggle="modal" data-target="#exampleModal{{ $h->id_user }}"
+                                            style="color: #18A4B4" title="Editar"><i
+                                                class="fas fa-pencil-alt fa-2x"></i></a></a>&nbsp;
+                                            
+                                        @endif 
+                                    @else
                                     <a data-toggle="modal" data-target="#exampleModal{{ $h->id_user }}"
                                         style="color: #18A4B4" title="Editar"><i
                                             class="fas fa-pencil-alt fa-2x"></i></a></a>&nbsp;
 
-                                    <form action="{{route('parametrizacion_users.destroy',$h->id_user  )}}"
-                                        class="form-inline formulario-eliminar" method="POST">
+                                    @endif 
+                                   {{-- usuario super administrador --}}
+                                    @if ($rolUsuario==1)
+                                        @if  ($h->id_user!=$usuario->id)
+                                        <form action="{{route('parametrizacion_users.destroy',$h->id_user  )}}"
+                                            class="form-inline formulario-eliminar" method="POST">
 
-                                        @csrf
-                                        @method('DELETE')
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button class=" btn btn-light btn-sm">
-                                            <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
-                                        </button>
-                                    </form>
+                                            <button class=" btn btn-light btn-sm">
+                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                            </button>
+                                        </form>
+                                        @endif 
+
+                                    @else
+
+                                        @if ($rolUsuario!=3)
+                                        <form action="{{route('parametrizacion_users.destroy',$h->id_user  )}}"
+                                            class="form-inline formulario-eliminar" method="POST">
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class=" btn btn-light btn-sm">
+                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                            </button>
+                                        </form>
+                                        @endif 
+                                
+                                    @endif 
+                                   
                                 </div>
                             </td>
                         </tr>

@@ -7,7 +7,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Planificación</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">planificación de cambio</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Alineación Política, objetivos e indicadores</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -15,7 +15,7 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Alineación Objetivos</h4>
+        <h4>Alineación Política, objetivos e indicadores</h4>
     </div>
 </div><!-- d-flex -->
 
@@ -26,8 +26,7 @@
         {{  Form::open(['action' => 'Planificacion\CambioController@store','autocomplete'=>'off', 'metdod' => 'POST', 'files' => true]) }}
         {!! Form::token() !!}
 
-        <h4>  </h4>
-        <label><strong>Identificación y análisis del cambio </strong></label>
+       
         <div class="row">
 
             {{-- <input type="hidden" class="form-control" name="empresa" value="{{$empresa_selecionada->id_empresa}}">
@@ -204,7 +203,7 @@
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
-                   <label><strong>Validad:</strong></label>
+                   <label><strong>Viabilidad:</strong></label>
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                             Si
@@ -221,7 +220,30 @@
                     </div>
                 </div>
             </div>
+           
+          
     
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label for="datos">Descripción</label>
+                <input type="text" required class="form-control" name="descripcionCambio">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label for="datos">Justificación</label>
+                <input type="text" required class="form-control" name="justificacionCambio">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            <div class="form-group">
+                <label for="datos">Archivo</label>
+                <input type="file" class="form-control" name="archivo">
+            </div>
+        </div>
+
     </div>
 
     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -246,7 +268,8 @@
                             <th>Tiempo a emplear</th>
                             <th>Recursos</th>
                             <th>Seguimiento</th>
-                            <th>Validad</th>
+                            <th>Viabilidad</th>
+                            <th>Archivo</th>
 
                             <th> Opciones</th>
                         </tr>
@@ -289,7 +312,15 @@
                                 <td>No</td>
                                 @endif
 
-                                
+                                @if ($planificacion->archivo)
+                                <td style="background: #f9faf9;">
+                                    <a title="Descargar {{substr(($planificacion->archivo), 10)}}" href="/archivos/planificacion/{{$planificacion->archivo}}"
+                                        class="btn btn-light" download="{{$planificacion->archivo}}"
+                                        style="color: rgb(53, 87, 53); font-size:25px; "> <i
+                                        class=" fas fa-file-download "></i></a></td>
+                                @else
+                                <td ><span class="badge badge-warning">No existe</span></td>
+                                @endif
                            
                             <td>
                                 <a href="{{ URL::action('Planificacion\CambioController@edit',$planificacion->id_cambio) }}"><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;

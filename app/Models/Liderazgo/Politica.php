@@ -14,6 +14,7 @@ class Politica extends Model
 
     protected 	$fillable = [
         'politica',
+        'archivo',
         'fk_empresa',          
     ];
 }

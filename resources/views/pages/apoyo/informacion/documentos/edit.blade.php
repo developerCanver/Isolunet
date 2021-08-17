@@ -156,7 +156,7 @@
 
                     <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                         <div class="form-group">
-                            <label><strong>Controlador:</strong></label>
+                            <label><strong>Controlado:</strong></label>
                             <select name="contralado" class="form-control select2" required>
                                 <option value="" selected="true" disabled="disabled"> Seleccione..</option>
                                 <option value="1" @if($informacion->contralado == '1') selected @endif >Si</option>

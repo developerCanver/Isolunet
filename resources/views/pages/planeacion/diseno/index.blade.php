@@ -156,13 +156,13 @@
                         <input type="number" required name="afectacion" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                {{-- <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>N° Significancia:</strong></label>
                         <input type="number" required name="num_sinificancia" class="form-control">
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                </div> --}}
+                {{-- <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Significancia:</strong></label>
                         <select name="sinificancia" required class="form-control ">
@@ -173,11 +173,9 @@
                             <option value="Ninguna">Ninguna</option>
                         </select>
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                </div> --}}
+      
+                <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                     <div class="form-group">
                         <label for="datos"><strong>Programa ambiental asociado/tipo de control:</strong></label>
                         <input type="text" required name="programa" class="form-control">
@@ -210,6 +208,8 @@
                                 <th>Aspecto Ambiental a Evaluar</th>
                                 <th>Impacto Ambiental</th>
                                 <th>Responsabilidad:</th>
+                                <th>N° Sinificancia :</th>
+                                <th>Sinificancia:</th>
 
                                 <th colspan="2">Opciones</th>
                             </tr>
@@ -228,6 +228,8 @@
                                 <td>{{$consulta->aspectos_ambiental}}</td>
                                 <td>{{$consulta->impacto}}</td>
                                 <td>{{$consulta->responsabilidad}}</td>
+                                <td>{{$consulta->num_sinificancia}}</td>
+                                <td>{{$consulta->sinificancia}}</td>
                                 <td>
                                     <div class="form-row align-items-center">
                                         <a

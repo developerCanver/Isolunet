@@ -1,0 +1,39 @@
+http://cafeoccidente.co/administrator/index.php
+JUMO
+$2y$10$X.GP3P.zbDqdNjBACv81Le4VJYwBPlMppxXtfneihSoj.c30gnNCu
+
+jdiaz
+$2y$10$IviO3p65tX94pVQNuck/HeOlRQiGyOffMAHOSspDuXamZS2D81sia
+
+https://cpanel.cafeoccidente.co/logout/?locale=es
+cafeoccidente
+uG%Hdb0@~dBc
+
+214M10401726
+
+mariz1231@hotmail.com
+1961rivera
+
+maritzariverajurado
+sac12345
+
+coursera
+canver199@gmail.com
+coursera12345
+
+
+
+Host 201.182.249.138
+  HostName 201.182.249.138
+  User innova
+  Port 2222
+
+
+Host osmosis.opcion.digital
+  HostName osmosis.opcion.digital
+  User root
+   Port 2222
+IdentityFile C:\Users\Canver\.ssh\id_rsa
+
+
+

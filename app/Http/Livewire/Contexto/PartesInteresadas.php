@@ -56,11 +56,29 @@ class PartesInteresadas extends Component
         $this->influencia       = $edit->influencia;
         $this->opcion           = 'editar';
     }
+    
     public  function delete($id){
         ModelPartesInteresadas::destroy($id);            
         $this->cancelar();
     }
 
+    public function editPartes($id_partei_master,$opcion)
+    {
+        
+        $actualizar= ModelPartesInteresadas::find($id_partei_master); 
+     
+        if ($opcion=='necesidad') {
+            $this->necesidad    = $actualizar->necesidad;      
+        } else if($opcion=='expectativa') {
+            $this->expectativa  = $actualizar->expectativa;    
+        }else if($opcion=='estrategia') {
+            $this->estrategia   = $actualizar->estrategia;     
+        } else if($opcion=='medicion') {
+            $this->medicion     = $actualizar->medicion;       
+        }
+        
+        
+    }
 
     public function update($id_partei_master,$opcion)
     {
@@ -81,6 +99,7 @@ class PartesInteresadas extends Component
         $this->cancelar();
         
     }
+
     public function updatePartes()
     {
         $this->validate([

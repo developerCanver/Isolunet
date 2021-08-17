@@ -7,7 +7,7 @@
     <nav class="breadcrumb pd-0 mg-0 tx-12">
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Dashboard</a>
         <a class="breadcrumb-item" href="{{ URL::to('/') }}">Apoyo</a>
-        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Competencia</span></a>
+        <a class="breadcrumb-item" href=""><span class="badge badge-dark">Descriptivo de Cargo</span></a>
 
     </nav>
 </div><!-- br-pageheader -->
@@ -15,8 +15,8 @@
 <div class="br-pagetitle">
     <i class="icon icon ion-aperture"></i>
     <div>
-        <h4>Competencia</h4>
-        <p class="mg-b-0">Competencia</p>
+        <h4>Descriptivo de Cargo</h4>
+        <p class="mg-b-0">Descriptivo de Cargo</p>
     </div>
 </div><!-- d-flex -->
 
@@ -93,7 +93,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="form-group">
-                    <label><strong>Misión del Cargo:</strong></label>
+                    <label><strong>Personas a Cargo:</strong></label>
                     <textarea name="mision_cargo" class="form-control" required="true"></textarea>
                 </div>
             </div>
@@ -128,21 +128,17 @@
                     <input type="text" name="nivel1" class="form-control" required>
                 </div>
             </div>
+          
+            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                <div class="form-group">
+                    <label><strong>Área:</strong></label>
+                    <input type="text" name="edu_area1" class="form-control" required>
+                </div>
+            </div>
             <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                 <div class="form-group">
                     <label><strong>Especialidad:</strong></label>
                     <input type="text" name="especialidad1" class="form-control" required>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-                <div class="form-group">
-                    <label><strong>Área:</strong></label>
-                    <select name="edu_area1" class="form-control " required>
-                        <option value="" selected="true" disabled="disabled"> Seleccione Area..</option>
-                        @foreach ($areas as $area)
-                        <option value="{{ $area->nom_area  }}">{{ $area->nom_area }}</option>
-                        @endforeach
-                    </select>
                 </div>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
@@ -193,30 +189,24 @@
 
         </div>
         <div class="row">
-
-
             <div class="row" id="educacion" style="display: none">
-                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Nivel:</strong></label>
                         <input type="text" name="nivel2" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                    <div class="form-group">
+                        <label><strong>Área:</strong></label>
+                    <input type="text" name="edu_area2" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Especialidad:</strong></label>
                         <input type="text" name="especialidad2" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-                    <div class="form-group">
-                        <label><strong>Área:</strong></label>
-                        <select name="edu_area2" class="form-control ">
-                            <option value="" selected="true" disabled="disabled"> Seleccione Area..</option>
-                            @foreach ($areas as $area)
-                            <option value="{{ $area->nom_area  }}">{{ $area->nom_area }}</option>
-                            @endforeach
-                        </select>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
@@ -286,12 +276,8 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Sector / Área :</strong></label>
-                    <select name="exp_area1" class="form-control " required>
-                        <option value="" selected="true" disabled="disabled"> Seleccione Area..</option>
-                        @foreach ($areas as $area)
-                        <option value="{{ $area->nom_area  }}">{{ $area->nom_area }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="exp_area1" class="form-control">
+                  
                 </div>
             </div>
             <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
@@ -316,12 +302,8 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Sector / Área :</strong></label>
-                    <select name="exp_area2" class="form-control ">
-                        <option value="" selected="true" disabled="disabled"> Seleccione Area..</option>
-                        @foreach ($areas as $area)
-                        <option value="{{ $area->nom_area  }}">{{ $area->nom_area }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="exp_area2" class="form-control">
+                  
                 </div>
             </div>
             <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
@@ -329,9 +311,7 @@
                     <label><strong>Tiempo (Años):</strong></label>
                     <select name="tiempo2" class="form-control ">
                         <option value="" selected="true" disabled="disabled"> Seleccione Cantidad..</option>
-                        <option value=" < 3 Años">
-                            < 3 Años </option> <option value=" 3 a 5 Años"> 3 a 5 Años
-                        </option>
+                        <option value=" < 3 Años">< 3 Años </option> <option value=" 3 a 5 Años"> 3 a 5 Años</option>
                         <option value=" 5 a 10 Años"> 5 a 10 Años</option>
                         <option value=" > 10 Años"> > 10 Años</option>
                     </select>
@@ -345,12 +325,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                 <div class="form-group">
                     <label><strong>Sector / Área :</strong></label>
-                    <select name="exp_area3" class="form-control ">
-                        <option value="" selected="true" disabled="disabled"> Seleccione Area..</option>
-                        @foreach ($areas as $area)
-                        <option value="{{ $area->nom_area  }}">{{ $area->nom_area }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="exp_area3" class="form-control">
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
@@ -701,12 +676,8 @@
             <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                 <div class="form-group">
                     <label><strong>Área:</strong></label>
-                    <select name="ext_area1" class="form-control " required>
-                        <option value="" selected="true" disabled="disabled"> Seleccione Area..</option>
-                        @foreach ($areas as $area)
-                        <option value="{{ $area->nom_area  }}">{{ $area->nom_area }}</option>
-                        @endforeach
-                    </select>
+                    <input  type="text" name="ext_area1 " class="form-control">
+                  
                 </div>
             </div>
 
@@ -724,12 +695,7 @@
             <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                 <div class="form-group">
                     <label><strong>Área:</strong></label>
-                    <select name="ext_area2" class="form-control ">
-                        <option value="" selected="true" disabled="disabled"> Seleccione Area..</option>
-                        @foreach ($areas as $area)
-                        <option value="{{ $area->nom_area  }}">{{ $area->nom_area }}</option>
-                        @endforeach
-                    </select>
+                    <input  type="text" name="ext_area2 " class="form-control">
                 </div>
             </div>
 
@@ -747,12 +713,7 @@
             <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                 <div class="form-group">
                     <label><strong>Área:</strong></label>
-                    <select name="ext_area3" class="form-control ">
-                        <option value="" selected="true" disabled="disabled"> Seleccione Area..</option>
-                        @foreach ($areas as $area)
-                        <option value="{{ $area->nom_area  }}">{{ $area->nom_area }}</option>
-                        @endforeach
-                    </select>
+                    <input  type="text" name="ext_area3 " class="form-control">
                 </div>
             </div>
 

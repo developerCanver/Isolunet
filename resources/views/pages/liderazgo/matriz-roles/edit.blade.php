@@ -19,8 +19,6 @@
     </div>
 </div><!-- d-flex -->
 
-
-
 <div class="br-pagebody">
 
     <div class="br-section-wrapper">

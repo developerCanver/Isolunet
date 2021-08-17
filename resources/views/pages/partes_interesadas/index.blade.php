@@ -13,7 +13,10 @@
     <div>
         <h4>Partes Interesadas</h4>
         <p class="mg-b-0"></p>
+        @if ($rolUsuario==1)
+            
         <a href="{{ URL::to('pi_calificaciones') }}" class="btn btn-primary btn-xs">Agregar Calificaciones</a>
+        @endif
     </div>
 </div><!-- d-flex -->
 

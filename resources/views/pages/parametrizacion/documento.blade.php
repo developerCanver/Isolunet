@@ -53,14 +53,8 @@
 			    	<input type="text" name="sigla_documento" class="form-control" required>
 				</div>
 			</div>
-
-			<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-				<div class="form-group">
-					<label for="datos">Empresa</label>
-			    	<input type="text" name="cod_empresa" class="form-control" required value="{{ $empresa->id_empresa }}" readonly style="display: none;">
-			    	<input type="text" name="" class="form-control" required value="{{ $empresa->razon_social }}" readonly >
-				</div>
-			</div>
+		<input type="text" name="cod_empresa" class="form-control" required value="{{ $empresa->id_empresa }}" readonly style="display: none;">
+			
 		</div>
 	
 			<button type="submit" class="btn btn-primary">Guardar</button>
@@ -85,9 +79,7 @@
 								<th>
 									Sigla
 								</th>
-								<th>
-									Empresa
-								</th>
+								
 								<th colspan="2">
 									Opciones
 								</th>
@@ -98,7 +90,7 @@
 								<tr>
 									<td>{{ $d->nombre_documento }}</td>
 									<td>{{ $d->sigla_documento }}</td>
-									<td>{{ $d->razon_social }}</td>
+									
 									<td colspan="2">
 										<a href="{{ URL::action('Parametrizacion\DocumentosController@edit_documento',$d->id_documento) }}""><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
 										<a href="{{ URL::action('Parametrizacion\DocumentosController@destroy_documento',$d->id_documento) }}" ><i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i></a>

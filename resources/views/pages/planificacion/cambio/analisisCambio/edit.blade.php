@@ -271,9 +271,32 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label for="datos">Descripción</label>
+                    <input type="text" required class="form-control"  value="{{$cambios->descripcionCambio}}" name="descripcionCambio">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label for="datos">Justificación</label>
+                    <input type="text" required class="form-control" name="justificacionCambio" value="{{$cambios->justificacionCambio}}">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="form-group">
+                    <label for="datos">Archivo</label>
+                    <input type="file" class="form-control" name="archivo">
+                    <input type="hidden" class="form-control" name="archivo_anterior"  value="{{$cambios->archivo}}">
+                </div>
+            </div>
+    
+        </div>
   
 
     <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
     {!!Form::close()!!}
     <br>
    

@@ -41,14 +41,9 @@
 
 
         <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                <div class="form-group">
-                    <label for="datos">Empresa</label>
-                    <select name="empresa" class="form-control select2" required>
-                        <option value="{{ $empresa->id_empresa }}" selected>{{ $empresa->razon_social }}</option>
-                    </select>
-                </div>
-            </div>
+            <input type="hidden" class="form-control"  name="empresa"
+            value="{{ $empresa->id_empresa }}" >
+            
             <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                 <div class="form-group">
                     <label for="datos">Ciudad</label>

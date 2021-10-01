@@ -102,11 +102,11 @@
                                    
                                      @endphp
                             <tr>
-                                <td>{{$ingreso->nom_ingreso}}</td>
-                                <td> {{$ingreso->proyectado_ingreso}}</td>
-                                <td> {{$ingreso->real_ingreso}} </td>
-                                <td> {{$ingreso->total_diferencia_ingreso}}</td>
-                                <td>{{$ingreso->diferencia_ingreso}}&nbsp;%</td>
+                                <td> {{($ingreso->nom_ingreso)}}</td>
+                                <td>$ {{number_format($ingreso->proyectado_ingreso)}}</td>
+                                <td>$ {{number_format($ingreso->real_ingreso)}} </td>
+                                <td>$ {{number_format($ingreso->total_diferencia_ingreso)}}</td>
+                                <td>{{($ingreso->diferencia_ingreso) * -1}}&nbsp;%</td>
                                 
                                     <td>
                                         <a href="{{ URL::action('Liderazgo\IngresoController@edit',$ingreso->id_ingreso) }}"><i class="fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>&nbsp;
@@ -117,9 +117,9 @@
                             @endforeach
                             <tr>
                                 <td><B>TOTAL INGRESOS</b>  </td>
-                                <td>{{$tot_ingreso}}</td>
-                                <td>{{$ingreso_real}}</td>
-                                <td>{{$ingreso_total_diferencia}}</td>
+                                <td>$ {{number_format($tot_ingreso)}}</td>
+                                <td>$ {{number_format($ingreso_real)}}</td>
+                                <td>$ {{number_format($ingreso_total_diferencia)}}</td>
                                
                                 @if ($tot_ingreso != 0)
                                 <td>{{round(((($ingreso_real-$tot_ingreso)/$tot_ingreso)*100),0)}} &nbsp;%</td>

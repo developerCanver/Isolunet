@@ -102,11 +102,11 @@ Route::resource('/tomaconsecuencia',     'Apoyo\TomaConsecuenciaController');
 Route::get('/tomaconsecuenciaimg',     [TomaConsecuencia::class, 'ver_img']);
 
 
-Route::get('/competencia',     [Competencia::class, 'index']);
-Route::post('/competencia/create',     [Competencia::class, 'store']);
-Route::get('competencia/edit/{id}',    [Competencia::class, 'edit']);
-Route::post('update_competencia/{id}', 	   [Competencia::class, 'update']);
-Route::get('competencia/delete/{id}',   [Competencia::class, 'destroy']);
+Route::get('/competencia',                          [Competencia::class, 'index']);
+Route::post('/competencia/create',                  [Competencia::class, 'store']);
+Route::get('competencia/edit/{id}',                 [Competencia::class, 'edit']);
+Route::post('update_competencia/{id}',              [Competencia::class, 'update']);
+Route::get('competencia/delete/{id}',               [Competencia::class, 'destroy']);
 
 //***********************politica_vs_objetivos*************************** */
 Route::get('/politica_vs_objetivo/{id}',         [PoliticaVSObjetivos::class, 'index']);

@@ -276,10 +276,10 @@ class InformacionController extends Controller
 
     
            
-            $variable->fecha_info       =$request->get('fecha_info');
-            $variable->vigente      =$request->get('vigente');
-            $variable->contralado       =$request->get('contralado');
-            $variable->no_copia     =$request->get('no_copia');
+            $variable->fecha_info   = $request->get('fecha_info');
+            $variable->vigente      = $request->get('vigente');
+            $variable->contralado   = $request->get('contralado');
+            $variable->no_copia     = $request->get('no_copia');
 
  
 

@@ -73,6 +73,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
         {!!Form::close()!!}
 
 
@@ -105,10 +106,9 @@
                             @foreach ($egresos as $egreso)
                                      @php
                                     $tot_egreso=$tot_egreso+$egreso->proyectado_egreso;
-                                   $egreso_real=$egreso_real+$egreso->real_egreso;
+                                    $egreso_real=$egreso_real+$egreso->real_egreso;
                                     $egreso_total_diferencia=$egreso_total_diferencia+$egreso->total_diferencia_egreso;
-                                  
-                                     @endphp
+                                    @endphp
                             <tr>
                                 <td>{{$egreso->nom_egreso}}</td>
                                 <td> {{$egreso->proyectado_egreso}}</td>

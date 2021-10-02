@@ -64,7 +64,7 @@ class ActaController extends Controller
                                 ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
                                 ->where('e.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
-                                ->where('fk_rol',3)
+                                //->where('fk_rol',3)
                                 ->get();
         
                 $consultas =  DB::table('tbl_empresa as e')

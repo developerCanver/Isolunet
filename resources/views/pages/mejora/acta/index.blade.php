@@ -57,8 +57,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Proceso:</strong></label>
-                        <select name="proceso[]" class="form-control select2" required multiple>
-                           
+                        <select name="proceso[]" class="form-control select2" required multiple>                           
                             @foreach ($procesos as $proceso)
                             <option value="{{ $proceso->id_proceso }}">{{ $proceso->nom_proceso }}</option>
                             @endforeach
@@ -119,20 +118,50 @@
                     </div>
                 </div>
             </div>
-            @livewire('mejora.acta-asistentes', ['post' => null ])
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-6">
+                    <div class="form-group">
+                        <label><strong>Usuarios:</strong></label>
+                        <select name="fk_user[]" class="form-control select2" required multiple>                           
+                            @foreach ($usuarios as $user)
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-6">
+                    <div class="form-group">
+                        <label><strong>Otros Usuarios:</strong></label>
+                        <label for="datos"><strong>Otros Usuarios:</strong></label>
+                        <input type="text" class="form-control" >
+                    </div>
+                </div>
+            </div>
+            {{-- @ livewire('mejora.acta-asistentes', ['post' => null ]) --}}
 
             @livewire('mejora.acta-temas', ['post' => null ])
 
             <h5 class="pt-3" style="color: rgb(46, 46, 46);">Acciones y Compromisos</h5>
 
+
             <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="form-group">
+                       
+                        <textarea name="Accion"
+                            id="editor1"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {{-- <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Acción:</strong></label>
                         <input type="text" required name="accion" class="form-control">
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                </div> --}}
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Responsable:</strong></label>
                         <select name="responsable" class="form-control " required>
@@ -144,13 +173,13 @@
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Fecha Inicio:</strong></label>
                         <input type="date" required name="fecha_inicio_acc" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Fecha Final:</strong></label>
                         <input type="date" required name="fecha_final_acc" class="form-control">
@@ -359,7 +388,7 @@
 <script type="text/javascript">
     // In your Javascript (external .js resource or <script> tag)
 
-    CKEDITOR.replace('entrada_salida');
+    CKEDITOR.replace('Accion');
 
     $('.input-number').on('input', function () {
         this.value = this.value.replace(/[^0-9]/g, '');

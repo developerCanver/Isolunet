@@ -27,6 +27,7 @@ class ActaAsistentes extends Component
         $i = $i + 1;
         $this->i = $i;
         array_push($this->inputs ,$i);
+        // $this->inputs= array_reverse($this->inputs, true);
     }
 
     public function remove($i)
@@ -50,7 +51,7 @@ class ActaAsistentes extends Component
                     ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
                     ->where('e.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
-                    ->where('fk_rol',3)
+                    //->where('fk_rol',3)
                     ->get();
         $cargos = DB::table('tbl_areas as a')
                     ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
@@ -63,10 +64,10 @@ class ActaAsistentes extends Component
                     ->get();   
 
         return view('livewire.mejora.acta-asistentes',[
-            'usuarios'=>$usuarios,
-            'cargos'=>$cargos,
-            'consulta'=>$consulta,
-            'post'=>$this->post,
+                'usuarios'=>$usuarios,
+                'cargos'=>$cargos,
+                'consulta'=>$consulta,
+                'post'=>$this->post,
                 ]);
     }
 }

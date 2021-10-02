@@ -5,6 +5,8 @@ namespace App\Http\Controllers\mejora;
 use App\Http\Controllers\Controller;
 use App\Models\mejora\Acta;
 use App\Models\mejora\ActaAsistente;
+use App\Models\Mejora\ActasGestion;
+use App\Models\Mejora\ActasProceso;
 use App\Models\mejora\ActaTemas;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -96,8 +98,7 @@ class ActaController extends Controller
                         $variable 				  = new Acta();
                 	
                         $variable->acta         = ($request->get('acta')) ?            $request->get('acta') : '';	
-                        $variable->gestion      = ($request->get('gestion')) ?         $request->get('gestion') : '';	
-                        $variable->proceso      = ($request->get('proceso')) ?         $request->get('proceso') : '';	
+                      	
                         $variable->tipo_acta    = ($request->get('tipo_acta')) ?       $request->get('tipo_acta') : '';	
                         $variable->fecha_acta   = ($request->get('fecha_acta')) ?      $request->get('fecha_acta') : '';	
                         $variable->lugar        = ($request->get('lugar')) ?           $request->get('lugar') : '';	
@@ -131,8 +132,6 @@ class ActaController extends Controller
                         }
                         $variable->archivo =  $name;
 
-
-
                         $variable->save();   
                         
                    
@@ -164,6 +163,23 @@ class ActaController extends Controller
                             $tiporequisito->fk_acta       = $variable->id_acta;
                             $tiporequisito->bool_estado    = '1';
                             $tiporequisito->save();
+                        }
+
+                        $gestion      = $request->get('gestion');	
+                        for ($i=0; $i <  count($gestion) ; $i++) {
+        
+                            $guardar = new ActasGestion();
+                            $guardar->gestion_id    = $gestion[$i];                       
+                            $guardar->acta_id       = $variable->id_acta;
+                            $guardar->save();
+                        }
+                        $proceso = $request->get('proceso');
+                        for ($i=0; $i <  count($proceso) ; $i++) {
+        
+                            $guardar = new ActasProceso();
+                            $guardar->proceso_id    =$proceso[$i];                       
+                            $guardar->acta_id       = $variable->id_acta;
+                            $guardar->save();
                         }
 
                         DB::commit();

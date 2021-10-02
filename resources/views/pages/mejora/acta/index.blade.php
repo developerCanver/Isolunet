@@ -45,21 +45,22 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Sistema de Gestión:</strong></label>
-                        <select name="gestion" class="form-control select2" required>
-                            <option selected disabled value="">Seleccione Gestión...</option>
+                        <select name="gestion[]" class="form-control select2" required multiple>
+
                             @foreach ($gestiones as $gestion)
-                            <option value="{{ $gestion->str_nombre }}">{{ $gestion->str_nombre }}</option>
+                            <option value="{{ $gestion->id_sisgestion }}">{{ $gestion->str_nombre }}</option>
                             @endforeach
+
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Proceso:</strong></label>
-                        <select name="proceso" class="form-control select2" required>
-                            <option selected disabled value="">Seleccione Proceso...</option>
+                        <select name="proceso[]" class="form-control select2" required multiple>
+                           
                             @foreach ($procesos as $proceso)
-                            <option value="{{ $proceso->nom_proceso }}">{{ $proceso->nom_proceso }}</option>
+                            <option value="{{ $proceso->id_proceso }}">{{ $proceso->nom_proceso }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -69,12 +70,9 @@
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
-                        <label><strong>Tipo de Acta:</strong></label>
-                        <select name="tipo_acta" class="form-control select2" required>
-                            <option selected disabled value="">Seleccionar</option>
-                            <option value="Privada">Privada</option>
-                            <option value="Publica">Publica</option>
-                        </select>
+                        <label><strong>Tipo Reunion:</strong></label>
+                        <input type="text" class="form-control" name="tipo_acta">
+                       
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
@@ -226,8 +224,7 @@
                             <tr>
                                 <th>Codigo Acta:</th>
                                 <th>Nombre Acta</th>
-                                <th>Sistema Gestión</th>
-                                <th>Proceso</th>
+                          
                                 <th>Tipo Acta</th>
                                 <th>Fecha</th>
                                 <th>Lugar</th>
@@ -236,25 +233,18 @@
                                 <th>Registrado por</th>
                                 <th>Archivo</th>
 
-
-
-
-
                                 <th colspan="2">Opciones</th>
                             </tr>
                         </thead>
 
                         <tbody>
-
-
                             @foreach ($consultas as $consulta)
 
                             @if ($consulta->terminada == 0)
                             <tr>
                                 <td>{{$consulta->id_acta}}</td>
                                 <td>{{$consulta->acta}}</td>
-                                <td>{{$consulta->gestion}}</td>
-                                <td>{{$consulta->proceso}}</td>
+                             
                                 <td>{{$consulta->tipo_acta}}</td>
                                 <td>{{$consulta->fecha_acta}}</td>
                                 <td>{{$consulta->lugar}}</td>
@@ -271,8 +261,7 @@
                                 @else
                                 <td>No existe</td>
                                 @endif
-                              
-                               
+                       
                               
                                 <td>
                                     <div class=" form-row align-items-center">
@@ -320,8 +309,6 @@
                                 <td  style="background: #b6ffde;">No existe</td>
                                 @endif
                               
-                               
-                              
                                 <td >
                                     <div class=" form-row align-items-center">
                                         <a href="{{ URL::action('mejora\ActaController@edit',$consulta->id_acta   ) }}"><i
@@ -343,8 +330,6 @@
                                 </td>
                             </tr>
 
-
-                                
                             @endif
                 @endforeach
 

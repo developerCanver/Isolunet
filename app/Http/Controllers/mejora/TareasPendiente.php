@@ -43,10 +43,7 @@ class TareasPendiente extends Controller
                         ->where('e.id_empresa',  $id_empresa)
                         ->where('a.bool_estado','=','1')
                         ->where('a.terminada','=','0')
-                        ->paginate(20);
-
-
-                        
+                        ->paginate(20);      
 
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')

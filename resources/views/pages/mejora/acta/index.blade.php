@@ -155,12 +155,7 @@
             </div>
 
             <div class="row">
-                {{-- <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="form-group">
-                        <label><strong>Acción:</strong></label>
-                        <input type="text" required name="accion" class="form-control">
-                    </div>
-                </div> --}}
+           
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Responsable:</strong></label>

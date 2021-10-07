@@ -115,6 +115,8 @@ class ActaController extends Controller
                         $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
                         $variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
                         $variable->observaciones_ejecuccion = ($request->get('observaciones_ejecuccion')) ? $request->get('observaciones_ejecuccion') : '';	
+                        $variable->otros_user        = ($request->get('otros_user')) ?         $request->get('otros_user') : '';	
+
                      
                         $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '';	
                     
@@ -143,7 +145,7 @@ class ActaController extends Controller
         
                             $tiporequisito = new ActaAsistente();
                             $tiporequisito->asistente    =    $asistente[$i];
-                            $tiporequisito->cargo  =    $cargo[$i];
+                           //$tiporequisito->cargo  =    $cargo[$i];
         
                             $tiporequisito->fk_acta       = $variable->id_acta;
                             $tiporequisito->bool_estado    = '1';
@@ -153,7 +155,7 @@ class ActaController extends Controller
                         $tema     = $request->get('tema');
                         $comentario     = $request->get('comentario');
                       // dd(count($asistente));
-        
+                        if (!empty($tema)) {
                         for ($i=0; $i <  count($tema) ; $i++) {
         
                             $tiporequisito = new ActaTemas();
@@ -164,6 +166,8 @@ class ActaController extends Controller
                             $tiporequisito->bool_estado    = '1';
                             $tiporequisito->save();
                         }
+                        }
+
 
                         $gestion      = $request->get('gestion');	
                         for ($i=0; $i <  count($gestion) ; $i++) {
@@ -204,6 +208,10 @@ class ActaController extends Controller
                                 ->where('e.bool_estado','=','1')
                                 ->where('g.bool_estado','=','1')
                                 ->orderby('str_nombre')->get();
+
+                $sis_selec = DB::table('tbl_mejo_acta_ges as s')
+                                ->where('acta_id',  $id)
+                                ->get();
                                 
                 $procesos = DB::table('tbl_empresa as e')
                                 ->join('tbl_procesos as p','p.fk_empresa','=','e.id_empresa')
@@ -212,26 +220,23 @@ class ActaController extends Controller
                                 ->where('p.bool_estado','=','1')
                                 ->get();
 
-                $cargos = DB::table('tbl_areas as a')
-                                ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
-                                ->join('tbl_cargos as e','a.id_area','=','e.fk_area')
-                                ->where('em.id_empresa',  $id_empresa)
-                                ->where('e.bool_estado','=','1')
-                                ->where('em.bool_estado','=','1')
-                                ->where('a.bool_estado','=','1')
-                                ->orderby('em.razon_social','desc')
-                                ->get();  
+                $pro_selec = DB::table('tbl_mejo_acta_proce as p')
+                                ->where('acta_id',  $id)
+                                ->get();
+
                 $usuarios = DB::table('users as u')
                                 ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
                                 ->where('e.id_empresa',  $id_empresa)
                                 ->where('e.bool_estado','=','1')
-                                ->where('fk_rol',3)
+                                //->where('fk_rol',3)
                                 ->get();
-                                
+
+                $usu_selec = DB::table('tbl_mejo_acta_asistente as u')
+                                ->where('fk_acta',  $id)
+                                ->get();
+
                 $consulta   = Acta::findOrfail($id);
     
-        
-        
                 $empresa = DB::table('users as u')
                                 ->join('tbl_empresa as e','e.id_empresa','=','u.fk_empresa')
                                 ->where('u.id','=',Auth::User()->id)
@@ -243,6 +248,9 @@ class ActaController extends Controller
                     'procesos'=>$procesos,
                     'consulta'=>$consulta,
                     'usuarios'=>$usuarios,
+                    'usu_selec'=>$usu_selec,
+                    'pro_selec'=>$pro_selec,
+                    'sis_selec'=>$sis_selec,
                     ]);
             }
         
@@ -257,8 +265,6 @@ class ActaController extends Controller
                         $variable                     = Acta::findOrfail($id);
                  
                         $variable->acta         = ($request->get('acta')) ?            $request->get('acta') : '';	
-                        $variable->gestion      = ($request->get('gestion')) ?         $request->get('gestion') : '';	
-                        $variable->proceso      = ($request->get('proceso')) ?         $request->get('proceso') : '';	
                         $variable->tipo_acta    = ($request->get('tipo_acta')) ?       $request->get('tipo_acta') : '';	
                         $variable->fecha_acta   = ($request->get('fecha_acta')) ?      $request->get('fecha_acta') : '';	
                         $variable->lugar        = ($request->get('lugar')) ?           $request->get('lugar') : '';	
@@ -275,6 +281,7 @@ class ActaController extends Controller
                         $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
                         $variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
                         $variable->observaciones_ejecuccion      = ($request->get('observaciones_ejecuccion')) ?         $request->get('observaciones_ejecuccion') : '';	
+                        $variable->otros_user      = ($request->get('otros_user')) ?         $request->get('otros_user') : '';	
                      
                         $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '';	
                     
@@ -310,10 +317,9 @@ class ActaController extends Controller
         
                             $tiporequisito = new ActaAsistente();
                             $tiporequisito->asistente    =    $asistente[$i];
-                            $tiporequisito->cargo  =    $cargo[$i];
-        
-                            $tiporequisito->fk_acta       = $variable->id_acta;
-                            $tiporequisito->bool_estado    = '1';
+                            //$tiporequisito->cargo        =    $cargo[$i];        
+                            $tiporequisito->fk_acta      = $variable->id_acta;
+                            $tiporequisito->bool_estado  = '1';
                             $tiporequisito->save();
                         }
 
@@ -322,17 +328,43 @@ class ActaController extends Controller
                         $tema     = $request->get('tema');
                         $comentario     = $request->get('comentario');
                       
-        
-                        for ($i=0; $i <  count($tema) ; $i++) {
-        
-                            $tiporequisito = new ActaTemas();
-                            $tiporequisito->tema    =    $tema[$i];
-                            $tiporequisito->comentario  =    $comentario[$i];
-        
-                            $tiporequisito->fk_acta       = $variable->id_acta;
-                            $tiporequisito->bool_estado    = '1';
-                            $tiporequisito->save();
+                        if (!empty($tema)) {
+                            for ($i=0; $i <  count($tema) ; $i++) {
+            
+                                $tiporequisito = new ActaTemas();
+                                $tiporequisito->tema    =    $tema[$i];
+                                $tiporequisito->comentario  =    $comentario[$i];        
+                                $tiporequisito->fk_acta       = $variable->id_acta;
+                                $tiporequisito->bool_estado    = '1';
+                                $tiporequisito->save();
+                            }
                         }
+
+
+
+                        ActasGestion::where('acta_id', $id)->delete();                        
+
+                        $gestion      = $request->get('gestion');	
+                        for ($i=0; $i <  count($gestion) ; $i++) {
+        
+                            $guardar = new ActasGestion();
+                            $guardar->gestion_id    = $gestion[$i];                       
+                            $guardar->acta_id       = $variable->id_acta;
+                            $guardar->save();
+                        }
+
+                        ActasProceso::where('acta_id', $id)->delete();                        
+
+                        $proceso = $request->get('proceso');
+                        for ($i=0; $i <  count($proceso) ; $i++) {
+        
+                            $guardar = new ActasProceso();
+                            $guardar->proceso_id    =$proceso[$i];                       
+                            $guardar->acta_id       = $variable->id_acta;
+                            $guardar->save();
+                        }
+
+
                     DB::commit();
                     alert()->success('Se ha Editado correctamente.', 'Editado!')->persistent('Cerrar');
                 

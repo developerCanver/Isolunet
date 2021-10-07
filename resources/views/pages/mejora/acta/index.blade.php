@@ -69,7 +69,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
-                        <label><strong>Tipo Reunion:</strong></label>
+                        <label><strong>Tipo Reunión:</strong></label>
                         <input type="text" class="form-control" name="tipo_acta">
                        
                     </div>
@@ -98,7 +98,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Fecha Próxima Reunión:</strong></label>
-                        <input type="date" required name="fecha_proxima" class="form-control">
+                        <input type="date"  name="fecha_proxima" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
@@ -133,7 +133,7 @@
                     <div class="form-group">
                         <label><strong>Otros Usuarios:</strong></label>
                         <label for="datos"><strong>Otros Usuarios:</strong></label>
-                        <input type="text" class="form-control" >
+                        <input type="text" name="otros_user" class="form-control" >
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                     <div class="form-group">
                        
-                        <textarea name="Accion"
+                        <textarea name="accion"
                             id="editor1"></textarea>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
 
             <div class="row">
            
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Responsable:</strong></label>
                         <select name="responsable" class="form-control " required>
@@ -168,16 +168,22 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Fecha Inicio:</strong></label>
                         <input type="date" required name="fecha_inicio_acc" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Fecha Final:</strong></label>
                         <input type="date" required name="fecha_final_acc" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                    <div class="form-group">
+                        <label><strong>Archivo:</strong></label>
+                        <input type="file"  name="archivo"  class="form-control" >
                     </div>
                 </div>
             </div>
@@ -383,7 +389,7 @@
 <script type="text/javascript">
     // In your Javascript (external .js resource or <script> tag)
 
-    CKEDITOR.replace('Accion');
+    CKEDITOR.replace('accion');
 
     $('.input-number').on('input', function () {
         this.value = this.value.replace(/[^0-9]/g, '');

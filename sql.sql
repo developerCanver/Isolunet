@@ -17,6 +17,12 @@ Contraseña: Alejo2021+
 
 //tablas para modificar
 
+ALTER TABLE `tbl_mejo_acta_asistente` DROP `cargo`;
+
+ALTER TABLE `tbl_mejo_acta` CHANGE `archivo` `archivo` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `tbl_mejo_acta` ADD `otros_user` VARCHAR(200) NOT NULL AFTER `terminada`;
+ALTER TABLE `tbl_mejo_acta` CHANGE `otros_user` `otros_user` VARCHAR(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;
+ALTER TABLE `tbl_mejo_acta` CHANGE `archivo` `archivo` VARCHAR(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
 //enviar user login
      $empresa = Empresa::where('id_empresa',Auth::User()->fk_empresa)->where('bool_estado', '1')->first(); 
             if ($empresa==null) {

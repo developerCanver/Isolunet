@@ -86,7 +86,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
+            {{-- <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                 <div class="form-group">
                     <label for="datos"><strong>Cargo:</strong></label>
                     <select name="fk_cargor[]" class="form-control " required>
@@ -98,7 +98,7 @@
                     </select>
 
                 </div>
-            </div>
+            </div> --}}
 
             <div class="col-md-2">
                 <a href="{{url('acta_delete', array('id'=>$consul->id_asistente,'tipo_informacion'=>$post))}}"><i
@@ -123,7 +123,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
+            {{-- <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                 <div class="form-group">
                     <label for="datos"><strong>Cargo:</strong></label>
                     <select name="fk_cargor[]" class="form-control " required>
@@ -133,7 +133,7 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="col-md-2">
                 <button class="btn btn-danger btn-sm" wire:click.prevent="remove({{$key}})">Eliminar</button>

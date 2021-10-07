@@ -35,6 +35,7 @@ protected 	$fillable = [
     'observaciones_ejecuccion',	
     'terminada',	
     'bool_estado',	
+    'otros_user',
     'fk_empresa',         
 
 ];

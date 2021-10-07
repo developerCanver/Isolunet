@@ -13,8 +13,7 @@ class ActaAsistente extends Model
     public $timestamps 		= false;
 
 protected 	$fillable = [ 
-    'asistente',	
-    'cargo',	
+    'asistente',		
     'bool_estado',	
     'fk_acta',	        
 

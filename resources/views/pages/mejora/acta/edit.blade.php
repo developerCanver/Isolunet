@@ -44,23 +44,30 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Sistema de Gestión:</strong></label>
-                        <select name="gestion" class="form-control select2" required>
-                            <option selected disabled value="">Seleccione Gestión...</option>
-                            @foreach ($gestiones as $gestion)
-                            <option value="{{ $gestion->str_nombre }}" {{ $gestion->str_nombre == $consulta->gestion ? 'selected' : ''}} >
-                                {{ $gestion->str_nombre }}</option>
+                        <select multiple  class="form-control select2" name="gestion[]">
+                            @foreach($gestiones as $gestione)
+                            <option value="{{$gestione->id_sisgestion}}"
+                                @foreach($sis_selec as  $sis_sel)
+                                @if ($gestione->id_sisgestion == $sis_sel->gestion_id) selected @endif 
+                                @endforeach >
+                                {{$gestione->str_nombre}}
+                            </option>
                             @endforeach
                         </select>
+
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
-                        <label><strong>Proceso:</strong></label>
-                        <select name="proceso" class="form-control select2" required>
-                            <option selected disabled value="">Seleccione Proceso...</option>
-                            @foreach ($procesos as $proceso)
-                            <option value="{{ $proceso->nom_proceso }}" {{ $proceso->nom_proceso == $consulta->proceso ? 'selected' : ''}} >
-                                {{ $proceso->nom_proceso }}</option>
+                        <label><strong>Proceso:</strong></label>                 
+                        <select multiple  class="form-control select2" name="proceso[]">
+                            @foreach($procesos as $proceso)
+                            <option value="{{$proceso->id_proceso}}"
+                                @foreach($pro_selec as  $pro_se)
+                                @if ($proceso->id_proceso == $pro_se->proceso_id) selected @endif 
+                                @endforeach >
+                                {{$proceso->tipo_proceso}}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -70,12 +77,8 @@
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
-                        <label><strong>Tipo de Acta:</strong></label>
-                        <select name="tipo_acta" class="form-control select2" required>
-                            <option selected disabled value="">Seleccionar</option>
-                            <option value="Privada" {{ $consulta->tipo_acta == 'Privada' ? 'selected' : '' }} >Privada</option>
-                            <option value="Publica" {{ $consulta->tipo_acta == 'Publica' ? 'selected' : '' }} >Publica</option>
-                        </select>
+                        <label><strong>Tipo Reunión:</strong></label>
+                        <input type="text" required name="tipo_acta" class="form-control" value="{{$consulta->tipo_acta}}">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
@@ -102,7 +105,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Fecha Próxima Reunión:</strong></label>
-                        <input type="date" required name="fecha_proxima" class="form-control" value="{{$consulta->fecha_proxima}}">
+                        <input type="date"  name="fecha_proxima" class="form-control" value="{{$consulta->fecha_proxima}}">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
@@ -121,19 +124,57 @@
                     </div>
                 </div>
             </div>
-            @livewire('mejora.acta-asistentes', ['post' => $consulta->id_acta ])
-
-            @livewire('mejora.acta-temas', ['post' => $consulta->id_acta ])
-          
-            <h5 class="pt-3" style="color: rgb(46, 46, 46);">Acciones y Compromisos</h5>
-
             <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-6">
                     <div class="form-group">
-                        <label><strong>Acción:</strong></label>
-                        <input type="text" required name="accion" class="form-control" value="{{$consulta->accion}}">
+                        <label><strong>Usuarios:</strong></label>
+                        <select multiple  class="form-control select2" name="fk_user[]">
+                            @foreach($usuarios as $usuario)
+                            <option value="{{$usuario->name}}"
+                                @foreach($usu_selec as  $usu_se)
+                                @if ($usuario->name == $usu_se->asistente) selected @endif 
+                                @endforeach >
+                                {{$usuario->name}}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+
+
+                
+
+
+
+                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="datos"><strong>Otros Usuarios:</strong></label>
+                        <input type="text"  name="otros_user" value="{{$consulta->otros_user}}" class="form-control" >
+                    </div>
+                </div>
+            </div>
+            {{-- @ livewire('mejora.acta-asistentes', ['post' => $consulta->id_acta ]) --}}
+
+            @livewire('mejora.acta-temas', ['post' => $consulta->id_acta ])
+        
+            
+            <h5 class="pt-3" style="color: rgb(46, 46, 46);">Acciones y Compromisos</h5>
+
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="form-group">
+                       
+                        <textarea name="accion"
+                            id="editor1">{{$consulta->accion}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+         
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Responsable:</strong></label>
@@ -231,13 +272,13 @@
 
 
 <script type="text/javascript">
-	// In your Javascript (external .js resource or <script> tag)
+    // In your Javascript (external .js resource or <script> tag)
 
- CKEDITOR.replace( 'entrada_salida' );
+    CKEDITOR.replace('accion');
 
-$('.input-number').on('input', function () { 
-    this.value = this.value.replace(/[^0-9]/g,'');
-});
+    $('.input-number').on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 
 </script>
 

@@ -66,7 +66,7 @@
                                 @foreach($pro_selec as  $pro_se)
                                 @if ($proceso->id_proceso == $pro_se->proceso_id) selected @endif 
                                 @endforeach >
-                                {{$proceso->tipo_proceso}}
+                                {{$proceso->nom_proceso}}
                             </option>
                             @endforeach
                         </select>
@@ -140,11 +140,6 @@
                         </select>
                     </div>
                 </div>
-
-
-                
-
-
 
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-6">
                     <div class="form-group">

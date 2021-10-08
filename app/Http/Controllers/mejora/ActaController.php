@@ -67,25 +67,68 @@ class ActaController extends Controller
                                 //->where('fk_rol',3)
                                 ->get();
         
+                //if($request->get('buscador')){
+                $busqueda=trim($request->get('buscador'));
+                //$busqueda=trim('acta');
+                //dd($busqueda);
+
+
+                // select  razon_social,id_acta,acta.tipo_acta,group_concat(distinct str_nombre) as sistemas,group_concat(distinct tipo_proceso) as procesos,
+                // group_concat(distinct asistente) as asistenetes
+                // from tbl_empresa as e
+                // inner join tbl_mejo_acta as acta on acta.fk_empresa = e.id_empresa
+              //  left join tbl_mejo_acta_ges as acta_ges on acta_ges.acta_id =acta.id_acta
+                //left join tbl_sistemas_gestion as sistemas on sistemas.id_sisgestion =acta_ges.gestion_id
+                //left join tbl_mejo_acta_proce as acta_pro on acta_pro.acta_id =acta.id_acta
+                //left join tbl_procesos as procesos on procesos.id_proceso =acta_pro.proceso_id
+                //left join tbl_mejo_acta_asistente as asistentes on asistentes.fk_acta =acta.id_acta
+
+
+                // GROUP BY id_acta
                 $consultas =  DB::table('tbl_empresa as e')
-                                ->join('tbl_mejo_acta as a','a.fk_empresa','=','e.id_empresa')
+                                ->join('tbl_mejo_acta as acta','acta.fk_empresa','=','e.id_empresa')
+                                ->leftJoin('tbl_mejo_acta_ges as acta_ges','acta_ges.acta_id','=','acta.id_acta')
+                                ->leftJoin('tbl_sistemas_gestion as sistemas','sistemas.id_sisgestion','=','acta_ges.gestion_id')
+                                ->leftJoin('tbl_mejo_acta_proce as acta_pro','acta_pro.acta_id','=','acta.id_acta')
+                                ->leftJoin('tbl_procesos as procesos','procesos.id_proceso','=','acta_pro.proceso_id')
+                                ->leftJoin('tbl_mejo_acta_asistente as asistentes','asistentes.fk_acta','=','acta.id_acta')
                                 ->where('e.id_empresa',  $id_empresa)
-                                ->where('a.bool_estado','=','1')
+                                //->where('tipo_acta' )
+                               // ->where("acta.tipo_acta", "LIKE", "%$busqueda%")
+                                //->orwhere("acta.id_acta", "LIKE", "%$busqueda%")
+                                ->where('acta.bool_estado','=','1')
+                                ->select(
+                                    'id_acta',
+                                    'terminada',
+                                    'acta',
+                                    'tipo_acta',
+                                    'fecha_acta',
+                                    'lugar',
+                                    'hora_acta',
+                                    'fecha_proxima',
+                                    'registrado',
+                                    'archivo',
+                                    DB::raw('group_concat(distinct str_nombre) as sistemas'),
+                                    DB::raw('group_concat(distinct tipo_proceso) as procesos'),
+                                    DB::raw('group_concat(distinct asistente) as asistenetes')
+                                    )
                                 ->orderBy('id_acta', 'DESC')
                                 ->paginate(20);
                                 //dd($consultas);
-        
+              //  }
          
                             
 
-                return view('pages.mejora.acta.index',[
-                                        'empresa'=>$empresa,
-                                        'gestiones'=>$gestiones,
-                                        'procesos'=>$procesos,
-                                        'consultas'=>$consultas,
-                                        'usuarios'=>$usuarios,
-                                        'cargos'=>$cargos,
-                                            ]);
+                return view('pages.mejora.acta.index'
+                            ,[
+                            'empresa'=>$empresa,
+                            'gestiones'=>$gestiones,
+                            'procesos'=>$procesos,
+                            'consultas'=>$consultas,
+                            'usuarios'=>$usuarios,
+                            'cargos'=>$cargos,
+                            'busqueda'=>$busqueda,
+                                        ]);
                     
             }
         

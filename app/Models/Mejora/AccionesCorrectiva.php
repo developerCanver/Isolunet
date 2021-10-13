@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Models\Mejora;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AccionesCorrectiva extends Model
 {
+	use HasFactory;
     protected $table 		= 'tbl_acciones_correctivas';
     protected $primaryKey   = 'id_acciones_correctivas';
     public $timestamps 		= true;

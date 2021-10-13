@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\mejora;
+namespace App\Models\Mejora;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ActaTemas extends Model
 {
     use HasFactory;
+    
     protected $table 		= 'tbl_mejo_acta_temas';
     protected $primaryKey   = 'id_tema';
     public $timestamps 		= false;

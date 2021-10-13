@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\mejora;
 
 use App\Http\Controllers\Controller;
-use App\Models\mejora\Acta;
-use App\Models\mejora\ActaAsistente;
+use App\Models\Mejora\Acta;
+use App\Models\Mejora\ActaAsistente;
 use App\Models\Mejora\ActasGestion;
 use App\Models\Mejora\ActasProceso;
-use App\Models\mejora\ActaTemas;
+use App\Models\Mejora\ActaTemas;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -73,45 +73,69 @@ class ActaController extends Controller
                 //dd($busqueda);
 
 
-                // select  razon_social,id_acta,acta.tipo_acta,group_concat(distinct str_nombre) as sistemas,group_concat(distinct tipo_proceso) as procesos,
-                // group_concat(distinct asistente) as asistenetes
+                // select razon_social,id_acta,acta.tipo_acta, group_concat(distinct tipo_proceso) as procesos
                 // from tbl_empresa as e
                 // inner join tbl_mejo_acta as acta on acta.fk_empresa = e.id_empresa
-              //  left join tbl_mejo_acta_ges as acta_ges on acta_ges.acta_id =acta.id_acta
-                //left join tbl_sistemas_gestion as sistemas on sistemas.id_sisgestion =acta_ges.gestion_id
-                //left join tbl_mejo_acta_proce as acta_pro on acta_pro.acta_id =acta.id_acta
-                //left join tbl_procesos as procesos on procesos.id_proceso =acta_pro.proceso_id
-                //left join tbl_mejo_acta_asistente as asistentes on asistentes.fk_acta =acta.id_acta
+                // left join tbl_mejo_acta_proce as acta_pro on acta_pro.acta_id =acta.id_acta
+                // left join tbl_procesos as procesos on procesos.id_proceso =acta_pro.proceso_id
+                // GROUP BY id_acta
+
+
+                
+                 // select razon_social,id_acta,acta.tipo_acta, group_concat(distinct tipo_proceso) as procesos,
+                 // group_concat(distinct str_nombre) as gestiones,group_concat(distinct asistente) as asistenetes
+                // from tbl_empresa as e
+                //  inner join tbl_mejo_acta as acta on acta.fk_empresa = e.id_empresa
+                // left join tbl_mejo_acta_proce as acta_pro on acta_pro.acta_id =acta.id_acta
+                //  left join tbl_procesos as procesos on procesos.id_proceso =acta_pro.proceso_id
+                // left join tbl_mejo_acta_ges as acta_ges on acta_ges.acta_id =acta.id_acta
+                // left join tbl_sistemas_gestion as gestion on gestion.id_sisgestion =acta_ges.gestion_id
+                // left join tbl_mejo_acta_asistente as asistentes on asistentes.fk_acta =acta.id_acta
+                // WHERE ID_EMPRESA='11'
+                // GROUP BY id_acta
 
 
                 // GROUP BY id_acta
+                // $consultas =  DB::table('tbl_empresa as e')
+                //                 ->join('tbl_mejo_acta as acta','acta.fk_empresa','=','e.id_empresa')
+                //                 ->leftJoin('tbl_mejo_acta_proce as acta_pro','acta_pro.acta_id','=','acta.id_acta')
+                //                 ->leftJoin('tbl_procesos as procesos','procesos.id_proceso','=','acta_pro.proceso_id')
+                //                 ->leftJoin('tbl_mejo_acta_ges as acta_ges','acta_ges.acta_id','=','acta.id_acta')
+                //                 ->leftJoin('tbl_sistemas_gestion as gestion','gestion.id_sisgestion','=','acta_ges.gestion_id')
+                //                 ->leftJoin('tbl_mejo_acta_asistente as asistentes','asistentes.fk_acta','=','acta.id_acta')
+                //                 ->where('e.id_empresa',  $id_empresa)
+                //                 //->where('tipo_acta' )
+                //                // ->where("acta.tipo_acta", "LIKE", "%$busqueda%")
+                //                 //->orwhere("acta.id_acta", "LIKE", "%$busqueda%")
+                //                 ->where('acta.bool_estado','=','1')
+                //                 ->select(
+                //                     'id_acta',
+                //                     'terminada',
+                //                     'acta',
+                //                     'tipo_acta',
+                //                     'fecha_acta',
+                //                     'lugar',
+                //                     'hora_acta',
+                //                     'fecha_proxima',
+                //                     'registrado',
+                //                     'archivo',
+
+                //                     DB::raw('group_concat(distinct tipo_proceso) as procesos'),
+                //                     DB::raw('group_concat(distinct str_nombre) as gestiones'),
+                //                     DB::raw('group_concat(distinct asistente) as asistenetes')
+                //                     )
+                //                 ->orderBy('id_acta', 'DESC')
+                //                 ->paginate(20);
+                //                 //dd($consultas);
+
+
                 $consultas =  DB::table('tbl_empresa as e')
-                                ->join('tbl_mejo_acta as acta','acta.fk_empresa','=','e.id_empresa')
-                                ->leftJoin('tbl_mejo_acta_ges as acta_ges','acta_ges.acta_id','=','acta.id_acta')
-                                ->leftJoin('tbl_sistemas_gestion as sistemas','sistemas.id_sisgestion','=','acta_ges.gestion_id')
-                                ->leftJoin('tbl_mejo_acta_proce as acta_pro','acta_pro.acta_id','=','acta.id_acta')
-                                ->leftJoin('tbl_procesos as procesos','procesos.id_proceso','=','acta_pro.proceso_id')
-                                ->leftJoin('tbl_mejo_acta_asistente as asistentes','asistentes.fk_acta','=','acta.id_acta')
+                                ->join('tbl_mejo_acta as a','a.fk_empresa','=','e.id_empresa')
                                 ->where('e.id_empresa',  $id_empresa)
                                 //->where('tipo_acta' )
-                               // ->where("acta.tipo_acta", "LIKE", "%$busqueda%")
-                                //->orwhere("acta.id_acta", "LIKE", "%$busqueda%")
-                                ->where('acta.bool_estado','=','1')
-                                ->select(
-                                    'id_acta',
-                                    'terminada',
-                                    'acta',
-                                    'tipo_acta',
-                                    'fecha_acta',
-                                    'lugar',
-                                    'hora_acta',
-                                    'fecha_proxima',
-                                    'registrado',
-                                    'archivo',
-                                    DB::raw('group_concat(distinct str_nombre) as sistemas'),
-                                    DB::raw('group_concat(distinct tipo_proceso) as procesos'),
-                                    DB::raw('group_concat(distinct asistente) as asistenetes')
-                                    )
+                                ->where("a.tipo_acta", "LIKE", "%$busqueda%")
+                                ->orwhere("a.id_acta", "LIKE", "%$busqueda%")
+                                ->where('a.bool_estado','=','1')
                                 ->orderBy('id_acta', 'DESC')
                                 ->paginate(20);
                                 //dd($consultas);
@@ -183,7 +207,7 @@ class ActaController extends Controller
                         $asistente     = $request->get('fk_user');
                         $cargo     = $request->get('fk_cargor');
                        
-        
+                        if (!empty($asistente)) {
                         for ($i=0; $i <  count($asistente) ; $i++) {
         
                             $tiporequisito = new ActaAsistente();
@@ -194,6 +218,7 @@ class ActaController extends Controller
                             $tiporequisito->bool_estado    = '1';
                             $tiporequisito->save();
                         }
+                    }
 
                         $tema     = $request->get('tema');
                         $comentario     = $request->get('comentario');
@@ -213,6 +238,7 @@ class ActaController extends Controller
 
 
                         $gestion      = $request->get('gestion');	
+                        if (!empty($gestion)) {
                         for ($i=0; $i <  count($gestion) ; $i++) {
         
                             $guardar = new ActasGestion();
@@ -220,7 +246,10 @@ class ActaController extends Controller
                             $guardar->acta_id       = $variable->id_acta;
                             $guardar->save();
                         }
+                    }
                         $proceso = $request->get('proceso');
+                        if (!empty($proceso)) {
+
                         for ($i=0; $i <  count($proceso) ; $i++) {
         
                             $guardar = new ActasProceso();
@@ -228,6 +257,7 @@ class ActaController extends Controller
                             $guardar->acta_id       = $variable->id_acta;
                             $guardar->save();
                         }
+                    }
 
                         DB::commit();
                         return Redirect::to('acta')->with('status','Se guardó correctamente');
@@ -326,10 +356,10 @@ class ActaController extends Controller
                         $variable->observaciones_ejecuccion      = ($request->get('observaciones_ejecuccion')) ?         $request->get('observaciones_ejecuccion') : '';	
                         $variable->otros_user      = ($request->get('otros_user')) ?         $request->get('otros_user') : '';	
                      
-                        $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '';	
+                        $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '0';	
                     
             
-                        $variable->terminada  = '0';
+                     
 
                         if ($request->file('archivo')) {
                             $archivo=$request->get('archivo_anterior');
@@ -356,14 +386,16 @@ class ActaController extends Controller
                         $asistente     = $request->get('fk_user');
                         $cargo     = $request->get('fk_cargor');
             
-                        for ($i=0; $i <  count($asistente) ; $i++) {
-        
-                            $tiporequisito = new ActaAsistente();
-                            $tiporequisito->asistente    =    $asistente[$i];
-                            //$tiporequisito->cargo        =    $cargo[$i];        
-                            $tiporequisito->fk_acta      = $variable->id_acta;
-                            $tiporequisito->bool_estado  = '1';
-                            $tiporequisito->save();
+                        if (!empty($asistente)) {
+                            for ($i=0; $i <  count($asistente) ; $i++) {
+            
+                                $tiporequisito = new ActaAsistente();
+                                $tiporequisito->asistente    =    $asistente[$i];
+                                //$tiporequisito->cargo        =    $cargo[$i];        
+                                $tiporequisito->fk_acta      = $variable->id_acta;
+                                $tiporequisito->bool_estado  = '1';
+                                $tiporequisito->save();
+                            }
                         }
 
                         ActaTemas::where('fk_acta', $id)->delete();
@@ -387,7 +419,9 @@ class ActaController extends Controller
 
                         ActasGestion::where('acta_id', $id)->delete();                        
 
-                        $gestion      = $request->get('gestion');	
+                        $gestion      = $request->get('gestion');
+                        if (!empty($gestion)) {
+
                         for ($i=0; $i <  count($gestion) ; $i++) {
         
                             $guardar = new ActasGestion();
@@ -395,10 +429,13 @@ class ActaController extends Controller
                             $guardar->acta_id       = $variable->id_acta;
                             $guardar->save();
                         }
+                    }
 
                         ActasProceso::where('acta_id', $id)->delete();                        
 
                         $proceso = $request->get('proceso');
+                        if (!empty($proceso)) {
+
                         for ($i=0; $i <  count($proceso) ; $i++) {
         
                             $guardar = new ActasProceso();
@@ -406,6 +443,7 @@ class ActaController extends Controller
                             $guardar->acta_id       = $variable->id_acta;
                             $guardar->save();
                         }
+                    }
 
 
                     DB::commit();

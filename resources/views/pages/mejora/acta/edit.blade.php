@@ -30,6 +30,7 @@
             @method('PUT')
 
             <h4>{{$empresa->razon_social}} </h4>
+            <input type="hidden"  name="terminada" class="form-control" value="{{$consulta->terminada}}">
 
             <br><br>
            
@@ -44,7 +45,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label for="datos"><strong>Sistema de Gestión:</strong></label>
-                        <select multiple  class="form-control select2" name="gestion[]">
+                        <select multiple required class="form-control select2" name="gestion[]">
                             @foreach($gestiones as $gestione)
                             <option value="{{$gestione->id_sisgestion}}"
                                 @foreach($sis_selec as  $sis_sel)
@@ -60,7 +61,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Proceso:</strong></label>                 
-                        <select multiple  class="form-control select2" name="proceso[]">
+                        <select multiple  required class="form-control select2" name="proceso[]">
                             @foreach($procesos as $proceso)
                             <option value="{{$proceso->id_proceso}}"
                                 @foreach($pro_selec as  $pro_se)

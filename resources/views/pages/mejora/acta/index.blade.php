@@ -57,7 +57,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
                     <div class="form-group">
                         <label><strong>Proceso:</strong></label>
-                        <select name="proceso[]" class="form-control select2" required multiple>
+                        <select name="proceso[]"  class="form-control select2" required multiple>
                             @foreach ($procesos as $proceso)
                             <option value="{{ $proceso->id_proceso }}">{{ $proceso->nom_proceso }}</option>
                             @endforeach
@@ -303,7 +303,7 @@
                                 @else
                                 <td>No existe</td>
                                 @endif
-                       
+                          
                               
                                 <td>
                                     <div class=" form-row align-items-center">
@@ -332,8 +332,7 @@
                 <tr>
                     <td style="background: #b6ffde;">{{$consulta->id_acta}}</td>
                     <td style="background: #b6ffde;">{{$consulta->acta}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->gestion}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->proceso}}</td>
+            
                     <td style="background: #b6ffde;">{{$consulta->tipo_acta}}</td>
                     <td style="background: #b6ffde;">{{$consulta->fecha_acta}}</td>
                     <td style="background: #b6ffde;">{{$consulta->lugar}}</td>

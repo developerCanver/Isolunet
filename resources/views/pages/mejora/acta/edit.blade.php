@@ -42,7 +42,9 @@
                         <input type="text" required name="acta" class="form-control" value="{{$consulta->acta}}">
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label for="datos"><strong>Sistema de Gestión:</strong></label>
                         <select multiple required class="form-control select2" name="gestion[]">
@@ -58,7 +60,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Proceso:</strong></label>                 
                         <select multiple  required class="form-control select2" name="proceso[]">

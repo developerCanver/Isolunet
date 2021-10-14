@@ -133,8 +133,9 @@ class ActaController extends Controller
                                 ->join('tbl_mejo_acta as a','a.fk_empresa','=','e.id_empresa')
                                 ->where('e.id_empresa',  $id_empresa)
                                 //->where('tipo_acta' )
-                                ->where("a.tipo_acta", "LIKE", "%$busqueda%")
-                                ->orwhere("a.id_acta", "LIKE", "%$busqueda%")
+          ->orWhere('a.id_acta', 'like', '%' . $busqueda. '%')
+                                //->orWhere("a.id_acta", "LIKE", "%$busqueda%")
+            ->orWhere('a.tipo_acta', 'like', '%' . $busqueda. '%')
                                 ->where('a.bool_estado','=','1')
                                 ->orderBy('id_acta', 'DESC')
                                 ->paginate(20);
@@ -464,6 +465,10 @@ class ActaController extends Controller
                     DB::beginTransaction();
                     // ActaAsistente::where('fk_acta', $id)->delete();
                     // ActaTemas::where('fk_acta', $id)->delete();
+                    ActaAsistente::where('fk_acta', $id)->delete();
+                    ActaTemas::where('fk_acta', $id)->delete();
+                    ActasGestion::where('acta_id', $id)->delete();  
+                    ActasProceso::where('acta_id', $id)->delete(); 
                   
                     $variable 					= Acta::findOrfail($id);
         

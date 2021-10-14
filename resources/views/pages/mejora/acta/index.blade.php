@@ -36,13 +36,15 @@
 
             <h5 style="color: rgb(46, 46, 46);">Acta</h5>
             <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Nombre de Acta:</strong></label>
                         <input type="text" required name="acta" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label for="datos"><strong>Sistema de Gestión:</strong></label>
                         <select name="gestion[]" class="form-control select2" required multiple>
@@ -54,10 +56,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Proceso:</strong></label>
-                        <select name="proceso[]"  class="form-control select2" required multiple>
+                        <select name="proceso[]" class="form-control select2" required multiple>
                             @foreach ($procesos as $proceso)
                             <option value="{{ $proceso->id_proceso }}">{{ $proceso->nom_proceso }}</option>
                             @endforeach
@@ -137,11 +139,13 @@
                     </div>
                 </div>
             </div>
-            {{-- @ livewire('mejora.acta-asistentes', ['post' => null ]) --}}
-
+            
             @livewire('mejora.acta-temas', ['post' => null ])
+            
+            {{-- @ livewire('mejora.acta-acciones', ['post' => null ]) --}}
+            @livewire('mejora.acta-acciones', ['post' => null ])  
 
-            <h5 class="pt-3" style="color: rgb(46, 46, 46);">Acciones y Compromisos</h5>
+            {{-- <h5 class="pt-3" style="color: rgb(46, 46, 46);">Acciones y Compromisos</h5>
 
 
             <div class="row">
@@ -152,7 +156,7 @@
                     </div>
                 </div>
             </div>
-
+  
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
@@ -178,6 +182,12 @@
                         <input type="date" required name="fecha_final_acc" class="form-control">
                     </div>
                 </div>
+            </div> --}}
+
+
+
+
+            <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
                     <div class="form-group">
                         <label><strong>Archivo:</strong></label>
@@ -248,9 +258,9 @@
 
                 <nav class="navbar navbar-light ">
                     <form class="form-inline" action="{{route('acta.index')}}" method="GET">
-                        <input class="form-control"  value="{{$busqueda}}" name="buscador" type="search" placeholder="Buscar Tipo Reunión"
-                            aria-label="Search">
-                        <button title="Buscar Tipo Reunión o Código Acta"  class="btn btn-outline-info  my-2 my-sm-0"
+                        <input class="form-control" value="{{$busqueda}}" name="buscador" type="search"
+                            placeholder="Buscar Tipo Reunión" aria-label="Search">
+                        <button title="Buscar Tipo Reunión o Código Acta" class="btn btn-outline-info  my-2 my-sm-0"
                             type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </nav>
@@ -331,9 +341,9 @@
 
                 <tr>
                     <td style="background: #b6ffde;">{{$consulta->id_acta}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->acta}}</td>
-            
                     <td style="background: #b6ffde;">{{$consulta->tipo_acta}}</td>
+                    <td style="background: #b6ffde;">{{$consulta->acta}}</td>
+
                     <td style="background: #b6ffde;">{{$consulta->fecha_acta}}</td>
                     <td style="background: #b6ffde;">{{$consulta->lugar}}</td>
                     <td style="background: #b6ffde;">{{$consulta->hora_acta}}</td>
@@ -400,6 +410,7 @@
     // In your Javascript (external .js resource or <script> tag)
 
     CKEDITOR.replace('accion');
+    CKEDITOR.replace('accion_');
 
     $('.input-number').on('input', function () {
         this.value = this.value.replace(/[^0-9]/g, '');

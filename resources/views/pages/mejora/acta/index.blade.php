@@ -139,11 +139,11 @@
                     </div>
                 </div>
             </div>
-            
+
             @livewire('mejora.acta-temas', ['post' => null ])
-            
+
             {{-- @ livewire('mejora.acta-acciones', ['post' => null ]) --}}
-            @livewire('mejora.acta-acciones', ['post' => null ])  
+            @livewire('mejora.acta-acciones', ['post' => null ])
 
             {{-- <h5 class="pt-3" style="color: rgb(46, 46, 46);">Acciones y Compromisos</h5>
 
@@ -165,38 +165,38 @@
                             <option selected disabled value="">Seleccione Usuario...</option>
                             @foreach ($usuarios as $usuario)
                             <option value="{{ $usuario->name }}">{{ $usuario->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+            @endforeach
+            </select>
+    </div>
+</div>
 
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="form-group">
-                        <label><strong>Fecha Inicio:</strong></label>
-                        <input type="date" required name="fecha_inicio_acc" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="form-group">
-                        <label><strong>Fecha Final:</strong></label>
-                        <input type="date" required name="fecha_final_acc" class="form-control">
-                    </div>
-                </div>
-            </div> --}}
-
-
+<div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+    <div class="form-group">
+        <label><strong>Fecha Inicio:</strong></label>
+        <input type="date" required name="fecha_inicio_acc" class="form-control">
+    </div>
+</div>
+<div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+    <div class="form-group">
+        <label><strong>Fecha Final:</strong></label>
+        <input type="date" required name="fecha_final_acc" class="form-control">
+    </div>
+</div>
+</div> --}}
 
 
-            <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="form-group">
-                        <label><strong>Archivo:</strong></label>
-                        <input type="file" name="archivo" class="form-control">
-                    </div>
-                </div>
-            </div>
 
-            {{-- <h5 class="pt-3" style="color: rgb(46, 46, 46);">Ejecucción de Compromisos</h5>
+
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
+        <div class="form-group">
+            <label><strong>Archivo:</strong></label>
+            <input type="file" name="archivo" class="form-control">
+        </div>
+    </div>
+</div>
+
+{{-- <h5 class="pt-3" style="color: rgb(46, 46, 46);">Ejecucción de Compromisos</h5>
 
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
@@ -244,71 +244,71 @@
             </div> --}}
 
 
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
-        </form>
+<button type="submit" class="btn btn-primary">Guardar</button>
+<a href="{{ URL::previous() }}" class="btn btn-danger">Regresar <i class="fas fa-backward"></i></a>
+</form>
 
 
 
-        <br>
-        <h5 style="color: rgb(82, 82, 82)">Lista Actas </h5>
-        <div class="mb-2"></div>
-        <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-            <div class="row">
+<br>
+<h5 style="color: rgb(82, 82, 82)">Lista Actas </h5>
+<div class="mb-2"></div>
+<div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+    <div class="row">
 
-                <nav class="navbar navbar-light ">
-                    <form class="form-inline" action="{{route('acta.index')}}" method="GET">
-                        <input class="form-control" value="{{$busqueda}}" name="buscador" type="search"
-                            placeholder="Buscar Tipo Reunión" aria-label="Search">
-                        <button title="Buscar Tipo Reunión o Código Acta" class="btn btn-outline-info  my-2 my-sm-0"
-                            type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </nav>
-            </div>
+        <nav class="navbar navbar-light ">
+            <form class="form-inline" action="{{route('acta.index')}}" method="GET">
+                <input class="form-control" value="{{$busqueda}}" name="buscador" type="search"
+                    placeholder="Buscar Tipo Reunión" aria-label="Search">
+                <button title="Buscar Tipo Reunión o Código Acta" class="btn btn-outline-info  my-2 my-sm-0"
+                    type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </nav>
+    </div>
 
-        </div>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                <div class="table-responsive">
-                    @if ($consultas->isNotEmpty())
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <div class="table-responsive">
+            @if ($consultas->isNotEmpty())
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Codigo Acta:</th>
-                                <th>Tipo Reunión</th>
-                                <th>Nombre Acta</th>
-                                <th>Fecha</th>
-                                <th>Lugar</th>
-                                <th>Hora</th>
-                                <th>Próxima Reunion</th>
-                                <th>Registrado por</th>
-                                <th>Archivo</th>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Codigo Acta:</th>
+                        <th>Tipo Reunión</th>
+                        <th>Nombre Acta</th>
+                        <th>Fecha</th>
+                        <th>Lugar</th>
+                        <th>Hora</th>
+                        <th>Próxima Reunion</th>
+                        <th>Registrado por</th>
+                        <th>Archivo</th>
 
-                                <th colspan="2">Opciones</th>
-                            </tr>
-                        </thead>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
 
-                        <tbody>
-                            @foreach ($consultas as $consulta)
+                <tbody>
+                    @foreach ($consultas as $consulta)
 
-                            @if ($consulta->terminada == 0)
-                            <tr>
-                                <td>{{$consulta->id_acta}}</td>
-                                <td>{{$consulta->tipo_acta}}</td>
-                                <td>{{$consulta->acta}}</td>
+                    @if ($consulta->terminada == 0)
+                    <tr>
+                        <td>{{$consulta->id_acta}}</td>
+                        <td>{{$consulta->tipo_acta}}</td>
+                        <td>{{$consulta->acta}}</td>
 
-                                <td>{{$consulta->fecha_acta}}</td>
-                                <td>{{$consulta->lugar}}</td>
-                                <td>{{$consulta->hora_acta}}</td>
-                                <td>{{$consulta->fecha_proxima}}</td>
-                                <td>{{$consulta->registrado}}</td>
+                        <td>{{$consulta->fecha_acta}}</td>
+                        <td>{{$consulta->lugar}}</td>
+                        <td>{{$consulta->hora_acta}}</td>
+                        <td>{{$consulta->fecha_proxima}}</td>
+                        <td>{{$consulta->registrado}}</td>
 
-                                @if ($consulta->archivo)
-                                <td>{{substr(($consulta->archivo), 10)}}
-                                    <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
-                                        class="btn btn-light" download="{{$consulta->archivo}}"
-                                        style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                        @if ($consulta->archivo)
+                        <td>{{substr(($consulta->archivo), 10)}}
+                            <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
+                                class="btn btn-light" download="{{$consulta->archivo}}"
+                                style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
                                         class=" fas fa-file-download "></i></a></td>
                                 @else
                                 <td>No existe</td>
@@ -317,89 +317,88 @@
                               
                                 <td>
                                     <div class=" form-row align-items-center">
-                                        <a href="{{ URL::action('mejora\ActaController@edit',$consulta->id_acta   ) }}"><i
-                                                class=" form-inline fas fa-pencil-alt fa-2x"
-                                                style="color:#18A4B4;"></i></a>
+                                <a href="{{ URL::action('mejora\ActaController@edit',$consulta->id_acta   ) }}"><i
+                                        class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
 
-                                        <form action="{{route('acta.destroy',$consulta->id_acta   )}}"
-                                            class="form-inline formulario-eliminar" method="POST">
+                                <form action="{{route('acta.destroy',$consulta->id_acta   )}}"
+                                    class="form-inline formulario-eliminar" method="POST">
 
-                                            @csrf
-                                            @method('DELETE')
+                                    @csrf
+                                    @method('DELETE')
 
-                                            <button class=" btn btn-light btn-sm">
-                                                <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
-                                            </button>
-                                        </form>
-                </div>
+                                    <button class=" btn btn-light btn-sm">
+                                        <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                                    </button>
+                                </form>
+        </div>
 
-                </td>
-                </tr>
+        </td>
+        </tr>
 
 
-                @else
+        @else
 
-                <tr>
-                    <td style="background: #b6ffde;">{{$consulta->id_acta}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->tipo_acta}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->acta}}</td>
+        <tr>
+            <td style="background: #b6ffde;">{{$consulta->id_acta}}</td>
+            <td style="background: #b6ffde;">{{$consulta->tipo_acta}}</td>
+            <td style="background: #b6ffde;">{{$consulta->acta}}</td>
 
-                    <td style="background: #b6ffde;">{{$consulta->fecha_acta}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->lugar}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->hora_acta}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->fecha_proxima}}</td>
-                    <td style="background: #b6ffde;">{{$consulta->registrado}}</td>
+            <td style="background: #b6ffde;">{{$consulta->fecha_acta}}</td>
+            <td style="background: #b6ffde;">{{$consulta->lugar}}</td>
+            <td style="background: #b6ffde;">{{$consulta->hora_acta}}</td>
+            <td style="background: #b6ffde;">{{$consulta->fecha_proxima}}</td>
+            <td style="background: #b6ffde;">{{$consulta->registrado}}</td>
 
-                    @if ($consulta->archivo)
-                    <td style="background: #b6ffde;">{{substr(($consulta->archivo), 10)}}
-                        <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}" class="btn btn-light"
-                            download="{{$consulta->archivo}}"
-                            style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+            @if ($consulta->archivo)
+            <td style="background: #b6ffde;">{{substr(($consulta->archivo), 10)}}
+                <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}" class="btn btn-light"
+                    download="{{$consulta->archivo}}"
+                    style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
                                         class=" fas fa-file-download "></i></a></td>
                                 @else
                                 <td  style=" background: #b6ffde;">No existe</td>
-                    @endif
+            @endif
 
-                    <td>
-                        <div class=" form-row align-items-center">
-                            <a href="{{ URL::action('mejora\ActaController@edit',$consulta->id_acta   ) }}"><i
-                                    class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
+            <td>
+                <div class=" form-row align-items-center">
+                    <a href="{{ URL::action('mejora\ActaController@edit',$consulta->id_acta   ) }}"><i
+                            class=" form-inline fas fa-pencil-alt fa-2x" style="color:#18A4B4;"></i></a>
 
-                            <form action="{{route('acta.destroy',$consulta->id_acta   )}}"
-                                class="form-inline formulario-eliminar" method="POST">
+                    <form action="{{route('acta.destroy',$consulta->id_acta   )}}"
+                        class="form-inline formulario-eliminar" method="POST">
 
-                                @csrf
-                                @method('DELETE')
+                        @csrf
+                        @method('DELETE')
 
-                                <button class=" btn btn-light btn-sm">
-                                    <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
-                                </button>
-                            </form>
-                        </div>
-
-                    </td>
-                </tr>
-
-                @endif
-                @endforeach
-
-                </tbody>
-                </table>
-                {{ $consultas->links() }}
-                @else
-
-                <br><br>
-                <div class="container m-5">
-                    <div class="alert alert-primary" role="alert">
-                        <p class="text-center m-3"> Ups! no hay registros 😥
-                        </p>
-                    </div>
+                        <button class=" btn btn-light btn-sm">
+                            <i class="fas fa-trash-alt fa-2x" style="color:#C10000;"></i>
+                        </button>
+                    </form>
                 </div>
-                <br><br>
-                @endif
+
+            </td>
+        </tr>
+
+        @endif
+        @endforeach
+
+        </tbody>
+        </table>
+        {{ $consultas->links() }}
+        @else
+
+        <br><br>
+        <div class="container m-5">
+            <div class="alert alert-primary" role="alert">
+                <p class="text-center m-3"> Ups! no hay registros 😥
+                </p>
             </div>
         </div>
+        <br><br>
+        @endif
     </div>
+</div>
+</div>
 </div>
 </div>
 

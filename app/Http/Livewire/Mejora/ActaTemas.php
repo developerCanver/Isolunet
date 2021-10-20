@@ -51,6 +51,7 @@ class ActaTemas extends Component
                     ->where('e.id_empresa',  $id_empresa)
                     ->where('e.bool_estado','=','1')
                     ->get();
+                    
         $cargos = DB::table('tbl_areas as a')
                     ->join('tbl_empresa as em','a.fk_empresa','=','em.id_empresa')
                     ->join('tbl_cargos as e','a.id_area','=','e.fk_area')

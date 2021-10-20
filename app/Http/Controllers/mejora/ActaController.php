@@ -4,6 +4,7 @@ namespace App\Http\Controllers\mejora;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mejora\Acta;
+use App\Models\Mejora\ActaAcciones;
 use App\Models\Mejora\ActaAsistente;
 use App\Models\Mejora\ActasGestion;
 use App\Models\Mejora\ActasProceso;
@@ -174,10 +175,10 @@ class ActaController extends Controller
                         $variable->fecha_proxima = ($request->get('fecha_proxima')) ?  $request->get('fecha_proxima') : '';	
                         $variable->registrado   = ($request->get('registrado')) ?      $request->get('registrado') : '';	
                         $variable->observaciones_acta = ($request->get('observaciones_acta')) ? $request->get('observaciones_acta') : '';	
-                        $variable->accion       = ($request->get('accion')) ?          $request->get('accion') : '';	
-                        $variable->responsable  = ($request->get('responsable')) ?     $request->get('responsable') : '';	
-                        $variable->fecha_inicio_acc  = ($request->get('fecha_inicio_acc')) ? $request->get('fecha_inicio_acc') : '';	
-                        $variable->fecha_final_acc   = ($request->get('fecha_final_acc')) ? $request->get('fecha_final_acc') : '';	
+                        //$variable->accion       = ($request->get('accion')) ?          $request->get('accion') : '';	
+                        //$variable->responsable  = ($request->get('responsable')) ?     $request->get('responsable') : '';	
+                        //$variable->fecha_inicio_acc  = ($request->get('fecha_inicio_acc')) ? $request->get('fecha_inicio_acc') : '';	
+                        //$variable->fecha_final_acc   = ($request->get('fecha_final_acc')) ? $request->get('fecha_final_acc') : '';	
                         $variable->compromiso   = ($request->get('compromiso')) ?      $request->get('compromiso') : '';	
                         $variable->ejecutable   = ($request->get('ejecutable')) ?      $request->get('ejecutable') : '';	
                         $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
@@ -209,56 +210,75 @@ class ActaController extends Controller
                         $cargo     = $request->get('fk_cargor');
                        
                         if (!empty($asistente)) {
-                        for ($i=0; $i <  count($asistente) ; $i++) {
-        
-                            $tiporequisito = new ActaAsistente();
-                            $tiporequisito->asistente    =    $asistente[$i];
-                           //$tiporequisito->cargo  =    $cargo[$i];
-        
-                            $tiporequisito->fk_acta       = $variable->id_acta;
-                            $tiporequisito->bool_estado    = '1';
-                            $tiporequisito->save();
-                        }
-                    }
+                            for ($i=0; $i <  count($asistente) ; $i++) {
+            
+                                $tiporequisito = new ActaAsistente();
+                                $tiporequisito->asistente    =    $asistente[$i];
+                            //$tiporequisito->cargo  =    $cargo[$i];
+            
+                                $tiporequisito->fk_acta       = $variable->id_acta;
+                                $tiporequisito->bool_estado    = '1';
+                                $tiporequisito->save();
+                            }
+                         }
 
                         $tema     = $request->get('tema');
                         $comentario     = $request->get('comentario');
                       // dd(count($asistente));
                         if (!empty($tema)) {
-                        for ($i=0; $i <  count($tema) ; $i++) {
-        
-                            $tiporequisito = new ActaTemas();
-                            $tiporequisito->tema    =    $tema[$i];
-                            $tiporequisito->comentario  =    $comentario[$i];
-        
-                            $tiporequisito->fk_acta       = $variable->id_acta;
-                            $tiporequisito->bool_estado    = '1';
-                            $tiporequisito->save();
-                        }
+                            for ($i=0; $i <  count($tema) ; $i++) {
+            
+                                $tiporequisito = new ActaTemas();
+                                $tiporequisito->tema    =    $tema[$i];
+                                $tiporequisito->comentario  =    $comentario[$i];
+            
+                                $tiporequisito->fk_acta       = $variable->id_acta;
+                                $tiporequisito->bool_estado    = '1';
+                                $tiporequisito->save();
+                            }
                         }
 
 
                         $gestion      = $request->get('gestion');	
                         if (!empty($gestion)) {
-                        for ($i=0; $i <  count($gestion) ; $i++) {
-        
-                            $guardar = new ActasGestion();
-                            $guardar->gestion_id    = $gestion[$i];                       
-                            $guardar->acta_id       = $variable->id_acta;
-                            $guardar->save();
+                            for ($i=0; $i <  count($gestion) ; $i++) {
+            
+                                $guardar = new ActasGestion();
+                                $guardar->gestion_id    = $gestion[$i];                       
+                                $guardar->acta_id       = $variable->id_acta;
+                                $guardar->save();
+                            }
                         }
-                    }
                         $proceso = $request->get('proceso');
                         if (!empty($proceso)) {
 
-                        for ($i=0; $i <  count($proceso) ; $i++) {
-        
-                            $guardar = new ActasProceso();
-                            $guardar->proceso_id    =$proceso[$i];                       
-                            $guardar->acta_id       = $variable->id_acta;
-                            $guardar->save();
+                            for ($i=0; $i <  count($proceso) ; $i++) {
+            
+                                $guardar = new ActasProceso();
+                                $guardar->proceso_id    =$proceso[$i];                       
+                                $guardar->acta_id       = $variable->id_acta;
+                                $guardar->save();
+                            }
                         }
-                    }
+
+                            $accion                 = $request->get('accion');
+                            $responsable            = $request->get('responsable');
+                            $fecha_inicio_acc       = $request->get('fecha_inicio_acc');
+                            $fecha_final_acc        = $request->get('fecha_final_acc');
+                
+                        if (!empty($accion)) {
+                            for ($i=0; $i <  count($accion) ; $i++) {
+            
+                                $guardar = new ActaAcciones();
+                                $guardar->accion            = $accion[$i];
+                                $guardar->responsable       = $responsable[$i];
+                                $guardar->fecha_inicio_acc  = $fecha_inicio_acc[$i];
+                                $guardar->fecha_final_acc   = $fecha_final_acc[$i];
+            
+                                $guardar->fk_acta       = $variable->id_acta;                               
+                                $guardar->save();
+                            }
+                        }
 
                         DB::commit();
                         return Redirect::to('acta')->with('status','Se guardó correctamente');
@@ -333,8 +353,7 @@ class ActaController extends Controller
             public function update(Request $request, $id)
             {
                 try {
-                    DB::beginTransaction();
-        
+                    DB::beginTransaction();        
              
                         $variable                     = Acta::findOrfail($id);
                  
@@ -358,9 +377,6 @@ class ActaController extends Controller
                         $variable->otros_user      = ($request->get('otros_user')) ?         $request->get('otros_user') : '';	
                      
                         $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '0';	
-                    
-            
-                     
 
                         if ($request->file('archivo')) {
                             $archivo=$request->get('archivo_anterior');
@@ -371,8 +387,7 @@ class ActaController extends Controller
                                 if (is_file($mi_archivo)) {
                                     //consulto si esta ena carpeta y borro
                                     unlink(public_path().'/archivos/acta/'.$archivo);
-                                }
-                            
+                                }                            
         
                             $file =$request->file('archivo');
                             $name = time().$file->getClientOriginalName();
@@ -480,8 +495,6 @@ class ActaController extends Controller
                     }
                     $variable -> delete();
                   
-        
-        
                    DB::commit();
                    return Redirect::to('acta')->with('status','Se eliminó correctamente');
                 } catch (Exception $e) {
@@ -507,9 +520,8 @@ class ActaController extends Controller
 
             public function destroy_tema($id,$consulta)
             {
-                    try {
-                    DB::beginTransaction();
-                  
+                try {
+                    DB::beginTransaction();                  
             
                     $variable = ActaTemas::findOrfail($id);
                     $variable -> delete();

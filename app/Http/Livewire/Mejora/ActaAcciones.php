@@ -36,6 +36,13 @@ class ActaAcciones extends Component
     {
         $usuario = User::findOrfail(Auth::User()->id);
         $id_empresa=$usuario->fk_empresa;
+
+        $consulta =  DB::table('tbl_mejo_acta_acciones as ac')
+                                ->join('tbl_mejo_acta as ma','ma.id_acta','=','ac.fk_acta')
+                                ->where('fk_acta', $this->post )
+                                ->get();
+
+
         $usuarios = DB::table('users as u')
                                 ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
                                 ->where('e.id_empresa',  $id_empresa)
@@ -46,6 +53,7 @@ class ActaAcciones extends Component
         return view('livewire.mejora.acta-acciones',[
             'post'=>$this->post,
             'usuarios'=>$usuarios,
+            'consulta'=>$consulta,
 
         ]);
     }

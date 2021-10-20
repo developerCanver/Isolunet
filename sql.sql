@@ -17,6 +17,36 @@ Contraseña: Alejo2021+
 
 //tablas para modificar
 
+
+// 2021-10-19
+CREATE TABLE `tbl_mejo_acta_acciones` (
+  `id_acciones` int(10) UNSIGNED NOT NULL,
+   `accion` text(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `responsable` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_inicio_acc` date NOT NULL,
+  `fecha_final_acc` date NOT NULL,  
+  `fk_acta` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+ALTER TABLE `tbl_mejo_acta_acciones`
+  ADD PRIMARY KEY (`id_acciones`),
+  ADD KEY `fk_acta` (`fk_acta`);
+
+ALTER TABLE `tbl_mejo_acta_acciones`
+  MODIFY `id_acciones` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+
+
+ALTER TABLE `tbl_mejo_acta_acciones`
+  ADD CONSTRAINT `tbl_mejo_acta_acciones_ibfk_1` FOREIGN KEY (`fk_acta`) REFERENCES `tbl_mejo_acta` (`id_acta`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+
+ALTER TABLE `tbl_mejo_acta` DROP `accion`, DROP `responsable`, DROP `fecha_inicio_acc`, DROP `fecha_final_acc`;
+
+
+// fin 2021-10-19
+
 ALTER TABLE `tbl_mejo_acta_asistente` DROP `cargo`;
 
 ALTER TABLE `tbl_mejo_acta` CHANGE `archivo` `archivo` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;

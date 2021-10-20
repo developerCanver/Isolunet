@@ -155,50 +155,10 @@
 
             @livewire('mejora.acta-temas', ['post' => $consulta->id_acta ])
         
-            
-            <h5 class="pt-3" style="color: rgb(46, 46, 46);">Acciones y Compromisos</h5>
+            @livewire('mejora.acta-acciones', ['post' =>  $consulta->id_acta ])
 
 
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                    <div class="form-group">
-                       
-                        <textarea name="accion"
-                            id="editor1">{{$consulta->accion}}</textarea>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="row">
-         
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="form-group">
-                        <label><strong>Responsable:</strong></label>
-                        <select name="responsable" class="form-control " required>
-                            <option selected disabled value="">Seleccione Usuario...</option>
-                            @foreach ($usuarios as $usuario)
-                            <option value="{{ $usuario->name }}" {{ $usuario->name == $consulta->responsable ? 'selected' : ''}}>
-                                {{ $usuario->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                						
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="form-group">
-                        <label><strong>Fecha Inicio:</strong></label>
-                        <input type="date" required name="fecha_inicio_acc" class="form-control" value="{{$consulta->fecha_inicio_acc}}">
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
-                    <div class="form-group">
-                        <label><strong>Fecha Final:</strong></label>
-                        <input type="date" required name="fecha_final_acc" class="form-control" value="{{$consulta->fecha_final_acc}}">
-                    </div>
-                </div>
-            </div>
+       
 @if ($consulta->terminada == 1)
     
 

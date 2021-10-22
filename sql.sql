@@ -44,6 +44,14 @@ COMMIT;
 
 ALTER TABLE `tbl_mejo_acta` DROP `accion`, DROP `responsable`, DROP `fecha_inicio_acc`, DROP `fecha_final_acc`;
 
+ALTER TABLE `tbl_mejo_acta_acciones` ADD `compromiso` VARCHAR(255) NULL AFTER `fecha_final_acc`, ADD `ejecutable` VARCHAR(255) NULL AFTER `compromiso`, ADD `fecha_inicio_eje` DATE NULL AFTER `ejecutable`, ADD `fecha_final_eje` DATE NULL AFTER `fecha_inicio_eje`, ADD `observaciones_eje` TEXT NULL AFTER `fecha_final_eje`, ADD `archivo` VARCHAR(200) NULL AFTER `observaciones_eje`;
+
+ALTER TABLE `tbl_mejo_acta_acciones` ADD `terminada` TINYINT(1) NULL AFTER `archivo`;
+
+
+ALTER TABLE `tbl_mejo_acta` DROP `compromiso`, DROP `ejecutable`, DROP `fecha_inicio_eje`, DROP `fecha_final_eje`, DROP `archivo`, DROP `observaciones_ejecuccion`, DROP `terminada`;
+
+ALTER TABLE `tbl_mejo_acta` ADD `archivo` VARCHAR(200) NULL AFTER `bool_estado`;
 
 // fin 2021-10-19
 

@@ -159,58 +159,7 @@
 
 
        
-@if ($consulta->terminada == 1)
-    
 
-            <h5 class="pt-3" style="color: rgb(46, 46, 46);">Ejecucción de Compromisos</h5>
-
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                    <div class="form-group">
-                        <label><strong>Compromiso:</strong></label>
-                        <input type="text" required name="compromiso" class="form-control" value="{{$consulta->compromiso}}">
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
-                    <div class="form-group">
-                        <label><strong>Acción Ejecutable:</strong></label>
-                        <input type="text" required name="ejecutable" class="form-control" value="{{$consulta->ejecutable}}">
-                   
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label><strong>Fecha Inicio:</strong></label>
-                        <input type="date" required name="fecha_inicio_eje" class="form-control" value="{{$consulta->fecha_inicio_eje}}">
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label><strong>Fecha Final:</strong></label>
-                        <input type="date" required name="fecha_final_eje" class="form-control" value="{{$consulta->fecha_final_eje}}">
-                    </div>
-                </div>
-                			
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="form-group">
-                        <label><strong>Archivo:</strong></label>
-                        <input type="file"  name="archivo" >
-                        <input type="hidden"  name="archivo_anterior" value="{{$consulta->archivo}}">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                    <div class="form-group">
-                        <label><strong>Observaciones Ejecucción:</strong></label>
-                        <textarea name="observaciones_ejecuccion" class="form-control" required="true">{{$consulta->observaciones_acta}}</textarea>
-                    </div>
-                </div>
-            </div>
-            @endif
           
            
 

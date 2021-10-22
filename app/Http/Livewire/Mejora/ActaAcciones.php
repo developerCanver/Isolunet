@@ -38,9 +38,11 @@ class ActaAcciones extends Component
         $id_empresa=$usuario->fk_empresa;
 
         $consulta =  DB::table('tbl_mejo_acta_acciones as ac')
-                                ->join('tbl_mejo_acta as ma','ma.id_acta','=','ac.fk_acta')
+                               // ->join('tbl_mejo_acta as ma','ma.id_acta','=','ac.fk_acta')
                                 ->where('fk_acta', $this->post )
+                              
                                 ->get();
+                                //dd($consulta);
 
 
         $usuarios = DB::table('users as u')
@@ -54,7 +56,6 @@ class ActaAcciones extends Component
             'post'=>$this->post,
             'usuarios'=>$usuarios,
             'consulta'=>$consulta,
-
         ]);
     }
 }

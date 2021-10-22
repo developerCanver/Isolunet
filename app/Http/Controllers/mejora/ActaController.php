@@ -132,12 +132,31 @@ class ActaController extends Controller
 
                 $consultas =  DB::table('tbl_empresa as e')
                                 ->join('tbl_mejo_acta as a','a.fk_empresa','=','e.id_empresa')
+                                ->join('tbl_mejo_acta_acciones as acc','acc.fk_acta','a.id_acta')
                                 ->where('e.id_empresa',  $id_empresa)
                                 //->where('tipo_acta' )
-          ->orWhere('a.id_acta', 'like', '%' . $busqueda. '%')
+                                ->orWhere('a.id_acta', 'like', '%' . $busqueda. '%')
                                 //->orWhere("a.id_acta", "LIKE", "%$busqueda%")
-            ->orWhere('a.tipo_acta', 'like', '%' . $busqueda. '%')
+                                ->orWhere('a.tipo_acta', 'like', '%' . $busqueda. '%')
                                 ->where('a.bool_estado','=','1')
+                                ->select(
+                                    'id_empresa',
+                                    'id_acciones',
+                                    'acta',		
+                                    'id_acta',	
+                                    'tipo_acta',	
+                                    'fecha_acta',	
+                                    'lugar',	
+                                    'hora_acta',	
+                                    'fecha_proxima',	
+                                    'registrado',	
+                                    'observaciones_acta',
+                                    'a.archivo as archivo',		
+                                    'otros_user',
+                                    'accion',	
+                                    'responsable',
+                                    'terminada',
+                                )
                                 ->orderBy('id_acta', 'DESC')
                                 ->paginate(20);
                                 //dd($consultas);
@@ -175,24 +194,20 @@ class ActaController extends Controller
                         $variable->fecha_proxima = ($request->get('fecha_proxima')) ?  $request->get('fecha_proxima') : '';	
                         $variable->registrado   = ($request->get('registrado')) ?      $request->get('registrado') : '';	
                         $variable->observaciones_acta = ($request->get('observaciones_acta')) ? $request->get('observaciones_acta') : '';	
-                        //$variable->accion       = ($request->get('accion')) ?          $request->get('accion') : '';	
-                        //$variable->responsable  = ($request->get('responsable')) ?     $request->get('responsable') : '';	
-                        //$variable->fecha_inicio_acc  = ($request->get('fecha_inicio_acc')) ? $request->get('fecha_inicio_acc') : '';	
-                        //$variable->fecha_final_acc   = ($request->get('fecha_final_acc')) ? $request->get('fecha_final_acc') : '';	
-                        $variable->compromiso   = ($request->get('compromiso')) ?      $request->get('compromiso') : '';	
-                        $variable->ejecutable   = ($request->get('ejecutable')) ?      $request->get('ejecutable') : '';	
-                        $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
-                        $variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
-                        $variable->observaciones_ejecuccion = ($request->get('observaciones_ejecuccion')) ? $request->get('observaciones_ejecuccion') : '';	
+                    	
+                        //$variable->compromiso   = ($request->get('compromiso')) ?      $request->get('compromiso') : '';	
+                        //$variable->ejecutable   = ($request->get('ejecutable')) ?      $request->get('ejecutable') : '';	
+                       // $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
+                        //$variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
+                        //$variable->observaciones_ejecuccion = ($request->get('observaciones_ejecuccion')) ? $request->get('observaciones_ejecuccion') : '';	
+                        // $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '';	
                         $variable->otros_user        = ($request->get('otros_user')) ?         $request->get('otros_user') : '';	
 
                      
-                        $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '';	
                     
                         $variable->fk_empresa   =  $request->get('fk_empresa');	
                         $variable->bool_estado  = '1';
-                        $variable->terminada  = '0';
-                               
+                          
                         if ($request->file('archivo')) {
                             $file =$request->file('archivo');
                             $name = time().$file->getClientOriginalName();
@@ -365,18 +380,18 @@ class ActaController extends Controller
                         $variable->fecha_proxima = ($request->get('fecha_proxima')) ?  $request->get('fecha_proxima') : '';	
                         $variable->registrado   = ($request->get('registrado')) ?      $request->get('registrado') : '';	
                         $variable->observaciones_acta = ($request->get('observaciones_acta')) ? $request->get('observaciones_acta') : '';	
-                        $variable->accion       = ($request->get('accion')) ?          $request->get('accion') : '';	
-                        $variable->responsable  = ($request->get('responsable')) ?     $request->get('responsable') : '';	
-                        $variable->fecha_inicio_acc  = ($request->get('fecha_inicio_acc')) ? $request->get('fecha_inicio_acc') : '';	
-                        $variable->fecha_final_acc   = ($request->get('fecha_final_acc')) ? $request->get('fecha_final_acc') : '';	
-                        $variable->compromiso   = ($request->get('compromiso')) ?      $request->get('compromiso') : '';	
-                        $variable->ejecutable   = ($request->get('ejecutable')) ?      $request->get('ejecutable') : '';	
-                        $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
-                        $variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
-                        $variable->observaciones_ejecuccion      = ($request->get('observaciones_ejecuccion')) ?         $request->get('observaciones_ejecuccion') : '';	
+                        //$variable->accion       = ($request->get('accion')) ?          $request->get('accion') : '';	
+                        //$variable->responsable  = ($request->get('responsable')) ?     $request->get('responsable') : '';	
+                        //$variable->fecha_inicio_acc  = ($request->get('fecha_inicio_acc')) ? $request->get('fecha_inicio_acc') : '';	
+                        //$variable->fecha_final_acc   = ($request->get('fecha_final_acc')) ? $request->get('fecha_final_acc') : '';	
+                        //$variable->compromiso   = ($request->get('compromiso')) ?      $request->get('compromiso') : '';	
+                        //$variable->ejecutable   = ($request->get('ejecutable')) ?      $request->get('ejecutable') : '';	
+                        //$variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
+                        //$variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
+                        //$variable->observaciones_ejecuccion      = ($request->get('observaciones_ejecuccion')) ?         $request->get('observaciones_ejecuccion') : '';	
                         $variable->otros_user      = ($request->get('otros_user')) ?         $request->get('otros_user') : '';	
                      
-                        $variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '0';	
+                        //$variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '0';	
 
                         if ($request->file('archivo')) {
                             $archivo=$request->get('archivo_anterior');
@@ -400,8 +415,7 @@ class ActaController extends Controller
                         ActaAsistente::where('fk_acta', $id)->delete();
 
                         $asistente     = $request->get('fk_user');
-                        $cargo     = $request->get('fk_cargor');
-            
+                     
                         if (!empty($asistente)) {
                             for ($i=0; $i <  count($asistente) ; $i++) {
             
@@ -460,6 +474,66 @@ class ActaController extends Controller
                             $guardar->save();
                         }
                     }
+
+                    ActaAcciones::where('fk_acta', $id)->delete();                        
+
+                    $accion                 = $request->get('accion');
+                    $responsable            = $request->get('responsable');
+                    $fecha_inicio_acc       = $request->get('fecha_inicio_acc');
+                    $fecha_final_acc        = $request->get('fecha_final_acc');
+                    $compromiso             = $request->get('compromiso');
+                    $ejecutable             = $request->get('ejecutable');
+                    $fecha_inicio_eje       = $request->get('fecha_inicio_eje');
+                    $fecha_final_eje        = $request->get('fecha_final_eje');
+                    $terminada              = $request->get('terminada');
+                    $observaciones_eje      = $request->get('observaciones_ejecuccion');
+                    $archivo                = $request->file('archivo_eje');
+                    $archivo_anterior       = $request->get('archivo_anterior_eje');
+                   // dd($archivo);
+        
+                if (!empty($accion)) {
+                    for ($i=0; $i <  count($accion) ; $i++) {
+    
+                        $guardar = new ActaAcciones();
+                        $guardar->accion            = $accion[$i];
+                        $guardar->responsable       = $responsable[$i];
+                        $guardar->fecha_inicio_acc  = $fecha_inicio_acc[$i];
+                        $guardar->fecha_final_acc   = $fecha_final_acc[$i];
+                        //if (!empty($compromiso)) {
+                        $guardar->compromiso        = $compromiso[$i];
+                        //}
+                        $guardar->terminada         = $terminada[$i];
+                        $guardar->ejecutable        = $ejecutable[$i];
+                        $guardar->fecha_inicio_eje  = $fecha_inicio_eje[$i];
+                        $guardar->fecha_final_eje   = $fecha_final_eje[$i];
+                        $guardar->observaciones_eje = $observaciones_eje[$i];
+
+                        if (!empty($archivo)) {
+                            if ($archivo[$i]) {
+                                $archivo_uni=$archivo_anterior[$i];
+                                //nombre para eliinar el anterior archivo
+                        
+                                    $mi_archivo= public_path().'/archivos/acta/'.$archivo_uni;
+                        
+                                    if (is_file($mi_archivo)) {
+                                        //consulto si esta ena carpeta y borro
+                                        unlink(public_path().'/archivos/acta/'.$archivo_uni);
+                                    }                            
+            
+                                $file =$archivo[$i];
+                                $name = time().$file->getClientOriginalName();
+                                $file->move(public_path().'/archivos/acta/', $name);
+                                $guardar->archivo =  $name;
+                        
+                            }
+                        }
+
+
+    
+                        $guardar->fk_acta       = $variable->id_acta;                               
+                        $guardar->save();
+                    }
+                }
 
 
                     DB::commit();

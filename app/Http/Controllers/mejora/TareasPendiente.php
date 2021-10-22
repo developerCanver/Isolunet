@@ -4,6 +4,7 @@ namespace App\Http\Controllers\mejora;
 
 use App\Http\Controllers\Controller;
 use App\Models\mejora\Acta;
+use App\Models\Mejora\ActaAcciones;
 use App\Models\Mejora\Anomalias;
 use App\Models\Mejora\Causa;
 use App\Models\Mejora\Correlativa;
@@ -38,12 +39,36 @@ class TareasPendiente extends Controller
 
         
 
-        $consultas =  DB::table('tbl_empresa as e')
+        
+                        $consultas =  DB::table('tbl_empresa as e')
                         ->join('tbl_mejo_acta as a','a.fk_empresa','=','e.id_empresa')
-                        ->where('e.id_empresa',  $id_empresa)
-                        ->where('a.bool_estado','=','1')
-                        ->where('a.terminada','=','0')
-                        ->paginate(20);      
+                        ->join('tbl_mejo_acta_acciones as acc','acc.fk_acta','a.id_acta')
+                        ->where('e.id_empresa',  $id_empresa)                   
+                        ->where('a.bool_estado','1')
+                        ->select(
+                            'id_empresa',
+                            'acta',		
+                            'id_acta',
+                            'id_acciones',	
+                            'tipo_acta',	
+                            'fecha_acta',	
+                            'lugar',	
+                            'hora_acta',	
+                            'fecha_proxima',	
+                            'registrado',	
+                            'observaciones_acta',
+                            'a.archivo as archivo',		
+                            'otros_user',
+                            'accion',	
+                            'responsable',
+                            'terminada',
+                            'fecha_inicio_acc',
+                            'fecha_final_acc', 
+                        )
+                        ->orderBy('id_acta', 'DESC')
+                        ->where('terminada', null)
+                        ->paginate(20);
+                        //dd($consultas);     
 
         $usuarios = DB::table('users as u')
                         ->join('tbl_empresa as e','u.fk_empresa','=','e.id_empresa')
@@ -174,7 +199,8 @@ class TareasPendiente extends Controller
                 $variable->fecha_fin_ta     = ($request->get('fecha_fin_ta')) ?        $request->get('fecha_fin_ta') : ''; 
                 $variable->archivo_ta       = ($request->get('archivo_ta')) ?          $request->get('archivo_ta') : ''; 
                 $variable->observaciones_ta = ($request->get('observaciones_ta')) ?    $request->get('observaciones_ta') : ''; 
-                $variable->terminada  = '1';
+                $variable->terminada        = '1';
+                
                 if ($request->file('archivo_ta')) {
                     $archivo=$request->get('archivo_ta_anterior');
                     //nombre para eliinar el anterior archivo
@@ -201,35 +227,27 @@ class TareasPendiente extends Controller
             if ($request->get('mejora_compromiso') == 'acta' ) {
               
 
-                $variable                     = Acta::findOrfail($id);
+                $variable                     = ActaAcciones::findOrfail($id);
 
-                $variable->compromiso   = ($request->get('compromiso')) ?      $request->get('compromiso') : '';	
-                $variable->ejecutable   = ($request->get('ejecutable')) ?      $request->get('ejecutable') : '';	
-                $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
-                $variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
-                $variable->observaciones_ejecuccion      = ($request->get('observaciones_ejecuccion')) ?         $request->get('observaciones_ejecuccion') : '';	
+                $variable->compromiso        = ($request->get('compromiso'));	
+                $variable->ejecutable        = ($request->get('ejecutable'));	
+                $variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje'));	
+                $variable->fecha_final_eje   = ($request->get('fecha_final_eje'));
+                $variable->observaciones_eje = ($request->get('observaciones_ejecuccion')) ;	
 
     
                 $variable->terminada  = '1';
 
                 if ($request->file('archivo')) {
-                    $archivo=$request->get('archivo_anterior');
-                    //nombre para eliinar el anterior archivo
-                
-                        $mi_archivo= public_path().'/archivos/acta/'.$archivo;
-            
-                        if (is_file($mi_archivo)) {
-                            //consulto si esta ena carpeta y borro
-                            unlink(public_path().'/archivos/acta/'.$archivo);
-                        }
-                    
-
                     $file =$request->file('archivo');
                     $name = time().$file->getClientOriginalName();
                     $file->move(public_path().'/archivos/acta/', $name);
-                    $variable->archivo =  $name;
-                
+                } else {
+                    $name='';
+                    
                 }
+                $variable->archivo =  $name;
+
                 $variable->update(); 
 
             }

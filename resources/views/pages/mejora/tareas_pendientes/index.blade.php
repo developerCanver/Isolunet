@@ -363,11 +363,11 @@
                                     <center>{{$consulta->id_acta}}</center>
                                 </td>
                                 <td>{{$consulta->acta}}</td>
-                                <td>{{$consulta->accion}}</td>
+                                 <td>{{$consulta->accion}}</td>
                                 <td>{{$consulta->responsable}}</td>
                                 <td>{{$consulta->fecha_inicio_acc}}</td>
-                                <td>{{$consulta->fecha_final_acc}}</td>
-                                @php
+                                <td>{{$consulta->fecha_final_acc}}</td> 
+                                 @php
                                 $diferencia = ((strtotime($consulta->fecha_final_acc) - strtotime(date("Y-m-d")
                                 ))/86400);
                                 @endphp
@@ -387,11 +387,11 @@
                                 color: white;">
                                     <center> {{ $diferencia  }}</center>
                                     </td>
-                                    @endif
+                                    @endif 
                                     <td>
                                         <div class=" form-row align-items-center">
                                             <div class=" form-row align-items-center">
-                                                <a data-toggle="modal" data-target="#actaModal{{ $consulta->id_acta }}"
+                                                <a data-toggle="modal" data-target="#actaModal{{ $consulta->id_acciones }}"
                                                     style="color: #18A4B4" title="Editar"><i
                                                         class="fas fa-pencil-alt fa-2x"></i></a>
 
@@ -399,19 +399,19 @@
 
 
                                         </div>
-                                    </td>
+                                    </td> 
                             </tr>
 
                             {{-- editar modal Acta --}}
 
                             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-                                aria-labelledby="myLargeModalLabel" id="actaModal{{ $consulta->id_acta }}">
+                                aria-labelledby="myLargeModalLabel" id="actaModal{{ $consulta->id_acciones }}">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
 
                                         <div class="modal-header">
                                             <center>
-                                                <h5 style="color: rgb(46, 46, 46);" class="p-2">Compromiso en las Actas
+                                                <h5 style="color: rgb(46, 46, 46);" class="p-2">Compromiso Acta # {{$consulta->id_acta}}
                                                 </h5>
                                             </center>
                                             <button type="button" class="close" data-dismiss="modal"
@@ -419,7 +419,7 @@
                                         </div>
 
                                         <div class="modal-body">
-                                            <form action="{{ route('tareas_pendientes.update', $consulta->id_acta)}}"
+                                            <form action="{{ route('tareas_pendientes.update', $consulta->id_acciones)}}"
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
@@ -427,6 +427,7 @@
 
 
                                             <h5 style="color: rgb(46, 46, 46);">Acta</h5>
+                                            <h6>Responsable : {{$consulta->responsable}}</h6>
 
                                             <input type="hidden" name="mejora_compromiso" value="acta">
 
@@ -472,8 +473,7 @@
                                                     <div class="form-group">
                                                         <label><strong>Archivo:</strong></label>
                                                         <input type="file" name="archivo">
-                                                        <input type="hidden" name="archivo_anterior"
-                                                            value="{{$consulta->archivo}}">
+                                                      
 
                                                     </div>
                                                 </div>

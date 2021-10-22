@@ -13,11 +13,18 @@ class ActaAcciones extends Model
     public $timestamps 		= false;
 
     protected 	$fillable = [ 
-        'acta',	
+     
         'accion',	
         'responsable',	
         'fecha_inicio_acc',	
         'fecha_final_acc',	
+        'fecha_inicio_acc',	
+        'fecha_final_acc',	
+        'compromiso',	
+        'ejecutable',	
+        'archivo',	
+        'observaciones_ejecuccion',	
+        'terminada',
         'fk_acta ',	        
 
     ];

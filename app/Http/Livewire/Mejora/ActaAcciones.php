@@ -11,14 +11,17 @@ class ActaAcciones extends Component
 {
 
     public $updateMode = false;
-    public $inputs = [];
-    public $i = 1;
+    public $inputs = [1];
+    public $i = 0;
     public $post;
       
     public function mount($post)
     {
         $this->post = $post;
-        //dd($this->post );
+        if ($post!=null) {
+            $this->inputs = [];
+        }
+       //dd($this->post );
     }
 
     public function add($i)

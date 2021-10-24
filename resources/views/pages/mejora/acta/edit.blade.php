@@ -36,10 +36,33 @@
            
             <h5 style="color: rgb(46, 46, 46);">Acta</h5>
             <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
                     <div class="form-group">
                         <label><strong>Nombre de Acta:</strong></label>
                         <input type="text" required name="acta" class="form-control" value="{{$consulta->acta}}">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                    <div class="form-group">
+                        <label><strong>Archivo Acta:
+                                @if ($consulta->archivo)
+    
+                                {{substr(($consulta->archivo), 10)}}
+                                <a title="Descargar Archivo" href="/archivos/acta/{{$consulta->archivo}}"
+                                    class="btn btn-light" download="{{$consulta->archivo}}"
+                                    style="color: rgb(53, 87, 53); font-size:18px; font-size:18px; font-size: 25px;""> <i
+                                            class=" fas fa-file-download "></i>
+                                </a>
+                          
+                            @else
+                            No existe
+                            @endif
+                    
+                    </strong></label>
+                        <input type="file" class="form-control" name="archivo">
+                                    <input type="hidden" name="archivo_anterior"
+                                        value="{{$consulta->archivo}}">
+    
                     </div>
                 </div>
             </div>
@@ -151,7 +174,9 @@
                     </div>
                 </div>
             </div>
-            {{-- @ livewire('mejora.acta-asistentes', ['post' => $consulta->id_acta ]) --}}
+            
+           
+            <br>
 
             @livewire('mejora.acta-temas', ['post' => $consulta->id_acta ])
         

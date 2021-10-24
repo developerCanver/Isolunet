@@ -380,18 +380,7 @@ class ActaController extends Controller
                         $variable->fecha_proxima = ($request->get('fecha_proxima')) ?  $request->get('fecha_proxima') : '';	
                         $variable->registrado   = ($request->get('registrado')) ?      $request->get('registrado') : '';	
                         $variable->observaciones_acta = ($request->get('observaciones_acta')) ? $request->get('observaciones_acta') : '';	
-                        //$variable->accion       = ($request->get('accion')) ?          $request->get('accion') : '';	
-                        //$variable->responsable  = ($request->get('responsable')) ?     $request->get('responsable') : '';	
-                        //$variable->fecha_inicio_acc  = ($request->get('fecha_inicio_acc')) ? $request->get('fecha_inicio_acc') : '';	
-                        //$variable->fecha_final_acc   = ($request->get('fecha_final_acc')) ? $request->get('fecha_final_acc') : '';	
-                        //$variable->compromiso   = ($request->get('compromiso')) ?      $request->get('compromiso') : '';	
-                        //$variable->ejecutable   = ($request->get('ejecutable')) ?      $request->get('ejecutable') : '';	
-                        //$variable->fecha_inicio_eje  = ($request->get('fecha_inicio_eje')) ? $request->get('fecha_inicio_eje') : '2021-01-01';	
-                        //$variable->fecha_final_eje   = ($request->get('fecha_final_eje')) ?  $request->get('fecha_final_eje') : '2021-01-01';
-                        //$variable->observaciones_ejecuccion      = ($request->get('observaciones_ejecuccion')) ?         $request->get('observaciones_ejecuccion') : '';	
-                        $variable->otros_user      = ($request->get('otros_user')) ?         $request->get('otros_user') : '';	
-                     
-                        //$variable->terminada    = ($request->get('terminada')) ?       $request->get('terminada') : '0';	
+                        $variable->otros_user      = ($request->get('otros_user')) ?         $request->get('otros_user') : '';		
 
                         if ($request->file('archivo')) {
                             $archivo=$request->get('archivo_anterior');
@@ -499,17 +488,20 @@ class ActaController extends Controller
                         $guardar->responsable       = $responsable[$i];
                         $guardar->fecha_inicio_acc  = $fecha_inicio_acc[$i];
                         $guardar->fecha_final_acc   = $fecha_final_acc[$i];
-                        //if (!empty($compromiso)) {
+
+                        if (isset($compromiso[$i])) {
                         $guardar->compromiso        = $compromiso[$i];
-                        //}
                         $guardar->terminada         = $terminada[$i];
                         $guardar->ejecutable        = $ejecutable[$i];
                         $guardar->fecha_inicio_eje  = $fecha_inicio_eje[$i];
                         $guardar->fecha_final_eje   = $fecha_final_eje[$i];
                         $guardar->observaciones_eje = $observaciones_eje[$i];
+                        $guardar->archivo           = $archivo_anterior[$i];
+                        }
+
 
                         if (!empty($archivo)) {
-                            if ($archivo[$i]) {
+                            if (isset($archivo[$i])) {
                                 $archivo_uni=$archivo_anterior[$i];
                                 //nombre para eliinar el anterior archivo
                         
@@ -527,6 +519,7 @@ class ActaController extends Controller
                         
                             }
                         }
+                        
 
 
     
@@ -552,22 +545,40 @@ class ActaController extends Controller
             {
                     try {
                     DB::beginTransaction();
-                    // ActaAsistente::where('fk_acta', $id)->delete();
-                    // ActaTemas::where('fk_acta', $id)->delete();
-                    ActaAsistente::where('fk_acta', $id)->delete();
-                    ActaTemas::where('fk_acta', $id)->delete();
-                    ActasGestion::where('acta_id', $id)->delete();  
-                    ActasProceso::where('acta_id', $id)->delete(); 
-                  
-                    $variable 					= Acta::findOrfail($id);
-        
-                    $mi_imagen = public_path().'/archivos/acta/'.$variable -> archivo;
-               
+
+                    $cons=ActaAcciones::where('id_acciones', $id)->first();
+                    $fk_acta=$cons->fk_acta;
+                    $cons_a=ActaAcciones::where('fk_acta', $fk_acta)->limit(20)->get();
+                    $exite=count($cons_a);
+
+
+
+                    $consulta = ActaAcciones::findOrfail($id);
+                    $mi_imagen = public_path().'/archivos/acta/'.$consulta -> archivo; 
+
                     if (is_file($mi_imagen)) {
-                        unlink(public_path().'/archivos/acta/'.$variable -> archivo);
-                    
+                        unlink(public_path().'/archivos/acta/'.$consulta -> archivo);                    
                     }
-                    $variable -> delete();
+                    $consulta -> delete();
+
+
+                    if ($exite==1) {               
+                       
+                        ActaAsistente::where('fk_acta', $fk_acta)->delete();
+                        ActaTemas::where('fk_acta', $fk_acta)->delete();
+                        ActasGestion::where('acta_id', $fk_acta)->delete();  
+                        ActasProceso::where('acta_id', $fk_acta)->delete(); 
+                      
+                        $variable 					= Acta::findOrfail($fk_acta);            
+                        $mi_imagen = public_path().'/archivos/acta/'.$variable -> archivo;
+                   
+                        if (is_file($mi_imagen)) {
+                            unlink(public_path().'/archivos/acta/'.$variable -> archivo);
+                        
+                        }
+                        $variable -> delete();
+
+                    }
                   
                    DB::commit();
                    return Redirect::to('acta')->with('status','Se eliminó correctamente');

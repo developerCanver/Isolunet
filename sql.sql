@@ -19,6 +19,7 @@ Contraseña: Alejo2021+
 
 
 // 2021-10-19
+
 CREATE TABLE `tbl_mejo_acta_acciones` (
   `id_acciones` int(10) UNSIGNED NOT NULL,
    `accion` text(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
